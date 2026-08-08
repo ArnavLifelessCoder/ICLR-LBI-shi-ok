@@ -1,0 +1,9 @@
+# Normalise to LF in the repository. The study is written on Windows and run on
+# Colab, so without this every file round-trips with a full-file diff the first
+# time it is touched on either side.
+* text=auto eol=lf
+
+# Figures and cached activations are binary; never let them be line-ending
+# converted or shown as text diffs.
+*.png binary
+*.npz binary

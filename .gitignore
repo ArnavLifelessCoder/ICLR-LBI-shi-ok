@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Test and type-checker caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Study artifacts, all reproducible
+#
+# cache/activations holds float16 residual-stream captures keyed by model,
+# text set and pooling. They are large, they are machine-specific, and
+# capture_cached regenerates any that are missing -- that is the whole point
+# of the cache surviving a dead Colab session rather than a git clone.
+cache/
+
+# results/ is per-concept JSON plus the figures built from it. Regenerate the
+# demo output in about 40 seconds with `python scripts/demo_synthetic.py`.
+# Real-run results belong in a release artifact or the paper's supplement, not
+# in the history -- they change every run and would bloat the diff.
+results/
+
+# Model weights, if anything ever downloads them into the tree
+*.safetensors
+*.bin
+*.pt
+*.gguf
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
