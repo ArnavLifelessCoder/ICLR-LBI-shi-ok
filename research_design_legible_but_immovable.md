@@ -283,3 +283,131 @@ An outside reader rated the design well on novelty and technical depth but flagg
 **Still open before the paper run:** no real model has been executed yet (no GPU on the development machine), so every number so far is synthetic and only validates the plumbing. The behavior judge is still the development lexicon scorer, which must be replaced by a validated classifier plus an LLM judge with reported agreement (Experiment 2's requirement) before any behavior number is quoted. Experiment 6 is a data-collection pass over the existing code rather than new machinery, and Experiment 5 is now a read of the Experiment 3 output, so neither needs further implementation.
 
 The second review pass implies four code changes, all small: add the TF-IDF surface-shortcut audit to `lbi/concepts.py` as a gate that runs before extraction (R15); add the RepE reading-vector direction to `lbi/steering.py` alongside difference-of-means and probe weights (R16); mark sentiment as the positive control in `lbi/pipeline.py` so a failed control withholds rather than reports (R16); and trim `lbi/geometry.py` to the one primary feature plus two clearly separated exploratory ones, with the partial-Spearman-controlling-for-readability test as the preregistered analysis (R13). The synthetic demo should be extended to plant a surface-shortcut concept and confirm the audit catches it, in the same spirit as the ground-truth check that already exists.
+
+---
+
+### Third pass: code audited against the preregistration (2026-08-24)
+
+The first two passes revised the design. This one checked the codebase against
+it, concept set by concept set and P-number by P-number. The headline finding is
+uncomfortable and worth stating plainly, because it is the failure mode a design
+review cannot catch: **four preregistered commitments were written in PLAN.md and
+not implemented.** The plan was sound. The code disagreed with it, silently, and
+would have produced numbers that looked exactly like the preregistered analysis.
+
+**R18. Four preregistered points implemented rather than only documented.**
+
+- *P4, best-over-band controllability.* `run_steering_best_over_band` existed and
+  nothing called it; `run_model` used single-layer steering. The answer to
+  objection 5 ("you steered at the wrong layer") was a paragraph, not a number.
+  Now wired, at four generation sweeps per concept -- already budgeted in Part 9's
+  ledger. `--single-layer` remains for smoke runs and warns that its numbers are
+  not reportable.
+- *P6, CI exclusion for danger-zone membership.* Membership was decided on point
+  estimates; the CI fields on `GapPoint` were dead. A concept at controllability
+  0.04 with an interval reaching 0.30 qualified. Now both bounds must clear their
+  thresholds, and a NaN bound never qualifies.
+- *P7, cluster bootstrap over concepts.* The gap map's headline correlation CI
+  resampled concept-model points independently. On eight concepts replicated
+  across five models the i.i.d. interval is [0.34, 0.82] and the clustered one is
+  [-0.12, 0.93]: the difference between claiming a result and not. This is
+  objection 10, answered in prose and nowhere else.
+- *P9, positive-control withholding.* `run_model` printed a warning that said the
+  aggregate script enforced the withholding; the aggregate script never looked.
+  This matters more than it reads: a model where steering is broken scores low
+  controllability on *every* concept, so a broken harness puts the whole model in
+  the danger zone and is indistinguishable from the paper's headline finding. The
+  control now runs first, writes a record, and `aggregate` drops failing models.
+
+Also in this pass: `fit_gap_predictor` was fabricating the primary test. Its
+`PrimaryTestReport.partial_spearman` was the ridge model's leave-one-out
+prediction correlation rather than the partial Spearman of output overlap against
+controllability controlling for readability; the CI was hardcoded `(nan, nan)` so
+the cluster bootstrap never ran; the verdict was the R-squared verdict; and the
+exploratory list was empty, so P8's BH correction never ran. Nothing called the
+correct `primary_test` and `exploratory_analysis`. Called now, and without the raw
+axes the report says `primary test NOT RUN` instead of substituting the ridge fit.
+
+**R19. The surface-shortcut audit was passing concepts it should have failed.**
+R15 specified the audit; the implementation held out one RNG-seeded family and
+scored one-sided AUROC. Made leave-one-family-out (every family takes a turn,
+mean reported with the worst fold) and two-sided, `max(auroc, 1 - auroc)`: a
+classifier that ranks a held-out family perfectly *backwards* has still found a
+lexical contrast, and scored one-sided, `rudeness` and `factuality` read 0.00 and
+0.01 and were recorded as the cleanest concepts in the set.
+
+Under the corrected audit, **nine of ten concepts failed**. All were rebuilt as
+strict minimal pairs on a shared carrier, with two invariants enforced at build
+time: marker vocabulary must not appear anywhere else in the concept (other
+families' markers, other families' carriers, or the topic strings), and a
+family's two markers must match in token count. The length rule is not cosmetic --
+TF-IDF vectors are L2-normalised, so a two-token difference separated families at
+AUROC 0.94 with no marker word transferring at all. A capitalisation confound
+went with it: casual-register templates were written lower case and formal ones
+capitalised, aligning perfectly with the label on `formality`, invisible to the
+audit because TfidfVectorizer lower-cases before counting.
+
+`topic_science` had a genuine data bug: families were `block{i // 4}` over a list
+repeated twice, so block2 and block3 were byte-identical to block0 and block1 and
+every held-out family was already in training.
+
+**R20. Two concepts declared surface-confounded rather than dressed up.**
+`verbosity` is length, and length is a surface property by definition;
+`topic_science` is domain membership, carried by content vocabulary. Neither can
+pass a lexical audit, so both set `surface_confounded=True` and both still
+**fail** -- the flag does not convert a failure into a pass, and a test pins that.
+It records that the failure was predicted rather than discovered by a reviewer.
+
+An honest caveat belongs in Methods: every non-confounded concept now scores
+exactly 0.500, the floor. That is the audit passing *by construction*. It is a
+check that the construction succeeded, not independent evidence the probe reads
+semantics; what carries that argument is the probe's own held-out-family AUROC,
+where the probe faces marker words it has never seen.
+
+**R21. "Immovable" separated from "unsteerable under tested interventions."**
+Prompted by an external reader's objection that a concept unresponsive to
+difference-of-means steering has not been shown to be uncontrollable. R11 already
+required the gauntlet, but the gauntlet's verdict never reached the gap map:
+`build_gap_map` applied the two thresholds and printed "readable-but-immovable"
+while `confirm_immovable`'s answer sat unread in the per-concept JSON. The result
+now propagates via `GapPoint.gauntlet_passed`, and `gap_map.json` reports
+`confirmed_immovable` and `unsteerable_under_tested_interventions` separately.
+`None` means the gauntlet never ran, which is not the same as failing it. Even a
+pass is bounded by the six interventions tested and is not a proof that none
+exists; the paper should say so.
+
+**R22. Measurement bugs that would have moved numbers.**
+
+- The RepE reading vector mean-centred paired differences before PCA. The concept
+  signal lives almost entirely in that mean, so centring deleted it: PC1 recovered
+  a planted direction at cosine 0.31 instead of above 0.90. One of R16's three
+  direction-derivation methods was returning noise.
+- `bootstrap_curve_ci` integrated every coefficient while `dose_response_auc`
+  excluded points past the fluency ceiling, so the interval and the point estimate
+  were different estimands (0.025 with a CI of [0.1375, 0.1375]). The ceiling
+  filter now lives inside the function.
+- `capture_activations` and `perplexity` ran raw forward passes under left
+  padding without position ids, so HuggingFace fell back to `arange` and every
+  padded row had its RoPE phase shifted. Perplexity additionally scored the first
+  real token from a pad position with no context, making shorter texts in a batch
+  look less fluent -- and perplexity is what the fluency ceiling thresholds on.
+- `LexiconScorer` matched with `str.count`, so "but" fired on "contribution" and
+  "will" on ordinary future tense.
+- The unembedding SVD was recomputed per concept: about 40 s and a 2.2 GB float32
+  view at a 152k x 3584 head, ten times per model, next to a loaded 7B.
+
+**R23. Krippendorff's alpha implemented.** Part 4's objection ledger answers
+"judges are unvalidated" with "Krippendorff alpha reported", and no code computed
+one. Added for interval data with NaN support, so the human spot-check enters as a
+third rater. Alpha rather than correlation because two judges offset by a constant
+correlate at Pearson 1.0 and agree on nothing, and the behaviour axis is read in
+absolute terms against a fixed threshold.
+
+**Still open after this pass.** No real model has been run; every number remains
+synthetic and validates plumbing only. The behaviour judges are still the
+development lexicon scorer -- `ClassifierScorer.model_map` ships empty by design so
+no unvalidated judge can drift into the paper. The `rudeness` concept is still a
+courtesy-register proxy; substituting Civil Comments will not satisfy the two
+marker invariants, since natural text cannot, so it will need the same declared
+exception the two surface-confounded concepts get, and that decision belongs in
+Phase A rather than at write-up.

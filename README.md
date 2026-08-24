@@ -6,7 +6,9 @@ much steering along that concept's direction **changes behavior** (controllabili
 across many concepts and models, plus a geometric predictor of the gap between them.
 
 The design document is the source of truth. Section 12 there records the revisions
-made during implementation and why.
+made during implementation and why, including the third pass that audited the
+code against the preregistration and found four preregistered commitments
+documented but not implemented.
 
 ## Install
 
@@ -17,11 +19,25 @@ pip install torch transformers accelerate bitsandbytes scikit-learn scipy matplo
 `bitsandbytes` is only needed for 4-bit loading on a GPU. The tests and the
 synthetic demo run on CPU with just numpy, scikit-learn, scipy and matplotlib.
 
+Two version notes, both learned the hard way:
+
+* **NumPy 2 is fine, but torch must match it.** `np.trapz` was removed in NumPy
+  2.0 (the code uses `np.trapezoid` with a fallback, so either works). A torch
+  built against NumPy 1.x, however, cannot convert tensors to arrays at all —
+  `.numpy()` raises `RuntimeError: Numpy is not available`, and
+  `capture_activations` dies on its first batch. If you are on NumPy 2, use
+  torch 2.4.1 or newer.
+* **On Windows, import torch before scikit-learn.** They ship separate Intel
+  OpenMP runtimes and whichever loads second fails with
+  `WinError 1114 ... c10.dll`. `tests/conftest.py` handles this for the test
+  suite; if you write your own entry point, import torch first. Linux and macOS
+  are unaffected.
+
 ## Check the wiring before spending GPU quota
 
 ```bash
-python -m pytest tests/ -q          # ~85 tests, no GPU, no downloads
-python scripts/demo_synthetic.py    # full pipeline on planted ground truth
+python -m pytest tests/ -q          # 114 tests, ~60s, no GPU, no downloads
+python scripts/demo_synthetic.py    # full pipeline on planted ground truth, ~40s
 ```
 
 The demo plants two concepts as readable-but-immovable and confirms the pipeline
@@ -97,6 +113,39 @@ pins that. It records that the failure was predicted in advance:
 
 Report both with the confound stated, or drop them. Do not report them as clean.
 
+## Terminology: two different claims, kept apart
+
+**"Unsteerable under tested interventions"** is a claim about what was tried.
+**"Immovable"** is a claim about the concept. Only the first is earned by
+failing to move something once, and the code will not let the second be
+asserted without the gauntlet.
+
+A concept that lands in the danger zone has cleared two raw thresholds with
+CI exclusion (P6) under the default difference-of-means sweep. That is not
+enough. `pipeline.confirm_immovable` then runs six interventions — single-layer
+addition, multi-layer addition, clamping and directional ablation on the
+difference-of-means direction, plus single-layer addition on the probe-weight
+and RepE reading-vector directions — and only a concept that resists all six
+earns the stronger word.
+
+That distinction is structural, not editorial. `GapPoint.gauntlet_passed`
+carries the gauntlet result into the map, and `gap_map.json` reports the two
+sets separately:
+
+```json
+"confirmed_immovable": ["refusal@Qwen2.5-7B-Instruct"],
+"unsteerable_under_tested_interventions": ["honesty@Qwen2.5-7B-Instruct"]
+```
+
+`gauntlet_passed=None` means the gauntlet never ran, which is deliberately not
+the same as failing it — it runs only on concepts the default intervention
+already failed to move, so most points legitimately carry `None`.
+
+Even a confirmed pass is bounded by those six interventions. It is evidence
+that the concept resists every standard method while an identical pipeline
+moves the sentiment control cleanly. It is not a proof that no intervention
+exists, and the paper should not claim one.
+
 ## Run it for real
 
 One model per invocation; results are written per concept as they finish, so a
@@ -111,6 +160,16 @@ python scripts/run_experiment.py --aggregate-only    # gap map + predictor
 
 Activations cache to `cache/activations/` keyed by model, text set and pooling,
 so re-running a concept after a crash re-reads rather than re-computes.
+
+Both `cache/` and `results/` are gitignored: the first is large and
+machine-specific, the second changes every run. Regenerate the demo output with
+`python scripts/demo_synthetic.py`; real-run results belong in a release
+artifact or the paper's supplement, not in the history.
+
+Measured cost per model on a Colab T4, from the actual work volume (1,752
+activation texts, 1,980 prompt-generations of 64 tokens under the band
+protocol): roughly **1.5 h for a 7B**, **30 min for a 1.5B**, so about four
+hours for a three-model sweep. Probe fitting adds ~5 s per concept on CPU.
 
 ## Layout
 
@@ -190,10 +249,12 @@ pass `controllabilities=` and `readabilities=`. Without them it returns a
 substituting the ridge fit's R². The cluster bootstrap (P7) and the
 BH-corrected exploratory analyses (P8) only run on that path too.
 
-**A concept is only called immovable after the full gauntlet.** `confirm_immovable`
-runs single-layer addition, multi-layer addition, clamping, directional ablation,
-and all three direction-derivation methods. The claim is only
-defensible if the concept resists all of them.
+**A concept is only called immovable after the full gauntlet, and the gap map
+knows whether it ran.** `confirm_immovable`'s verdict used to live only in the
+per-concept JSON, so `build_gap_map` labelled points "readable-but-immovable"
+from thresholds alone and the gauntlet's answer sat in a file nothing read. The
+result now propagates through `ConceptRun.gauntlet` and `GapPoint.gauntlet_passed`
+into the map. See **Terminology** above.
 
 **Steering strength is in RMS units, measured once.** The coefficient is scaled by
 the residual-stream RMS at the intervention layer, captured from the first
@@ -208,6 +269,18 @@ to shake out the pipeline. It is not good enough for published behavior scores.
 Swap in `ClassifierScorer` (a validated HuggingFace classifier per concept) and
 `LLMJudgeScorer`, and report `judge_agreement` between them, which the design doc
 requires so a reviewer cannot dismiss the behavior axis.
+
+`judge_agreement` reports **Krippendorff's alpha** alongside Pearson and
+Spearman, and alpha is the one to quote. Two judges offset by a constant
+correlate at Pearson 1.0 and agree on nothing; the behaviour axis is read in
+absolute terms against a fixed danger-zone threshold, so a systematic offset
+matters and correlation cannot see it. On exactly that case alpha reads 0.32.
+`krippendorff_alpha_interval` accepts NaN for unrated items, so the human
+spot-check over 100 outputs goes in as a third rater without padding.
+
+The judges are the largest piece of remaining work: `ClassifierScorer.model_map`
+ships empty by design, so that no unvalidated default judge can silently end up
+in the paper's numbers.
 
 The `rudeness` concept ships as a courtesy-register proxy for toxicity so the repo
 does not generate toxic text; substitute Civil Comments pairs for the paper run.

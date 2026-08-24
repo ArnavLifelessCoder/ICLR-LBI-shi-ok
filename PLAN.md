@@ -56,6 +56,22 @@ Their worst question: *"This is a characterization of models under 10B parameter
 
 Freeze this before the first real model run. Commit it to the repo with a timestamp so the freeze is verifiable. Everything decided here is a researcher degree of freedom that a reviewer would otherwise be right to suspect.
 
+**Implementation status (2026-08-24).** A preregistration is only worth the code that enforces it. An audit of the codebase against this block found P4, P6, P7 and P9 documented here and *not implemented* — the plan was right and the code silently disagreed, which is the one failure mode a design review cannot catch. All four are now live and pinned by tests. The table below is the map from each point to the thing that enforces it; keep it current, and treat a blank enforcement cell as an unkept promise rather than a detail.
+
+| Point | Enforced by | Test |
+|---|---|---|
+| P1 surface audit | `concepts.surface_shortcut_audit`, leave-one-family-out and two-sided | `test_audit.py` |
+| P2 probe layer on validation split | `probes.train_probes` with family split | `test_lbi.py` |
+| P3 selectivity control | `probes.train_probes` shuffled-label control | `test_lbi.py` |
+| P4 four-layer band, best-over-band | `pipeline.run_steering_best_over_band`, called by `run_model` | `test_layer_band_stays_in_range` |
+| P5 fixed coefficient grid | `pipeline.DEFAULT_COEFFS` | `test_lbi.py` |
+| P6 danger zone + CI exclusion | `gapmap.build_gap_map(require_ci_exclusion=True)` | `test_danger_zone_requires_the_ci_to_exclude_the_threshold` |
+| P7 cluster bootstrap over concepts | `gapmap._bootstrap_spearman_ci(concepts=...)`, `geometry._cluster_bootstrap_partial_spearman` | `test_gap_map_ci_clusters_by_concept` |
+| P8 BH-corrected exploratory | `geometry.exploratory_analysis` | `test_predictor_runs_the_real_primary_test_when_given_the_raw_axes` |
+| P9 control withholding | `pipeline.run_model` writes `<model>_control.json`; `aggregate` drops failing models | `test_aggregate_withholds_a_model_whose_positive_control_failed` |
+
+See Section 12 of the design document, third pass, for what each of those audits found and why it mattered.
+
 **P1. Concept inclusion.** A concept enters the study only if its contrastive set passes the surface-shortcut audit: TF-IDF plus logistic regression on raw text, evaluated on held-out template families, must reach AUROC below 0.65, or at least 0.15 below the activation probe's held-out-family AUROC on the same split. Concepts that fail are rebuilt once and re-audited. A concept that fails twice is dropped and reported as dropped, with its numbers in the appendix. The final concept count is whatever survives, floor of eight.
 
 **P2. Probe layer selection.** Chosen on a validation split of template families that is disjoint from both the training families and the test families. Never on test AUROC. Readability is the test-split AUROC at the validation-selected layer, averaged over five seeds, with a bootstrap CI.
