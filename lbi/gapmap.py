@@ -39,6 +39,11 @@ class GapPoint:
     # Filled by normalize_within_model; None until then.
     norm_readability: float | None = None
     norm_controllability: float | None = None
+    # Did the immovability gauntlet run, and did the concept survive it?
+    # None means it was never run, which is NOT the same as failing it: the
+    # gauntlet only runs on concepts the default intervention already failed to
+    # move, so most points legitimately carry None.
+    gauntlet_passed: bool | None = None
 
     @property
     def gap(self) -> float:
@@ -69,6 +74,21 @@ class GapMap:
     danger_zone: list[GapPoint]
     interpretation: str
 
+    @property
+    def confirmed_immovable(self) -> list[GapPoint]:
+        """Danger-zone points that also survived the full gauntlet.
+
+        "Immovable" is a claim about the concept; "unsteerable under tested
+        interventions" is a claim about what was tried. Only points that
+        resisted every variant and all three direction-derivation methods earn
+        the first word. Everything else in the danger zone is a candidate.
+        """
+        return [p for p in self.danger_zone if p.gauntlet_passed is True]
+
+    @property
+    def unconfirmed_danger_zone(self) -> list[GapPoint]:
+        return [p for p in self.danger_zone if p.gauntlet_passed is not True]
+
     def to_dict(self) -> dict:
         return {
             "points": [p.to_dict() for p in self.points],
@@ -77,6 +97,12 @@ class GapMap:
             "spearman_ci_high": self.spearman_ci[1],
             "pearson": self.pearson,
             "danger_zone": [p.concept + "@" + p.model for p in self.danger_zone],
+            "confirmed_immovable": [
+                p.concept + "@" + p.model for p in self.confirmed_immovable
+            ],
+            "unsteerable_under_tested_interventions": [
+                p.concept + "@" + p.model for p in self.unconfirmed_danger_zone
+            ],
             "interpretation": self.interpretation,
         }
 
@@ -239,11 +265,30 @@ def build_gap_map(
             "points. Reframe around the residuals per Section 7.".format(rho)
         )
     elif danger:
+        confirmed = [p for p in danger if p.gauntlet_passed is True]
+        pending = [p for p in danger if p.gauntlet_passed is not True]
+        parts = []
+        if confirmed:
+            parts.append(
+                "IMMOVABLE ({} confirmed against every variant and all three "
+                "direction-derivation methods): {}".format(
+                    len(confirmed),
+                    ", ".join(f"{p.concept}@{p.model}" for p in confirmed),
+                )
+            )
+        if pending:
+            parts.append(
+                "unsteerable under tested interventions ({} not yet through "
+                "the gauntlet): {}".format(
+                    len(pending),
+                    ", ".join(f"{p.concept}@{p.model}" for p in pending),
+                )
+            )
         interpretation = (
-            "Danger zone occupied by {} point(s): {}. Readable-but-immovable "
-            "concepts exist; confirm each against all steering variants before "
-            "claiming it.".format(
-                len(danger), ", ".join(f"{p.concept}@{p.model}" for p in danger)
+            "Danger zone occupied by {} point(s). {}. Only the confirmed set "
+            "may be described as immovable; the rest have resisted the "
+            "interventions that were tried, which is a weaker claim.".format(
+                len(danger), ". ".join(parts)
             )
         )
     elif not np.isnan(rho) and abs(rho) < 0.3:

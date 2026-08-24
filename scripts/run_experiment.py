@@ -77,6 +77,14 @@ def aggregate(out_dir: str) -> int:
                 safety_relevant=by_name[probe["concept"]].safety_relevant,
                 best_layer=probe["best_layer"],
                 selectivity=probe["selectivity"],
+                # None when the gauntlet never ran, which is not the same as
+                # failing it. Only points that survived it may be called
+                # immovable rather than merely unsteerable under what was tried.
+                gauntlet_passed=(
+                    bool(rec["gauntlet"].get("immovable"))
+                    if rec.get("gauntlet")
+                    else None
+                ),
             )
         )
         features.append(GeometryFeatures(**geom))

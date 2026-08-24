@@ -51,6 +51,15 @@ class ConceptRun:
     probe: ProbeResult
     steering: st.SteeringResult
     features: geo.GeometryFeatures
+    # Gauntlet result, or None when the concept moved under the default
+    # intervention and the gauntlet was never run.
+    gauntlet: dict | None = None
+
+    @property
+    def gauntlet_passed(self) -> bool | None:
+        if self.gauntlet is None:
+            return None
+        return bool(self.gauntlet.get("immovable"))
 
 
 @dataclass
@@ -264,14 +273,26 @@ def confirm_immovable(
         results[f"{variant}:{source}"] = r.controllability
 
     best = max(results.values())
+    passed = bool(best < threshold)
     return {
         "per_variant": results,
         "best_controllability": best,
-        "immovable": bool(best < threshold),
+        "immovable": passed,
+        "n_interventions_tested": len(trials),
         "verdict": (
-            "immovable: resists all variants and all three direction sources"
-            if best < threshold
-            else f"movable via {max(results, key=results.get)}"
+            # "Immovable" is a claim about the concept and is only earned here,
+            # after every variant and all three direction-derivation methods
+            # have failed. Anything short of this gauntlet gets the weaker
+            # label "unsteerable under tested interventions", which is a claim
+            # about what was tried rather than about what is possible. Even
+            # this verdict is bounded by the six interventions listed above --
+            # it is not a proof that no intervention exists.
+            f"immovable: resisted all {len(trials)} tested interventions "
+            f"(4 variants x diff-of-means, plus probe weights and the RepE "
+            f"reading vector); best controllability {best:.3f} < {threshold}"
+            if passed
+            else f"movable via {max(results, key=results.get)} "
+                 f"(controllability {best:.3f})"
         ),
     }
 
@@ -348,7 +369,10 @@ def run_model(
                 f"time. Stop and debug rather than spending the session."
             )
 
-        runs.append(ConceptRun(probe=probe, steering=steer, features=features))
+        runs.append(
+            ConceptRun(probe=probe, steering=steer, features=features,
+                       gauntlet=gauntlet)
+        )
         _write_json(
             os.path.join(out_dir, f"{_slug(lm.name)}_{concept.name}.json"),
             {
@@ -408,6 +432,7 @@ def to_gap_points(runs: list[ConceptRun], concepts: list[Concept] | None = None)
             safety_relevant=by_name[r.probe.concept].safety_relevant,
             best_layer=r.probe.best_layer,
             selectivity=r.probe.selectivity,
+            gauntlet_passed=r.gauntlet_passed,
         )
         for r in runs
     ]
