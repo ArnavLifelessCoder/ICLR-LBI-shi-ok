@@ -16,8 +16,9 @@ repetition score, feeding the pre-registered ceiling in ``steering.find_ceiling`
 
 from __future__ import annotations
 
+import os
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from typing import Protocol
 
 import numpy as np
@@ -206,16 +207,35 @@ class ClassifierScorer:
 _SCORE_RE = re.compile(r"(?:^|\s)(0(?:\.\d+)?|1(?:\.0+)?)(?:\s|$)")
 
 
+class JudgeParseError(RuntimeError):
+    """Raised when too much of a judge's output could not be read as a score."""
+
+
 class LLMJudgeScorer:
     """Prompts a chat model with the concept's `behavior_question`.
 
     `generate_fn(prompts) -> list[str]` is supplied by the caller so this works
     with a local model, an API, or a stub in tests.
+
+    Unparseable output falls back to the neutral 0.5, but only up to
+    `max_unparsed_fraction` of a batch. Beyond that it raises, and the reason is
+    specific to this study: a judge that cannot be parsed returns a constant
+    0.5, a constant behaviour score makes the dose-response curve flat, and a
+    flat curve is exactly what "immovable" looks like. A broken judge would
+    manufacture the paper's headline finding rather than crash. `parse_failures`
+    keeps the per-call rate so it can be reported even when under the limit.
     """
 
-    def __init__(self, generate_fn, behavior_questions: dict[str, str]):
+    def __init__(
+        self,
+        generate_fn,
+        behavior_questions: dict[str, str],
+        max_unparsed_fraction: float = 0.2,
+    ):
         self.generate_fn = generate_fn
         self.behavior_questions = behavior_questions
+        self.max_unparsed_fraction = max_unparsed_fraction
+        self.parse_failures: list[tuple[str, int, int]] = []
 
     def score(self, texts: list[str], concept_name: str) -> list[float]:
         question = self.behavior_questions[concept_name]
@@ -224,11 +244,73 @@ class LLMJudgeScorer:
             for t in texts
         ]
         raw = self.generate_fn(prompts)
-        out = []
+        out, unparsed = [], 0
         for r in raw:
             m = _SCORE_RE.search(r.strip())
-            out.append(float(m.group(1)) if m else 0.5)
+            if m is None:
+                unparsed += 1
+                out.append(0.5)
+            else:
+                out.append(float(m.group(1)))
+
+        self.parse_failures.append((concept_name, unparsed, len(raw)))
+        if raw and unparsed / len(raw) > self.max_unparsed_fraction:
+            sample = [r.strip()[:60] for r in raw if _SCORE_RE.search(r.strip()) is None]
+            raise JudgeParseError(
+                f"{concept_name}: {unparsed}/{len(raw)} judge outputs had no "
+                f"parseable score (limit {self.max_unparsed_fraction:.0%}). "
+                f"Unparsed samples: {sample[:3]}. Left alone this returns a "
+                f"constant 0.5, which reads as a perfectly flat dose-response "
+                f"curve and would be scored as an immovable concept."
+            )
         return out
+
+    def failure_rate(self) -> float:
+        """Overall fraction of judge outputs that could not be parsed."""
+        if not self.parse_failures:
+            return 0.0
+        bad = sum(u for _, u, _ in self.parse_failures)
+        total = sum(n for _, _, n in self.parse_failures)
+        return bad / total if total else 0.0
+
+
+def make_local_generate_fn(lm, max_new_tokens: int = 8, batch_size: int = 8):
+    """A `generate_fn` for LLMJudgeScorer backed by an already-loaded model.
+
+    Uses the chat template when the tokenizer has one, since an instruct model
+    asked a bare question without its template answers far less reliably. Greedy
+    and short: the judge is being asked for one number.
+    """
+    from . import steering as st
+
+    def generate_fn(prompts: list[str]) -> list[str]:
+        tok = lm.tokenizer
+        if getattr(tok, "chat_template", None):
+            prompts = [
+                tok.apply_chat_template(
+                    [{"role": "user", "content": p}],
+                    tokenize=False,
+                    add_generation_prompt=True,
+                )
+                for p in prompts
+            ]
+        return st.generate(
+            lm, prompts, spec=None,
+            max_new_tokens=max_new_tokens, batch_size=batch_size,
+        )
+
+    return generate_fn
+
+
+# Opt-in only. `ClassifierScorer` still ships with an empty map: naming a model
+# here does not make it a default, it records candidates worth validating so the
+# choice is visible in the repo rather than made silently at run time. Validate
+# on held-out labelled data before quoting any number produced with one.
+SUGGESTED_CLASSIFIERS: dict[str, tuple[str, str]] = {
+    "sentiment": ("cardiffnlp/twitter-roberta-base-sentiment-latest", "positive"),
+    "rudeness": ("s-nlp/roberta_toxicity_classifier", "toxic"),
+    "formality": ("s-nlp/roberta-base-formality-ranker", "formal"),
+}
 
 
 # --------------------------------------------------------------------------
@@ -285,6 +367,109 @@ def krippendorff_alpha_interval(ratings: list[list[float]]) -> float:
     if d_e == 0:
         return float("nan")
     return float(1.0 - d_o / d_e)
+
+
+class PanelScorer:
+    """Scores with several judges at once; the first is the reported one.
+
+    The design doc requires two independent judges with reported agreement, and
+    the objection ledger requires Krippendorff alpha. Running them separately
+    invites scoring different text -- the steering sweep regenerates on every
+    call and greedy decoding is only reproducible if nothing else changed -- so
+    the panel scores one list of texts once and keeps every judge's numbers
+    aligned by construction.
+
+    `record` accumulates per-concept scores so `agreement()` can report over the
+    whole run rather than one batch.
+    """
+
+    def __init__(self, judges: dict[str, "Scorer"], primary: str | None = None):
+        if not judges:
+            raise ValueError("PanelScorer needs at least one judge")
+        self.judges = judges
+        self.primary = primary or next(iter(judges))
+        if self.primary not in judges:
+            raise KeyError(f"primary judge {self.primary!r} is not in the panel")
+        self.record: dict[str, dict[str, list[float]]] = {
+            name: {} for name in judges
+        }
+
+    def score(self, texts: list[str], concept_name: str) -> list[float]:
+        for name, judge in self.judges.items():
+            scores = judge.score(texts, concept_name)
+            self.record[name].setdefault(concept_name, []).extend(scores)
+        return self.record[self.primary][concept_name][-len(texts):]
+
+    def agreement(self, concept_name: str | None = None) -> dict:
+        """Pairwise agreement plus panel-wide Krippendorff alpha."""
+        def series(name: str) -> list[float]:
+            per_concept = self.record[name]
+            if concept_name is not None:
+                return list(per_concept.get(concept_name, []))
+            return [v for c in sorted(per_concept) for v in per_concept[c]]
+
+        names = list(self.judges)
+        matrix = [series(n) for n in names]
+        widths = {len(m) for m in matrix}
+        if len(widths) != 1:
+            raise ValueError(f"judges scored different numbers of items: {widths}")
+
+        pairwise = {}
+        for i, a in enumerate(names):
+            for b in names[i + 1:]:
+                pairwise[f"{a}|{b}"] = asdict(
+                    judge_agreement(matrix[i], matrix[names.index(b)])
+                )
+        return {
+            "judges": names,
+            "primary": self.primary,
+            "n_items": len(matrix[0]),
+            "krippendorff_alpha": krippendorff_alpha_interval(matrix),
+            "pairwise": pairwise,
+        }
+
+
+def write_labeling_sheet(
+    path: str, samples: list[tuple[str, str]], question_by_concept: dict[str, str]
+) -> str:
+    """Dump (concept, text) pairs to a CSV for hand-labelling.
+
+    The third judge in the plan is you, labelling 100 outputs. Leave the `score`
+    column blank for anything you cannot judge; `read_labeling_sheet` returns
+    NaN there and `krippendorff_alpha_interval` handles NaN, so a partial sheet
+    is usable and does not have to be padded with guesses.
+    """
+    import csv
+
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    with open(path, "w", encoding="utf-8", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["index", "concept", "question", "text", "score"])
+        for i, (concept, text) in enumerate(samples):
+            w.writerow([i, concept, question_by_concept.get(concept, ""), text, ""])
+    return path
+
+
+def read_labeling_sheet(path: str) -> tuple[list[str], list[float]]:
+    """Read a hand-labelled sheet back as (concepts, scores) with NaN for blanks."""
+    import csv
+
+    concepts, scores = [], []
+    with open(path, encoding="utf-8", newline="") as f:
+        for row in csv.DictReader(f):
+            concepts.append(row["concept"])
+            raw = (row.get("score") or "").strip()
+            try:
+                value = float(raw)
+            except ValueError:
+                scores.append(float("nan"))
+                continue
+            if not 0.0 <= value <= 1.0:
+                raise ValueError(
+                    f"score {value} at index {row['index']} is outside [0, 1]"
+                )
+            scores.append(value)
+    return concepts, scores
 
 
 def judge_agreement(scores_a: list[float], scores_b: list[float]) -> Agreement:

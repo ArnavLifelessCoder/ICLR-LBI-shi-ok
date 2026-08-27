@@ -6,6 +6,8 @@ metric logic, the split discipline and the aggregation -- the parts that would
 silently produce a wrong number in the paper.
 """
 
+import os
+
 import numpy as np
 import pytest
 
@@ -431,11 +433,19 @@ def test_lexicon_entries_with_punctuation_still_match():
 
 
 def test_llm_judge_parses_and_falls_back():
+    """One unreadable answer in a batch falls back to neutral, as before.
+
+    The batch is sized so the failure rate stays under the tolerance; past it
+    the judge raises instead, because a wholesale-unparseable judge returns a
+    constant and a constant reads as an immovable concept.
+    """
     judge = bh.LLMJudgeScorer(
-        generate_fn=lambda prompts: ["0.8", "garbage", "1.0"],
+        generate_fn=lambda prompts: ["0.8", "garbage", "1.0", "0.4", "0.6"],
         behavior_questions={"sentiment": "Score it."},
     )
-    assert judge.score(["a", "b", "c"], "sentiment") == [0.8, 0.5, 1.0]
+    assert judge.score(["a", "b", "c", "d", "e"], "sentiment") == [
+        0.8, 0.5, 1.0, 0.4, 0.6
+    ]
 
 
 # --------------------------------------------------------------------------
@@ -865,3 +875,106 @@ def test_figures_render(tmp_path):
     import os
 
     assert os.path.getsize(f1) > 1000 and os.path.getsize(f2) > 1000
+
+
+# --------------------------------------------------------------------------
+# Judge panel (design doc: two judges with reported agreement)
+# --------------------------------------------------------------------------
+
+
+def test_llm_judge_raises_rather_than_returning_a_flat_curve():
+    """An unparseable judge returns constant 0.5, which reads as immovable.
+
+    This is the one judge failure that would manufacture the paper's headline
+    finding instead of crashing: a constant behaviour score makes the
+    dose-response curve perfectly flat, and a flat curve is what the danger
+    zone is defined by.
+    """
+    judge = bh.LLMJudgeScorer(
+        generate_fn=lambda prompts: ["I cannot rate this." for _ in prompts],
+        behavior_questions={"sentiment": "Is it positive?"},
+    )
+    with pytest.raises(bh.JudgeParseError, match="flat dose-response"):
+        judge.score(["a", "b", "c", "d", "e"], "sentiment")
+
+
+def test_llm_judge_tolerates_a_few_unparseable_outputs():
+    replies = ["0.9", "0.1", "0.8", "0.2", "no idea"]
+    judge = bh.LLMJudgeScorer(
+        generate_fn=lambda prompts: replies,
+        behavior_questions={"sentiment": "Is it positive?"},
+    )
+    scores = judge.score(["a", "b", "c", "d", "e"], "sentiment")
+    assert scores == [0.9, 0.1, 0.8, 0.2, 0.5]
+    assert judge.failure_rate() == pytest.approx(0.2)
+
+
+def test_panel_keeps_judges_aligned_and_reports_alpha():
+    class _Stub:
+        def __init__(self, fn):
+            self.fn = fn
+
+        def score(self, texts, concept_name):
+            return [self.fn(t) for t in texts]
+
+    panel = bh.PanelScorer(
+        {"lex": bh.LexiconScorer(), "stub": _Stub(lambda t: 0.9 if "excellent" in t else 0.1)},
+        primary="lex",
+    )
+    texts = ["This was excellent and wonderful.", "This was terrible and awful."]
+    primary = panel.score(texts, "sentiment")
+    assert primary == panel.record["lex"]["sentiment"]
+
+    ag = panel.agreement()
+    assert ag["primary"] == "lex"
+    assert ag["n_items"] == 2
+    assert "lex|stub" in ag["pairwise"]
+    assert ag["krippendorff_alpha"] > 0.8
+
+
+def test_panel_rejects_an_unknown_primary():
+    with pytest.raises(KeyError, match="primary"):
+        bh.PanelScorer({"lex": bh.LexiconScorer()}, primary="missing")
+
+
+def test_labeling_sheet_round_trips_with_blanks_as_nan():
+    import csv
+    import math
+    import tempfile
+
+    path = os.path.join(tempfile.mkdtemp(), "labels.csv")
+    bh.write_labeling_sheet(
+        path,
+        [("sentiment", "good"), ("sentiment", "bad"), ("refusal", "unsure")],
+        {"sentiment": "Is it positive?"},
+    )
+    rows = list(csv.DictReader(open(path, encoding="utf-8")))
+    rows[0]["score"], rows[1]["score"] = "1.0", "0.0"  # third left blank
+    with open(path, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["index", "concept", "question", "text", "score"])
+        w.writeheader()
+        w.writerows(rows)
+
+    concepts, scores = bh.read_labeling_sheet(path)
+    assert concepts == ["sentiment", "sentiment", "refusal"]
+    assert scores[:2] == [1.0, 0.0]
+    assert math.isnan(scores[2]), "a blank must be NaN, not a guessed 0.5"
+    # A partially labelled sheet still works as a third rater.
+    alpha = bh.krippendorff_alpha_interval([[1.0, 0.0, 0.5], scores])
+    assert not math.isnan(alpha)
+
+
+def test_labeling_sheet_rejects_out_of_range_scores():
+    import csv
+    import tempfile
+
+    path = os.path.join(tempfile.mkdtemp(), "labels.csv")
+    bh.write_labeling_sheet(path, [("sentiment", "good")], {})
+    rows = list(csv.DictReader(open(path, encoding="utf-8")))
+    rows[0]["score"] = "7"
+    with open(path, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["index", "concept", "question", "text", "score"])
+        w.writeheader()
+        w.writerows(rows)
+    with pytest.raises(ValueError, match="outside"):
+        bh.read_labeling_sheet(path)
