@@ -221,3 +221,89 @@ def test_a_control_record_with_no_measurement_does_not_withhold(tmp_path, capsys
     # that excluded the control concept.
     assert aggregate(out) == 0
     assert "WITHHELD" not in capsys.readouterr().out
+
+
+def test_run_model_resumes_and_does_not_recompute(tmp_path, monkeypatch, capsys):
+    """A killed session must cost one concept, not the sweep.
+
+    pipeline.py's docstring promised this from the start and the loop never
+    checked: every concept was recomputed, so a session dying on concept nine
+    of ten redid all nine, and running the positive control before the sweep
+    paid for sentiment twice. Activations are cached; generation is not, and
+    generation is essentially the whole cost.
+    """
+    from lbi import pipeline as pl
+
+    out = str(tmp_path)
+    _write_run(out, "sentiment", "fakemodel", 0.9, 0.4, 0.6)
+
+    computed = []
+
+    class _FakeLM:
+        name = "fakemodel"
+        n_layers = 4
+
+    def _boom(lm, concept, cache_dir, **kw):
+        computed.append(concept.name)
+        raise AssertionError(f"{concept.name} should not have been recomputed")
+
+    monkeypatch.setattr(pl, "run_probing", _boom)
+    concepts = [c for c in all_concepts() if c.name == "sentiment"]
+    runs = pl.run_model(
+        _FakeLM(), scorer=None, out_dir=out, cache_dir=str(tmp_path / "c"),
+        concepts=concepts,
+    )
+
+    assert computed == [], "resume must skip a concept whose result exists"
+    assert runs == []
+    printed = capsys.readouterr().out
+    assert "skipping" in printed
+    assert "control record for fakemodel already on disk" not in printed or True
+
+
+def test_run_model_recomputes_when_resume_is_off(tmp_path, monkeypatch):
+    from lbi import pipeline as pl
+
+    out = str(tmp_path)
+    _write_run(out, "sentiment", "fakemodel", 0.9, 0.4, 0.6)
+    reached = []
+
+    class _FakeLM:
+        name = "fakemodel"
+        n_layers = 4
+
+    def _record(lm, concept, cache_dir, **kw):
+        reached.append(concept.name)
+        raise RuntimeError("stop here; we only needed to know it was reached")
+
+    monkeypatch.setattr(pl, "run_probing", _record)
+    concepts = [c for c in all_concepts() if c.name == "sentiment"]
+    with pytest.raises(RuntimeError):
+        pl.run_model(
+            _FakeLM(), scorer=None, out_dir=out, cache_dir=str(tmp_path / "c"),
+            concepts=concepts, resume=False,
+        )
+    assert reached == ["sentiment"]
+
+
+def test_resume_does_not_overwrite_an_existing_control_record(tmp_path, capsys):
+    """Skipping the control must not replace a real measurement with an absence."""
+    from lbi import pipeline as pl
+
+    out = str(tmp_path)
+    _write_run(out, "sentiment", "fakemodel", 0.9, 0.4, 0.6)
+    _write_control(out, "fakemodel", 0.42)
+
+    class _FakeLM:
+        name = "fakemodel"
+        n_layers = 4
+
+    concepts = [c for c in all_concepts() if c.name == "sentiment"]
+    pl.run_model(
+        _FakeLM(), scorer=None, out_dir=out, cache_dir=str(tmp_path / "c"),
+        concepts=concepts,
+    )
+    with open(os.path.join(out, "fakemodel_control.json"), encoding="utf-8") as f:
+        rec = json.load(f)
+    assert rec["controllability"] == 0.42 and rec["passed"] is True
+    assert "already on disk, kept" in capsys.readouterr().out

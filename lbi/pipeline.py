@@ -1,8 +1,11 @@
 """End-to-end run: Experiments 1-4 for one model.
 
-Designed for a free T4 with an unreliable session: every stage writes its
-results to `out_dir` and skips work whose output already exists, so a dead
-Colab runtime costs a re-mount rather than a re-run.
+Designed for an unreliable session: results are written per concept as they
+finish and `run_model(resume=True)` skips any concept whose file already
+exists, so a dead Kaggle or Colab runtime costs at most the concept that was
+in flight. Activations are cached too, but generation is not and generation is
+essentially the whole cost, so the resume check is what actually saves the
+session.
 
 Revisions applied:
   R16  RepE reading vector added to the gauntlet alongside diff-of-means and
@@ -305,6 +308,7 @@ def run_model(
     concepts: list[Concept] | None = None,
     immovable_threshold: float = 0.05,
     best_over_band: bool = True,
+    resume: bool = True,
 ) -> list[ConceptRun]:
     """Experiments 1, 2 and 4 for every concept on one model.
 
@@ -315,6 +319,12 @@ def run_model(
     `best_over_band=False` drops back to single-layer steering. It is four
     times cheaper and useful for a smoke run, but it is not the preregistered
     protocol and its numbers should not be reported.
+
+    `resume=True` skips any concept whose result file already exists, which is
+    what makes a killed session cost one concept instead of the sweep. Skipped
+    concepts are not in the returned list -- their numbers are on disk, and
+    `run_experiment.py --aggregate-only` reads every record from there, so the
+    analysis is unaffected. Only the in-session summary is partial.
     """
     concepts = concepts or all_concepts()
     # P9: the positive control goes first. PLAN.md Phase C is explicit that a
@@ -330,7 +340,23 @@ def run_model(
         pass  # tied or absent head: output_overlap reports NaN
 
     runs: list[ConceptRun] = []
+    skipped: list[str] = []
     for concept in concepts:
+        result_path = os.path.join(
+            out_dir, f"{_slug(lm.name)}_{concept.name}.json"
+        )
+        if resume and os.path.exists(result_path):
+            # The module docstring has always promised this. It did not happen:
+            # every concept was recomputed from scratch, so a session that died
+            # on concept nine of ten redid all nine, and running the positive
+            # control before the sweep meant paying for sentiment twice.
+            # Activations are cached but generation is not, and generation is
+            # essentially the whole cost.
+            skipped.append(concept.name)
+            print(f"  {concept.name}: already in {os.path.basename(result_path)}, "
+                  f"skipping (pass resume=False, or delete the file, to redo)")
+            continue
+
         probe, acts, labels, families = run_probing(lm, concept, cache_dir)
         layer = probe.best_layer
         acts_layer = acts[layer]
@@ -410,11 +436,23 @@ def run_model(
                 ),
             },
         )
+    elif os.path.exists(os.path.join(out_dir, f"{_slug(lm.name)}_control.json")):
+        # The control ran in an earlier session (or in stage 1) and was skipped
+        # here by resume. Leave that record alone rather than overwriting a real
+        # measurement with an absence.
+        print(f"NOTE [P9]: control record for {lm.name} already on disk, kept.")
     else:
         print(
             f"NOTE [P9]: '{POSITIVE_CONTROL}' was not in this run, so no "
             f"control record was written for {lm.name}. Its points will not be "
             f"withheld at aggregate time -- run the control before reporting."
+        )
+
+    if skipped:
+        print(
+            f"\nresumed: skipped {len(skipped)} concept(s) already on disk "
+            f"({', '.join(skipped)}). Their numbers are in {out_dir} and "
+            f"--aggregate-only reads them; only this summary is partial."
         )
     return runs
 
