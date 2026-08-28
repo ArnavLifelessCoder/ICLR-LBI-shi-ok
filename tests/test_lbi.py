@@ -978,3 +978,34 @@ def test_labeling_sheet_rejects_out_of_range_scores():
         w.writerows(rows)
     with pytest.raises(ValueError, match="outside"):
         bh.read_labeling_sheet(path)
+
+
+# --------------------------------------------------------------------------
+# Driver stages (no GPU: only the CPU-side gate is exercised here)
+# --------------------------------------------------------------------------
+
+
+def test_preflight_passes_on_the_shipped_concept_set():
+    """Declared surface-confounded concepts must not fail the gate.
+
+    The gate exists to stop a run when the concept set is broken. If it tripped
+    on `verbosity` and `topic_science` -- whose failure is predicted and
+    recorded in the builder -- it would be ignored within a day.
+    """
+    from lbi.driver import preflight
+
+    assert preflight(verbose=False) is True
+
+
+def test_preflight_fails_on_an_undeclared_shortcut(monkeypatch):
+    from lbi import driver
+    from lbi.concepts import AuditResult
+
+    def fake_audit(*_a, **_k):
+        return [
+            AuditResult("clean", 0.5, True, "ok", [], 10, 4),
+            AuditResult("leaky", 0.99, False, "FAIL", [], 10, 4),
+        ]
+
+    monkeypatch.setattr(driver, "audit_all_concepts", fake_audit)
+    assert driver.preflight(verbose=False) is False
