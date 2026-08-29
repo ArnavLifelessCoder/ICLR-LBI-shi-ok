@@ -10,6 +10,13 @@ made during implementation and why, including the third pass that audited the
 code against the preregistration and found four preregistered commitments
 documented but not implemented.
 
+**New here?** [CONTEXT.md](CONTEXT.md) is the orientation doc — what the study
+asks, where it stands, the constraints, and the go/no-go criteria.
+[RESULTS.md](RESULTS.md) is what has actually been measured (as of now: the
+CPU-only surface audit, and nothing from a real model).
+[notebooks/RUNLOG.md](notebooks/RUNLOG.md) is the per-session record and always
+carries the next action.
+
 ## Install
 
 ```bash
