@@ -23,7 +23,7 @@ should be expected rather than merely hoped for.
 | | |
 | --- | --- |
 | Code | Complete for Experiments 1-4, 125 CPU tests, synthetic end-to-end demo passes |
-| Real model runs | **None.** Every number in the repo is synthetic and validates plumbing only |
+| Real model runs | One attempted (Qwen2.5-7B, 2026-08-29). **Positive control failed**, numbers withheld under P9 |
 | Judges | Panel wired (LLM + lexicon + human sheet); `ClassifierScorer.model_map` deliberately empty |
 | Concept set | 10 built, 8 clear the surface audit, 2 declared surface-confounded |
 | Target | ICLR 2027 — abstract **Sep 18 2026**, paper **Sep 25 2026** |

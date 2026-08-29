@@ -193,6 +193,21 @@ def run_steering(
             )
         )
 
+    # A judge that returns the same number for every text parses perfectly and
+    # yields a dose-response AUC of exactly 0.000, which is indistinguishable
+    # from a concept that cannot be steered. The parse-failure guard in
+    # LLMJudgeScorer does not catch this: the output is readable, it is just
+    # constant. Flag it here, where the whole sweep is visible.
+    all_scores = [s for scores in per_prompt.values() for s in scores]
+    if all_scores and len(set(all_scores)) == 1:
+        print(
+            f"WARNING [{concept.name}]: the judge returned {all_scores[0]} for "
+            f"all {len(all_scores)} generations across every coefficient. "
+            f"Controllability will be exactly 0.000 for a reason that has "
+            f"nothing to do with steering. Inspect the samples in the result "
+            f"file before believing this number."
+        )
+
     max_usable, reason = st.find_ceiling(curve, baseline_ppl)
     st.mark_broken(curve, max_usable)
     controllability = st.dose_response_auc(curve, baseline)
@@ -404,9 +419,19 @@ def run_model(
             {
                 "probe": probe.summary(),
                 "steering": steer.summary(),
+                # `samples` and `repetition` are persisted because without them
+                # a failed run cannot be diagnosed from its own output. The
+                # first real run returned controllability exactly 0.000 and the
+                # result file could not say whether the model had produced
+                # sensible text that steering failed to move, or garbage, or
+                # whether the judge had returned a constant -- the generations
+                # existed in memory and were dropped on write.
                 "curve": [
                     {"coeff": p.coeff, "behavior": p.behavior,
-                     "perplexity": p.perplexity, "broken": p.broken}
+                     "behavior_ci_low": p.behavior_ci[0],
+                     "behavior_ci_high": p.behavior_ci[1],
+                     "perplexity": p.perplexity, "repetition": p.repetition,
+                     "broken": p.broken, "samples": p.samples}
                     for p in steer.curve
                 ],
                 "geometry": features.to_dict(),

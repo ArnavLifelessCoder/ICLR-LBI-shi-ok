@@ -148,15 +148,40 @@ def generate(
     temperature: float = 0.0,
     batch_size: int = 4,
     seed: int = 0,
+    use_chat_template: bool | None = None,
 ) -> list[str]:
     """Generate continuations, optionally under a steering intervention.
 
     Greedy by default: steering effects are the signal, sampling noise is not.
+
+    Every model in the study is an *instruct* model and every eval prompt is an
+    instruction, so the tokenizer's chat template is applied when it has one.
+    Feeding a raw instruction to an instruct model is base-model prompting: it
+    continues the text instead of following it, and the behaviour being scored
+    is then not the behaviour the concept is about. `use_chat_template=False`
+    forces the raw form for a base model or for a comparison.
     """
     import torch
 
     torch.manual_seed(seed)
     outputs: list[str] = []
+
+    tok = lm.tokenizer
+    if use_chat_template is None:
+        use_chat_template = bool(getattr(tok, "chat_template", None))
+    if use_chat_template:
+        prompts = [
+            tok.apply_chat_template(
+                # Some concepts (refusal) already ship prompts in "User: ..."
+                # transcript form; strip it so the template does not wrap a
+                # role marker inside another role marker.
+                [{"role": "user", "content": p[len("User: "):]
+                  if p.startswith("User: ") else p}],
+                tokenize=False,
+                add_generation_prompt=True,
+            )
+            for p in prompts
+        ]
 
     for start in range(0, len(prompts), batch_size):
         batch = prompts[start : start + batch_size]

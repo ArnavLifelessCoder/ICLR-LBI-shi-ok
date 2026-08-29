@@ -173,10 +173,12 @@ machine-specific, the second changes every run. Regenerate the demo output with
 `python scripts/demo_synthetic.py`; real-run results belong in a release
 artifact or the paper's supplement, not in the history.
 
-Measured cost per model on a Colab T4, from the actual work volume (1,752
-activation texts, 1,980 prompt-generations of 64 tokens under the band
-protocol): roughly **1.5 h for a 7B**, **30 min for a 1.5B**, so about four
-hours for a three-model sweep. Probe fitting adds ~5 s per concept on CPU.
+Measured on Kaggle T4, 2026-08-29: the positive control alone -- one concept
+through the full P4 band -- took **21.7 min** on Qwen2.5-7B in 4-bit, so a
+ten-concept model is roughly **3.6 h**. An earlier estimate of 1.5 h was derived
+for single-layer steering and missed that the band is four sweeps. Probe fitting
+adds ~5 s per concept on CPU. See `notebooks/README.md` for the full table and
+what to trim if the budget does not fit.
 
 ## Layout
 

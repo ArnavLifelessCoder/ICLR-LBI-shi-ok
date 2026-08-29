@@ -50,18 +50,24 @@ is not needed to fit anything in this study, so do not spend time sharding.
 
 ## Budget
 
-Measured from the work volume (1,752 activation texts and 1,980
-prompt-generations of 64 tokens per model under the band protocol):
+**Measured on a real run, not estimated.** The positive control alone -- one
+concept, full P4 band -- took **21.7 minutes** on Qwen2.5-7B 4-bit on
+2026-08-29. The earlier table here said ~1.5 h for a whole model; that was
+derived for single-layer steering and the band protocol is four sweeps, so it
+was low by about 2.4x.
 
-| Model | Full sweep |
-| --- | --- |
-| 7-9B, 4-bit | ~1.5 h |
-| 3B | ~45 min |
-| 1.5B | ~30 min |
-| 0.5B | ~15 min |
+| Model | One concept | Full sweep (10 concepts) |
+| --- | --- | --- |
+| 7-9B, 4-bit | ~22 min | **~3.6 h** |
+| 3B | ~9 min | ~1.5 h |
+| 1.5B | ~6 min | ~1 h |
+| 0.5B | ~3 min | ~30 min |
 
-About 6 hours for all seven before downloads and retries, against a weekly GPU
-quota. One model per session.
+Seven models is roughly **25 hours**, not 6, before downloads, retries and the
+gauntlet. That is at or over a weekly GPU quota, so the model list is a budget
+decision and not a free choice. Options if it does not fit: drop the 3B from the
+scale sweep, trim the coefficient grid from nine points to seven, or cut
+`max_new_tokens` from 64 to 48. Do not silently drop the band -- that is P4.
 
 ## The human rater
 

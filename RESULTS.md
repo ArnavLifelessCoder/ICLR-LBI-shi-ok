@@ -1,6 +1,7 @@
 # Results
 
-**No real model has been run. Every number below is synthetic.**
+**One real run attempted; its positive control failed, so it yields no
+reportable numbers. Everything else below is synthetic.**
 
 That sentence stays at the top until a real run lands. The synthetic figures
 exist to prove the plumbing recovers a planted answer; they are not evidence
@@ -77,7 +78,31 @@ These numbers are properties of the planted generator, not of anything.
 
 ## Real runs
 
-*(empty)*
+### Qwen/Qwen2.5-7B-Instruct — 2026-08-29, Kaggle T4, 4-bit — CONTROL FAILED
+
+| | |
+| --- | --- |
+| Control (sentiment) controllability | **0.000** (floor 0.10) |
+| P9 verdict | **FAIL** — model withheld |
+| Fluency ceiling | no breakage in swept range |
+| Judge parse-failure rate | 0.0% |
+| Commit | `685d8d6` |
+| Wall clock | 21.7 min for the control alone |
+
+**No numbers from this model are reportable.** A model whose control does not
+move scores low controllability on every concept, which is indistinguishable
+from the finding, so P9 withholds it.
+
+Exactly 0.000 with all nine coefficients usable means the behaviour score
+equalled baseline at *every* coefficient. With a 0.0% parse-failure rate the
+leading hypothesis is a judge returning one constant parseable number; the
+second is that `st.generate` was feeding raw instructions to an instruct model
+with no chat template, so the scored text was not the behaviour the concept is
+about. Both are now fixed and neither is confirmed as the cause — see
+[notebooks/RUNLOG.md](notebooks/RUNLOG.md).
+
+This is the positive control working as designed. It caught a broken harness
+before nine more concepts were generated on top of it.
 
 Each entry, once there is one, records: model, control controllability and
 whether it cleared the P9 floor, the fluency `ceiling_reason`, judge

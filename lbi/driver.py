@@ -120,3 +120,54 @@ def stage2_full(lm, out_dir: str, cache_dir: str, label_sample: int = 100):
     )
     print(f"\nhand-label {len(samples)} outputs in {sheet} (blanks allowed).")
     return runs, agreement
+
+
+def diagnose_steering(lm, concept_name: str = POSITIVE_CONTROL,
+                      coeffs=(-3.0, 0.0, 3.0), n_prompts: int = 2):
+    """Print raw generations and raw judge replies at a few coefficients.
+
+    For when the control returns controllability 0.000 and the result file does
+    not say why. Three things can produce that number and they need different
+    fixes: the model emits sensible text that steering genuinely does not move;
+    the model emits garbage; or the judge returns a constant. Looking at the
+    text separates them in about two minutes instead of a 20-minute re-run.
+    """
+    from . import steering as st
+    from .probes import diff_of_means_direction, pair_texts
+    from .extraction import capture_cached
+
+    concept = get_concept(concept_name)
+    prompts = concept.eval_prompts[:n_prompts]
+
+    texts, labels = pair_texts(concept.pairs)
+    acts = capture_cached(lm, texts, cache_dir="/tmp/diag", tag=f"{concept_name}_diag")
+    layer = lm.n_layers // 2
+    direction = diff_of_means_direction(acts[layer], labels)
+
+    judge = bh.LLMJudgeScorer(
+        generate_fn=bh.make_local_generate_fn(lm),
+        behavior_questions={c.name: c.behavior_question for c in all_concepts()},
+        max_unparsed_fraction=1.0,  # diagnosing, not gating
+    )
+    raw_judge = bh.make_local_generate_fn(lm)
+    lex = bh.LexiconScorer()
+
+    print(f"concept={concept_name}  layer={layer}  d_model={lm.d_model}")
+    print(f"chat_template present: {bool(getattr(lm.tokenizer, 'chat_template', None))}\n")
+
+    for c in coeffs:
+        spec = None if c == 0.0 else st.SteeringSpec(
+            direction=direction, layers=[layer], variant="add", coeff=c
+        )
+        outs = st.generate(lm, prompts, spec=spec, max_new_tokens=64)
+        llm_scores = judge.score(outs, concept_name)
+        lex_scores = lex.score(outs, concept_name)
+        question = concept.behavior_question
+        replies = raw_judge([
+            f"{question}\n\nText:\n{o}\n\nRespond with only the number."
+            for o in outs
+        ])
+        print(f"--- coeff {c:+.1f} ---")
+        for o, ls, xs, rep in zip(outs, llm_scores, lex_scores, replies):
+            print(f"  llm={ls:.2f} lex={xs:.2f} | judge said {rep.strip()[:40]!r}")
+            print(f"  text: {o[:160]!r}\n")

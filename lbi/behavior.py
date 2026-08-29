@@ -297,6 +297,8 @@ def make_local_generate_fn(lm, max_new_tokens: int = 8, batch_size: int = 8):
         return st.generate(
             lm, prompts, spec=None,
             max_new_tokens=max_new_tokens, batch_size=batch_size,
+            # Already templated above; st.generate must not wrap it again.
+            use_chat_template=False,
         )
 
     return generate_fn
