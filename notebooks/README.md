@@ -18,6 +18,21 @@ Three settings, and the study cannot run without any of them:
 Start with `Qwen/Qwen2.5-7B-Instruct`, which is ungated, so a licence problem
 cannot be confused with a pipeline problem on the first run.
 
+## Save Version runs every cell
+
+Kaggle's **Save Version** re-executes the notebook top to bottom under
+papermill. There is no interactive skipping, so any cell that can raise will
+eventually fail a run -- and the notebook is reported as failed even if every
+check before it passed. Optional steps must degrade to a printed note.
+
+That is what killed Version 1: an unguarded
+`UserSecretsClient().get_secret("HF_TOKEN")` for a Qwen run that needed no
+token. Use `hf_login_if_available()` from `run_kaggle.py` instead.
+
+Running the sweep *as* a Save Version batch job is the better workflow anyway:
+it runs headless for up to twelve hours and persists `/kaggle/working` when it
+finishes, instead of depending on a browser tab staying open.
+
 ## Persistence
 
 `/kaggle/working` is the only directory that survives, and only if you **Save
