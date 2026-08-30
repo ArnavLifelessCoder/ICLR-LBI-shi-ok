@@ -187,3 +187,73 @@ Expect roughly 0.10-0.18: the diagnostic used three coefficients, while the
 real grid has nine, and the small ones contribute little movement and drag the
 mean down. **Delete any stale `*sentiment.json` first** or `resume=True` will
 skip the concept and keep nb1's 0.000.
+
+---
+
+## 2026-08-30 -- nb3 analysed, three fixes. Control 0.033, still FAIL.
+
+**Result.** Control 0.033 (floor 0.10), ceiling `perplexity > 2.0x baseline at
+coeff -2`. Ran on pre-`8a24826` code, so the fixed judge was **not** in it --
+the result file has no `judge_model` key.
+
+The chat-template fix worked: the curve moves now.
+
+| coeff | behaviour | ppl | usable |
+| --- | --- | --- | --- |
+| -3.0 | 0.383 | 153.4 | no |
+| -2.0 | 0.517 | 506.2 | no |
+| -1.0 | 0.900 | 4.9 | yes |
+| 0.0 | 0.967 | 5.5 | yes |
+| 1.0 | 1.000 | 5.2 | yes |
+| 2.0 | 0.825 | 94.8 | no |
+| 3.0 | 0.625 | 69.2 | no |
+
+Baseline perplexity 5.46, threshold 10.9.
+
+**The perplexity gate is correct, not overtuned.** At -2 the sample reads
+`"...long gone by nowhenremembrighterlandsogenesisagowhenuttauf.Re"`. That is
+word salad. The 2.0x ratio was not touched and should not be.
+
+**A hypothesis that was wrong, recorded because it was acted on.** Before
+seeing the data I believed the ceiling was sign-asymmetric -- that negative
+steering broke while positive stayed clean -- and was ready to make
+`find_ceiling` per-sign. The curve says both signs break at |2| (506 and 95
+against 10.9). Per-sign ceilings would have changed nothing. The data was
+requested before the change; it should be.
+
+**Three real problems, all fixed in this pass.**
+
+1. *P2 was violated.* `train_probes` chose the layer by test AUROC and then
+   reported that same AUROC as readability. PLAN P2 says the layer is chosen on
+   a validation split disjoint from train and test, and **never** on test
+   AUROC. This is objection 2 in the ledger, and it was documented and
+   unimplemented -- the same failure class as P4, P6, P7 and P9. Now a
+   three-way family split: `default_splits` returns validation and test
+   families, selection happens on validation, readability is the test AUROC at
+   the selected layer.
+2. *Ties broke toward layer 0.* The probe reported `best_layer=1` of 28 at
+   AUROC 1.000. With several layers saturated, `max()` returns the earliest.
+   P4 then anchored the steering band there, giving layers 0-6 -- and an
+   intervention early enough to move behaviour drives perplexity from 5 to 506,
+   which is the cliff above. Ties now break toward the middle of the network.
+   nb2's diagnostic steered at layer 14 and produced readable text at ±3, same
+   model, same direction method.
+3. *The baseline was saturated.* The judge scored unsteered output at 0.967, so
+   positive steering had at most 0.033 of headroom by construction and the
+   whole measurement leaned on one direction. Caused by my own previous prompt
+   rewrite: asking a helpful assistant to "review" something gets a favourable
+   review. Prompts are now neutral descriptions.
+
+**Missing output, again.** `probe.summary()` dropped `per_layer`, so there was
+no way to tell whether layer 1 was a genuine peak or one of many ties. The
+per-layer AUROC curve is now persisted as `probe_layers`.
+
+**Third prompt change, recorded.** Same standard as last time: driven by an
+observable defect (baseline saturation visible in the curve, not in any
+controllability figure), applied to the concept uniformly. This is the last one
+-- freeze the prompt set after the next control run.
+
+**Next action.** Re-run the control as **nb4**, on `Qwen/Qwen2.5-7B-Instruct`,
+with `judge_lm=load_judge()`. Record `best_layer` and the `probe_layers` curve:
+if selection still lands early, the problem is the concept and not the
+tie-break.

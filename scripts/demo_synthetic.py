@@ -32,7 +32,7 @@ from lbi.concepts import (
 )
 from lbi.gapmap import GapPoint, build_gap_map, plot_dose_response, plot_gap_map
 from lbi.geometry import GeometryFeatures, fit_gap_predictor
-from lbi.probes import default_held_out, pair_texts, train_probes
+from lbi.probes import default_splits, pair_texts, train_probes
 
 # Concepts planted as readable-but-immovable. Everything else gets
 # controllability proportional to its readability plus noise.
@@ -120,8 +120,10 @@ def main() -> int:
             seed = args.seed + 1000 * mi + ci
             texts, labels = pair_texts(concept.pairs)
             families = [p.family for p in concept.pairs for _ in (0, 1)]
-            held = default_held_out(concept, seed=seed)
-            train_mask = np.array([f not in held for f in families])
+            val_fams, test_fams = default_splits(concept, seed=seed)
+            val_mask = np.array([f in val_fams for f in families])
+            test_mask = np.array([f in test_fams for f in families])
+            train_mask = ~(val_mask | test_mask)
 
             # Readability: everything is readable here; the study's question is
             # whether that readability buys control.
@@ -129,7 +131,8 @@ def main() -> int:
             acts, planted_layer = synthetic_acts(labels, strength, seed)
             probe = train_probes(
                 concept, acts, labels, train_mask, model,
-                seeds=(seed,), held_out_families=sorted(held),
+                seeds=(seed,), held_out_families=sorted(test_fams),
+                val_mask=val_mask,
             )
 
             immovable = concept.name in IMMOVABLE

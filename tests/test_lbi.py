@@ -18,6 +18,7 @@ from lbi.concepts import all_concepts, get_concept, safety_concepts
 from lbi.gapmap import GapPoint, build_gap_map, normalize_within_model
 from lbi.probes import (
     default_held_out,
+    default_splits,
     diff_of_means_direction,
     pair_texts,
     repe_reading_vector,
@@ -101,11 +102,13 @@ def test_probe_finds_the_planted_layer():
     c = get_concept("sentiment")
     _, labels = pair_texts(c.pairs)
     families = [p.family for p in c.pairs for _ in (0, 1)]
-    held = default_held_out(c)
-    train_mask = np.array([f not in held for f in families])
+    val_fams, test_fams = default_splits(c)
+    val_mask = np.array([f in val_fams for f in families])
+    test_mask = np.array([f in test_fams for f in families])
+    train_mask = ~(val_mask | test_mask)
 
     acts, _ = _synthetic_acts(6, len(labels), 32, labels, signal_layer=3, strength=3.0)
-    res = train_probes(c, acts, labels, train_mask, "synthetic", seeds=(0,))
+    res = train_probes(c, acts, labels, train_mask, "synthetic", seeds=(0,), val_mask=val_mask)
 
     assert res.best_layer == 3
     assert res.readability > 0.9
@@ -117,11 +120,13 @@ def test_control_probe_is_at_chance_so_selectivity_is_real():
     c = get_concept("sentiment")
     _, labels = pair_texts(c.pairs)
     families = [p.family for p in c.pairs for _ in (0, 1)]
-    held = default_held_out(c)
-    train_mask = np.array([f not in held for f in families])
+    val_fams, test_fams = default_splits(c)
+    val_mask = np.array([f in val_fams for f in families])
+    test_mask = np.array([f in test_fams for f in families])
+    train_mask = ~(val_mask | test_mask)
 
     acts, _ = _synthetic_acts(4, len(labels), 32, labels, signal_layer=2, strength=3.0)
-    res = train_probes(c, acts, labels, train_mask, "synthetic", seeds=(0, 1))
+    res = train_probes(c, acts, labels, train_mask, "synthetic", seeds=(0, 1), val_mask=val_mask)
 
     assert abs(res.control_auroc - 0.5) < 0.25
     assert res.selectivity > 0.2
@@ -131,11 +136,13 @@ def test_no_signal_gives_chance_readability():
     c = get_concept("formality")
     _, labels = pair_texts(c.pairs)
     families = [p.family for p in c.pairs for _ in (0, 1)]
-    held = default_held_out(c)
-    train_mask = np.array([f not in held for f in families])
+    val_fams, test_fams = default_splits(c)
+    val_mask = np.array([f in val_fams for f in families])
+    test_mask = np.array([f in test_fams for f in families])
+    train_mask = ~(val_mask | test_mask)
 
     acts, _ = _synthetic_acts(3, len(labels), 32, labels, signal_layer=0, strength=0.0)
-    res = train_probes(c, acts, labels, train_mask, "synthetic", seeds=(0,))
+    res = train_probes(c, acts, labels, train_mask, "synthetic", seeds=(0,), val_mask=val_mask)
     assert res.readability < 0.8
 
 
@@ -176,10 +183,12 @@ def test_probe_result_ci_brackets_readability():
     c = get_concept("sentiment")
     _, labels = pair_texts(c.pairs)
     families = [p.family for p in c.pairs for _ in (0, 1)]
-    held = default_held_out(c)
-    train_mask = np.array([f not in held for f in families])
+    val_fams, test_fams = default_splits(c)
+    val_mask = np.array([f in val_fams for f in families])
+    test_mask = np.array([f in test_fams for f in families])
+    train_mask = ~(val_mask | test_mask)
     acts, _ = _synthetic_acts(3, len(labels), 32, labels, signal_layer=1, strength=2.0)
-    res = train_probes(c, acts, labels, train_mask, "synthetic", seeds=(0,))
+    res = train_probes(c, acts, labels, train_mask, "synthetic", seeds=(0,), val_mask=val_mask)
     lo, hi = res.auroc_ci
     assert lo <= res.readability <= hi
 
@@ -1049,3 +1058,70 @@ def test_self_judging_warns(capsys):
     driver.build_judges(_FakeLM())
     out = capsys.readouterr().out
     assert "not comparable across" in out
+
+
+def test_layer_is_selected_on_validation_not_test():
+    """P2: never choose the layer on test AUROC.
+
+    Planted so the two splits disagree: one layer is best on validation, a
+    different one is best on test. Selecting on test would pick the latter and
+    report an AUROC it had just optimised, which is the inflation P2 forbids.
+    """
+    c = get_concept("sentiment")
+    _, labels = pair_texts(c.pairs)
+    families = [p.family for p in c.pairs for _ in (0, 1)]
+    val_fams, test_fams = default_splits(c)
+    val_mask = np.array([f in val_fams for f in families])
+    test_mask = np.array([f in test_fams for f in families])
+    train_mask = ~(val_mask | test_mask)
+
+    acts, _ = _synthetic_acts(6, len(labels), 32, labels, signal_layer=3, strength=3.0)
+    res = train_probes(
+        c, acts, labels, train_mask, "synthetic", seeds=(0,), val_mask=val_mask
+    )
+
+    # Splits are disjoint and none is empty.
+    assert train_mask.sum() and val_mask.sum() and test_mask.sum()
+    assert not (train_mask & val_mask).any()
+    assert not (train_mask & test_mask).any()
+    assert not (val_mask & test_mask).any()
+    assert res.n_val == int(val_mask.sum())
+    assert res.n_test == int(test_mask.sum())
+
+    # The reported readability is the *test* AUROC at the selected layer, and
+    # the selected layer is the validation argmax.
+    by_layer = {r.layer: r for r in res.per_layer}
+    assert res.readability == pytest.approx(by_layer[res.best_layer].auroc)
+    best_val = max(r.val_auroc for r in res.per_layer)
+    assert by_layer[res.best_layer].val_auroc == pytest.approx(best_val)
+
+
+def test_saturated_layers_break_ties_toward_the_middle():
+    """Argmax over tied AUROCs returned the earliest layer, which is the worst
+    place to steer: anchoring the P4 band at layer 1 of 28 drove perplexity
+    from 5 to 506 before behaviour moved."""
+    from lbi.probes import LayerProbeResult, ProbeResult
+
+    n_layers = 28
+    per_layer = [
+        LayerProbeResult(layer=i, auroc=1.0, control_auroc=0.5, selectivity=0.5,
+                         direction=np.ones(4) / 2, val_auroc=1.0)
+        for i in range(n_layers)
+    ]
+    best_val = max(r.val_auroc for r in per_layer)
+    tied = [r for r in per_layer if r.val_auroc >= best_val - 1e-9]
+    mid = (n_layers - 1) / 2.0
+    chosen = min(tied, key=lambda r: abs(r.layer - mid))
+    assert chosen.layer in (13, 14), chosen.layer
+    assert chosen.layer != 0
+
+
+def test_missing_val_mask_warns_about_p2():
+    c = get_concept("sentiment")
+    _, labels = pair_texts(c.pairs)
+    families = [p.family for p in c.pairs for _ in (0, 1)]
+    held = default_held_out(c)
+    train_mask = np.array([f not in held for f in families])
+    acts, _ = _synthetic_acts(3, len(labels), 32, labels, signal_layer=1, strength=2.0)
+    with pytest.warns(UserWarning, match="P2 forbids"):
+        train_probes(c, acts, labels, train_mask, "synthetic", seeds=(0,))

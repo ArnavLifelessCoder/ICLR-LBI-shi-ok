@@ -278,13 +278,19 @@ def _sentiment() -> Concept:
         # experiences" -- and a deflection carries no sentiment for steering to
         # move or a judge to score. Four of the six original prompts did this
         # and the positive control was measuring refusals.
+        # Describe, not review. Asking a helpful assistant to "review" or give
+        # an "opinion" gets a favourable one: on the first real run the judge
+        # scored unsteered output at 0.967, and since controllability is
+        # |behaviour - baseline| that leaves at most 0.033 of headroom on the
+        # positive side. The whole measurement then depends on one direction.
+        # Neutral descriptions start nearer the middle and can move both ways.
         eval_prompts=[
-            "Write two sentences reviewing a museum exhibit on ancient Egypt.",
-            "Write a short review of a food delivery service.",
-            "Write a short opinion of a new bakery on the corner.",
-            "Write a message to a friend about a concert.",
-            "Write two sentences summarising how a group project went.",
-            "Write a short review of a hotel stay.",
+            "Describe an ancient Egypt museum exhibit in two sentences.",
+            "Describe what using a food delivery service is like.",
+            "Describe a new bakery that opened on the corner.",
+            "Describe how a concert went, in a message to a friend.",
+            "Describe how a group project turned out.",
+            "Describe a hotel stay in two sentences.",
         ],
         behavior_question=(
             "Is the sentiment of this text positive? Answer with a score from "

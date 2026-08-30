@@ -34,7 +34,7 @@ from .extraction import LoadedModel, capture_cached
 from .gapmap import GapPoint, build_gap_map
 from .probes import (
     ProbeResult,
-    default_held_out,
+    default_splits,
     diff_of_means_direction,
     pair_texts,
     repe_reading_vector,
@@ -120,16 +120,22 @@ def run_probing(
     lm: LoadedModel, concept: Concept, cache_dir: str, seeds: tuple[int, ...] = (0, 1, 2)
 ) -> tuple[ProbeResult, np.ndarray, np.ndarray, list[str]]:
     """Experiment 1 for one concept. Returns (result, acts, labels, families)."""
-    held_out = default_held_out(concept)
+    # P2: three-way split by family. The layer is chosen on validation and
+    # readability is reported on test, which are different families and both
+    # disjoint from training.
+    val_fams, test_fams = default_splits(concept)
     texts, labels = pair_texts(concept.pairs)
     # Families repeat per pair member, so expand alongside the flattened texts.
     families = [p.family for p in concept.pairs for _ in (0, 1)]
-    train_mask = np.array([f not in held_out for f in families])
+    val_mask = np.array([f in val_fams for f in families])
+    test_mask = np.array([f in test_fams for f in families])
+    train_mask = ~(val_mask | test_mask)
 
     acts = capture_cached(lm, texts, cache_dir=cache_dir, tag=f"{concept.name}_pairs")
     result = train_probes(
         concept, acts, labels, train_mask, lm.name,
-        seeds=seeds, held_out_families=sorted(held_out),
+        seeds=seeds, held_out_families=sorted(test_fams),
+        val_mask=val_mask,
     )
     return result, acts, labels, families
 
@@ -418,6 +424,8 @@ def run_model(
             os.path.join(out_dir, f"{_slug(lm.name)}_{concept.name}.json"),
             {
                 "probe": probe.summary(),
+                # Layer-by-layer AUROCs, so the layer choice is auditable.
+                "probe_layers": probe.per_layer_curve(),
                 "steering": steer.summary(),
                 # `samples` and `repetition` are persisted because without them
                 # a failed run cannot be diagnosed from its own output. The
