@@ -24,7 +24,7 @@ Session-by-session detail is in [notebooks/RUNLOG.md](notebooks/RUNLOG.md).
 
 ## Phase A gate: surface-shortcut audit (real, CPU-only)
 
-This one **is** a real result — it needs no model. Leave-one-family-out,
+This one **is** a real result -- it needs no model. Leave-one-family-out,
 two-sided `max(auroc, 1 - auroc)`, mean over folds.
 
 | Concept | Mean | Worst fold | Verdict |
@@ -66,7 +66,7 @@ failure into a pass.
   detected exactly `['honesty', 'refusal']`.
 - Gap map over 20 points: Spearman rho = 0.087 [-0.403, 0.508].
 - Danger zone: 4 points, all reported as *unsteerable under tested
-  interventions* — the demo does not run the gauntlet, so none is entitled to
+  interventions* -- the demo does not run the gauntlet, so none is entitled to
   "immovable".
 - Primary test (H1, output_overlap): partial rho = 0.525 [-0.127, 0.863] over
   10 concepts → "suggestive but not strong".
@@ -78,12 +78,12 @@ These numbers are properties of the planted generator, not of anything.
 
 ## Real runs
 
-### Qwen/Qwen2.5-7B-Instruct — 2026-08-29, Kaggle T4, 4-bit — CONTROL FAILED
+### Qwen/Qwen2.5-7B-Instruct -- 2026-08-29, Kaggle T4, 4-bit -- CONTROL FAILED
 
 | | |
 | --- | --- |
 | Control (sentiment) controllability | **0.000** (floor 0.10) |
-| P9 verdict | **FAIL** — model withheld |
+| P9 verdict | **FAIL** -- model withheld |
 | Fluency ceiling | no breakage in swept range |
 | Judge parse-failure rate | 0.0% |
 | Commit | `685d8d6` |
@@ -98,7 +98,7 @@ equalled baseline at *every* coefficient. With a 0.0% parse-failure rate the
 leading hypothesis is a judge returning one constant parseable number; the
 second is that `st.generate` was feeding raw instructions to an instruct model
 with no chat template, so the scored text was not the behaviour the concept is
-about. Both are now fixed and neither is confirmed as the cause — see
+about. Both are now fixed and neither is confirmed as the cause -- see
 [notebooks/RUNLOG.md](notebooks/RUNLOG.md).
 
 This is the positive control working as designed. It caught a broken harness
@@ -106,7 +106,7 @@ before nine more concepts were generated on top of it.
 
 **Diagnosed 2026-08-29 (nb2).** The cause was the missing chat template, not
 steering. With it applied, the same model at layer 14 gives judge means of 0.30
-/ 0.75 / 1.00 at coefficients -3 / 0 / +3 — an implied controllability of 0.175
+/ 0.75 / 1.00 at coefficients -3 / 0 / +3 -- an implied controllability of 0.175
 against the 0.10 floor. Steering was never broken. Re-run pending.
 
 Each entry, once there is one, records: model, control controllability and

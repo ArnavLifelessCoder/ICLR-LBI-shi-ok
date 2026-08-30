@@ -29,7 +29,7 @@ Two version notes, both learned the hard way:
 
 * **NumPy 2 is fine, but torch must match it.** `np.trapz` was removed in NumPy
   2.0 (the code uses `np.trapezoid` with a fallback, so either works). A torch
-  built against NumPy 1.x, however, cannot convert tensors to arrays at all —
+  built against NumPy 1.x, however, cannot convert tensors to arrays at all --
   `.numpy()` raises `RuntimeError: Numpy is not available`, and
   `capture_activations` dies on its first batch. If you are on NumPy 2, use
   torch 2.4.1 or newer.
@@ -71,7 +71,7 @@ reported alongside it. A concept passes only if that mean is below 0.65, or
 falls at least 0.15 below the activation probe's AUROC. Concepts that fail are
 rebuilt, not reported.
 
-The statistic is **two-sided** — `max(auroc, 1 - auroc)` per fold. A classifier
+The statistic is **two-sided** -- `max(auroc, 1 - auroc)` per fold. A classifier
 that ranks a held-out family perfectly *backwards* has still found a lexical
 contrast; only its polarity failed to transfer. Scored one-sided, two concepts
 in the original set read AUROC 0.00 and 0.01 and were recorded as the cleanest
@@ -84,7 +84,7 @@ which is the floor rather than a good number, and the reason is worth stating
 plainly in the methods section rather than letting a reviewer find it:
 
 Concepts are built so that each family's positive/negative contrast is carried
-by vocabulary that appears **nowhere else in the concept** — not in another
+by vocabulary that appears **nowhere else in the concept** -- not in another
 family's markers, not in another family's carrier, not in the topic strings.
 Two builder-enforced invariants pin this (`check_marker_disjointness`,
 `check_marker_length_match`), so a TF-IDF model trained on five families has no
@@ -105,7 +105,7 @@ vocabulary route is closed.
 ### The two declared exceptions
 
 `verbosity` and `topic_science` set `surface_confounded=True` and **fail** the
-audit. The flag does not convert a failure into a pass — `passed` stays False,
+audit. The flag does not convert a failure into a pass -- `passed` stays False,
 and `test_declared_confounded_concepts_still_fail_rather_than_being_excused`
 pins that. It records that the failure was predicted in advance:
 
@@ -128,10 +128,10 @@ asserted without the gauntlet.
 
 A concept that lands in the danger zone has cleared two raw thresholds with
 CI exclusion (P6) under the default difference-of-means sweep. That is not
-enough. `pipeline.confirm_immovable` then runs six interventions — single-layer
+enough. `pipeline.confirm_immovable` then runs six interventions -- single-layer
 addition, multi-layer addition, clamping and directional ablation on the
 difference-of-means direction, plus single-layer addition on the probe-weight
-and RepE reading-vector directions — and only a concept that resists all six
+and RepE reading-vector directions -- and only a concept that resists all six
 earns the stronger word.
 
 That distinction is structural, not editorial. `GapPoint.gauntlet_passed`
@@ -144,7 +144,7 @@ sets separately:
 ```
 
 `gauntlet_passed=None` means the gauntlet never ran, which is deliberately not
-the same as failing it — it runs only on concepts the default intervention
+the same as failing it -- it runs only on concepts the default intervention
 already failed to move, so most points legitimately carry `None`.
 
 Even a confirmed pass is bounded by those six interventions. It is evidence
@@ -197,10 +197,10 @@ what to trim if the budget does not fit.
 The study derives concept directions three independent ways, so a reviewer
 cannot dismiss a null as "you used the wrong direction":
 
-1. **Difference-of-means** — the standard, robust choice (also exactly CAA).
-2. **Probe weights** — the logistic regression weight vector, projected back to
+1. **Difference-of-means** -- the standard, robust choice (also exactly CAA).
+2. **Probe weights** -- the logistic regression weight vector, projected back to
    raw activation space.
-3. **RepE reading vector** — the first principal component of paired activation
+3. **RepE reading vector** -- the first principal component of paired activation
    differences (Zou et al.), computed from cached activations at zero extra cost.
 
 ## What the code enforces that is easy to get wrong
@@ -228,7 +228,7 @@ bound at or above 0.9 *and* the controllability CI's upper bound at or below
 comparison; it is not the preregistered one.
 
 **The gap-map correlation CI clusters by concept (P7).** The unit of
-generalization is the concept, not the concept-model pair — ten concepts across
+generalization is the concept, not the concept-model pair -- ten concepts across
 five models is ten observations, not fifty. On a synthetic set with eight
 concepts replicated five times, the i.i.d. bootstrap returns [0.34, 0.82] and
 the cluster bootstrap [-0.12, 0.93]. The first excludes zero and the second
@@ -246,12 +246,12 @@ sentiment first and warns immediately, then writes `<model>_control.json`;
 `aggregate` reads those records back and drops every point from a model whose
 control fell below the floor. This has to be enforced rather than noted,
 because a model where steering is broken produces low controllability on
-*every* concept — so a broken harness lands the whole model in the danger zone
+*every* concept -- so a broken harness lands the whole model in the danger zone
 and looks exactly like the paper's headline finding.
 
 **The preregistered primary test needs the raw axes, not the gap.** H1 is a
 partial Spearman of output overlap against controllability *controlling for
-readability*, so `fit_gap_predictor` cannot compute it from the gap alone —
+readability*, so `fit_gap_predictor` cannot compute it from the gap alone --
 pass `controllabilities=` and `readabilities=`. Without them it returns a
 `primary` report whose verdict says `primary test NOT RUN` rather than
 substituting the ridge fit's R². The cluster bootstrap (P7) and the

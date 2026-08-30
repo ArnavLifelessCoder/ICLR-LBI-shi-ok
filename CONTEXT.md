@@ -1,6 +1,6 @@
 # Context
 
-Start here. This is the orientation document for anyone — or any session —
+Start here. This is the orientation document for anyone -- or any session --
 picking the project up cold.
 
 ## What the study asks
@@ -26,7 +26,7 @@ should be expected rather than merely hoped for.
 | Real model runs | One attempted (Qwen2.5-7B, 2026-08-29). **Positive control failed**, numbers withheld under P9 |
 | Judges | Panel wired (LLM + lexicon + human sheet); `ClassifierScorer.model_map` deliberately empty |
 | Concept set | 10 built, 8 clear the surface audit, 2 declared surface-confounded |
-| Target | ICLR 2027 — abstract **Sep 18 2026**, paper **Sep 25 2026** |
+| Target | ICLR 2027 -- abstract **Sep 18 2026**, paper **Sep 25 2026** |
 
 The next action is always in [notebooks/RUNLOG.md](notebooks/RUNLOG.md). Read it
 before proposing a run; append to it after one.
@@ -42,7 +42,7 @@ before proposing a run; append to it after one.
 
 `PLAN.md` Part 2 carries an implementation-status table mapping each
 preregistered point to the code enforcing it and the test pinning it. **A blank
-enforcement cell is an unkept promise, not a detail** — four points (P4, P6, P7,
+enforcement cell is an unkept promise, not a detail** -- four points (P4, P6, P7,
 P9) were once documented and silently unimplemented.
 
 ## Constraints that shape every decision

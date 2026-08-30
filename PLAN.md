@@ -56,7 +56,7 @@ Their worst question: *"This is a characterization of models under 10B parameter
 
 Freeze this before the first real model run. Commit it to the repo with a timestamp so the freeze is verifiable. Everything decided here is a researcher degree of freedom that a reviewer would otherwise be right to suspect.
 
-**Implementation status (2026-08-24).** A preregistration is only worth the code that enforces it. An audit of the codebase against this block found P4, P6, P7 and P9 documented here and *not implemented* — the plan was right and the code silently disagreed, which is the one failure mode a design review cannot catch. All four are now live and pinned by tests. The table below is the map from each point to the thing that enforces it; keep it current, and treat a blank enforcement cell as an unkept promise rather than a detail.
+**Implementation status (2026-08-24).** A preregistration is only worth the code that enforces it. An audit of the codebase against this block found P4, P6, P7 and P9 documented here and *not implemented* -- the plan was right and the code silently disagreed, which is the one failure mode a design review cannot catch. All four are now live and pinned by tests. The table below is the map from each point to the thing that enforces it; keep it current, and treat a blank enforcement cell as an unkept promise rather than a detail.
 
 | Point | Enforced by | Test |
 |---|---|---|

@@ -9,7 +9,7 @@ Format: date, environment, commands, results, what broke, next action.
 
 ---
 
-## 2026-08-27 — Kaggle, T4 x2, Version 1
+## 2026-08-27 -- Kaggle, T4 x2, Version 1
 
 **Environment.** Kaggle "Latest Container Image", Python 3.12, GPU T4 x2
 (2 x Tesla T4, 15360 MiB each). Internet on. Repo cloned at commit `787655f`.
@@ -33,11 +33,11 @@ Format: date, environment, commands, results, what broke, next action.
 | `pytest tests/ -q` | **125 passed** in 62.53 s |
 | `demo_synthetic.py` | **ALL CHECKS PASSED**, ground truth recovered |
 | `preflight()` | 8/10 PASS, `topic_science` and `verbosity` FAIL* as declared |
-| HF login cell | **FAILED** — see below |
+| HF login cell | **FAILED** -- see below |
 
 Demo detail worth keeping: the danger-zone line now reads *"unsteerable under
 tested interventions (4 not yet through the gauntlet)"* rather than
-"readable-but-immovable". That is the R21 terminology change working — the
+"readable-but-immovable". That is the R21 terminology change working -- the
 synthetic demo never runs the gauntlet, so nothing is entitled to the stronger
 word. Primary test on synthetic data: partial rho = 0.525 [-0.127, 0.863].
 
@@ -56,7 +56,7 @@ the Qwen run" is not a thing that can happen in a committed notebook: any cell
 that can raise will eventually kill a run. The cell now degrades to a printed
 note when the secret is absent.
 
-Nothing was lost — the failure came after the CPU checks and before any model
+Nothing was lost -- the failure came after the CPU checks and before any model
 download, so no GPU time was spent.
 
 **Next action.** Re-run with the guarded login cell, then cell 5
@@ -70,7 +70,7 @@ so far is synthetic and validates plumbing only.
 
 ---
 
-## 2026-08-29 — Kaggle, T4 x2, nb1 — FIRST REAL MODEL. Control FAILED.
+## 2026-08-29 -- Kaggle, T4 x2, nb1 -- FIRST REAL MODEL. Control FAILED.
 
 **Environment.** Same image. Repo at `685d8d6`. No `HF_TOKEN` secret; the
 guarded login printed its note and continued, as intended.
@@ -85,7 +85,7 @@ guarded login printed its note and continued, as intended.
 | `pytest tests/ -q` | 125 passed, 58 s |
 | `demo_synthetic.py` | ALL CHECKS PASSED |
 | `preflight()` | 8/10, two declared |
-| `hf_login_if_available()` | printed note, continued — fix from Version 1 works |
+| `hf_login_if_available()` | printed note, continued -- fix from Version 1 works |
 | model load | 28 layers, d_model 3584, cuda, ~110 s |
 | **`stage1_control`** | **controllability = 0.000, FAIL (floor 0.10)** |
 
@@ -97,7 +97,7 @@ judge parse-failure rate: 0.0%
 
 **Reading the failure.** Exactly 0.000, with all nine coefficients usable and a
 span of 6.0 RMS units, means `dose_response_auc` integrated a curve where the
-behaviour score equalled the baseline at *every* coefficient. Not small — zero.
+behaviour score equalled the baseline at *every* coefficient. Not small -- zero.
 Combined with a 0.0% parse-failure rate, the most likely cause is a judge that
 returns the same parseable number every time. A constant judge produces a
 perfectly flat curve, and a perfectly flat curve is exactly what the danger zone
@@ -105,8 +105,8 @@ is defined by.
 
 Second candidate, independent of the first: `st.generate` was feeding raw
 instruction text to an instruct model with no chat template applied. That is
-base-model prompting — the model continues the instruction instead of following
-it — so the text being scored was not the behaviour the concept is about.
+base-model prompting -- the model continues the instruction instead of following
+it -- so the text being scored was not the behaviour the concept is about.
 
 **Output that was missing.** The result file could not distinguish these. It
 recorded `coeff`, `behavior`, `perplexity`, `broken` and dropped the
@@ -127,7 +127,7 @@ corrected.
 2. Per-coefficient `samples`, `repetition` and behaviour CI are written to the
    result JSON.
 3. `run_steering` warns when a judge returns one distinct value across an
-   entire sweep — the failure the parse-guard cannot see.
+   entire sweep -- the failure the parse-guard cannot see.
 4. `lbi.driver.diagnose_steering` prints raw generations and raw judge replies
    at three coefficients, about two minutes instead of a 20-minute re-run.
 
@@ -137,7 +137,7 @@ garbage text, or a constant judge.
 
 ---
 
-## 2026-08-29 — Kaggle, nb2 — DIAGNOSTIC. Steering works. Root cause found.
+## 2026-08-29 -- Kaggle, nb2 -- DIAGNOSTIC. Steering works. Root cause found.
 
 **Command.** `diagnose_steering(lm)` on Qwen2.5-7B, repo at `49412e2`, layer 14,
 single-layer add, 2 prompts, coeffs -3 / 0 / +3. ~3.5 min total.
@@ -152,7 +152,7 @@ tracks it.
 | +3.0 | 1.00 | "was delighted to share the news with you! It was an honor" |
 
 Implied controllability from these three points: **0.175**, against a floor of
-0.10. Judge replies were `'0.6'`, `'0'`, `'1'`, `'0.5'`, `'1'`, `'1'` — varying,
+0.10. Judge replies were `'0.6'`, `'0'`, `'1'`, `'0.5'`, `'1'`, `'1'` -- varying,
 not constant, so the constant-judge hypothesis is **rejected**.
 
 **Root cause of nb1: the missing chat template.** nb1 fed raw instructions to
@@ -175,8 +175,8 @@ was never broken.
    meaningless rather than merely weak. Lists widened.
 
 **On changing prompts after a failed control.** Recorded deliberately. The
-change is a fix to an observable instrument defect — the model declining to
-answer — and not a search for prompts that produce a better number; no
+change is a fix to an observable instrument defect -- the model declining to
+answer -- and not a search for prompts that produce a better number; no
 controllability figure was consulted in choosing the replacements, the same
 rule was applied to every concept rather than to the control alone, and this
 entry exists so the change cannot be quietly absorbed. The prompt set should be

@@ -45,7 +45,7 @@ session so `--aggregate-only` can see every model at once.
 ## The two GPUs
 
 A 7-9B model in 4-bit needs about 6 GB, so it fits on one T4 and `load_model`
-pins device 0. The second card is spare capacity rather than a requirement — it
+pins device 0. The second card is spare capacity rather than a requirement -- it
 is not needed to fit anything in this study, so do not spend time sharding.
 
 ## Budget
