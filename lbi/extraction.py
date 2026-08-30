@@ -63,16 +63,27 @@ def load_model(
     load_in_4bit: bool = True,
     device: str | None = None,
     dtype: str = "float16",
+    device_index: int = 0,
 ) -> LoadedModel:
-    """Load a model for inference. 4-bit by default so 7-9B fits a T4."""
+    """Load a model for inference. 4-bit by default so 7-9B fits a T4.
+
+    `device_index` picks the GPU. It exists so the fixed judge can sit on a
+    second card while the model under study occupies the first: a 7-9B in 4-bit
+    needs about 6 GB and a 1.5B judge about 3 GB, so both fit two T4s
+    comfortably and the judge never competes with the study for memory.
+    """
     import torch
+
     from transformers import AutoModelForCausalLM, AutoTokenizer
 
-    device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+    if device is None:
+        device = (
+            f"cuda:{device_index}" if torch.cuda.is_available() else "cpu"
+        )
     torch_dtype = getattr(torch, dtype)
 
     kwargs = {"torch_dtype": torch_dtype}
-    if load_in_4bit and device == "cuda":
+    if load_in_4bit and device.startswith("cuda"):
         from transformers import BitsAndBytesConfig
 
         kwargs["quantization_config"] = BitsAndBytesConfig(
@@ -81,7 +92,7 @@ def load_model(
             bnb_4bit_quant_type="nf4",
             bnb_4bit_use_double_quant=True,
         )
-        kwargs["device_map"] = {"": 0}
+        kwargs["device_map"] = {"": device_index}
     else:
         kwargs["device_map"] = None
 

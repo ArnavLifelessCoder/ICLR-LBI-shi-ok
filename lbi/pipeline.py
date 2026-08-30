@@ -436,6 +436,14 @@ def run_model(
                 ],
                 "geometry": features.to_dict(),
                 "gauntlet": gauntlet,
+                # Which judge produced the behaviour numbers. Recorded per
+                # concept so a dataset accidentally scored by two different
+                # judges is detectable afterwards instead of assumed away --
+                # raw controllability is what danger-zone membership is
+                # decided on, and it is only comparable across models when the
+                # judge is held fixed.
+                "judge_model": getattr(scorer, "judge_model_name", None),
+                "judge_is_self": getattr(scorer, "judge_is_self", None),
             },
         )
 
@@ -455,6 +463,8 @@ def run_model(
                 "controllability": ctrl_value,
                 "floor": CONTROL_FLOOR,
                 "passed": bool(ctrl_value >= CONTROL_FLOOR),
+                "judge_model": getattr(scorer, "judge_model_name", None),
+                "judge_is_self": getattr(scorer, "judge_is_self", None),
                 "note": (
                     "P9: if this did not pass, the model's controllability "
                     "numbers are withheld, not explained away."

@@ -41,22 +41,69 @@ def preflight(verbose: bool = True) -> bool:
     return not undeclared
 
 
-def build_judges(lm, max_unparsed_fraction: float = 0.2) -> bh.PanelScorer:
+JUDGE_MODEL = "Qwen/Qwen2.5-1.5B-Instruct"
+
+
+def load_judge(name: str = JUDGE_MODEL, device_index: int = 1):
+    """Load the fixed behaviour judge, by default onto the second GPU.
+
+    The judge must be the *same model for every model under study*. Letting each
+    studied model score its own outputs makes the measuring instrument change
+    with the condition, and controllability is then not comparable across
+    models. That matters here more than it usually would: within-model
+    normalisation protects the correlation and Figure 1, but danger-zone
+    membership is decided on **raw** controllability by design (P6, R10), so a
+    stricter judge on one model can put a concept in the danger zone for a
+    reason that has nothing to do with steering.
+
+    Small and fp16 rather than 4-bit: the judge emits a single number, quality
+    matters more than size, and quantisation noise in the instrument is the last
+    thing this study needs.
+    """
+    from .extraction import load_model
+
+    return load_model(
+        name, load_in_4bit=False, dtype="float16", device_index=device_index
+    )
+
+
+def build_judges(
+    lm, judge_lm=None, max_unparsed_fraction: float = 0.2
+) -> bh.PanelScorer:
     """The judge panel. Never run the study on LexiconScorer alone.
 
     Two independent judges with reported agreement is a design-doc requirement
-    and the lexicon scorer is a development instrument. The LLM judge reuses the
-    model already in memory, so it costs generation time and no extra download.
+    and the lexicon scorer is a development instrument.
+
+    Pass `judge_lm` from `load_judge()`. Omitting it falls back to the studied
+    model judging itself, which is fine for a smoke test and not fine for
+    anything reported -- see `load_judge` for why -- so it warns.
     """
+    if judge_lm is None:
+        print(
+            "WARNING: no fixed judge supplied, so the model under study is "
+            "scoring its own outputs. The judge then changes with the "
+            "condition and raw controllability is not comparable across "
+            "models, which is what danger-zone membership is decided on. "
+            "Use load_judge() before reporting anything."
+        )
+        judge_lm = lm
+
     llm = bh.LLMJudgeScorer(
-        generate_fn=bh.make_local_generate_fn(lm),
+        generate_fn=bh.make_local_generate_fn(judge_lm),
         behavior_questions={c.name: c.behavior_question for c in all_concepts()},
         max_unparsed_fraction=max_unparsed_fraction,
     )
-    return bh.PanelScorer({"llm": llm, "lexicon": bh.LexiconScorer()}, primary="llm")
+    panel = bh.PanelScorer({"llm": llm, "lexicon": bh.LexiconScorer()}, primary="llm")
+    # Recorded so every result file says which judge produced its numbers, and
+    # a mixed-judge dataset is detectable after the fact rather than assumed
+    # away.
+    panel.judge_model_name = judge_lm.name
+    panel.judge_is_self = judge_lm is lm
+    return panel
 
 
-def stage1_control(lm, out_dir: str, cache_dir: str) -> bool:
+def stage1_control(lm, out_dir: str, cache_dir: str, judge_lm=None) -> bool:
     """Run only the positive control. The go/no-go for this model.
 
     A model where sentiment will not steer scores low controllability on every
@@ -64,7 +111,7 @@ def stage1_control(lm, out_dir: str, cache_dir: str) -> bool:
     like the paper's finding. `aggregate` withholds it (P9), but there is no
     point generating the data in the first place.
     """
-    panel = build_judges(lm)
+    panel = build_judges(lm, judge_lm=judge_lm)
     runs = run_model(
         lm, panel, out_dir=out_dir, cache_dir=cache_dir,
         concepts=[get_concept(POSITIVE_CONTROL)],
@@ -73,7 +120,9 @@ def stage1_control(lm, out_dir: str, cache_dir: str) -> bool:
     passed = value >= CONTROL_FLOOR
     ceiling_reason = runs[0].steering.ceiling_reason
 
-    print(f"\ncontrol controllability = {value:.3f} (floor {CONTROL_FLOOR})")
+    print(f"\njudge: {panel.judge_model_name}"
+          f"{' (SELF -- not reportable)' if panel.judge_is_self else ' (fixed)'}")
+    print(f"control controllability = {value:.3f} (floor {CONTROL_FLOOR})")
     print(f"fluency ceiling: {ceiling_reason}")
     print(f"judge parse-failure rate: {panel.judges['llm'].failure_rate():.1%}")
     if passed:
@@ -90,9 +139,10 @@ def stage1_control(lm, out_dir: str, cache_dir: str) -> bool:
     return passed
 
 
-def stage2_full(lm, out_dir: str, cache_dir: str, label_sample: int = 100):
+def stage2_full(lm, out_dir: str, cache_dir: str, judge_lm=None,
+                label_sample: int = 100):
     """All concepts for one model, then the agreement report and label sheet."""
-    panel = build_judges(lm)
+    panel = build_judges(lm, judge_lm=judge_lm)
     runs = run_model(lm, panel, out_dir=out_dir, cache_dir=cache_dir)
 
     for r in runs:

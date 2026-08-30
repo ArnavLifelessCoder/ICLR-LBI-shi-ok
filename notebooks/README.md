@@ -42,11 +42,29 @@ Per-concept results are small JSON. At the end of each model's session, Save
 Version, then attach that notebook's output as an input dataset to the next
 session so `--aggregate-only` can see every model at once.
 
-## The two GPUs
+## The two GPUs: study on 0, fixed judge on 1
 
-A 7-9B model in 4-bit needs about 6 GB, so it fits on one T4 and `load_model`
-pins device 0. The second card is spare capacity rather than a requirement -- it
-is not needed to fit anything in this study, so do not spend time sharding.
+A 7-9B in 4-bit needs about 6 GB and fits one T4, so the second card is not
+needed to hold the model under study. It holds the **judge** instead, and that
+is not an optimisation -- it is a correctness requirement.
+
+The judge must be the same model for every model under study. If each studied
+model scores its own outputs, the measuring instrument changes with the
+condition. Within-model normalisation protects the correlation and Figure 1,
+but danger-zone membership is decided on **raw** controllability by design
+(P6, R10), so a stricter judge on one model can put a concept in the danger
+zone for a reason that has nothing to do with steering.
+
+```python
+from lbi.driver import load_judge, stage1_control, stage2_full
+judge = load_judge()                     # Qwen2.5-1.5B-Instruct, fp16, cuda:1
+ok = stage1_control(lm, OUT_DIR, CACHE_DIR, judge_lm=judge)
+```
+
+Omitting `judge_lm` falls back to self-judging and prints a warning. That is
+fine for a smoke test and not fine for anything reported. Every result file
+records `judge_model` and `judge_is_self`, so a dataset accidentally scored by
+two different judges is detectable afterwards rather than assumed away.
 
 ## Budget
 

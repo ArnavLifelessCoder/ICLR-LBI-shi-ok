@@ -1009,3 +1009,43 @@ def test_preflight_fails_on_an_undeclared_shortcut(monkeypatch):
 
     monkeypatch.setattr(driver, "audit_all_concepts", fake_audit)
     assert driver.preflight(verbose=False) is False
+
+
+def test_build_judges_records_which_model_judged():
+    """Raw controllability is only comparable across models with a fixed judge.
+
+    Danger-zone membership is decided on raw values (P6, R10), so a stricter
+    judge on one model can put a concept in the danger zone for a reason that
+    has nothing to do with steering. Every result file therefore records the
+    judge, and a self-judged run is flagged rather than silently mixed in.
+    """
+    from lbi import driver
+
+    class _FakeLM:
+        name = "studied/model"
+        tokenizer = type("T", (), {"chat_template": None})()
+
+    class _FakeJudge:
+        name = "judge/model"
+        tokenizer = type("T", (), {"chat_template": None})()
+
+    studied = _FakeLM()
+    panel = driver.build_judges(studied, judge_lm=_FakeJudge())
+    assert panel.judge_model_name == "judge/model"
+    assert panel.judge_is_self is False
+
+    self_panel = driver.build_judges(studied)
+    assert self_panel.judge_model_name == "studied/model"
+    assert self_panel.judge_is_self is True
+
+
+def test_self_judging_warns(capsys):
+    from lbi import driver
+
+    class _FakeLM:
+        name = "studied/model"
+        tokenizer = type("T", (), {"chat_template": None})()
+
+    driver.build_judges(_FakeLM())
+    out = capsys.readouterr().out
+    assert "not comparable across" in out
