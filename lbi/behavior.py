@@ -38,11 +38,22 @@ class Scorer(Protocol):
 # scorer, not the headline judge. Keep it interpretable so disagreement with
 # the classifier is diagnosable.
 _LEXICONS: dict[str, tuple[list[str], list[str]]] = {
+    # Widened after the first real generations: the model wrote "impressive",
+    # "delighted" and "intricate", none of which were listed, so the scorer
+    # returned its no-hit neutral 0.5 on five of six outputs and contributed
+    # nothing as a second judge. A judge pinned at 0.5 makes the reported
+    # agreement meaningless rather than merely weak.
     "sentiment": (
         ["great", "excellent", "loved", "wonderful", "enjoyed", "recommend",
-         "delightful", "fantastic", "pleased", "worth"],
+         "delightful", "fantastic", "pleased", "worth", "impressive",
+         "delighted", "superb", "outstanding", "lovely", "charming",
+         "brilliant", "enjoyable", "stunning", "beautiful", "favourite",
+         "favorite", "gem", "highlight", "friendly", "welcoming"],
         ["terrible", "awful", "hated", "poor", "disappointing", "avoid",
-         "dreadful", "waste", "regret", "bad"],
+         "dreadful", "waste", "regret", "bad", "mediocre", "bland",
+         "overpriced", "rude", "filthy", "unpleasant", "lacklustre",
+         "lackluster", "forgettable", "subpar", "stale", "cramped",
+         "underwhelming", "grim"],
     ),
     "formality": (
         ["furthermore", "regarding", "kindly", "sincerely", "request",

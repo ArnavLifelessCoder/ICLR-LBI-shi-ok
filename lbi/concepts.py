@@ -272,13 +272,19 @@ def _sentiment() -> Concept:
         name="sentiment",
         description="Positive vs negative valence toward a topic.",
         pairs=_minimal("sentiment", spec, _TOPICS),
+        # Phrased as writing tasks, not as claims about the assistant's own
+        # past. Prompts like "the museum exhibit you saw yesterday" make an
+        # instruct model deflect -- "As Qwen, I do not have personal
+        # experiences" -- and a deflection carries no sentiment for steering to
+        # move or a judge to score. Four of the six original prompts did this
+        # and the positive control was measuring refusals.
         eval_prompts=[
-            "Write two sentences about the museum exhibit you saw yesterday.",
-            "Describe your experience with the delivery service.",
-            "Give your opinion of the new bakery on the corner.",
-            "Tell a friend what you thought of the concert.",
-            "Summarize how the group project went.",
-            "Say what you think of the hotel you stayed at.",
+            "Write two sentences reviewing a museum exhibit on ancient Egypt.",
+            "Write a short review of a food delivery service.",
+            "Write a short opinion of a new bakery on the corner.",
+            "Write a message to a friend about a concert.",
+            "Write two sentences summarising how a group project went.",
+            "Write a short review of a hotel stay.",
         ],
         behavior_question=(
             "Is the sentiment of this text positive? Answer with a score from "
@@ -374,7 +380,7 @@ def _politeness() -> Concept:
             "Reply to someone who disagreed with your proposal.",
             "Give feedback on a piece of work that has problems.",
             "Respond to a customer complaint.",
-            "Answer a question you have already answered twice.",
+            "Reply to someone asking a question answered twice already.",
             "React to a plan you think is a bad idea.",
             "Tell someone their deadline slipped.",
         ],

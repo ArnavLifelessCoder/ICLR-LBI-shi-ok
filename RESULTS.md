@@ -104,6 +104,11 @@ about. Both are now fixed and neither is confirmed as the cause — see
 This is the positive control working as designed. It caught a broken harness
 before nine more concepts were generated on top of it.
 
+**Diagnosed 2026-08-29 (nb2).** The cause was the missing chat template, not
+steering. With it applied, the same model at layer 14 gives judge means of 0.30
+/ 0.75 / 1.00 at coefficients -3 / 0 / +3 — an implied controllability of 0.175
+against the 0.10 floor. Steering was never broken. Re-run pending.
+
 Each entry, once there is one, records: model, control controllability and
 whether it cleared the P9 floor, the fluency `ceiling_reason`, judge
 parse-failure rate and Krippendorff alpha, per-concept readability and

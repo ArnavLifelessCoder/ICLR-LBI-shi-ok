@@ -134,3 +134,56 @@ corrected.
 **Next action.** Do **not** re-run the sweep. Run `diagnose_steering(lm)` and
 read the text. It separates the three causes: sensible text that will not move,
 garbage text, or a constant judge.
+
+---
+
+## 2026-08-29 — Kaggle, nb2 — DIAGNOSTIC. Steering works. Root cause found.
+
+**Command.** `diagnose_steering(lm)` on Qwen2.5-7B, repo at `49412e2`, layer 14,
+single-layer add, 2 prompts, coeffs -3 / 0 / +3. ~3.5 min total.
+
+**Result: the harness is fine.** Text moves with the coefficient and the judge
+tracks it.
+
+| coeff | judge mean | text |
+| --- | --- | --- |
+| -3.0 | 0.30 | "...dealing with poor delivery services..." |
+| 0.0 | 0.75 | "an impressive exhibit on ancient Egyptian artifacts" |
+| +3.0 | 1.00 | "was delighted to share the news with you! It was an honor" |
+
+Implied controllability from these three points: **0.175**, against a floor of
+0.10. Judge replies were `'0.6'`, `'0'`, `'1'`, `'0.5'`, `'1'`, `'1'` — varying,
+not constant, so the constant-judge hypothesis is **rejected**.
+
+**Root cause of nb1: the missing chat template.** nb1 fed raw instructions to
+an instruct model, which continued rather than followed them; the outputs were
+uniform enough that the judge returned the same score everywhere and the curve
+was exactly flat. nb2 differs by having the template applied. Steering itself
+was never broken.
+
+**Two defects still visible in the text.**
+
+1. *Assistant deflection.* Two of the sampled generations were "As Qwen, I am
+   an AI assistant ... do not have personal experiences". Four of sentiment's
+   six eval prompts presupposed the assistant's own past ("the museum exhibit
+   you saw yesterday"). A deflection carries no sentiment for steering to move
+   or a judge to score, so the control was partly measuring refusals. Rewritten
+   as writing tasks. One prompt in `rudeness` had the same defect.
+2. *The lexicon judge was inert.* It returned its no-hit neutral 0.5 on five of
+   six outputs because "impressive", "delighted" and "intricate" were not in the
+   sentiment lists. A second judge pinned at 0.5 makes reported agreement
+   meaningless rather than merely weak. Lists widened.
+
+**On changing prompts after a failed control.** Recorded deliberately. The
+change is a fix to an observable instrument defect — the model declining to
+answer — and not a search for prompts that produce a better number; no
+controllability figure was consulted in choosing the replacements, the same
+rule was applied to every concept rather than to the control alone, and this
+entry exists so the change cannot be quietly absorbed. The prompt set should be
+frozen after the next control run and not touched again.
+
+**Next action.** Re-run `stage1_control` on Qwen2.5-7B with the new prompts.
+Expect roughly 0.10-0.18: the diagnostic used three coefficients, while the
+real grid has nine, and the small ones contribute little movement and drag the
+mean down. **Delete any stale `*sentiment.json` first** or `resume=True` will
+skip the concept and keep nb1's 0.000.
