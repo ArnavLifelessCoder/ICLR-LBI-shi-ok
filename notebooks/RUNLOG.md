@@ -257,3 +257,103 @@ controllability figure), applied to the concept uniformly. This is the last one
 with `judge_lm=load_judge()`. Record `best_layer` and the `probe_layers` curve:
 if selection still lands early, the problem is the concept and not the
 tie-break.
+
+---
+
+## 2026-08-30 -- nb4 -- KILLED AT 12h. Zero output. Private repo.
+
+**Cost.** 43200 s of GPU quota, exit code 137, 0 B of output. Nothing was run.
+
+```
+43209.5s  Timeout waiting for execute reply (43200s).
+43209.5s  Username for 'https://github.com': ^C
+43209.7s  [Errno 2] No such file or directory: '/kaggle/working/lbi-repo'
+```
+
+**Cause.** `ICLR-LBI-shi-ok` was created **private**. Cloning a private repo
+over HTTPS without credentials prompts for a username. Under papermill nothing
+can answer the prompt, so the cell did not fail -- it blocked until Kaggle's
+twelve-hour ceiling. Every earlier notebook cloned the old repo, which is
+public, which is why this appeared only after the move.
+
+Confirmed: `ICLR-LBI-shi-ok` returns HTTP 404 unauthenticated,
+`legible-but-immovable` returns 200.
+
+**Fixes.** Repo goes public. And cell 1 now sets `GIT_TERMINAL_PROMPT=0` so git
+exits with an error in seconds instead of waiting for input that cannot arrive.
+The flag is the seatbelt; public is the fix. A step that can block on stdin has
+no place in a batch notebook, which is the same lesson as the unguarded
+`get_secret` in Version 1 -- and this time it cost twelve hours rather than two
+minutes.
+
+**Budget.** Roughly 12 h of a ~30 h weekly quota is gone for nothing. The
+seven-model plan needs ~25 h. Until the quota resets, prioritise: one control
+per model beats one full sweep.
+
+**Next action.** Make the repo public, then re-run the nb4 control cells
+unchanged. The three fixes from `c7b2ddc` are still untested against a real
+model.
+
+---
+
+## 2026-09-01 -- Kaggle, nb4 -- CONTROL PASSES. First reportable numbers.
+
+**Environment.** Repo at `c7b2ddc`, made public first (nb4's predecessor died
+on a private-repo clone prompt). Qwen2.5-7B-Instruct 4-bit on cuda:0, judge
+Qwen2.5-1.5B-Instruct fp16 on cuda:1. Control alone: **11.8 min**, faster than
+nb3's 21.7 because breakage no longer forces the widest sweeps.
+
+```
+judge: Qwen/Qwen2.5-1.5B-Instruct (fixed)
+control controllability = 0.309 (floor 0.1)
+fluency ceiling: perplexity > 2.0x baseline at coeff 3
+judge parse-failure rate: 0.0%
+PASS -- steering works on this model, run the sweep.
+```
+
+**All three fixes from `c7b2ddc` did what they were meant to.**
+
+| | nb3 | nb4 |
+| --- | --- | --- |
+| `best_layer` | 1 | **13** |
+| `baseline_behavior` | 0.967 | **0.825** |
+| controllability | 0.033 | **0.309** |
+| judge | self | fixed, recorded |
+
+The layer curve settles the tie-break question: **25 of 28 layers sit at
+validation AUROC 1.000**. Argmax really was returning the earliest of a mass of
+ties, and layer 1 was never a peak.
+
+**Honest caveat that belongs in Methods.** Because validation AUROC saturates
+across almost the whole network, it does not discriminate between layers. The
+preregistered tie-break -- nearest the middle -- is what actually selects layer
+13, not validation performance. That is a defensible prior and it must be
+stated as a prior rather than presented as a data-driven choice. Layer 3 is the
+cautionary case: validation AUROC 1.000, test AUROC 0.188.
+
+**Dose-response is strongly asymmetric.** Baseline 0.825 leaves little room
+upward; the signal is almost entirely on the negative side (0.825 -> 0.083 at
+coeff -2). Worth a sentence in the paper: the control demonstrates steering
+works, and it does so mainly in one direction.
+
+**A new bug the passing curve exposed.** `find_ceiling` walked by `|coeff|`
+against one scalar and `mark_broken` thresholded on `|coeff|`, so the point
+that *breached* the gate could still be counted. Here -3.0 had perplexity 9.59
+(under the 12.96 threshold) and set `max_usable = 3.0`; +3.0 then measured
+14.57, breached, stopped the walk -- and `|3.0| > 3.0` is false, so it went into
+the AUC anyway. Replaced by `mark_broken_by_fluency`, which marks each point on
+its own perplexity and repetition and then closes over each sign separately.
+`bootstrap_curve_ci` now takes the exact usable coefficient set rather than a
+magnitude, so the interval and the point estimate cannot describe different
+sets.
+
+Recomputed on nb4's own curve: **0.309 -> 0.338**. It rises, because dropping
++3.0 shrinks the coefficient span more than it removes area. The control passes
+either way, which is worth stating: the fix was not outcome-motivated and did
+not change the verdict.
+
+**Next action.** Re-run the control once on `c7b2ddc`+ceiling-fix to get a
+number produced by the corrected code, then the full ten-concept sweep on this
+model (~3.6 h). Budget note: roughly 12 h of the weekly quota was lost to the
+private-repo hang, so prefer one control per model over one full sweep until it
+resets.

@@ -1125,3 +1125,58 @@ def test_missing_val_mask_warns_about_p2():
     acts, _ = _synthetic_acts(3, len(labels), 32, labels, signal_layer=1, strength=2.0)
     with pytest.warns(UserWarning, match="P2 forbids"):
         train_probes(c, acts, labels, train_mask, "synthetic", seeds=(0,))
+
+
+def test_a_point_that_breaches_the_gate_is_marked_broken():
+    """The breaching point must not be counted as usable.
+
+    find_ceiling walked by |coeff| against one scalar, so on the first passing
+    control -3.0 (ppl 9.59, under the 12.96 threshold) set max_usable = 3.0,
+    and +3.0 (ppl 14.57) then breached, stopped the walk, and was still counted
+    because |3.0| > 3.0 is false. Real numbers from that run.
+    """
+    ppls = {-3.0: 9.59, -2.0: 7.69, -1.0: 6.18, -0.5: 6.32, 0.0: 6.48,
+            0.5: 6.20, 1.0: 5.72, 2.0: 6.19, 3.0: 14.57}
+    curve = [
+        st.DosePoint(coeff=c, behavior=0.5, behavior_ci=(0.4, 0.6),
+                     perplexity=p, repetition=0.0, broken=False)
+        for c, p in sorted(ppls.items())
+    ]
+    usable, reason = st.mark_broken_by_fluency(curve, baseline_ppl=6.48)
+
+    broken = {p.coeff for p in curve if p.broken}
+    assert broken == {3.0}, broken
+    assert usable == 3.0          # -3.0 is genuinely usable
+    assert "coeff 3" in reason
+
+    # The old magnitude rule marked nothing, letting the breach into the AUC.
+    st.mark_broken(curve, usable)
+    assert not any(p.broken for p in curve)
+
+
+def test_breakage_closes_over_its_own_sign_only():
+    """Once fluency goes on one side, everything further out on that side is
+    out -- but the other side keeps its own ceiling. Steering is not symmetric."""
+    ppls = {-3.0: 500.0, -2.0: 300.0, -1.0: 6.0, 0.0: 6.0,
+            1.0: 6.0, 2.0: 6.0, 3.0: 6.5}
+    curve = [
+        st.DosePoint(coeff=c, behavior=0.5, behavior_ci=(0.4, 0.6),
+                     perplexity=p, repetition=0.0, broken=False)
+        for c, p in sorted(ppls.items())
+    ]
+    usable, _ = st.mark_broken_by_fluency(curve, baseline_ppl=6.0)
+    broken = {p.coeff for p in curve if p.broken}
+    assert broken == {-2.0, -3.0}, broken
+    assert usable == 3.0, "the clean positive side keeps its own ceiling"
+
+
+def test_repetition_can_trigger_the_ceiling_too():
+    curve = [
+        st.DosePoint(coeff=c, behavior=0.5, behavior_ci=(0.4, 0.6),
+                     perplexity=6.0, repetition=0.9 if c == 2.0 else 0.0,
+                     broken=False)
+        for c in (-2.0, -1.0, 0.0, 1.0, 2.0)
+    ]
+    usable, reason = st.mark_broken_by_fluency(curve, baseline_ppl=6.0)
+    assert {p.coeff for p in curve if p.broken} == {2.0}
+    assert "repetition" in reason and usable == 2.0

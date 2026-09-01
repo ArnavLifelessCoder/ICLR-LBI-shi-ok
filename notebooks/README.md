@@ -18,6 +18,23 @@ Three settings, and the study cannot run without any of them:
 Start with `Qwen/Qwen2.5-7B-Instruct`, which is ungated, so a licence problem
 cannot be confused with a pipeline problem on the first run.
 
+## Clone must never be able to prompt
+
+Cell 1 has to set `GIT_TERMINAL_PROMPT=0`:
+
+```bash
+!GIT_TERMINAL_PROMPT=0 git clone -q https://github.com/ArnavLifelessCoder/ICLR-LBI-shi-ok.git /kaggle/working/lbi-repo || echo "CLONE FAILED -- is the repo public?"
+```
+
+Without it, cloning a **private** repo over HTTPS prints
+`Username for 'https://github.com':` and waits. Under papermill nothing can
+answer, so the notebook does not fail -- it hangs until Kaggle's twelve-hour
+limit kills it with exit code 137. That happened on 2026-08-30 and cost 12 hours
+of weekly GPU quota to produce zero bytes of output.
+
+With the flag, git exits immediately with a real error and the cell fails in
+seconds. Keep the repo public; the flag is the seatbelt, not the fix.
+
 ## Save Version runs every cell
 
 Kaggle's **Save Version** re-executes the notebook top to bottom under

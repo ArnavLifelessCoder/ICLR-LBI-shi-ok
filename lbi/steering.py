@@ -306,8 +306,58 @@ def find_ceiling(
 
 
 def mark_broken(curve: list[DosePoint], max_usable: float) -> None:
+    """Mark by magnitude. Prefer `mark_broken_by_fluency` -- see its docstring."""
     for p in curve:
         p.broken = abs(p.coeff) > max_usable
+
+
+def mark_broken_by_fluency(
+    curve: list[DosePoint],
+    baseline_ppl: float,
+    ppl_ratio: float = 2.0,
+    repetition_max: float = 0.5,
+) -> tuple[float, str]:
+    """Mark each point broken on its own fluency, then close over each sign.
+
+    `find_ceiling` + `mark_broken` decided breakage by |coeff| against a single
+    scalar, and that lets a point that breached the gate be counted as usable.
+    On the first passing control, -3.0 had perplexity 9.59 (under the 12.96
+    threshold) so it set max_usable = 3.0; +3.0 then measured 14.57, breached,
+    and stopped the walk -- but `|coeff| > 3.0` marked nothing broken, so the
+    breaching point went into the dose-response AUC anyway.
+
+    Marking per point fixes that. The per-sign closure keeps the ceiling
+    meaning what it says: once fluency has gone on one side, everything further
+    out on that side is out, even if its own perplexity happens to read lower.
+    Steering is not symmetric, so the two sides get their own ceilings.
+
+    Returns (largest usable |coeff|, reason) for reporting.
+    """
+    threshold = ppl_ratio * baseline_ppl
+    for p in curve:
+        p.broken = bool(p.perplexity > threshold or p.repetition > repetition_max)
+
+    for sign in (1, -1):
+        side = sorted(
+            (p for p in curve if p.coeff * sign > 0), key=lambda q: abs(q.coeff)
+        )
+        seen_break = False
+        for p in side:
+            if seen_break:
+                p.broken = True
+            elif p.broken:
+                seen_break = True
+
+    usable = max((abs(p.coeff) for p in curve if not p.broken), default=0.0)
+    broken = [p for p in curve if p.broken]
+    if not broken:
+        return usable, "no breakage in swept range"
+    first = min(broken, key=lambda q: abs(q.coeff))
+    if first.repetition > repetition_max:
+        reason = f"degenerate repetition at coeff {first.coeff:g}"
+    else:
+        reason = f"perplexity > {ppl_ratio}x baseline at coeff {first.coeff:g}"
+    return usable, reason
 
 
 def bootstrap_curve_ci(
@@ -316,14 +366,17 @@ def bootstrap_curve_ci(
     n_boot: int = 500,
     seed: int = 0,
     max_usable: float | None = None,
+    usable_coeffs: "set[float] | list[float] | None" = None,
 ) -> tuple[float, float]:
     """CI on controllability by resampling prompts (revision R8).
 
     `per_prompt_scores` maps coefficient -> per-prompt behavior scores; every
     coefficient must cover the same prompts in the same order.
 
-    `max_usable` is the fluency ceiling from `find_ceiling`; coefficients past
-    it are dropped, exactly as `dose_response_auc` drops points marked broken.
+    `usable_coeffs` is the exact set of unbroken coefficients and is what to
+    pass: breakage is decided per point and per sign, so "everything with
+    |coeff| below some scalar" is not the same set. `max_usable` is the older
+    magnitude form, kept for callers that only have the scalar.
     Passing it is strongly preferred over pre-filtering at the call site: the
     point estimate and its interval have to be the same estimand, and when they
     were not, a curve that is flat below the ceiling and jumps above it reported
@@ -331,7 +384,12 @@ def bootstrap_curve_ci(
     times the estimate, excluding it, and built entirely out of the degenerate
     text the ceiling exists to discard.
     """
-    if max_usable is not None:
+    if usable_coeffs is not None:
+        keep = {round(float(c), 6) for c in usable_coeffs}
+        per_prompt_scores = {
+            c: v for c, v in per_prompt_scores.items() if round(float(c), 6) in keep
+        }
+    elif max_usable is not None:
         per_prompt_scores = {
             c: v for c, v in per_prompt_scores.items() if abs(c) <= max_usable
         }

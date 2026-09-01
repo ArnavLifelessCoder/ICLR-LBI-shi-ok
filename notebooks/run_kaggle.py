@@ -10,7 +10,12 @@ Optional steps must degrade to a printed note instead of an exception --
 `hf_login_if_available` below is the reason Version 1 failed.
 """
 
-REPO = "https://github.com/ArnavLifelessCoder/legible-but-immovable.git"
+# Keep this repository PUBLIC, and always clone with GIT_TERMINAL_PROMPT=0.
+# Cloning a private repo over HTTPS prompts for a username; under papermill
+# nothing can answer and the notebook hangs until Kaggle's 12-hour limit kills
+# it, producing no output and burning the weekly GPU quota.
+REPO = "https://github.com/ArnavLifelessCoder/ICLR-LBI-shi-ok.git"
+CLONE = f"GIT_TERMINAL_PROMPT=0 git clone -q {REPO}"
 WORK = "/kaggle/working"
 REPO_DIR = f"{WORK}/lbi-repo"
 OUT_DIR = f"{WORK}/results"

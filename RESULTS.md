@@ -1,7 +1,8 @@
 # Results
 
-**One real run attempted; its positive control failed, so it yields no
-reportable numbers. Everything else below is synthetic.**
+**The positive control passes on Qwen2.5-7B (0.309 vs floor 0.10, fixed
+judge). That is the first reportable number in the study. Everything else below
+is still synthetic -- no concept other than the control has been measured.**
 
 That sentence stays at the top until a real run lands. The synthetic figures
 exist to prove the plumbing recovers a planted answer; they are not evidence
@@ -109,7 +110,31 @@ steering. With it applied, the same model at layer 14 gives judge means of 0.30
 / 0.75 / 1.00 at coefficients -3 / 0 / +3 -- an implied controllability of 0.175
 against the 0.10 floor. Steering was never broken. Re-run pending.
 
-Each entry, once there is one, records: model, control controllability and
+### Qwen/Qwen2.5-7B-Instruct -- 2026-09-01, Kaggle T4, 4-bit -- CONTROL PASSED
+
+| | |
+| --- | --- |
+| Control (sentiment) controllability | **0.309** (floor 0.10), corrected 0.338 |
+| P9 verdict | **PASS** |
+| Judge | `Qwen/Qwen2.5-1.5B-Instruct`, fixed, `judge_is_self=false` |
+| Judge parse-failure rate | 0.0% |
+| Probe best layer | 13 of 28 (validation-selected, mid-network tie-break) |
+| Readability (test split) | 1.000, selectivity 0.508 |
+| Baseline behaviour | 0.825 |
+| Fluency ceiling | perplexity > 2.0x baseline at coeff +3 |
+| Splits (train/val/test) | 128 / 32 / 32 |
+| Commit | `c7b2ddc` |
+| Wall clock | 11.8 min |
+
+Steering works on this model. The dissociation question is now answerable, and
+the other nine concepts are unmeasured.
+
+Two caveats carried into Methods: validation AUROC saturates on 25 of 28
+layers, so the mid-network tie-break rather than validation performance selects
+the layer; and the dose-response is strongly one-sided, with baseline 0.825
+leaving most of the movement on the negative side.
+
+Each entry records: model, control controllability and
 whether it cleared the P9 floor, the fluency `ceiling_reason`, judge
 parse-failure rate and Krippendorff alpha, per-concept readability and
 controllability, gauntlet verdicts, and the commit the run was made from.

@@ -214,10 +214,12 @@ def run_steering(
             f"file before believing this number."
         )
 
-    max_usable, reason = st.find_ceiling(curve, baseline_ppl)
-    st.mark_broken(curve, max_usable)
+    max_usable, reason = st.mark_broken_by_fluency(curve, baseline_ppl)
     controllability = st.dose_response_auc(curve, baseline)
-    ci = st.bootstrap_curve_ci(per_prompt, baseline, max_usable=max_usable)
+    ci = st.bootstrap_curve_ci(
+        per_prompt, baseline,
+        usable_coeffs=[p.coeff for p in curve if not p.broken],
+    )
 
     return st.SteeringResult(
         concept=concept.name,
