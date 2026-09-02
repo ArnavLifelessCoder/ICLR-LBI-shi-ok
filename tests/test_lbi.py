@@ -1260,3 +1260,19 @@ def test_degenerate_judge_point_is_dropped_from_the_gap_map(tmp_path, capsys):
     assert "DROPPED: rudeness@m" in printed
     gm = _json.load(open(os.path.join(out, "gap_map.json"), encoding="utf-8"))
     assert "rudeness" not in {p["concept"] for p in gm["points"]}
+
+
+def test_driver_stages_do_not_hardcode_a_judge_key():
+    """Renaming the primary judge must not crash a 12-minute run on a print.
+
+    build_judges switched its primary from 'llm' to 'logit' and two print
+    statements still said panel.judges['llm'], so nb5 completed the control at
+    0.215 and then died with KeyError on the line that reports it.
+    """
+    import inspect
+
+    from lbi import driver
+
+    src = inspect.getsource(driver)
+    assert "judges['llm']" not in src and 'judges["llm"]' not in src
+    assert "panel.judges[panel.primary]" in src

@@ -128,7 +128,10 @@ def stage1_control(lm, out_dir: str, cache_dir: str, judge_lm=None) -> bool:
           f"{' (SELF -- not reportable)' if panel.judge_is_self else ' (fixed)'}")
     print(f"control controllability = {value:.3f} (floor {CONTROL_FLOOR})")
     print(f"fluency ceiling: {ceiling_reason}")
-    print(f"judge parse-failure rate: {panel.judges['llm'].failure_rate():.1%}")
+    _primary = panel.judges[panel.primary]
+    # The logit judge has nothing to parse, so it has no failure rate.
+    if hasattr(_primary, "failure_rate"):
+        print(f"judge parse-failure rate: {_primary.failure_rate():.1%}")
     if passed:
         print("PASS -- steering works on this model, run the sweep.")
     else:
@@ -162,7 +165,10 @@ def stage2_full(lm, out_dir: str, cache_dir: str, judge_lm=None,
     agreement = panel.agreement()
     print(f"\njudge agreement: alpha={agreement['krippendorff_alpha']:.3f} "
           f"over {agreement['n_items']} items")
-    print(f"judge parse-failure rate: {panel.judges['llm'].failure_rate():.1%}")
+    _primary = panel.judges[panel.primary]
+    # The logit judge has nothing to parse, so it has no failure rate.
+    if hasattr(_primary, "failure_rate"):
+        print(f"judge parse-failure rate: {_primary.failure_rate():.1%}")
 
     samples = [
         (r.probe.concept, s)
