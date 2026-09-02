@@ -54,6 +54,16 @@ class ProbeResult:
     n_test: int
     n_val: int = 0
 
+    # P3: "A concept whose control probe exceeds 0.6 AUROC is flagged in the
+    # table." The shuffled-label control is supposed to sit near chance; when
+    # it does not, readability at that layer is largely whatever the control is
+    # picking up, and the concept cannot be reported as cleanly readable.
+    CONTROL_FLAG_THRESHOLD: "float" = 0.6
+
+    @property
+    def control_flagged(self) -> bool:
+        return self.control_auroc > self.CONTROL_FLAG_THRESHOLD
+
     def layer_curve(self) -> list[float]:
         return [r.auroc for r in self.per_layer]
 
@@ -89,6 +99,7 @@ class ProbeResult:
             "n_train": self.n_train,
             "n_test": self.n_test,
             "n_val": self.n_val,
+            "control_flagged": self.control_flagged,
         }
 
 
@@ -188,6 +199,7 @@ def train_probes(
     C: float = 1.0,
     held_out_families: list[str] | None = None,
     val_mask: np.ndarray | None = None,
+    control_seeds: int = 12,
 ) -> ProbeResult:
     """Fit per-layer probes.
 
@@ -246,10 +258,16 @@ def train_probes(
             dirs.append(w)
             test_score_sets.append(test_scores)
 
-            rng = np.random.default_rng(seed + 9973)
+        # The control is averaged over more shuffles than the probe uses seeds.
+        # One shuffled fit is very noisy in this regime: on isotropic noise of
+        # the same shape a single control AUROC has sd 0.107, and three-seed
+        # averaging only brings that to 0.059 -- wide enough to swamp the
+        # selectivity it is subtracted from.
+        for k in range(control_seeds):
+            rng = np.random.default_rng(9973 + k)
             y_shuf = rng.permutation(y_train)
             ctrl_auroc, _, _ = _fit_one_layer(
-                X_train, y_shuf, X_test, y_test, seed, C
+                X_train, y_shuf, X_test, y_test, k, C
             )
             control_aurocs.append(ctrl_auroc)
 

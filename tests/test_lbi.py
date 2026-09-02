@@ -1310,3 +1310,59 @@ def test_h1_verdict_flags_a_result_with_the_wrong_sign():
     src = inspect.getsource(geometry.primary_test)
     assert "wrong_sign" in src
     assert "OPPOSITE" in src
+
+
+def test_control_probe_flag_is_implemented():
+    """P3: a control probe above 0.6 AUROC must be flagged.
+
+    On the first full sweep three concepts exceeded it -- sycophancy 0.900,
+    honesty 0.701, certainty 0.617 -- and nothing flagged them, so readability
+    for those concepts was reported as if the shuffled-label baseline were at
+    chance when it was not.
+    """
+    from lbi.probes import ProbeResult
+
+    def _mk(control):
+        return ProbeResult(
+            concept="c", model="m", best_layer=1, readability=1.0,
+            control_auroc=control, selectivity=1.0 - control,
+            auroc_ci=(1.0, 1.0), per_layer=[], held_out_families=[],
+            n_train=10, n_test=4,
+        )
+
+    assert _mk(0.900).control_flagged is True
+    assert _mk(0.617).control_flagged is True
+    assert _mk(0.492).control_flagged is False
+    assert "control_flagged" in _mk(0.9).summary()
+
+
+def test_selectivity_axis_is_opt_in_and_leaves_the_primary_alone():
+    """Swapping the x-axis after seeing the result would not be honest.
+
+    AUROC saturated at 1.000 on seven of ten concepts (sd 0.061) so the
+    preregistered axis cannot correlate with anything; selectivity spans
+    0.100-0.750 (sd 0.181) on the same data. Both get reported, and the
+    preregistered one stays the default.
+    """
+    pts = [
+        _point_ci(f"c{i}", "m", 1.0, 0.1 * i, (1.0, 1.0), (0.1 * i, 0.1 * i))
+        for i in range(1, 6)
+    ]
+    for i, p in enumerate(pts):
+        p.selectivity = 0.1 * (5 - i)  # spread where readability has none
+
+    default = build_gap_map(pts, require_ci_exclusion=False)
+    assert np.isnan(default.spearman), "constant x cannot produce a correlation"
+
+    secondary = build_gap_map(
+        [
+            _point_ci(p.concept, "m", 1.0, p.controllability,
+                      (1.0, 1.0), (p.controllability, p.controllability))
+            for p in pts
+        ],
+        require_ci_exclusion=False,
+    )
+    assert np.isnan(secondary.spearman)
+
+    with pytest.raises(ValueError, match="x_axis must be"):
+        build_gap_map(pts, x_axis="nonsense")

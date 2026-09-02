@@ -203,6 +203,7 @@ def build_gap_map(
     controllability_threshold: float = 0.05,
     normalize: bool = True,
     require_ci_exclusion: bool = True,
+    x_axis: str = "readability",
 ) -> GapMap:
     """Assemble the map, locate the danger zone, and interpret the correlation.
 
@@ -216,13 +217,32 @@ def build_gap_map(
     R10 caught with normalization, one step milder. `require_ci_exclusion=False`
     reproduces the point-estimate-only rule for comparison; it is not the
     preregistered one.
+
+    `x_axis="selectivity"` is a **declared secondary** view, never the primary
+    one. The preregistered x is readability (held-out AUROC) and it stays that
+    way. But on the first full sweep AUROC saturated -- seven of ten concepts at
+    exactly 1.000, sd 0.061 -- and a near-constant axis cannot correlate with
+    anything, which is why the headline Spearman came back 0.231 with a CI of
+    [-0.592, 0.897]. Selectivity (AUROC minus the shuffled-label control) spans
+    0.100 to 0.750 on the same data, sd 0.181. Reporting both is honest;
+    swapping the axis after seeing the result would not be, so this is opt-in
+    and the caller has to ask for it.
     """
+    if x_axis not in ("readability", "selectivity"):
+        raise ValueError(
+            f"x_axis must be readability or selectivity, got {x_axis!r}"
+        )
     from scipy.stats import pearsonr, spearmanr
 
     if len(points) < 3:
         raise ValueError(f"need at least 3 points for a gap map, got {len(points)}")
 
     pts = list(points)
+    if x_axis == "selectivity":
+        # Secondary view: swap the x values and leave everything else identical,
+        # so the two analyses differ in exactly one thing.
+        for p in pts:
+            p.readability = p.selectivity
     if normalize:
         normalize_within_model(pts)
         x = np.array([p.norm_readability for p in pts], dtype=float)
