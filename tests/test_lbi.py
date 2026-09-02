@@ -1180,3 +1180,83 @@ def test_repetition_can_trigger_the_ceiling_too():
     usable, reason = st.mark_broken_by_fluency(curve, baseline_ppl=6.0)
     assert {p.coeff for p in curve if p.broken} == {2.0}
     assert "repetition" in reason and usable == 2.0
+
+
+def test_logit_judge_needs_no_parsing_and_is_continuous():
+    """A judge read from logits cannot emit '2+2=4' and cannot collapse to 0/1.
+
+    Generation-based scoring failed three ways on the first full sweep: the
+    1.5B judge answered the text instead of scoring it, returned a constant 0.0
+    for all 54 generations of two concepts, and could only ever emit 0 or 1.
+    """
+    torch = pytest.importorskip("torch")
+
+    class _Tok:
+        chat_template = None
+        pad_token_id = 0
+
+        def encode(self, s, add_special_tokens=False):
+            return {"Yes": [10], " Yes": [10], "yes": [11], " yes": [11],
+                    "YES": [12], " YES": [12],
+                    "No": [20], " No": [20], "no": [21], " no": [21],
+                    "NO": [22], " NO": [22]}.get(s, [99])
+
+        def __call__(self, batch, **kw):
+            n = len(batch)
+            return type("E", (), {
+                "to": lambda self_, dev: {
+                    "input_ids": torch.zeros(n, 3, dtype=torch.long),
+                    "attention_mask": torch.ones(n, 3, dtype=torch.long),
+                }
+            })()
+
+    class _Model:
+        def __call__(self, input_ids=None, attention_mask=None, position_ids=None):
+            n = input_ids.shape[0]
+            logits = torch.full((n, 3, 100), -20.0)
+            # First item leans Yes, second leans No, third is on the fence.
+            for i, (y, no) in enumerate([(5.0, 0.0), (0.0, 5.0), (1.0, 1.0)][:n]):
+                logits[i, -1, 10] = y
+                logits[i, -1, 20] = no
+            return type("O", (), {"logits": logits})()
+
+    class _LM:
+        tokenizer = _Tok()
+        model = _Model()
+        device = "cpu"
+
+    judge = bh.LogitJudgeScorer(_LM(), {"sentiment": "Is it positive? Score 0 to 1."})
+    scores = judge.score(["a", "b", "c"], "sentiment")
+
+    assert scores[0] > 0.9 and scores[1] < 0.1
+    assert 0.4 < scores[2] < 0.6, "a genuine tie must land mid-scale, not snap to 0 or 1"
+    assert len(set(scores)) == 3, "continuous scores, not a collapsed constant"
+
+
+def test_degenerate_judge_point_is_dropped_from_the_gap_map(tmp_path, capsys):
+    """A single-score sweep gives controllability exactly 0.000, and 0.000 is
+    what the danger zone selects for. It must never reach the map."""
+    import json as _json
+    import sys as _sys
+    _sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(
+        os.path.abspath(__file__))), "scripts"))
+    from run_experiment import aggregate
+    from tests.test_aggregate import _write_run, _write_control  # noqa
+
+    out = str(tmp_path)
+    for c in all_concepts():
+        _write_run(out, c.name, "m", 0.97, 0.4, 0.6)
+    _write_control(out, "m", 0.5)
+
+    # Mark one concept's sweep as judge-degenerate.
+    path = os.path.join(out, "m_rudeness.json")
+    rec = _json.load(open(path, encoding="utf-8"))
+    rec["steering"]["judge_degenerate"] = True
+    rec["steering"]["controllability"] = 0.0
+    _json.dump(rec, open(path, "w", encoding="utf-8"))
+
+    assert aggregate(out) == 0
+    printed = capsys.readouterr().out
+    assert "DROPPED: rudeness@m" in printed
+    gm = _json.load(open(os.path.join(out, "gap_map.json"), encoding="utf-8"))
+    assert "rudeness" not in {p["concept"] for p in gm["points"]}

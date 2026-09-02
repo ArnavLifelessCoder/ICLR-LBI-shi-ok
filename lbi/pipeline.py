@@ -205,7 +205,8 @@ def run_steering(
     # LLMJudgeScorer does not catch this: the output is readable, it is just
     # constant. Flag it here, where the whole sweep is visible.
     all_scores = [s for scores in per_prompt.values() for s in scores]
-    if all_scores and len(set(all_scores)) == 1:
+    judge_degenerate = bool(all_scores) and len(set(all_scores)) == 1
+    if judge_degenerate:
         print(
             f"WARNING [{concept.name}]: the judge returned {all_scores[0]} for "
             f"all {len(all_scores)} generations across every coefficient. "
@@ -233,6 +234,7 @@ def run_steering(
         baseline_behavior=baseline,
         max_usable_coeff=max_usable,
         ceiling_reason=reason,
+        judge_degenerate=judge_degenerate,
     )
 
 

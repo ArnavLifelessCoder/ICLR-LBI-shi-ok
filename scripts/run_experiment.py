@@ -57,12 +57,22 @@ def aggregate(out_dir: str) -> int:
             withheld[status.model] = status.controllability
 
     n_withheld = 0
+    n_degenerate = 0
     for path in paths:
         with open(path, encoding="utf-8") as f:
             rec = json.load(f)
         probe, steer, geom = rec["probe"], rec["steering"], rec["geometry"]
         if probe["model"] in withheld:
             n_withheld += 1
+            continue
+        if steer.get("judge_degenerate"):
+            # The judge returned one score for the entire sweep, so
+            # controllability is exactly 0.000 for a reason that has nothing to
+            # do with steering -- and 0.000 is precisely what the danger zone
+            # selects for. Dropping it is not optional.
+            n_degenerate += 1
+            print(f"DROPPED: {probe['concept']}@{probe['model']} -- the judge "
+                  f"returned a single score across the whole sweep")
             continue
         points.append(
             GapPoint(

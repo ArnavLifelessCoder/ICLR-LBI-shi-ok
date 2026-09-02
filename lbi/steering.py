@@ -243,6 +243,10 @@ class SteeringResult:
     baseline_behavior: float
     max_usable_coeff: float
     ceiling_reason: str
+    # True when the judge returned one distinct score across the whole sweep.
+    # Controllability is then exactly 0.000 for a reason unrelated to steering,
+    # and the point must not be allowed into the danger zone.
+    judge_degenerate: bool = False
 
     def summary(self) -> dict:
         return {
@@ -257,6 +261,7 @@ class SteeringResult:
             "baseline_behavior": self.baseline_behavior,
             "max_usable_coeff": self.max_usable_coeff,
             "ceiling_reason": self.ceiling_reason,
+            "judge_degenerate": self.judge_degenerate,
         }
 
 

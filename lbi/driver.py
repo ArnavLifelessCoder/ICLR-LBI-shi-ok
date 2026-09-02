@@ -89,12 +89,16 @@ def build_judges(
         )
         judge_lm = lm
 
-    llm = bh.LLMJudgeScorer(
-        generate_fn=bh.make_local_generate_fn(judge_lm),
-        behavior_questions={c.name: c.behavior_question for c in all_concepts()},
-        max_unparsed_fraction=max_unparsed_fraction,
+    questions = {c.name: c.behavior_question for c in all_concepts()}
+    # Primary judge reads logits rather than generated text. Generation-based
+    # scoring failed three ways on the first full sweep: the 1.5B judge answered
+    # the text instead of scoring it ('2+2=4'), collapsed to a constant 0.0 for
+    # all 54 generations of rudeness and sycophancy, and could only ever emit 0
+    # or 1 so partial behaviour shifts registered as no movement.
+    logit = bh.LogitJudgeScorer(judge_lm, questions)
+    panel = bh.PanelScorer(
+        {"logit": logit, "lexicon": bh.LexiconScorer()}, primary="logit"
     )
-    panel = bh.PanelScorer({"llm": llm, "lexicon": bh.LexiconScorer()}, primary="llm")
     # Recorded so every result file says which judge produced its numbers, and
     # a mixed-judge dataset is detectable after the fact rather than assumed
     # away.

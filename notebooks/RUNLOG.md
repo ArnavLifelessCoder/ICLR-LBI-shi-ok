@@ -357,3 +357,52 @@ number produced by the corrected code, then the full ten-concept sweep on this
 model (~3.6 h). Budget note: roughly 12 h of the weekly quota was lost to the
 private-repo hang, so prefer one control per model over one full sweep until it
 resets.
+
+---
+
+## 2026-09-01 -- Kaggle, nb5 -- Control 0.338 PASS. Sweep died on the judge.
+
+**Control, on the corrected ceiling code:** 0.338, exactly the number predicted
+when the ceiling fix was written. PASS. Resume then skipped sentiment in the
+sweep, as intended.
+
+**The sweep got four concepts in and the judge broke it.**
+
+```
+WARNING [rudeness]:   judge returned 0.0 for all 54 generations
+WARNING [sycophancy]: judge returned 0.0 for all 54 generations
+JudgeParseError: honesty: 2/6 unparsed. Samples: ['20', '2+2=4']
+```
+
+`'2+2=4'` is the diagnosis: the 1.5B judge was **answering the text instead of
+scoring it**. And a judge that returns 0.0 to all 54 generations produces
+controllability exactly 0.000, which is precisely what the danger zone selects
+for. Had the parse error not stopped the run, rudeness and sycophancy would
+have been reported as readable-but-immovable on the strength of a judge that
+said "no" to everything.
+
+Completed before the crash: sentiment (skipped, from the control), formality,
+rudeness, sycophancy, refusal. **rudeness and sycophancy are unusable.**
+
+**Fix: read the judge's logits instead of parsing its text.** Every
+`behavior_question` in the concept set opens with a yes/no question, so
+`LogitJudgeScorer` builds "«question» / Text: ... / Answer Yes or No", runs one
+forward pass, and returns P(Yes) over the Yes/No token mass. This removes the
+whole failure class at once:
+
+* nothing to parse, so no `JudgeParseError` and no arithmetic answers;
+* continuous in [0, 1], so a partial behaviour shift registers instead of
+  rounding to 0 or 1 -- the coarseness was silently costing signal on every
+  concept, not just the two that collapsed;
+* one forward pass rather than a decoding loop, so it is also faster.
+
+**Second fix: a degenerate judge can no longer reach the gap map.**
+`SteeringResult.judge_degenerate` is set when a whole sweep returns one
+distinct score, persisted, and `aggregate` drops those points with a printed
+reason. A warning was not enough -- the number it warns about is exactly the
+number the danger zone is defined by.
+
+**Next action.** Re-run the sweep from scratch with the logit judge. Delete
+`results/` first: the four completed concepts were scored by the generation
+judge and are not comparable to anything produced from here on, and resume
+would silently keep them.
