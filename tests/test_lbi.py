@@ -1276,3 +1276,37 @@ def test_driver_stages_do_not_hardcode_a_judge_key():
     src = inspect.getsource(driver)
     assert "judges['llm']" not in src and 'judges["llm"]' not in src
     assert "panel.judges[panel.primary]" in src
+
+
+def test_h1_verdict_requires_the_ci_to_exclude_zero():
+    """A point estimate past 0.7 is not a result if the interval spans zero.
+
+    The first full sweep produced partial rho = -0.709 with a cluster-bootstrap
+    CI of [-0.962, 0.340], and the old check looked at |rho| alone and
+    announced "geometry explains the gap" from data that cannot exclude no
+    relationship at all. P7 makes the claim binary, and an interval straddling
+    zero is the definition of uninformative.
+    """
+    import inspect
+
+    from lbi import geometry
+
+    src = inspect.getsource(geometry.primary_test)
+    assert "ci_excludes_zero" in src
+    assert "UNINFORMATIVE" in src
+
+
+def test_h1_verdict_flags_a_result_with_the_wrong_sign():
+    """Section 2.5 predicts more output overlap means more controllability.
+
+    A strong negative estimate contradicts the hypothesis; reporting it as
+    "output overlap predicts controllability" would turn a refutation into
+    support.
+    """
+    import inspect
+
+    from lbi import geometry
+
+    src = inspect.getsource(geometry.primary_test)
+    assert "wrong_sign" in src
+    assert "OPPOSITE" in src

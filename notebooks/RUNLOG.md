@@ -406,3 +406,66 @@ number the danger zone is defined by.
 `results/` first: the four completed concepts were scored by the generation
 judge and are not comparable to anything produced from here on, and resume
 would silently keep them.
+
+---
+
+## 2026-09-02 -- Kaggle, nb5 -- FULL SWEEP COMPLETE. Danger zone empty.
+
+**Environment.** Repo `c239033`, Qwen2.5-7B-Instruct 4-bit on cuda:0, fixed
+logit judge Qwen2.5-1.5B-Instruct fp16 on cuda:1. Control 11 min, sweep 1h45,
+**1h55 total** -- well under the 3.6 h estimate, because the logit judge is one
+forward pass instead of a decoding loop.
+
+**Control:** 0.215 (floor 0.10), PASS. This is the number of record; 0.338 was
+the generation judge and is now historical.
+
+| concept | read | read CI | ctrl | ctrl CI | layer | base | gauntlet |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| sentiment (control) | 1.000 | [1.000,1.000] | 0.215 | [0.115,0.339] | 13 | 0.98 | -- |
+| rudeness | 0.797 | [0.627,0.938] | 0.153 | [0.080,0.259] | 15 | 0.81 | -- |
+| certainty | 1.000 | [1.000,1.000] | 0.123 | [0.094,0.220] | 13 | 0.49 | -- |
+| factuality | 1.000 | [1.000,1.000] | 0.120 | [0.088,0.177] | 13 | 0.74 | -- |
+| sycophancy | 1.000 | [1.000,1.000] | 0.118 | [0.083,0.202] | 3 | 0.43 | -- |
+| honesty | 1.000 | [1.000,1.000] | 0.081 | [0.070,0.176] | 20 | 0.44 | -- |
+| verbosity | 1.000 | [1.000,1.000] | 0.050 | [0.029,0.088] | 13 | 0.62 | moved (add) |
+| refusal | 1.000 | [1.000,1.000] | 0.047 | [0.043,0.108] | 13 | 0.31 | moved (clamp) |
+| formality | 0.992 | [0.964,1.000] | 0.034 | [0.021,0.070] | 13 | 0.91 | moved (clamp) |
+| topic_science | 0.944 | [0.771,1.000] | 0.019 | [0.014,0.029] | 13 | 0.95 | **survived** |
+
+**The danger zone is empty.** No concept satisfies P6. Nearest misses:
+
+* `topic_science` -- controllability CI clears (0.029 <= 0.05) but the
+  readability CI runs to 0.771, below the 0.9 floor. It is also one of the two
+  declared surface-confounded concepts, so its readability could not have been
+  reported as clean even if the CI had held.
+* `formality`, `refusal`, `verbosity` -- readability CIs clear, controllability
+  CIs run to 0.070 / 0.108 / 0.088, all above 0.05. All three then *moved*
+  under the gauntlet (clamp or add), so none is unsteerable either.
+
+The one gauntlet survivor is `topic_science`, and it is surface-confounded.
+That cannot headline anything.
+
+**The readability axis is saturated and this is the real finding of the run.**
+Seven of ten concepts sit at exactly 1.000 and the spread is
+[0.797, 0.944, 0.992, 1.000 x7]. A near-constant x cannot correlate with
+anything: the gap map returns Spearman rho = 0.231 with a cluster-bootstrap CI
+of [-0.592, 0.897], which is uninformative rather than null. The minimal-pair
+construction that made the surface audit pass -- disjoint markers, matched
+lengths -- also made every concept trivially linearly separable. The audit and
+the readability axis were traded against each other and nobody noticed until
+there were ten real numbers to look at.
+
+**Judge agreement is poor.** Krippendorff alpha = 0.132 over 3240 items,
+between the logit judge and the lexicon scorer. That is not "two judges with
+reported agreement" in any useful sense; objection 14 is currently unanswered.
+
+**H1: uninformative, and the verdict string said the opposite.** Partial
+Spearman = -0.709, CI [-0.962, 0.340]. The old verdict checked `abs(rho) >= 0.7`
+and printed *"output overlap predicts controllability; geometry explains the
+gap"* -- from an interval that includes zero, with a sign opposite to the one
+Section 2.5 predicts. Fixed: the verdict now requires the CI to exclude zero,
+and reports a strong negative estimate as contradicting H1 rather than
+supporting it. On this data it now reads UNINFORMATIVE. LOO R^2 = -0.380.
+
+**Next action.** See the assessment in RESULTS.md. The blocking problem is the
+saturated readability axis, not the pipeline: the pipeline is now working.

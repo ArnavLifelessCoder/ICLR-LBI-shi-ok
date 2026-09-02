@@ -395,15 +395,48 @@ def primary_test(
     ci = _cluster_bootstrap_partial_spearman(x, y, z, c_masked)
     n_concepts = len(set(c_masked))
 
-    if not np.isnan(rho) and abs(rho) >= 0.7:
+    # The verdict has to account for the interval, not only the point estimate.
+    # P7 makes the claim binary -- either output overlap shows a strong
+    # relationship or the study is uninformative about weaker ones -- and an
+    # interval straddling zero is the definition of uninformative. On the first
+    # full sweep this mattered: rho came out -0.709 with a CI of
+    # [-0.962, 0.340], and checking |rho| alone announced "geometry explains
+    # the gap" from data that cannot exclude no relationship at all.
+    lo, hi = ci
+    ci_excludes_zero = (
+        not np.isnan(lo) and not np.isnan(hi) and (lo > 0 or hi < 0)
+    )
+    # Section 2.5 predicts *more* output overlap means *more* controllability.
+    # A strong negative estimate is not the hypothesis confirmed, it is the
+    # hypothesis contradicted, and it must not be reported as support.
+    wrong_sign = not np.isnan(rho) and rho < 0
+
+    if np.isnan(rho):
+        verdict = "primary test could not be computed"
+    elif abs(rho) >= 0.7 and ci_excludes_zero and not wrong_sign:
         verdict = (
-            f"output overlap predicts controllability (partial rho={rho:.3f}); "
-            "geometry explains the gap"
+            f"output overlap predicts controllability (partial rho={rho:.3f}, "
+            f"CI [{lo:.3f}, {hi:.3f}] excludes zero); geometry explains the gap"
         )
-    elif not np.isnan(rho) and abs(rho) >= 0.3:
+    elif abs(rho) >= 0.7 and ci_excludes_zero and wrong_sign:
         verdict = (
-            f"suggestive but not strong (partial rho={rho:.3f}); "
-            "report as suggestive, not confirmation"
+            f"strong relationship in the OPPOSITE direction to Section 2.5 "
+            f"(partial rho={rho:.3f}, CI [{lo:.3f}, {hi:.3f}]): more output "
+            f"overlap goes with LESS controllability. H1 as stated is "
+            f"contradicted, not supported."
+        )
+    elif not ci_excludes_zero:
+        verdict = (
+            f"UNINFORMATIVE: partial rho={rho:.3f} but the cluster-bootstrap CI "
+            f"[{lo:.3f}, {hi:.3f}] includes zero, so no relationship can be "
+            f"claimed in either direction. Per P7 this is a null result about "
+            f"H1, not weak support for it. More concepts or more models are "
+            f"what would change it."
+        )
+    elif abs(rho) >= 0.3:
+        verdict = (
+            f"suggestive but not strong (partial rho={rho:.3f}, "
+            f"CI [{lo:.3f}, {hi:.3f}]); report as suggestive, not confirmation"
         )
     else:
         verdict = (

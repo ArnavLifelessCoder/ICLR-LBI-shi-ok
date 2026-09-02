@@ -1,0 +1,61 @@
+7.0s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.0s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.0s 3 0.00s - to python to disable frozen modules.
+7.0s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+7.6s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.6s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.6s 7 0.00s - to python to disable frozen modules.
+7.6s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+9.6s 9 /kaggle/working/lbi-repo
+13.4s 10 [?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/43.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m7.1/43.1 MB[0m [31m214.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m16.1/43.1 MB[0m [31m254.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━[0m [32m24.9/43.1 MB[0m [31m247.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━[0m [32m33.6/43.1 MB[0m [31m249.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m [32m42.1/43.1 MB[0m [31m244.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m236.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m236.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m236.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m236.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m236.9 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m43.1/43.1 MB[0m [31m47.4 MB/s[0m eta [36m0:00:00[0m
+13.4s 11 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/389.2 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m389.2/389.2 kB[0m [31m26.0 MB/s[0m eta [36m0:00:00[0m
+13.5s 12 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/12.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━[0m [32m8.9/12.1 MB[0m [31m267.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.1/12.1 MB[0m [31m260.1 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.1/12.1 MB[0m [31m109.5 MB/s[0m eta [36m0:00:00[0m
+13.5s 13 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/516.0 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m516.0/516.0 kB[0m [31m36.9 MB/s[0m eta [36m0:00:00[0m
+13.6s 14 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/3.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.3/3.3 MB[0m [31m101.2 MB/s[0m eta [36m0:00:00[0m
+28.3s 15 [?25h[33mc239033[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Fix KeyError: judge key renamed but two prints still said 'llm'
+53.4s 16 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+53.4s 17 
+53.4s 18 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+54.3s 19 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+54.3s 20 
+54.3s 21 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+649.8s 22 
+649.8s 23 judge: Qwen/Qwen2.5-1.5B-Instruct (fixed)
+649.8s 24 control controllability = 0.215 (floor 0.1)
+649.8s 25 fluency ceiling: perplexity > 2.0x baseline at coeff 3
+649.8s 26 PASS -- steering works on this model, run the sweep.
+649.8s 27 CONTROL: PASS
+651.8s 28 sentiment: already in Qwen2-5-7B-Instruct_sentiment.json, skipping (pass resume=False, or delete the file, to redo)
+6925.5s 29 NOTE [P9]: control record for Qwen/Qwen2.5-7B-Instruct already on disk, kept.
+6925.5s 30 
+6925.5s 31 resumed: skipped 1 concept(s) already on disk (sentiment). Their numbers are in /kaggle/working/results and --aggregate-only reads them; only this summary is partial.
+6925.5s 32 formality      read=0.992 ctrl=0.034 ceiling=2  [moved: movable via clamp:diff_of_means (controllability 0.052)]
+6925.5s 33 rudeness       read=0.797 ctrl=0.153 ceiling=2
+6925.5s 34 sycophancy     read=1.000 ctrl=0.118 ceiling=3
+6925.5s 35 refusal        read=1.000 ctrl=0.047 ceiling=2  [moved: movable via clamp:diff_of_means (controllability 0.064)]
+6925.5s 36 honesty        read=1.000 ctrl=0.081 ceiling=3
+6925.5s 37 topic_science  read=0.944 ctrl=0.019 ceiling=3  [IMMOVABLE: survived the gauntlet]
+6925.5s 38 factuality     read=1.000 ctrl=0.120 ceiling=3
+6925.5s 39 verbosity      read=1.000 ctrl=0.050 ceiling=3  [moved: movable via add:diff_of_means (controllability 0.074)]
+6925.5s 40 certainty      read=1.000 ctrl=0.123 ceiling=3
+6925.9s 41 
+6925.9s 42 judge agreement: alpha=0.132 over 3240 items
+6925.9s 43 
+6925.9s 44 hand-label 100 outputs in /kaggle/working/results/human_labels.csv (blanks allowed).
+6931.0s 45 gap map over 10 concept-model points
+6931.0s 46 Spearman rho = 0.231 [-0.592, 0.897]
+6931.0s 47 No reliable relationship (rho=0.23) after within-model normalization: control is not predictable from detection.
+6942.2s 48 primary test (H1, output_overlap): partial rho = -0.709 [-0.962, 0.340] over 10 concepts
+6942.2s 49 output overlap predicts controllability (partial rho=-0.709); geometry explains the gap
+6942.2s 50 exploratory E1 (participation_ratio): rho = -0.212, p_BH = 0.762
+6942.2s 51 exploratory E2 (low_variance_pc_alignment): rho = 0.200, p_BH = 1.000
+6942.2s 52 geometry predictor: LOO R^2 = -0.380 -- no geometric predictor: the gap is real and not explained by these standard quantities
+6942.8s 53 -rw-r--r-- 1 root root 140K Sep  2 14:46 results.zip
+6949.1s 54 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+6949.1s 55 cells[i][c] = re.sub('\\\\\|', '|', cell)
+6949.2s 56 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+6949.2s 57 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+6949.9s 58 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+6950.2s 59 [NbConvertApp] Writing 220492 bytes to __notebook__.ipynb
+6952.6s 60 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+6953.4s 61 [NbConvertApp] Writing 452744 bytes to __results__.html
