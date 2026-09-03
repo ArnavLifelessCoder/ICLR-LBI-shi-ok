@@ -286,3 +286,22 @@ def test_perplexity_label_mask_excludes_the_first_real_token():
     # Padded row: only the 2nd and 3rd real tokens are scored, not the 1st.
     assert shift_mask[0].tolist() == [0, 0, 1, 1]
     assert shift_mask[1].tolist() == [1, 1, 1, 1]
+
+
+def test_gemma2_defaults_to_eager_attention():
+    """Gemma-2 soft-caps attention logits and the fused SDPA path ignores it.
+
+    The model would load and generate perfectly happily while being quietly
+    wrong, which in this study looks like a concept that steers oddly rather
+    than like a bug.
+    """
+    import inspect
+
+    from lbi import extraction
+
+    src = inspect.getsource(extraction.load_model)
+    assert 'attn_implementation is None and "gemma-2" in name.lower()' in src
+    assert '"eager"' in src
+    # Explicit choices must still win over the default.
+    sig = inspect.signature(extraction.load_model)
+    assert sig.parameters["attn_implementation"].default is None

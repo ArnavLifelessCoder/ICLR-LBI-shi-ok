@@ -64,6 +64,7 @@ def load_model(
     device: str | None = None,
     dtype: str = "float16",
     device_index: int = 0,
+    attn_implementation: str | None = None,
 ) -> LoadedModel:
     """Load a model for inference. 4-bit by default so 7-9B fits a T4.
 
@@ -71,6 +72,13 @@ def load_model(
     second card while the model under study occupies the first: a 7-9B in 4-bit
     needs about 6 GB and a 1.5B judge about 3 GB, so both fit two T4s
     comfortably and the judge never competes with the study for memory.
+
+    `attn_implementation` defaults to eager for Gemma-2. That family soft-caps
+    its attention logits, and the fused SDPA path silently ignores the cap: the
+    model loads, generates, and is quietly wrong. A study whose entire signal is
+    a behaviour difference under intervention cannot afford a model that is
+    subtly miscomputed, and the failure would look like a concept that steers
+    oddly rather than like a bug.
     """
     import torch
 
@@ -82,7 +90,12 @@ def load_model(
         )
     torch_dtype = getattr(torch, dtype)
 
+    if attn_implementation is None and "gemma-2" in name.lower():
+        attn_implementation = "eager"
+
     kwargs = {"torch_dtype": torch_dtype}
+    if attn_implementation:
+        kwargs["attn_implementation"] = attn_implementation
     if load_in_4bit and device.startswith("cuda"):
         from transformers import BitsAndBytesConfig
 
