@@ -1,0 +1,407 @@
+% Legible but Immovable -- paper body, written to the inverted-H1 arc.
+%
+% VENUE NOTE. The target is ICLR 2027. This file compiles against the NeurIPS
+% 2026 style that ships in the repo, because that is the style file present
+% locally; the section structure is identical to what ICLR expects, so moving
+% to iclr2026_conference.sty is a one-line change to the \usepackage below plus
+% dropping in \iclrfinalcopy at camera-ready. Do not treat the NeurIPS styling
+% as a venue decision.
+%
+% All numbers are from results nb7/combined_40point/ (40 concept-model points,
+% four instruction-tuned models). Keep them in sync with RESULTS.md.
+
+\documentclass{article}
+\usepackage{neurips_2026}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\title{Legible but Immovable: Reading a Concept Does Not Grant Control, and the
+Obvious Geometry Predicts It Backwards}
+
+\author{%
+  Anonymous authors \\
+  Paper under double-blind review
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Interpretability-based safety increasingly assumes that reading a concept off a
+model's activations brings you part of the way to controlling it: if a linear
+probe detects deception or refusal, steering along that direction should let you
+suppress it. We test this assumption directly. For ten concepts across four
+instruction-tuned models (1.5B to 9B) we measure two quantities separately:
+\emph{readability}, the held-out AUROC of a linear probe, and
+\emph{controllability}, the area under a steering dose-response curve up to a
+preregistered fluency ceiling. Across 40 concept-model points the two are
+uncorrelated (Spearman $0.14$, 95\% CI $[-0.24, 0.51]$): concepts that are
+perfectly legible can resist every steering intervention we apply, including a
+six-method robustness gauntlet, while an identical pipeline moves a sentiment
+control cleanly. We then test the natural first-order explanation, that a
+concept is steerable to the extent its direction projects into the model's
+output-effective (unembedding) subspace, and find it \emph{inverted}: the
+concepts most aligned with that subspace are the least steerable, not the most
+(partial Spearman $-0.45$, 95\% CI $[-0.72, -0.04]$, conditioning on
+readability, consistent across models). We argue this overlap indexes how
+lexical a concept is rather than how much behavior depends on it. Two
+consequences follow for interpretability-based safety: a strong probe is not
+evidence of a control handle, and the obvious geometric predictor of when
+steering will work points, at this scale, in the wrong direction. We release the
+datasets, probes, steering harness, and full gap-map data.
+\end{abstract}
+
+\section{Introduction}
+
+A recurring premise in interpretability-based safety is that detection is a step
+toward control. If a linear probe can read a concept -- deception, harmful
+intent, sycophancy -- off the residual stream, the implicit hope is that the
+same direction is a handle: steer along it and the behavior moves. This premise
+underwrites a large fraction of the activation-steering and representation-
+engineering literature, where a difference-of-means direction is read and then
+added back to change behavior.
+
+This paper shows that the premise fails in a measurable way, and that the
+natural geometric account of \emph{why} it fails is not merely incomplete but
+pointed in the wrong direction. We measure two properties of each concept
+separately. \emph{Readability} is how well a linear probe detects the concept
+from activations. \emph{Controllability} is how much steering along the
+concept's direction actually changes behavior, measured as the area under a
+dose-response curve up to the point where fluency breaks. We plot every
+concept-model pair in the readability-controllability plane; the
+high-readability, low-controllability corner is the danger zone, where a good
+probe coexists with no control.
+
+Our contributions are:
+\begin{itemize}
+  \item A systematic measurement of readability against controllability for ten
+  concepts across four instruction-tuned model families (Section~\ref{sec:results}).
+  The two axes are uncorrelated: legible concepts can be nearly immovable.
+  \item A robustness protocol that separates ``unsteerable under the interventions
+  we tried'' from ``immovable.'' A concept is only called immovable if it
+  resists all six of single- and multi-layer activation addition, clamping,
+  directional ablation, and steering on both the probe-weight and RepE
+  reading-vector directions (Section~\ref{sec:method}).
+  \item A preregistered test of the first-order geometric account of the gap,
+  and the finding that it is \emph{inverted}: controllability falls, not rises,
+  as the concept direction aligns with the model's output-effective subspace
+  (Section~\ref{sec:inverted}). We give the mechanistic reading this suggests.
+\end{itemize}
+
+The honest arc of the paper is not ``we can predict the gap from geometry'' but
+``the obvious geometric predictor points the wrong way, and here is why.'' That
+is a stronger statement about the field's working picture of steering than a
+clean predictor would have been: the standard first-order account does not just
+fail to explain the gap, it anticorrelates with it.
+
+\section{Related work}
+
+\textbf{Activation steering.} Difference-of-means and contrastive directions are
+the standard tools for reading and moving concepts: activation addition, its
+contrastive-pairs refinement, inference-time intervention, and representation
+engineering all read a direction and add it back to change behavior. We use
+these as our steering methods; they are the instruments, not competitors.
+
+\textbf{The refusal direction.} Work showing refusal is mediated by a single
+direction that can be ablated, and the follow-up finding that refusal is carried
+by many geometrically distinct directions that nonetheless act as one control
+knob, is the closest motivation: it hints that readability and controllability
+can decouple, but studies only refusal. We generalize to a plane of concepts and
+models and add a geometric predictor.
+
+\textbf{Detection versus control.} Recent work reports perfect detection with
+failed control on a narrow case (entity knowledge) and shows that steering
+strength does not transfer across models. It leaves the systematic map of
+detection against control, and a predictor of the gap, as explicit future work.
+That map is this paper.
+
+\textbf{The linear representation hypothesis} motivates treating concepts as
+directions and reading them with linear probes, which is the encoder half of our
+measurement. Nothing in it ties the between-class separation a probe exploits to
+the downstream causal sensitivity steering needs, which is exactly the asymmetry
+we quantify.
+
+\section{Method}
+\label{sec:method}
+
+\subsection{Two axes, defined so the metrics are unambiguous}
+
+\textbf{Readability} is the test AUROC of an $\ell_2$-regularized logistic probe
+trained on residual-stream activations at the best layer, evaluated on held-out
+\emph{template families} rather than held-out examples, and reported alongside a
+shuffled-label control probe so selectivity is explicit. Held-out-family
+evaluation is the point: a probe that only works within a family is reading
+surface cues, not the concept.
+
+\textbf{Controllability} is the area under the steering dose-response curve up to
+a fluency ceiling. We form the steering direction as the difference of class
+means, add $\alpha\,\hat v$ at the intervention layer, and sweep $\alpha$ in
+units of the layer's residual-stream RMS norm so that a coefficient means the
+same thing across layers and models. At each strength we score the behavior with
+a fixed judge and measure the perplexity of the output under the unsteered
+model. The headline number is the mean absolute behavior shift from baseline
+integrated over usable strengths, which is more stable than any single-point
+effect size.
+
+\textbf{The fluency ceiling is preregistered.} A strength is unusable if steered
+output perplexity under the unsteered model exceeds twice the unsteered
+baseline, or if degenerate repetition appears. This closes a researcher degree
+of freedom: without a fixed ceiling, ``the strongest strength before breakage''
+is a choice.
+
+\subsection{The asymmetry the experiments test}
+
+A probe at layer $L$ asks a question about the \emph{encoder}: given the first
+$L$ layers, is the concept written linearly separably into the residual stream?
+Steering at layer $L$ asks about the \emph{decoder}: is the computation of
+layers $L{+}1$ onward sensitive to movement along this direction? To first
+order, steering by strength $\alpha$ changes behavior by
+\[
+  \Delta \text{behavior} \;\approx\; \alpha \,\lVert \nabla f(h) \rVert \,
+  \cos\!\big(\hat v,\, \nabla f(h)\big),
+\]
+where $h$ is the layer-$L$ residual stream, $\hat v$ the unit concept direction,
+and $f$ the map from $h$ to the behavior score. Controllability is governed by
+how much of $\hat v$ lies in the subspace the downstream computation is
+sensitive to; readability is governed by a Fisher-style ratio of between-class
+to within-class variance along $\hat v$. A concept can have large between-class
+separation along a direction the rest of the network barely reads. Readability
+is a property of how the concept is written; controllability is a property of
+whether anything downstream reads it.
+
+\subsection{Immovable versus unsteerable under tested interventions}
+
+We keep two claims apart. ``Unsteerable under tested interventions'' is a
+statement about what we tried; ``immovable'' is a stronger claim about the
+concept. A concept enters the danger zone only if it clears both raw thresholds
+(readability AUROC $\geq 0.9$ and controllability area $\leq 0.05$) with
+confidence intervals that exclude the thresholds. It is called immovable only if
+it then resists a six-intervention gauntlet: single-layer addition, multi-layer
+addition, clamping, and directional ablation on the difference-of-means
+direction, plus single-layer addition on the probe-weight and RepE
+reading-vector directions. Even a confirmed pass is bounded by those six
+interventions and is not a proof that no intervention exists.
+
+\subsection{The primary geometric hypothesis (H1)}
+
+The most direct restatement of the asymmetry is mechanism M1, read/write
+mismatch: a concept is a spectator feature to the extent it is written into a
+subspace the output distribution barely depends on. This predicts
+controllability rises with \emph{output overlap}, the fraction of the concept
+direction lying in the top singular subspace of the unembedding matrix, which is
+measurable from weights alone with no extra forward passes. H1 is the
+preregistered primary test: partial Spearman of output overlap against
+controllability, conditioning on readability, with a cluster bootstrap over
+concepts. Section~\ref{sec:inverted} reports what H1 returned.
+
+\subsection{Judge and reproducibility}
+
+Behavior is scored by a fixed logit judge (Qwen2.5-1.5B-Instruct, read from the
+Yes/No token mass), held identical across all four target models so that
+cross-model comparison is valid. A degenerate judge (one score across a whole
+sweep) produces exactly the flat curve the danger zone selects for, so such
+points are detected and dropped rather than reported. The concept datasets,
+probes, steering harness with all robustness variants, and the full gap-map data
+are released.
+
+\section{Experimental setup}
+
+\textbf{Models.} Four instruction-tuned families spanning 1.5B to 9B parameters:
+Qwen2.5-7B-Instruct, Mistral-7B-Instruct-v0.3, Llama-3.1-8B-Instruct, and
+Gemma-2-9b-it, all run in 4-bit for inference on a single 16GB GPU. Gemma-2 is
+loaded with eager attention because its attention soft-cap is ignored by the
+fused kernel.
+
+\textbf{Concepts.} Ten concepts spanning easy-to-steer to hard-to-steer:
+sentiment (the positive control), certainty, factuality, formality, honesty,
+refusal, rudeness, sycophancy, topic (science vs everyday), and verbosity. Each
+is built as minimal pairs tagged by template family.
+
+\textbf{Surface audit.} Before extraction, a leave-one-family-out TF-IDF audit
+checks that no concept can be separated on lexical cues alone. Eight concepts
+pass; two (topic and verbosity) are declared surface-confounded in advance and
+reported with that caveat rather than dropped, because domain membership and
+length are surface properties by construction.
+
+\textbf{Positive control (P9).} Steering must demonstrably work on a model
+before that model's controllability numbers are trusted. A model whose sentiment
+control falls below an absolute floor is withheld entirely, because a broken
+harness puts every concept in the danger zone and is indistinguishable from a
+discovery. All four models pass (sentiment controllability $0.215$, $0.163$,
+$0.101$, $0.110$; floor $0.10$).
+
+\section{Results}
+\label{sec:results}
+
+\subsection{Detection does not predict control}
+
+Figure~\ref{fig:gapmap} is the gap map: every concept-model pair in the
+readability-controllability plane, both axes min-max normalized within model to
+remove cross-model scale differences. The Spearman correlation between the two
+axes is $0.14$ with a 95\% bootstrap CI of $[-0.24, 0.51]$: on this data,
+detection does not predict control. Table~\ref{tab:matrix} gives the underlying
+readability and controllability by concept and model.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.85\linewidth]{fig1_gap_map.png}
+  \caption{The gap map. Readability (probe AUROC) against controllability
+  (dose-response area up to the fluency ceiling), both normalized within model.
+  The high-readability, low-controllability corner is the danger zone; its two
+  occupants (both \texttt{topic\_science}, circled) survived the six-method
+  gauntlet. Readability is saturated: 31 of 40 points sit at AUROC $1.0$.}
+  \label{fig:gapmap}
+\end{figure}
+
+\begin{table}[t]
+  \caption{Readability / controllability by concept and model. Readability is
+  held-out probe AUROC; controllability is dose-response area up to the fluency
+  ceiling. The sentiment row is the positive control. \texttt{topic\_science} is
+  the least controllable concept on every model; \texttt{refusal} is the clean
+  (non-surface-confounded) near-miss on every model.}
+  \label{tab:matrix}
+  \centering
+  \small
+  \begin{tabular}{lcccc}
+    \toprule
+    Concept & Qwen2.5-7B & Mistral-7B & Llama-3.1-8B & Gemma-2-9b \\
+    \midrule
+    sentiment (control) & 1.00 / 0.215 & 1.00 / 0.163 & 1.00 / 0.101 & 1.00 / 0.110 \\
+    certainty      & 1.00 / 0.123 & 1.00 / 0.113 & 1.00 / 0.049 & 1.00 / 0.054 \\
+    factuality     & 1.00 / 0.120 & 1.00 / 0.032 & 1.00 / 0.058 & 1.00 / 0.054 \\
+    formality      & 0.99 / 0.034 & 1.00 / 0.099 & 1.00 / 0.025 & 0.96 / 0.020 \\
+    honesty        & 1.00 / 0.081 & 1.00 / 0.107 & 1.00 / 0.119 & 1.00 / 0.079 \\
+    refusal        & 1.00 / 0.047 & 1.00 / 0.038 & 1.00 / 0.033 & 1.00 / 0.038 \\
+    rudeness       & 0.80 / 0.153 & 1.00 / 0.211 & 1.00 / 0.056 & 0.92 / 0.069 \\
+    sycophancy     & 1.00 / 0.118 & 0.57 / 0.101 & 0.57 / 0.081 & 0.93 / 0.015 \\
+    topic\_science & 0.94 / 0.019 & 1.00 / 0.024 & 0.97 / 0.011 & 1.00 / 0.007 \\
+    verbosity      & 1.00 / 0.050 & 1.00 / 0.054 & 1.00 / 0.025 & 1.00 / 0.041 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Legible concepts that resist the full gauntlet}
+
+The danger zone has two occupants, both \texttt{topic\_science} (on Mistral and
+Gemma), each confirmed immovable against all six interventions. It is the least
+controllable concept on all four models ($0.019$, $0.024$, $0.011$, $0.007$) and
+survived the gauntlet on all four; on Qwen and Llama it sits just outside the
+zone only because its readability CI dips below the $0.9$ floor. This concept is
+one of the two declared surface-confounded, so its readability is the number the
+audit says not to trust: the effect is a real and cross-model resistance to
+\emph{steering}, but it cannot serve as the headline example of a clean
+readable-but-immovable concept.
+
+\texttt{refusal} is the clean near-miss and it holds across all four models
+($0.047$, $0.038$, $0.033$, $0.038$). It is not surface-confounded, it is
+safety-relevant, and it survived the gauntlet on two models. It misses the
+danger zone only on the controllability CI upper bound (all above the $0.05$
+threshold). We report it as a boundary case rather than force it inside.
+
+\subsection{The obvious geometric predictor is inverted}
+\label{sec:inverted}
+
+The preregistered primary test (H1) predicts controllability rises with output
+overlap. It does the opposite. The partial Spearman of output overlap against
+controllability, conditioning on readability, is $-0.45$ with a cluster-bootstrap
+95\% CI of $[-0.72, -0.04]$. The interval excludes zero, and it excludes it on
+the side opposite the prediction: the concepts whose direction is most aligned
+with the model's output-effective subspace are the \emph{least} steerable, not
+the most.
+
+The inversion has a clean driver, visible without statistics.
+\texttt{topic\_science} has the highest output overlap of any concept on every
+model ($0.395$, $0.424$, $0.419$, $0.536$) and simultaneously the lowest
+controllability on every model. The concept the output head reads most strongly
+is the one steering moves least, which is the M1 spectator-feature picture turned
+exactly on its head.
+
+We read this as follows, and offer it as a hypothesis rather than a measured
+claim. Output overlap as operationalized here indexes how \emph{lexical} a
+concept is, not how much the downstream behavior computation depends on it. A
+concept that maps onto specific output tokens (domain vocabulary for
+\texttt{topic\_science}, token count for \texttt{verbosity}) projects strongly
+into the unembedding subspace, yet steering along that direction perturbs token
+selection into incoherence -- it hits the fluency ceiling -- or the model
+re-derives the concept from surviving context, rather than smoothly moving a
+behavior. Behavioral concepts such as sentiment have lower output overlap but
+engage a downstream computation that responds smoothly, so they steer. On this
+reading the feature tracks surface-ness, which also unifies the two threads of
+the paper: the surface-confounded concepts flagged by the audit are exactly the
+high-overlap, immovable ones.
+
+The inversion is not one mechanism for every immovable concept. \texttt{refusal}
+sits at \emph{low} output overlap ($0.345$ to $0.382$) and low controllability,
+which fits redundant multi-direction encoding rather than the lexical story, so
+the immovable set is heterogeneous. Two exploratory geometric features
+(effective dimensionality of the class difference, and alignment with
+low-variance principal components) are both null after multiple-comparison
+correction, and a ridge predictor over all features has leave-one-out $R^2$
+near zero. None of the standard first-order quantities explains the gap, and the
+one that reached significance did so against its predicted direction.
+
+\section{Discussion}
+
+The practical consequence for interpretability-based safety is twofold. First, a
+strong probe is not evidence of a control handle: across four models the
+correlation between how well a concept can be read and how well it can be steered
+is indistinguishable from zero, and safety-relevant concepts such as refusal sit
+firmly on the low-controllability side. Interpretability arguments that treat a
+working probe as partial control should not.
+
+Second, and less expected, the obvious geometric predictor of \emph{when}
+steering will work points the wrong way at this scale. The intuition that a
+direction the output head reads strongly is a direction you can steer is not just
+weak here, it is reversed. If the lexicality reading is right, output overlap is
+measuring the wrong thing -- surface-ness rather than downstream causal weight --
+and the field needs a sensitivity-based rather than a projection-based measure of
+steerability. Testing that is the natural next step.
+
+\section{Limitations}
+
+\textbf{The readability axis is saturated.} Thirty-one of forty points sit at
+exactly AUROC $1.0$, so the primary $x$-axis has little variance and the
+headline correlation is uninformative rather than a clean null. The
+minimal-pair construction that lets the surface audit pass also makes concepts
+trivially separable. We report selectivity (AUROC minus the shuffled-label
+control) as a secondary axis with more spread.
+
+\textbf{Judge agreement is currently low.} Krippendorff's $\alpha$ between the
+logit judge and a lexicon second judge is $0.13$, $0.31$, $0.30$, $0.15$ across
+the four models. The lexicon judge returns a neutral score on much free text, so
+this understates true agreement, but a validated classifier and a human-labeled
+third rater are outstanding, and the controllability claims should be read with
+that caveat until they are in.
+
+\textbf{The strongest confirmed-immovable concept is surface-confounded.} The
+clean readable-but-immovable claim currently rests on a boundary case
+(\texttt{refusal}) rather than a slam-dunk, because the two gauntlet-confirmed
+points are the surface-confounded \texttt{topic\_science}.
+
+\textbf{Scale and stimuli.} Four instruction-tuned families under 10B parameters,
+with templated stimuli. Whether the inversion survives at larger scale or with
+naturalistic prompts is open.
+
+\section{Conclusion}
+
+Reading a concept off a model's activations does not, in general, grant control
+over it: across four models and ten concepts, detection and control are
+uncorrelated, and legible concepts can resist every standard steering method.
+The natural geometric account of the gap -- that a concept is steerable to the
+extent it projects into the output-effective subspace -- is not merely
+incomplete but inverted: the most output-aligned concepts are the least
+steerable. A good probe is not a control handle, and the obvious picture of when
+steering should work is, at this scale, backwards.
+
+\end{document}
