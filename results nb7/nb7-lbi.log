@@ -1,0 +1,101 @@
+11.9s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+11.9s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+11.9s 3 0.00s - to python to disable frozen modules.
+11.9s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+12.7s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+12.7s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+12.7s 7 0.00s - to python to disable frozen modules.
+12.7s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+15.4s 9 OK: /root/.cache/huggingface/hub/models--google--gemma-2-9b-it/snapshots/11c9b309abf73637e4b6f9a3fa1e92e615547819/config.json
+16.9s 10 /kaggle/working/lbi-repo
+22.3s 11 [?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/43.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.2/43.1 MB[0m [31m7.2 MB/s[0m eta [36m0:00:06[0m[2K   [91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m1.0/43.1 MB[0m [31m15.4 MB/s[0m eta [36m0:00:03[0m[2K   [91m━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m4.1/43.1 MB[0m [31m40.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m11.0/43.1 MB[0m [31m132.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━[0m [32m18.6/43.1 MB[0m [31m218.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━[0m [32m26.2/43.1 MB[0m [31m222.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━[0m [32m33.7/43.1 MB[0m [31m219.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━[0m [32m41.6/43.1 MB[0m [31m226.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m210.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m210.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m210.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m210.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m210.7 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m43.1/43.1 MB[0m [31m46.3 MB/s[0m eta [36m0:00:00[0m
+22.3s 12 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/389.2 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m389.2/389.2 kB[0m [31m22.3 MB/s[0m eta [36m0:00:00[0m
+22.5s 13 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/12.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━[0m [32m5.2/12.1 MB[0m [31m154.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━[0m [32m10.4/12.1 MB[0m [31m156.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.1/12.1 MB[0m [31m151.3 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.1/12.1 MB[0m [31m82.3 MB/s[0m eta [36m0:00:00[0m
+22.6s 14 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/516.0 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m516.0/516.0 kB[0m [31m26.5 MB/s[0m eta [36m0:00:00[0m
+22.6s 15 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/3.4 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m3.4/3.4 MB[0m [31m262.5 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.4/3.4 MB[0m [31m73.3 MB/s[0m eta [36m0:00:00[0m
+39.3s 16 [?25h[33m43b22c7[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m CONTEXT: record the nb7 plan and what it can and cannot settle
+39.4s 17 notebooks
+39.6s 18 cp: cannot stat '/kaggle/input/nb6-lbi/results/*.json': No such file or directory
+39.7s 19 0
+53.3s 20 HF login OK via secret 'HF_TOKEN'.
+82.2s 21 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+82.2s 22 
+82.2s 23 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+103.5s 24 
+103.5s 25 ============================================================
+103.5s 26 meta-llama/Llama-3.1-8B-Instruct
+103.5s 27 ============================================================
+250.1s 28 chat_template: True | layers: 32 | d_model: 4096
+638.4s 29 [transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+638.4s 30 
+638.4s 31 [transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+1109.4s 32 
+1109.4s 33 judge: Qwen/Qwen2.5-1.5B-Instruct (fixed)
+1109.4s 34 control controllability = 0.101 (floor 0.1)
+1109.4s 35 fluency ceiling: no breakage in swept range
+1109.4s 36 PASS -- steering works on this model, run the sweep.
+1111.1s 37 sentiment: already in Llama-3-1-8B-Instruct_sentiment.json, skipping (pass resume=False, or delete the file, to redo)
+10754.5s 38 NOTE [P9]: control record for meta-llama/Llama-3.1-8B-Instruct already on disk, kept.
+10754.5s 39 
+10754.5s 40 resumed: skipped 1 concept(s) already on disk (sentiment). Their numbers are in /kaggle/working/results and --aggregate-only reads them; only this summary is partial.
+10754.5s 41 formality      read=1.000 ctrl=0.025 ceiling=3  [moved: movable via ablate:diff_of_means (controllability 0.074)]
+10754.5s 42 rudeness       read=1.000 ctrl=0.056 ceiling=3
+10754.5s 43 sycophancy     read=0.566 ctrl=0.081 ceiling=3
+10754.5s 44 refusal        read=1.000 ctrl=0.033 ceiling=3  [IMMOVABLE: survived the gauntlet]
+10754.5s 45 honesty        read=1.000 ctrl=0.119 ceiling=3
+10754.5s 46 topic_science  read=0.972 ctrl=0.011 ceiling=3  [IMMOVABLE: survived the gauntlet]
+10754.5s 47 factuality     read=1.000 ctrl=0.058 ceiling=3
+10754.5s 48 verbosity      read=1.000 ctrl=0.025 ceiling=3  [IMMOVABLE: survived the gauntlet]
+10754.5s 49 certainty      read=1.000 ctrl=0.049 ceiling=3  [moved: movable via add_all:diff_of_means (controllability 0.060)]
+10755.3s 50 
+10755.3s 51 judge agreement: alpha=0.300 over 3564 items
+10755.3s 52 
+10755.3s 53 hand-label 100 outputs in /kaggle/working/results/human_labels.csv (blanks allowed).
+10755.4s 54 cuda:0 free: 9.9 GB
+10755.4s 55 
+10755.4s 56 ============================================================
+10755.4s 57 google/gemma-2-9b-it
+10755.4s 58 ============================================================
+10915.2s 59 chat_template: True | layers: 42 | d_model: 3584
+11641.8s 60 
+11641.8s 61 judge: Qwen/Qwen2.5-1.5B-Instruct (fixed)
+11641.8s 62 control controllability = 0.110 (floor 0.1)
+11641.8s 63 fluency ceiling: no breakage in swept range
+11641.8s 64 PASS -- steering works on this model, run the sweep.
+11644.8s 65 sentiment: already in gemma-2-9b-it_sentiment.json, skipping (pass resume=False, or delete the file, to redo)
+21823.0s 66 NOTE [P9]: control record for google/gemma-2-9b-it already on disk, kept.
+21823.0s 67 
+21823.0s 68 resumed: skipped 1 concept(s) already on disk (sentiment). Their numbers are in /kaggle/working/results and --aggregate-only reads them; only this summary is partial.
+21823.3s 69 formality      read=0.965 ctrl=0.020 ceiling=3  [IMMOVABLE: survived the gauntlet]
+21823.3s 70 rudeness       read=0.918 ctrl=0.069 ceiling=3
+21823.3s 71 sycophancy     read=0.926 ctrl=0.015 ceiling=3  [IMMOVABLE: survived the gauntlet]
+21823.3s 72 refusal        read=1.000 ctrl=0.038 ceiling=3  [moved: movable via clamp:diff_of_means (controllability 0.089)]
+21823.3s 73 honesty        read=1.000 ctrl=0.079 ceiling=3
+21823.3s 74 topic_science  read=1.000 ctrl=0.007 ceiling=3  [IMMOVABLE: survived the gauntlet]
+21823.3s 75 factuality     read=1.000 ctrl=0.054 ceiling=3
+21823.3s 76 verbosity      read=1.000 ctrl=0.041 ceiling=3  [moved: movable via add_all:diff_of_means (controllability 0.058)]
+21823.3s 77 certainty      read=1.000 ctrl=0.054 ceiling=3
+21824.0s 78 
+21824.0s 79 judge agreement: alpha=0.149 over 3564 items
+21824.0s 80 
+21824.0s 81 hand-label 100 outputs in /kaggle/working/results/human_labels.csv (blanks allowed).
+21824.1s 82 cuda:0 free: 9.9 GB
+21824.1s 83 
+21824.1s 84 SUMMARY: {'meta-llama/Llama-3.1-8B-Instruct': {'control_passed': True, 'alpha': 0.2995853942651956}, 'google/gemma-2-9b-it': {'control_passed': True, 'alpha': 0.14851955327411182}}
+21835.2s 85 gap map over 20 concept-model points
+21835.2s 86 Spearman rho = 0.179 [-0.301, 0.551]
+21835.2s 87 Danger zone occupied by 1 point(s). IMMOVABLE (1 confirmed against every variant and all three direction-derivation methods): topic_science@google/gemma-2-9b-it. Only the confirmed set may be described as immovable; the rest have resisted the interventions that were tried, which is a weaker claim.
+21845.9s 88 primary test (H1, output_overlap): partial rho = -0.206 [-0.638, 0.434] over 10 concepts
+21845.9s 89 UNINFORMATIVE: partial rho=-0.206 but the cluster-bootstrap CI [-0.638, 0.434] includes zero, so no relationship can be claimed in either direction. Per P7 this is a null result about H1, not weak support for it. More concepts or more models are what would change it.
+21845.9s 90 exploratory E1 (participation_ratio): rho = -0.035, p_BH = 0.885
+21845.9s 91 exploratory E2 (low_variance_pc_alignment): rho = 0.039, p_BH = 1.000
+21845.9s 92 geometry predictor: LOO R^2 = -0.231 -- no geometric predictor: the gap is real and not explained by these standard quantities
+21846.6s 93 -rw-r--r-- 1 root root 178K Sep  3 15:42 results.zip
+21853.5s 94 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+21853.5s 95 cells[i][c] = re.sub('\\\\\|', '|', cell)
+21853.8s 96 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+21853.8s 97 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+21854.6s 98 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+21854.9s 99 [NbConvertApp] Writing 319116 bytes to __notebook__.ipynb
+21857.3s 100 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+21858.7s 101 [NbConvertApp] Writing 536787 bytes to __results__.html

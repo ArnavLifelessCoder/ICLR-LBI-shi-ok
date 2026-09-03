@@ -411,20 +411,16 @@ def primary_test(
     # hypothesis contradicted, and it must not be reported as support.
     wrong_sign = not np.isnan(rho) and rho < 0
 
+    # Strength descriptor by magnitude, applied only once the CI has excluded
+    # zero. Below 0.7 the wrong-sign case still has to be called a contradiction,
+    # not "suggestive": a moderate estimate whose CI clears zero in the opposite
+    # direction is evidence against H1, and the earlier code let it slip through
+    # to a sign-blind "report as suggestive" branch because the sign guard was
+    # gated behind abs(rho) >= 0.7.
+    strength = "strong" if abs(rho) >= 0.7 else "moderate"
+
     if np.isnan(rho):
         verdict = "primary test could not be computed"
-    elif abs(rho) >= 0.7 and ci_excludes_zero and not wrong_sign:
-        verdict = (
-            f"output overlap predicts controllability (partial rho={rho:.3f}, "
-            f"CI [{lo:.3f}, {hi:.3f}] excludes zero); geometry explains the gap"
-        )
-    elif abs(rho) >= 0.7 and ci_excludes_zero and wrong_sign:
-        verdict = (
-            f"strong relationship in the OPPOSITE direction to Section 2.5 "
-            f"(partial rho={rho:.3f}, CI [{lo:.3f}, {hi:.3f}]): more output "
-            f"overlap goes with LESS controllability. H1 as stated is "
-            f"contradicted, not supported."
-        )
     elif not ci_excludes_zero:
         verdict = (
             f"UNINFORMATIVE: partial rho={rho:.3f} but the cluster-bootstrap CI "
@@ -433,15 +429,24 @@ def primary_test(
             f"H1, not weak support for it. More concepts or more models are "
             f"what would change it."
         )
-    elif abs(rho) >= 0.3:
+    elif wrong_sign:
         verdict = (
-            f"suggestive but not strong (partial rho={rho:.3f}, "
-            f"CI [{lo:.3f}, {hi:.3f}]); report as suggestive, not confirmation"
+            f"{strength} relationship in the OPPOSITE direction to Section 2.5 "
+            f"(partial rho={rho:.3f}, CI [{lo:.3f}, {hi:.3f}] excludes zero): "
+            f"more output overlap goes with LESS controllability. H1 as stated "
+            f"is contradicted, not supported."
+        )
+    elif abs(rho) >= 0.7:
+        verdict = (
+            f"output overlap predicts controllability (partial rho={rho:.3f}, "
+            f"CI [{lo:.3f}, {hi:.3f}] excludes zero); geometry explains the gap"
         )
     else:
         verdict = (
-            "the gap is real and not explained by the standard first-order "
-            "account of steering (output overlap does not predict controllability)"
+            f"output overlap predicts controllability in the predicted "
+            f"direction but only moderately (partial rho={rho:.3f}, CI "
+            f"[{lo:.3f}, {hi:.3f}] excludes zero); supports H1 with a modest "
+            f"effect size, not a strong one"
         )
 
     return PrimaryTestReport(

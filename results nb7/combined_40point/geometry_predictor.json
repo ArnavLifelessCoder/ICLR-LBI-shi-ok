@@ -1,0 +1,53 @@
+{
+  "primary": {
+    "feature": "output_overlap",
+    "partial_spearman": -0.451219512195122,
+    "partial_spearman_ci": [
+      -0.7230208725084618,
+      -0.04079627666844675
+    ],
+    "n_concepts": 10,
+    "n_points": 40,
+    "verdict": "moderate relationship in the OPPOSITE direction to Section 2.5 (partial rho=-0.451, CI [-0.723, -0.041] excludes zero): more output overlap goes with LESS controllability. H1 as stated is contradicted, not supported."
+  },
+  "exploratory": [
+    {
+      "feature": "participation_ratio",
+      "partial_spearman": -0.09174484052532834,
+      "partial_spearman_ci": [
+        -0.6217318583322766,
+        0.4628769623421942
+      ],
+      "p_value_raw": 0.808,
+      "p_value_bh": 0.833,
+      "n": 40,
+      "label": "exploratory E1"
+    },
+    {
+      "feature": "low_variance_pc_alignment",
+      "partial_spearman": 0.0225140712945591,
+      "partial_spearman_ci": [
+        -0.50828775914724,
+        0.5584833861793121
+      ],
+      "p_value_raw": 0.833,
+      "p_value_bh": 0.833,
+      "n": 40,
+      "label": "exploratory E2"
+    }
+  ],
+  "features_used": [
+    "output_overlap",
+    "participation_ratio",
+    "low_variance_pc_alignment"
+  ],
+  "r2_loo": 0.0013374265886109127,
+  "spearman": 0.15843073113767653,
+  "coefficients": {
+    "output_overlap": 0.05480116687079328,
+    "participation_ratio": -0.23083495674030718,
+    "low_variance_pc_alignment": 0.31522389829291153
+  },
+  "n": 40,
+  "verdict": "weak geometric signal; report with caution"
+}

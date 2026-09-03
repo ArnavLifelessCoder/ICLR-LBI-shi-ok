@@ -1312,6 +1312,85 @@ def test_h1_verdict_flags_a_result_with_the_wrong_sign():
     assert "OPPOSITE" in src
 
 
+def test_h1_moderate_wrong_sign_ci_excludes_zero_is_a_contradiction():
+    """The nb7 40-point case, pinned behaviorally.
+
+    partial rho landed at -0.451 with a CI that excludes zero but |rho| < 0.7.
+    The old chain gated the sign check behind abs(rho) >= 0.7, so this fell to a
+    sign-blind "suggestive but not strong; report as suggestive" branch. A
+    moderate estimate whose CI clears zero in the direction OPPOSITE to Section
+    2.5 is evidence against H1, not weak support for it, and the verdict must
+    say so.
+    """
+    from lbi.geometry import GeometryFeatures, primary_test
+
+    rng = np.random.default_rng(3)
+    feats, ctrl, rd, conc = [], [], [], []
+    for ci in range(10):
+        base = rng.uniform(0.2, 0.9)
+        for m in range(4):
+            ov = float(np.clip(base + rng.normal(0, 0.18), 0, 1))
+            c = max((1 - base) * 0.1 + rng.normal(0, 0.02), 0.0)
+            feats.append(
+                GeometryFeatures(
+                    concept=f"c{ci}", model=f"m{m}", layer=10,
+                    output_overlap=ov, participation_ratio=20.0,
+                    low_variance_pc_alignment=0.2, residual_norm=5.0,
+                    n_directions=2.0, direction_coherence=0.7, probe_dom_cosine=0.8,
+                )
+            )
+            ctrl.append(float(c))
+            rd.append(0.99)
+            conc.append(f"c{ci}")
+
+    r = primary_test(feats, ctrl, rd, conc)
+    # Exactly the branch that was mishandled: moderate magnitude, CI excludes
+    # zero, wrong sign.
+    assert r.partial_spearman < 0
+    assert abs(r.partial_spearman) < 0.7
+    assert r.partial_spearman_ci[1] < 0
+    assert "OPPOSITE" in r.verdict and "contradicted" in r.verdict
+    assert "suggestive" not in r.verdict
+
+
+def test_h1_moderate_right_sign_ci_excludes_zero_supports_modestly():
+    """The mirror case: right sign, moderate magnitude, CI clear of zero.
+
+    This must read as support for H1 with a modest effect, never as the strong
+    "geometry explains the gap" claim reserved for |rho| >= 0.7.
+    """
+    from lbi.geometry import GeometryFeatures, primary_test
+
+    # Seed 8 with these parameters lands rho at 0.456, CI [0.106, 0.692]:
+    # right sign, moderate magnitude, interval clear of zero. That is the
+    # branch reserved for modest support, distinct from the strong |rho| >= 0.7
+    # "geometry explains the gap" claim.
+    rng = np.random.default_rng(8)
+    feats, ctrl, rd, conc = [], [], [], []
+    for ci in range(10):
+        base = rng.uniform(0.15, 0.95)
+        for m in range(4):
+            ov = float(np.clip(base + rng.normal(0, 0.08), 0, 1))
+            c = max(base * 0.12 + rng.normal(0, 0.012), 0.0)  # overlap -> MORE control
+            feats.append(
+                GeometryFeatures(
+                    concept=f"c{ci}", model=f"m{m}", layer=10,
+                    output_overlap=ov, participation_ratio=20.0,
+                    low_variance_pc_alignment=0.2, residual_norm=5.0,
+                    n_directions=2.0, direction_coherence=0.7, probe_dom_cosine=0.8,
+                )
+            )
+            ctrl.append(float(c))
+            rd.append(0.99)
+            conc.append(f"c{ci}")
+
+    r = primary_test(feats, ctrl, rd, conc)
+    assert 0.3 <= r.partial_spearman < 0.7
+    assert r.partial_spearman_ci[0] > 0  # CI excludes zero on the positive side
+    assert "predicted direction" in r.verdict and "modest" in r.verdict
+    assert "OPPOSITE" not in r.verdict and "geometry explains the gap" not in r.verdict
+
+
 def test_control_probe_flag_is_implemented():
     """P3: a control probe above 0.6 AUROC must be flagged.
 
