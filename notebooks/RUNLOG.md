@@ -521,3 +521,98 @@ and it is confounded; the geometry pivot is unavailable because H1 and both
 exploratory features are null. What is defensible today is a characterisation
 paper. Technically the highest-value next runs are a third model family and
 more eval prompts for `refusal`, in that order.
+
+---
+
+## 2026-09-03 -- Kaggle, nb7 -- FOUR MODELS COMPLETE. 40 points. H1 crosses.
+
+**Environment.** Repo at `eba69b4`. Llama-3.1-8B-Instruct then gemma-2-9b-it,
+both 4-bit on cuda:0, judge Qwen2.5-1.5B-Instruct fp16 on cuda:1 loaded once and
+shared. Same two-model-per-session pattern as nb6.
+
+**First attempt died on Gemma access, but lost nothing.** Llama ran to
+completion (all 10 concepts, ~2h55), then Gemma failed 4 s after start with
+`GatedRepoError: 403 ... Access to model google/gemma-2-9b-it is restricted`.
+The `HF_TOKEN` account had not accepted the Gemma licence. The failure came at
+the tokenizer download, before any Gemma compute, so the whole cost was Llama
+finishing successfully. Fix was account-side: accept the licence on the exact
+`-it` repo (the base `gemma-2-9b` repo is a separate gate), confirmed with a
+one-file `hf_hub_download(..., "config.json")` before relaunching. Second run
+completed both models.
+
+**All four controls now pass; two of them narrowly.**
+
+| Model | Control | Floor |
+| --- | --- | --- |
+| Qwen2.5-7B (nb6) | 0.215 | 0.10 |
+| Mistral-7B (nb6) | 0.163 | 0.10 |
+| Llama-3.1-8B | 0.101 | 0.10 |
+| gemma-2-9b-it | 0.110 | 0.10 |
+
+Llama passes by 0.001. Genuine pass, thin margin; belongs in Methods.
+
+**The notebook aggregated only 20 points, not 40.** Same nb6-copy failure as
+before: `cp /kaggle/input/nb6-lbi/results/*.json` returned "No such file or
+directory", so the notebook never had Qwen or Mistral present and its own gap
+map covered Llama and Gemma alone. The 40-point map was rebuilt locally by
+combining the nb6 and nb7 result files (44 files: 10 concepts + 1 control x 4
+models) and re-running `--aggregate-only`. Saved to
+`results nb7/combined_40point/`. **Fix for next time: attach the nb6 result
+dataset under the exact path the copy cell expects, or the aggregate silently
+runs on a subset.**
+
+**Danger zone: two points, both `topic_science`** (Mistral and Gemma), each
+confirmed immovable against all six interventions. Gemma's is the new one:
+readability 1.000 [1.000, 1.000], controllability 0.007 [0.006, 0.013]. Qwen and
+Llama place `topic_science` just outside, both because the readability CI dips
+under 0.9 (Qwen 0.771, Llama 0.875). So the concept is the least controllable on
+all four models and immovable on the two whose readability CI happens to hold,
+and it is the surface-confounded concept every time. The occupant the claim
+cannot use now appears on two model families.
+
+**`refusal` holds as the clean near-miss across all four.** 0.047 / 0.038 /
+0.033 / 0.038. Survived the gauntlet on Llama as well as Mistral. Still misses
+P6 only on the controllability CI upper bound (0.108 / 0.080 / 0.107 / 0.146,
+all above 0.05). Not chased, per the CI arithmetic in CONTEXT.md.
+
+**H1 crosses from uninformative to a moderate contradiction.** With 40 points:
+partial rho = -0.451, CI [-0.723, -0.041]. The interval now **excludes zero**,
+on the wrong side. Section 2.5 predicts more output overlap means more
+controllability; the data says less, at moderate strength. This is a real
+negative result about mechanism M1, not weak support. nb6 had -0.430 with the CI
+spanning zero (uninformative); the two new models tightened it past zero.
+
+**Verdict-logic bug found and fixed while reading this result.** `primary_test`
+gated its wrong-sign guard behind `abs(rho) >= 0.7`. A moderate wrong-signed
+estimate whose CI excludes zero fell through to a sign-blind branch and printed
+"suggestive but not strong; report as suggestive, not confirmation" -- which is
+wrong twice: the CI excludes zero (a resolved result, not suggestive) and the
+sign contradicts H1. The chain is now sign-aware at every magnitude: any
+CI-excludes-zero wrong-signed result reads as a contradiction, with a
+modest-support branch for the right-signed moderate case. Two behavioral
+regression tests added (the prior coverage was source-inspection only, which is
+why the gate slipped through). Suite at 143. Committed and pushed to iclr as
+`4d6ef41`.
+
+**Exploratory and predictor still null.** E1 participation ratio rho = -0.092,
+p_BH 0.833. E2 low-variance PC alignment rho = 0.023, p_BH 0.833. Ridge LOO
+R^2 = 0.001. Gap map Spearman = 0.135, CI [-0.239, 0.509], still spanning zero.
+
+**Judge agreement, all four.** Qwen 0.132, Mistral 0.309, Llama 0.300, Gemma
+0.149. Poor throughout. Objection 14 remains open; `human_labels.csv` still
+empty.
+
+**Two saturation facts, now unavoidable.** 31 of 40 points at exactly AUROC
+1.000, so the primary x-axis has almost no variance. P3 control-probe flag fires
+on 5 of 40 (Qwen certainty/rudeness/sycophancy, Mistral verbosity, Llama
+refusal).
+
+**Next action.** The data-collection phase is effectively done for the
+characterisation paper: four model families, 40 points, controls all passing,
+the dissociation confirmed on a confounded concept and a clean near-miss that
+sits on the P6 boundary. The two things that would change the paper are neither
+of them more sweeps: (1) fill `human_labels.csv` to answer objection 14 on judge
+agreement, which is hand-labelling not GPU; (2) decide the abstract framing,
+given H1 is now a moderate contradiction rather than a null. A fifth model
+family is optional upside, not a blocker. Do **not** re-run for the map; it is
+complete.
