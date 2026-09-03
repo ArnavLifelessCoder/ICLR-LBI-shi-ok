@@ -1,17 +1,16 @@
 % Legible but Immovable -- paper body, written to the inverted-H1 arc.
 %
-% VENUE NOTE. The target is ICLR 2027. This file compiles against the NeurIPS
-% 2026 style that ships in the repo, because that is the style file present
-% locally; the section structure is identical to what ICLR expects, so moving
-% to iclr2026_conference.sty is a one-line change to the \usepackage below plus
-% dropping in \iclrfinalcopy at camera-ready. Do not treat the NeurIPS styling
-% as a venue decision.
+% VENUE NOTE. The target is ICLR 2027. This file uses iclr2026_conference.sty,
+% which is an UNOFFICIAL drafting approximation of the ICLR style (see that
+% file's header). Before submitting, replace it with the official ICLR template
+% for the target year and add \iclrfinalcopy at camera-ready. Do not submit
+% against the approximation; its margins are close but not authoritative.
 %
 % All numbers are from results nb7/combined_40point/ (40 concept-model points,
 % four instruction-tuned models). Keep them in sync with RESULTS.md.
 
 \documentclass{article}
-\usepackage{neurips_2026}
+\usepackage{iclr2026_conference}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
