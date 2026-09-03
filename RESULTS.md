@@ -1,143 +1,172 @@
 # Results
 
-**The positive control passes on Qwen2.5-7B (0.309 vs floor 0.10, fixed
-judge). That is the first reportable number in the study. Everything else below
-is still synthetic -- no concept other than the control has been measured.**
-
-That sentence stays at the top until a real run lands. The synthetic figures
-exist to prove the plumbing recovers a planted answer; they are not evidence
-about any language model and must never be quoted as if they were.
+**Two models measured end to end. Both positive controls pass. The danger zone
+holds exactly one point, and it is a concept declared surface-confounded before
+the run, so the headline claim is not yet carried by a concept whose
+readability can be trusted.**
 
 Session-by-session detail is in [notebooks/RUNLOG.md](notebooks/RUNLOG.md).
+Every number below comes from nb6 (2026-09-02): one Kaggle session, identical
+code and identical judge for both models.
 
 ---
 
 ## Status
 
-| Experiment | What it produces | State |
-| --- | --- | --- |
-| 1. Readability | Held-out-family probe AUROC per concept-model | awaiting first run |
-| 2. Controllability | Dose-response AUC to the fluency ceiling | awaiting first run |
-| 3. Gap map | Figure 1, danger-zone membership | awaiting first run |
-| 4. Geometry predictor | H1 partial Spearman + 2 exploratory | awaiting first run |
-| 5. Safety concepts | Read off Figure 1 (demoted, R14) | awaiting first run |
-| 6. Scale sweep | Qwen 0.5B / 1.5B / 3B / 7B | awaiting first run |
+| Experiment | State |
+| --- | --- |
+| 1. Readability | Done, 2 models x 10 concepts |
+| 2. Controllability | Done, 2 models x 10 concepts |
+| 3. Gap map | Done, 20 points, 1 danger-zone occupant |
+| 4. Geometry predictor | Done, **H1 uninformative** |
+| 5. Safety concepts | Readable off Figure 1 |
+| 6. Scale sweep | Not run |
 
-## Phase A gate: surface-shortcut audit (real, CPU-only)
+Judge held fixed across both models: `Qwen/Qwen2.5-1.5B-Instruct`, fp16 on the
+second GPU, scored from logits. Every record carries `judge_is_self=false`.
 
-This one **is** a real result -- it needs no model. Leave-one-family-out,
-two-sided `max(auroc, 1 - auroc)`, mean over folds.
+## Positive control (P9)
 
-| Concept | Mean | Worst fold | Verdict |
+| Model | Control | Floor | Verdict |
 | --- | --- | --- | --- |
-| sentiment | 0.500 | 0.500 | PASS |
-| formality | 0.500 | 0.500 | PASS |
-| rudeness | 0.500 | 0.500 | PASS |
-| sycophancy | 0.500 | 0.500 | PASS |
-| refusal | 0.500 | 0.500 | PASS |
-| honesty | 0.500 | 0.500 | PASS |
-| factuality | 0.500 | 0.500 | PASS |
-| certainty | 0.500 | 0.500 | PASS |
-| topic_science | 0.833 | 1.000 | FAIL, declared surface-confounded |
-| verbosity | 1.000 | 1.000 | FAIL, declared surface-confounded |
+| Qwen2.5-7B-Instruct | 0.215 | 0.10 | PASS |
+| Mistral-7B-Instruct-v0.3 | 0.163 | 0.10 | PASS |
 
-8/10 pass, 0 undeclared failures. Reproduce with `python -c "from lbi.concepts
-import audit_all_concepts; ..."` or read it off `scripts/demo_synthetic.py`.
+Steering works on both. Neither model is withheld.
 
-**Read 0.500 as the floor, not as a good score.** Marker vocabulary is disjoint
-across template families by build-time invariant, so a TF-IDF model trained on
-five families has no feature that fires on the sixth and its decision function
-is constant there. The audit is a check that the construction succeeded. It
-earns its keep by having failed loudly when it had not: it caught duplicated
-template families in `topic_science`, markers shared across families in five
-concepts, a two-token length imbalance that separated families at AUROC 0.94
-with no marker word transferring, and a capitalisation cue aligned with the
-label on `formality`.
+## The gap map
 
-The two declared failures are not excused. `verbosity` is length and
-`topic_science` is domain vocabulary; neither can pass a lexical audit, both
-still report `passed=False`, and a test pins that the flag cannot convert a
-failure into a pass.
+**20 concept-model points. Spearman rho = 0.119, CI [-0.233, 0.505].**
 
-## Synthetic end-to-end check
+The interval includes zero: detection does not predict control on this data.
+That is the direction the thesis predicts, but the honest reading is weaker
+than it sounds, because the readability axis is saturated. See the caveats.
 
-`scripts/demo_synthetic.py`, planted ground truth, ~40 s, no GPU.
+**Danger zone: one point.**
 
-- Ground truth: planted `['honesty', 'refusal']` as readable-but-immovable →
-  detected exactly `['honesty', 'refusal']`.
-- Gap map over 20 points: Spearman rho = 0.087 [-0.403, 0.508].
-- Danger zone: 4 points, all reported as *unsteerable under tested
-  interventions* -- the demo does not run the gauntlet, so none is entitled to
-  "immovable".
-- Primary test (H1, output_overlap): partial rho = 0.525 [-0.127, 0.863] over
-  10 concepts → "suggestive but not strong".
-- Exploratory E1 rho = -0.050, E2 rho = -0.577, both p_BH = 0.164.
+`topic_science@Mistral-7B-Instruct-v0.3` -- readability 1.000 [1.000, 1.000],
+controllability 0.024 [0.013, 0.046], and it survived the full
+six-intervention gauntlet. It is the only point in the study entitled to the
+word *immovable*.
 
-These numbers are properties of the planted generator, not of anything.
+**And it is one of the two concepts declared surface-confounded.**
+`topic_science` is domain membership, carried by content vocabulary, and it
+fails the surface audit at 0.833 by design. Its readability is exactly the
+number the audit says not to trust, so the single danger-zone occupant cannot
+serve as the paper's headline example.
 
----
+## Per-concept
 
-## Real runs
+| Model | Concept | Read | Selec | Control probe | Ctrl | Ctrl CI | Layer | Gauntlet |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Qwen | certainty | 1.000 | 0.369 | 0.631 **flag** | 0.123 | [0.094, 0.220] | 13 | - |
+| Qwen | factuality | 1.000 | 0.534 | 0.466 | 0.120 | [0.088, 0.177] | 13 | - |
+| Qwen | formality | 0.992 | 0.598 | 0.394 | 0.034 | [0.021, 0.070] | 13 | moved |
+| Qwen | honesty | 1.000 | 0.438 | 0.562 | 0.081 | [0.070, 0.176] | 20 | - |
+| Qwen | refusal | 1.000 | 0.536 | 0.464 | 0.047 | [0.043, 0.108] | 13 | moved |
+| Qwen | rudeness | 0.797 | 0.153 | 0.644 **flag** | 0.153 | [0.080, 0.259] | 15 | - |
+| Qwen | sentiment | 1.000 | 0.435 | 0.565 | 0.215 | [0.115, 0.339] | 13 | - |
+| Qwen | sycophancy | 1.000 | 0.385 | 0.615 **flag** | 0.118 | [0.083, 0.202] | 3 | - |
+| Qwen | topic_science | 0.944 | 0.477 | 0.468 | 0.019 | [0.014, 0.029] | 13 | **survived** |
+| Qwen | verbosity | 1.000 | 0.455 | 0.545 | 0.050 | [0.029, 0.088] | 13 | moved |
+| Mistral | certainty | 1.000 | 0.420 | 0.580 | 0.113 | [0.069, 0.213] | 15 | - |
+| Mistral | factuality | 1.000 | 0.611 | 0.389 | 0.032 | [0.017, 0.063] | 15 | moved |
+| Mistral | formality | 1.000 | 0.454 | 0.546 | 0.099 | [0.081, 0.182] | 0 | - |
+| Mistral | honesty | 1.000 | 0.624 | 0.376 | 0.107 | [0.056, 0.233] | 3 | - |
+| Mistral | refusal | 1.000 | 0.512 | 0.488 | 0.038 | [0.027, 0.080] | 15 | **survived** |
+| Mistral | rudeness | 1.000 | 0.488 | 0.512 | 0.211 | [0.117, 0.301] | 15 | - |
+| Mistral | sentiment | 1.000 | 0.426 | 0.574 | 0.163 | [0.067, 0.273] | 15 | - |
+| Mistral | sycophancy | 0.574 | 0.055 | 0.519 | 0.101 | [0.078, 0.189] | 2 | - |
+| Mistral | topic_science | 1.000 | 0.530 | 0.470 | 0.024 | [0.013, 0.046] | 15 | **survived** |
+| Mistral | verbosity | 1.000 | 0.399 | 0.601 **flag** | 0.054 | [0.027, 0.097] | 15 | - |
 
-### Qwen/Qwen2.5-7B-Instruct -- 2026-08-29, Kaggle T4, 4-bit -- CONTROL FAILED
+A dash means the gauntlet never ran, because the default intervention already
+moved the concept. That is not the same as failing it.
 
-| | |
-| --- | --- |
-| Control (sentiment) controllability | **0.000** (floor 0.10) |
-| P9 verdict | **FAIL** -- model withheld |
-| Fluency ceiling | no breakage in swept range |
-| Judge parse-failure rate | 0.0% |
-| Commit | `685d8d6` |
-| Wall clock | 21.7 min for the control alone |
+## What replicates across the two models
 
-**No numbers from this model are reportable.** A model whose control does not
-move scores low controllability on every concept, which is indistinguishable
-from the finding, so P9 withholds it.
+**`topic_science` is the least controllable concept on both** -- 0.019 on Qwen,
+0.024 on Mistral -- and survived the gauntlet on both. The effect is real and
+not model-specific. It is also the concept whose readability is confounded, so
+it cannot carry the claim.
 
-Exactly 0.000 with all nine coefficients usable means the behaviour score
-equalled baseline at *every* coefficient. With a 0.0% parse-failure rate the
-leading hypothesis is a judge returning one constant parseable number; the
-second is that `st.generate` was feeding raw instructions to an instruct model
-with no chat template, so the scored text was not the behaviour the concept is
-about. Both are now fixed and neither is confirmed as the cause -- see
-[notebooks/RUNLOG.md](notebooks/RUNLOG.md).
+**`refusal` is the interesting near-miss.** 0.047 on Qwen, 0.038 on Mistral,
+survived the gauntlet on Mistral, and it is *not* surface-confounded. It misses
+the danger zone only on P6's CI requirement: controllability CI upper bound
+0.080 against a 0.05 threshold. More eval prompts or more models would tighten
+that interval. This is the concept to watch.
 
-This is the positive control working as designed. It caught a broken harness
-before nine more concepts were generated on top of it.
+**`rudeness` is the most controllable non-control concept** on both models
+(0.153, 0.211), above the sentiment control on Mistral.
 
-**Diagnosed 2026-08-29 (nb2).** The cause was the missing chat template, not
-steering. With it applied, the same model at layer 14 gives judge means of 0.30
-/ 0.75 / 1.00 at coefficients -3 / 0 / +3 -- an implied controllability of 0.175
-against the 0.10 floor. Steering was never broken. Re-run pending.
+**Two readability collapses.** `sycophancy` reads 1.000 on Qwen and 0.574 on
+Mistral; `rudeness` reads 0.797 on Qwen and 1.000 on Mistral. Whatever the
+probe picks up for those two is not stable across model families.
 
-### Qwen/Qwen2.5-7B-Instruct -- 2026-09-01, Kaggle T4, 4-bit -- CONTROL PASSED
+## Primary test (H1) and exploratory
 
-| | |
-| --- | --- |
-| Control (sentiment) controllability | **0.309** (floor 0.10), corrected 0.338 |
-| P9 verdict | **PASS** |
-| Judge | `Qwen/Qwen2.5-1.5B-Instruct`, fixed, `judge_is_self=false` |
-| Judge parse-failure rate | 0.0% |
-| Probe best layer | 13 of 28 (validation-selected, mid-network tie-break) |
-| Readability (test split) | 1.000, selectivity 0.508 |
-| Baseline behaviour | 0.825 |
-| Fluency ceiling | perplexity > 2.0x baseline at coeff +3 |
-| Splits (train/val/test) | 128 / 32 / 32 |
-| Commit | `c7b2ddc` |
-| Wall clock | 11.8 min |
+H1, output overlap, partial Spearman controlling for readability, cluster
+bootstrap over 10 concepts:
 
-Steering works on this model. The dissociation question is now answerable, and
-the other nine concepts are unmeasured.
+```
+partial rho = -0.430, CI [-0.729, 0.070]
 
-Two caveats carried into Methods: validation AUROC saturates on 25 of 28
-layers, so the mid-network tie-break rather than validation performance selects
-the layer; and the dose-response is strongly one-sided, with baseline 0.825
-leaving most of the movement on the negative side.
+UNINFORMATIVE: the CI includes zero, so no relationship can be claimed in
+either direction. Per P7 this is a null result about H1, not weak support.
+```
 
-Each entry records: model, control controllability and
-whether it cleared the P9 floor, the fluency `ceiling_reason`, judge
-parse-failure rate and Krippendorff alpha, per-concept readability and
-controllability, gauntlet verdicts, and the commit the run was made from.
+Note the sign. Section 2.5 predicts that *more* output overlap means *more*
+controllability, and the point estimate is negative. With the interval spanning
+zero this is not evidence of a reversal either, but it is not support.
 
-A model whose positive control falls below the floor has its numbers
-**withheld**, not explained away.
+**Exploratory, BH-corrected.** E1 participation ratio rho = -0.051, p_BH =
+0.907. E2 low-variance PC alignment rho = 0.005, p_BH = 0.907. Both null.
+
+**Ridge gap predictor.** LOO R^2 = -0.033, worse than predicting the mean.
+
+None of the three named mechanisms explains the gap on this data.
+
+## Judge agreement
+
+| Model | Krippendorff alpha | Items |
+| --- | --- | --- |
+| Qwen2.5-7B | 0.132 | 3240 |
+| Mistral-7B | 0.309 | 2916 |
+
+Both poor. The panel is the logit judge (primary) against the lexicon scorer,
+and the lexicon scorer is a development instrument that returns its no-hit
+neutral 0.5 on much free text. This is objection 14 and it is **not yet
+answered**: a validated `ClassifierScorer` and the hand-labelled third rater
+are both outstanding. `human_labels.csv` was written by both runs and has not
+been filled in.
+
+## Caveats that belong in Methods, not in a rebuttal
+
+**The readability axis is saturated.** Sixteen of twenty points sit at exactly
+AUROC 1.000. A near-constant x cannot correlate with anything, and that, rather
+than a clean null, is why the headline Spearman is uninformative. Selectivity
+(AUROC minus the shuffled-label control) has the spread readability lacks and
+is available as a declared secondary axis
+(`build_gap_map(x_axis="selectivity")`). The preregistered axis is unchanged.
+
+**The shuffled-label control is not at chance.** P3's flag fires on four of
+twenty points: Qwen certainty 0.631, rudeness 0.644, sycophancy 0.615, and
+Mistral verbosity 0.601. Simulated on isotropic noise of the same shape, a
+12-shuffle control sits well inside 0.5 plus or minus 0.05, so these are real
+structure rather than noise. Readability at those points is partly whatever the
+control is picking up.
+
+**Layer selection is a prior, not a measurement.** Validation AUROC saturates
+across most of the network, so the preregistered mid-network tie-break, not
+validation performance, chooses the layer. Three points landed at layer 0-3
+(Mistral formality, Mistral sycophancy, Qwen sycophancy), where the tie-break
+had least to work with.
+
+**Sub-10B, two model families, templated stimuli.** Stated in the abstract.
+
+## Surface-shortcut audit (CPU-only, no model)
+
+Unchanged from concept construction: 8 of 10 pass at exactly 0.500, the floor.
+`topic_science` (0.833) and `verbosity` (1.000) fail and are declared
+surface-confounded in the builder. See [CONTEXT.md](CONTEXT.md) for why 0.500
+is the floor rather than a good score.

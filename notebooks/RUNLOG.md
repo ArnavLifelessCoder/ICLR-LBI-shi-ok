@@ -469,3 +469,55 @@ supporting it. On this data it now reads UNINFORMATIVE. LOO R^2 = -0.380.
 
 **Next action.** See the assessment in RESULTS.md. The blocking problem is the
 saturated readability axis, not the pipeline: the pipeline is now working.
+
+---
+
+## 2026-09-02 -- Kaggle, nb6 -- TWO MODELS COMPLETE. 20 points.
+
+**Environment.** Repo at `9f86309`. Qwen2.5-7B-Instruct then
+Mistral-7B-Instruct-v0.3, both 4-bit on cuda:0, judge Qwen2.5-1.5B-Instruct
+fp16 on cuda:1 loaded once and shared. 4h21m total. `del lm` between models
+freed cuda:0 to 10.0 GB both times, so the two-model-per-session pattern works.
+
+**Both controls pass.** Qwen 0.215, Mistral 0.163, floor 0.10. Neither model is
+withheld under P9.
+
+**Danger zone: one point.** `topic_science@Mistral`, confirmed immovable
+against all six interventions. It replicates on Qwen (0.019 vs 0.024, gauntlet
+survived on both), so the effect is real and not model-specific. It is also one
+of the two concepts declared surface-confounded, so its readability is the
+number the audit says not to trust. The claim has an occupant it cannot use.
+
+**`refusal` is the near-miss worth chasing.** Not surface-confounded,
+0.047 / 0.038 across the two models, survived the gauntlet on Mistral, and
+misses P6 only on the CI: controllability upper bound 0.080 against a 0.05
+threshold.
+
+**H1 uninformative.** partial rho = -0.430, CI [-0.729, 0.070]. The verdict
+logic added in `26ae787` reported this correctly as uninformative rather than
+announcing support from a point estimate; the earlier code would have said
+"geometry explains the gap". Sign is also opposite to Section 2.5's prediction.
+E1 p_BH 0.907, E2 p_BH 0.907, ridge LOO R^2 -0.033. All null.
+
+**Gap map.** 20 points, Spearman 0.119, CI [-0.233, 0.505]. Much tighter than
+nb5's [-0.592, 0.897] but still spanning zero.
+
+**Two problems the fuller dataset makes unavoidable.**
+
+1. *Readability is saturated.* Sixteen of twenty points at exactly AUROC 1.000.
+   The primary x-axis has almost no variance, so the headline correlation is
+   uninformative rather than null. Selectivity is available as a declared
+   secondary axis and does have spread.
+2. *Judge agreement is 0.132 (Qwen) and 0.309 (Mistral).* Objection 14 is
+   unanswered. The lexicon second judge returns its neutral 0.5 on too much
+   free text, and `human_labels.csv` is still unfilled.
+
+P3's flag fired on four of twenty points: Qwen certainty 0.631, rudeness 0.644,
+sycophancy 0.615, Mistral verbosity 0.601.
+
+**Next action.** Decide the framing before writing the abstract. Both controls
+pass so the kill branch is closed; the dissociation has one confirmed instance
+and it is confounded; the geometry pivot is unavailable because H1 and both
+exploratory features are null. What is defensible today is a characterisation
+paper. Technically the highest-value next runs are a third model family and
+more eval prompts for `refusal`, in that order.

@@ -18,13 +18,13 @@ A probe interrogates the *encoder*. Steering interrogates the *decoder*. Nothing
 ties class separation to downstream causal sensitivity, which is why a gap
 should be expected rather than merely hoped for.
 
-## Where the project stands (2026-08-27)
+## Where the project stands (2026-09-03)
 
 | | |
 | --- | --- |
-| Code | Complete for Experiments 1-4, 125 CPU tests, synthetic end-to-end demo passes |
-| Real model runs | Qwen2.5-7B control **PASSES** (0.309 vs floor 0.10, 2026-09-01). Nine concepts unmeasured |
-| Judges | Panel wired (LLM + lexicon + human sheet); `ClassifierScorer.model_map` deliberately empty |
+| Code | Experiments 1-4 complete, 140 CPU tests, synthetic demo passes |
+| Real model runs | **Qwen2.5-7B and Mistral-7B complete**, 20 points, both controls pass. See RESULTS.md |
+| Judges | Fixed logit judge (Qwen2.5-1.5B) + lexicon. **alpha 0.13 / 0.31 -- too low.** Human sheet unfilled |
 | Concept set | 10 built, 8 clear the surface audit, 2 declared surface-confounded |
 | Target | ICLR 2027 -- abstract **Sep 18 2026**, paper **Sep 25 2026** |
 
@@ -76,15 +76,53 @@ the six-intervention gauntlet is immovable, and even that is bounded by those
 six rather than proving none exists. `gap_map.json` reports the two sets
 separately.
 
+## What the data says (nb6, 2026-09-02)
+
+The pipeline works and the study has run. The result is **not** the paper that
+was planned, and the next decision is a framing decision rather than a
+technical one.
+
+**One danger-zone occupant:** `topic_science@Mistral`, confirmed immovable
+against all six interventions. It replicates on Qwen (0.019 vs 0.024, gauntlet
+survived on both). But `topic_science` is one of the two concepts declared
+surface-confounded before the run, so its readability is the number the audit
+says not to trust. The claim has an occupant and cannot use it.
+
+**The near-miss is the one to watch.** `refusal` is not surface-confounded,
+scores 0.047 / 0.038 across the two models, and survived the gauntlet on
+Mistral. It misses P6 only on the CI: controllability upper bound 0.080 against
+a 0.05 threshold. Tightening that interval -- more eval prompts, a third model
+-- is the single highest-value experiment left.
+
+**H1 is uninformative, not supported.** Partial rho -0.430, CI [-0.729, 0.070],
+and the point estimate has the opposite sign to Section 2.5's prediction. Both
+exploratory analyses are null (p_BH 0.907) and the ridge predictor has negative
+LOO R^2. None of the three named mechanisms explains the gap here.
+
+**Two things blunt every number above.** Readability is saturated -- sixteen of
+twenty points at exactly AUROC 1.000 -- so the primary x-axis has almost no
+variance and the headline correlation is uninformative rather than null. And
+judge agreement is 0.13 / 0.31, which leaves objection 14 unanswered.
+
 ## Go / no-go
 
 From `PLAN.md` Part 8, decided from data rather than hope:
 
 - Positive control fails on two or more models → do not submit; the harness is
   wrong in a way that invalidates everything.
-- Control works but no concept shows the dissociation → pivot to the
+- Control works but no concept shows the dissociation -> pivot to the
   "predict steerability from geometry" framing in design Section 11.
-- Dissociation holds → write it.
+- Dissociation holds -> write it.
+
+**Where nb6 leaves this.** Both controls pass, so the first branch is closed.
+The dissociation has exactly one confirmed instance and it is a confounded
+concept, so the third branch is not yet earned. The geometry pivot is also
+unavailable as stated, because H1 and both exploratory features came back null.
+What remains defensible today is a characterisation paper: detection does not
+predict control across ten concepts and two model families, the standard
+first-order geometric account does not explain it either, and one
+non-confounded concept (`refusal`) sits at the boundary. Decide this before
+writing the abstract, not after.
 
 A model where steering is broken scores low controllability on *every* concept,
 so a broken harness puts the whole model in the danger zone and is

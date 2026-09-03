@@ -1,0 +1,94 @@
+7.6s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.6s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.6s 3 0.00s - to python to disable frozen modules.
+7.6s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+8.2s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+8.2s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+8.2s 7 0.00s - to python to disable frozen modules.
+8.2s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+10.5s 9 /kaggle/working/lbi-repo
+14.6s 10 [?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/43.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m2.8/43.1 MB[0m [31m84.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m10.3/43.1 MB[0m [31m156.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m17.1/43.1 MB[0m [31m201.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━[0m [32m24.5/43.1 MB[0m [31m216.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━[0m [32m32.0/43.1 MB[0m [31m215.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━[0m [32m39.6/43.1 MB[0m [31m211.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m235.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m235.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m235.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m235.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m235.1 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m43.1/43.1 MB[0m [31m47.2 MB/s[0m eta [36m0:00:00[0m
+14.6s 11 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/389.2 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m389.2/389.2 kB[0m [31m27.7 MB/s[0m eta [36m0:00:00[0m
+14.7s 12 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/12.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━[0m [32m9.0/12.1 MB[0m [31m271.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.1/12.1 MB[0m [31m258.8 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.1/12.1 MB[0m [31m112.1 MB/s[0m eta [36m0:00:00[0m
+14.7s 13 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/516.0 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m516.0/516.0 kB[0m [31m31.9 MB/s[0m eta [36m0:00:00[0m
+14.8s 14 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/3.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m3.3/3.3 MB[0m [31m254.6 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.3/3.3 MB[0m [31m96.5 MB/s[0m eta [36m0:00:00[0m
+29.6s 15 [?25h[33m9f86309[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m P3 control flag, stabilise the control, add selectivity as a declared secondary axis
+57.0s 16 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+57.0s 17 
+57.0s 18 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+58.8s 19 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+58.8s 20 
+58.8s 21 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+76.4s 22 
+76.4s 23 ============================================================
+76.4s 24 Qwen/Qwen2.5-7B-Instruct
+76.4s 25 ============================================================
+690.3s 26 
+690.3s 27 judge: Qwen/Qwen2.5-1.5B-Instruct (fixed)
+690.3s 28 control controllability = 0.215 (floor 0.1)
+690.3s 29 fluency ceiling: perplexity > 2.0x baseline at coeff 3
+690.3s 30 PASS -- steering works on this model, run the sweep.
+692.1s 31 sentiment: already in Qwen2-5-7B-Instruct_sentiment.json, skipping (pass resume=False, or delete the file, to redo)
+6963.6s 32 NOTE [P9]: control record for Qwen/Qwen2.5-7B-Instruct already on disk, kept.
+6963.6s 33 
+6963.6s 34 resumed: skipped 1 concept(s) already on disk (sentiment). Their numbers are in /kaggle/working/results and --aggregate-only reads them; only this summary is partial.
+6963.6s 35 formality      read=0.992 ctrl=0.034 ceiling=2  [moved: movable via clamp:diff_of_means (controllability 0.052)]
+6963.6s 36 rudeness       read=0.797 ctrl=0.153 ceiling=2
+6963.6s 37 sycophancy     read=1.000 ctrl=0.118 ceiling=3
+6963.6s 38 refusal        read=1.000 ctrl=0.047 ceiling=2  [moved: movable via clamp:diff_of_means (controllability 0.064)]
+6963.6s 39 honesty        read=1.000 ctrl=0.081 ceiling=3
+6963.6s 40 topic_science  read=0.944 ctrl=0.019 ceiling=3  [IMMOVABLE: survived the gauntlet]
+6963.6s 41 factuality     read=1.000 ctrl=0.120 ceiling=3
+6963.6s 42 verbosity      read=1.000 ctrl=0.050 ceiling=3  [moved: movable via add:diff_of_means (controllability 0.074)]
+6963.6s 43 certainty      read=1.000 ctrl=0.123 ceiling=3
+6964.4s 44 
+6964.4s 45 judge agreement: alpha=0.132 over 3240 items
+6964.4s 46 
+6964.4s 47 hand-label 100 outputs in /kaggle/working/results/human_labels.csv (blanks allowed).
+6964.5s 48 cuda:0 free: 10.0 GB
+6964.5s 49 
+6964.5s 50 ============================================================
+6964.5s 51 mistralai/Mistral-7B-Instruct-v0.3
+6964.5s 52 ============================================================
+7845.5s 53 
+7845.5s 54 judge: Qwen/Qwen2.5-1.5B-Instruct (fixed)
+7845.5s 55 control controllability = 0.163 (floor 0.1)
+7845.5s 56 fluency ceiling: no breakage in swept range
+7845.5s 57 PASS -- steering works on this model, run the sweep.
+7845.9s 58 sentiment: already in Mistral-7B-Instruct-v0-3_sentiment.json, skipping (pass resume=False, or delete the file, to redo)
+15675.5s 59 NOTE [P9]: control record for mistralai/Mistral-7B-Instruct-v0.3 already on disk, kept.
+15675.5s 60 
+15675.5s 61 resumed: skipped 1 concept(s) already on disk (sentiment). Their numbers are in /kaggle/working/results and --aggregate-only reads them; only this summary is partial.
+15675.5s 62 formality      read=1.000 ctrl=0.099 ceiling=3
+15675.5s 63 rudeness       read=1.000 ctrl=0.211 ceiling=3
+15675.5s 64 sycophancy     read=0.574 ctrl=0.101 ceiling=3
+15675.5s 65 refusal        read=1.000 ctrl=0.038 ceiling=3  [IMMOVABLE: survived the gauntlet]
+15675.5s 66 honesty        read=1.000 ctrl=0.107 ceiling=3
+15675.5s 67 topic_science  read=1.000 ctrl=0.024 ceiling=3  [IMMOVABLE: survived the gauntlet]
+15675.5s 68 factuality     read=1.000 ctrl=0.032 ceiling=3  [moved: movable via add_all:diff_of_means (controllability 0.059)]
+15675.5s 69 verbosity      read=1.000 ctrl=0.054 ceiling=3
+15675.5s 70 certainty      read=1.000 ctrl=0.113 ceiling=3
+15676.4s 71 
+15676.4s 72 judge agreement: alpha=0.309 over 2916 items
+15676.4s 73 
+15676.4s 74 hand-label 100 outputs in /kaggle/working/results/human_labels.csv (blanks allowed).
+15676.4s 75 cuda:0 free: 10.0 GB
+15676.4s 76 
+15676.4s 77 SUMMARY: {'Qwen/Qwen2.5-7B-Instruct': {'control_passed': True, 'alpha': 0.13154953024940486}, 'mistralai/Mistral-7B-Instruct-v0.3': {'control_passed': True, 'alpha': 0.30917801917821397}}
+15683.6s 78 gap map over 20 concept-model points
+15683.6s 79 Spearman rho = 0.119 [-0.233, 0.505]
+15683.6s 80 Danger zone occupied by 1 point(s). IMMOVABLE (1 confirmed against every variant and all three direction-derivation methods): topic_science@mistralai/Mistral-7B-Instruct-v0.3. Only the confirmed set may be described as immovable; the rest have resisted the interventions that were tried, which is a weaker claim.
+15694.6s 81 primary test (H1, output_overlap): partial rho = -0.430 [-0.729, 0.070] over 10 concepts
+15694.6s 82 UNINFORMATIVE: partial rho=-0.430 but the cluster-bootstrap CI [-0.729, 0.070] includes zero, so no relationship can be claimed in either direction. Per P7 this is a null result about H1, not weak support for it. More concepts or more models are what would change it.
+15694.6s 83 exploratory E1 (participation_ratio): rho = -0.051, p_BH = 0.907
+15694.6s 84 exploratory E2 (low_variance_pc_alignment): rho = 0.005, p_BH = 0.907
+15694.6s 85 geometry predictor: LOO R^2 = -0.033 -- no geometric predictor: the gap is real and not explained by these standard quantities
+15695.2s 86 -rw-r--r-- 1 root root 197K Sep  2 22:39 results.zip
+15701.6s 87 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+15701.6s 88 cells[i][c] = re.sub('\\\\\|', '|', cell)
+15701.9s 89 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+15701.9s 90 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+15702.5s 91 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+15702.9s 92 [NbConvertApp] Writing 339072 bytes to __notebook__.ipynb
+15705.2s 93 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+15706.3s 94 [NbConvertApp] Writing 550057 bytes to __results__.html
