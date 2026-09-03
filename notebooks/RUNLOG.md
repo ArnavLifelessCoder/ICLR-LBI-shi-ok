@@ -616,3 +616,51 @@ agreement, which is hand-labelling not GPU; (2) decide the abstract framing,
 given H1 is now a moderate contradiction rather than a null. A fifth model
 family is optional upside, not a blocker. Do **not** re-run for the map; it is
 complete.
+
+---
+
+## 2026-09-04 -- No GPU. Write-up: docs aligned to the inverted-H1 arc, abstract drafted.
+
+**No run.** Desk session on the 40-point map from nb7. The point was to fix the
+framing and confirm nothing needs re-running, not to collect data.
+
+**Audit first: nothing needs a re-run.** Confirmed the H1 sign-gate bug was a
+reporting bug, not a data bug -- the per-concept readability, controllability and
+geometry numbers are untouched by it, so re-aggregating the existing files with
+the fixed code is the complete fix. Verified the committed
+`results nb7/combined_40point/geometry_predictor.json` carries the corrected
+verdict (not a stale pre-fix copy), the gap map has 40 points and two danger-zone
+occupants, and Gemma is not quietly wrong (eager-attention guard present in
+`extraction.py:93`, judge not degenerate, generations fluent). Full suite 143
+passed. The recurring nb6-copy miss is a Kaggle dataset-attach step, not a code
+bug, and the notebook is not in the repo; documented the fix in CONTEXT.md
+instead.
+
+**Framing changes, all pushed to iclr.**
+
+| Commit | Change |
+| --- | --- |
+| `4d6ef41` | H1 verdict made sign-aware at every magnitude; two behavioral regression tests; 40-point artifacts saved |
+| `2f7dcc4` | RESULTS and RUNLOG updated for 40 points |
+| `a76b0c1` | Section 2.5 gains a dated block: preregistered M1 prediction left verbatim, observed inversion framed as a directional contradiction, `topic_science` named as the driver, lexicality reading offered |
+| `302d74a` | Section 1 thesis paragraph aligned: drops "predictable from geometry", states the arc as "the obvious geometric predictor points the wrong way, and here is why" |
+| `f5effb9` | CONTEXT.md refreshed to the four-model / 40-point state |
+| `62b9f2b` | `ABSTRACT.md` drafted to the inverted-H1 arc (main ~215 words + short form + claim-to-evidence map) |
+
+**The arc, settled across all four docs.** Detection and control are
+uncorrelated (Spearman 0.14, CI includes zero); legible concepts resist the
+six-method gauntlet; the first-order geometric predictor is inverted (partial
+rho -0.451, CI [-0.723, -0.041] excluding zero on the side opposite Section
+2.5); `topic_science` drives it as the highest-overlap and least-controllable
+concept on every model; lexicality is the offered reading. Section 1, Section
+2.5, RESULTS, CONTEXT and the abstract now all tell this one story.
+
+**Next action.** Two gates remain before the abstract is submission-ready, and
+neither is a run. (1) Fill `human_labels.csv` and add a validated
+`ClassifierScorer` as the third rater: judge agreement is 0.13 / 0.31 / 0.30 /
+0.15 across the four models, and the abstract's controllability claims rest on
+the judge. Until objection 14 is answered or explicitly scoped in Limitations,
+do not treat the controllability numbers as final (noted in ABSTRACT.md). (2)
+Write the paper body to the arc the abstract now states. A fifth model family
+stays optional upside; if run, attach the four existing result datasets so
+`--aggregate-only` covers all five, or rebuild the map locally as was done here.
