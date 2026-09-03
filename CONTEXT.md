@@ -18,15 +18,18 @@ A probe interrogates the *encoder*. Steering interrogates the *decoder*. Nothing
 ties class separation to downstream causal sensitivity, which is why a gap
 should be expected rather than merely hoped for.
 
-## Where the project stands (2026-09-03)
+## Where the project stands (2026-09-04)
 
 | | |
 | --- | --- |
-| Code | Experiments 1-4 complete, 140 CPU tests, synthetic demo passes |
-| Real model runs | **Qwen2.5-7B and Mistral-7B complete**, 20 points, both controls pass. Llama-3.1-8B and Gemma-2-9b queued as nb7. See RESULTS.md |
-| Judges | Fixed logit judge (Qwen2.5-1.5B) + lexicon. **alpha 0.13 / 0.31 -- too low.** Human sheet unfilled |
+| Code | Experiments 1-4 complete, 143 CPU tests, synthetic demo passes |
+| Real model runs | **All four models complete** (Qwen2.5-7B, Mistral-7B, Llama-3.1-8B, Gemma-2-9b), 40 points, all controls pass. See RESULTS.md |
+| Judges | Fixed logit judge (Qwen2.5-1.5B) + lexicon. **alpha 0.13 / 0.31 / 0.30 / 0.15 -- too low.** Human sheet unfilled |
 | Concept set | 10 built, 8 clear the surface audit, 2 declared surface-confounded |
 | Target | ICLR 2027 -- abstract **Sep 18 2026**, paper **Sep 25 2026** |
+
+Data collection is effectively done. The remaining work is the abstract framing
+and the human judge labels, not more runs. See "What is left" below.
 
 The next action is always in [notebooks/RUNLOG.md](notebooks/RUNLOG.md). Read it
 before proposing a run; append to it after one.
@@ -76,59 +79,71 @@ the six-intervention gauntlet is immovable, and even that is bounded by those
 six rather than proving none exists. `gap_map.json` reports the two sets
 separately.
 
-## What the data says (nb6, 2026-09-02)
+## What the data says (nb7, 2026-09-04, four models, 40 points)
 
-The pipeline works and the study has run. The result is **not** the paper that
-was planned, and the next decision is a framing decision rather than a
-technical one.
+The pipeline works and the full study has run. The result is **not** the paper
+that was planned, and the next decision is a framing decision rather than a
+technical one. The 40-point map lives at `results nb7/combined_40point/`,
+rebuilt locally from the nb6 and nb7 result files (the nb7 notebook aggregate
+saw only its own two models; see the runlog).
 
-**One danger-zone occupant:** `topic_science@Mistral`, confirmed immovable
-against all six interventions. It replicates on Qwen (0.019 vs 0.024, gauntlet
-survived on both). But `topic_science` is one of the two concepts declared
-surface-confounded before the run, so its readability is the number the audit
-says not to trust. The claim has an occupant and cannot use it.
+**Two danger-zone occupants, both `topic_science`:** on Mistral and on Gemma,
+each confirmed immovable against all six interventions. It is the least
+controllable concept on all four models (0.019 / 0.024 / 0.011 / 0.007) and
+survived the gauntlet on all four; Qwen and Llama place it just outside the zone
+only because its readability CI dips below the 0.9 floor. But `topic_science` is
+one of the two concepts declared surface-confounded before the run, so its
+readability is the number the audit says not to trust. The claim has occupants
+on two model families and can use none of them.
 
-**The near-miss is the one to watch.** `refusal` is not surface-confounded,
-scores 0.047 / 0.038 across the two models, and survived the gauntlet on
-Mistral. It misses P6 only on the CI: controllability upper bound 0.080 against
-a 0.05 threshold. Tightening that interval -- more eval prompts, a third model
--- is the single highest-value experiment left.
+**The near-miss holds across all four.** `refusal` is not surface-confounded,
+scores 0.047 / 0.038 / 0.033 / 0.038, and survived the gauntlet on Mistral and
+Llama. It misses P6 only on the controllability CI upper bound (0.108 / 0.080 /
+0.107 / 0.146, all above 0.05). This is a boundary case, not a chase: the CI
+arithmetic says more eval prompts will not close it at feasible cost.
 
-**H1 is uninformative, not supported.** Partial rho -0.430, CI [-0.729, 0.070],
-and the point estimate has the opposite sign to Section 2.5's prediction. Both
-exploratory analyses are null (p_BH 0.907) and the ridge predictor has negative
-LOO R^2. None of the three named mechanisms explains the gap here.
+**H1 is now a moderate contradiction, not a null.** With 40 points partial rho
+= -0.451, CI [-0.723, -0.041], which **excludes zero on the side opposite**
+Section 2.5's prediction. More output overlap goes with *less* controllability,
+not more. `topic_science` drives it: it is the highest-overlap and
+least-controllable concept on all four models, the M1 spectator-feature picture
+inverted. The honest arc is "the obvious geometric predictor points the wrong
+way, and here is why," with a lexicality reading offered as the mechanism (see
+Section 2.5's dated block). Both exploratory analyses stay null (p_BH 0.833) and
+the ridge predictor is at LOO R^2 0.001.
 
-**Two things blunt every number above.** Readability is saturated -- sixteen of
-twenty points at exactly AUROC 1.000 -- so the primary x-axis has almost no
-variance and the headline correlation is uninformative rather than null. And
-judge agreement is 0.13 / 0.31, which leaves objection 14 unanswered.
+**Two things blunt every number above.** Readability is saturated -- 31 of 40
+points at exactly AUROC 1.000 -- so the primary x-axis has almost no variance
+and the headline correlation is uninformative rather than null. And judge
+agreement is 0.13 / 0.31 / 0.30 / 0.15, which leaves objection 14 unanswered.
 
-## Running next (nb7)
+## What is left
 
-Llama-3.1-8B-Instruct then Gemma-2-9b-it in one session, ~5 h, taking the point
-count from 20 to 40 across four model families. Both are gated on Hugging Face
-and need a Kaggle secret labelled exactly `HF_TOKEN`, attached to the notebook;
-cell 3 asserts on it so a missing token fails in seconds rather than 403-ing
-two minutes into a download.
+**No model needs re-running.** All four are complete, all results are on disk
+and committed, and the 40-point map is correct. The H1 bug was a reporting bug
+fixed in-place by re-aggregation, not a data bug, so nothing has to be
+regenerated on a GPU.
 
-Attach nb6's output and copy its 22 result files into `/kaggle/working/results`
-before the sweep. Those were produced by the current code and the current fixed
-judge, so `resume=True` correctly skips Qwen and Mistral and the aggregate step
-covers all four models at once. This is the one case where the resume behaviour
-is what you want.
+Two things gate the paper, and neither is a run:
 
-`load_model` selects `attn_implementation="eager"` automatically for Gemma-2.
-That family soft-caps its attention logits and the fused SDPA path ignores the
-cap, so the model would load, generate fluent text, and be quietly wrong -- and
-the symptom would look like a concept that steers oddly rather than a bug.
+1. **Fill `human_labels.csv` (objection 14).** Judge agreement is poor on every
+   model. This is the single weakest point and it needs ~100 hand labels, not
+   GPU time. Pair it with a validated `ClassifierScorer` as the third rater.
+2. **Write the abstract to the inverted-H1 arc.** Section 1 and Section 2.5 are
+   already aligned to it; the abstract itself still needs writing before Sep 18.
 
-**What nb7 can and cannot settle.** It answers whether the pattern is
-Qwen-specific, and it gives the cluster bootstrap four families instead of two.
-It does **not** fix the saturated readability axis, and it will not move
-`refusal` into the danger zone: the arithmetic on its CI says the prompt count
-would have to grow roughly twelvefold, and eight times the generation cost
-still misses the 0.05 threshold. Report `refusal` as a boundary case instead.
+Optional upside, not a blocker: a fifth model family would de-risk the H1 sign
+and could dent the saturation problem. It is nice to have, not required, and it
+does not change the code. If run, attach the four existing result datasets so
+`--aggregate-only` covers all five at once -- the recurring failure has been the
+nb6 result files not being attached at the path the copy cell expects, which
+silently leaves the notebook aggregate on a subset. Rebuild locally if in doubt.
+
+`load_model` selects `attn_implementation="eager"` automatically for Gemma-2
+(verified in the code and in the outputs: Gemma generations are fluent and the
+judge is not degenerate). That family soft-caps its attention logits and the
+fused SDPA path ignores the cap, so without the guard the model would load,
+generate fluent text, and be quietly wrong.
 
 ## Go / no-go
 
@@ -140,15 +155,18 @@ From `PLAN.md` Part 8, decided from data rather than hope:
   "predict steerability from geometry" framing in design Section 11.
 - Dissociation holds -> write it.
 
-**Where nb6 leaves this.** Both controls pass, so the first branch is closed.
-The dissociation has exactly one confirmed instance and it is a confounded
-concept, so the third branch is not yet earned. The geometry pivot is also
-unavailable as stated, because H1 and both exploratory features came back null.
-What remains defensible today is a characterisation paper: detection does not
-predict control across ten concepts and two model families, the standard
-first-order geometric account does not explain it either, and one
-non-confounded concept (`refusal`) sits at the boundary. Decide this before
-writing the abstract, not after.
+**Where nb7 leaves this.** All four controls pass, so the first branch is
+closed. The dissociation has two confirmed instances but both are the same
+confounded concept, so the third branch is earned only with the confound stated.
+The geometry pivot did not vanish; it inverted. H1 came back a moderate
+contradiction (CI excludes zero, wrong sign), which is a stronger claim about
+the field's working picture than a clean predictor: the standard first-order
+account does not just fail to explain the gap, it predicts it backwards. What is
+defensible today is a characterisation paper with that inversion as its geometric
+result: detection does not predict control across ten concepts and four model
+families, the obvious geometric account is inverted, and one non-confounded
+concept (`refusal`) sits at the boundary on every model. That is the arc; the
+abstract has to be written to it.
 
 A model where steering is broken scores low controllability on *every* concept,
 so a broken harness puts the whole model in the danger zone and is
