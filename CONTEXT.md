@@ -23,7 +23,7 @@ should be expected rather than merely hoped for.
 | | |
 | --- | --- |
 | Code | Experiments 1-4 complete, 140 CPU tests, synthetic demo passes |
-| Real model runs | **Qwen2.5-7B and Mistral-7B complete**, 20 points, both controls pass. See RESULTS.md |
+| Real model runs | **Qwen2.5-7B and Mistral-7B complete**, 20 points, both controls pass. Llama-3.1-8B and Gemma-2-9b queued as nb7. See RESULTS.md |
 | Judges | Fixed logit judge (Qwen2.5-1.5B) + lexicon. **alpha 0.13 / 0.31 -- too low.** Human sheet unfilled |
 | Concept set | 10 built, 8 clear the surface audit, 2 declared surface-confounded |
 | Target | ICLR 2027 -- abstract **Sep 18 2026**, paper **Sep 25 2026** |
@@ -103,6 +103,32 @@ LOO R^2. None of the three named mechanisms explains the gap here.
 twenty points at exactly AUROC 1.000 -- so the primary x-axis has almost no
 variance and the headline correlation is uninformative rather than null. And
 judge agreement is 0.13 / 0.31, which leaves objection 14 unanswered.
+
+## Running next (nb7)
+
+Llama-3.1-8B-Instruct then Gemma-2-9b-it in one session, ~5 h, taking the point
+count from 20 to 40 across four model families. Both are gated on Hugging Face
+and need a Kaggle secret labelled exactly `HF_TOKEN`, attached to the notebook;
+cell 3 asserts on it so a missing token fails in seconds rather than 403-ing
+two minutes into a download.
+
+Attach nb6's output and copy its 22 result files into `/kaggle/working/results`
+before the sweep. Those were produced by the current code and the current fixed
+judge, so `resume=True` correctly skips Qwen and Mistral and the aggregate step
+covers all four models at once. This is the one case where the resume behaviour
+is what you want.
+
+`load_model` selects `attn_implementation="eager"` automatically for Gemma-2.
+That family soft-caps its attention logits and the fused SDPA path ignores the
+cap, so the model would load, generate fluent text, and be quietly wrong -- and
+the symptom would look like a concept that steers oddly rather than a bug.
+
+**What nb7 can and cannot settle.** It answers whether the pattern is
+Qwen-specific, and it gives the cluster bootstrap four families instead of two.
+It does **not** fix the saturated readability axis, and it will not move
+`refusal` into the danger zone: the arithmetic on its CI says the prompt count
+would have to grow roughly twelvefold, and eight times the generation cost
+still misses the 0.05 threshold. Report `refusal` as a boundary case instead.
 
 ## Go / no-go
 
