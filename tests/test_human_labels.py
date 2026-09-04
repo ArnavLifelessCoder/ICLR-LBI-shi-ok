@@ -195,3 +195,21 @@ def test_repeats_are_well_separated_not_merely_non_adjacent():
     gaps = [p[1] - p[0] for p in pos.values() if len(p) > 1]
     assert gaps, "expected some repeats"
     assert min(gaps) >= 10, f"repeat too close to its original: min gap {min(gaps)}"
+
+
+def test_reader_tolerates_an_excel_bom(tmp_path):
+    """Excel writes a UTF-8 BOM on save, which renames the first column to
+    "\ufeffindex" for DictReader and silently breaks lookups on it."""
+    import csv as _csv
+
+    p = os.path.join(str(tmp_path), "bom.csv")
+    with open(p, "w", encoding="utf-8-sig", newline="") as f:
+        w = _csv.writer(f)
+        w.writerow(["index", "concept", "question", "text", "score"])
+        w.writerow([0, "sentiment", "q?", "great", "0.9"])
+    rows = _read_rows(p)
+    assert rows[0]["index"] == "0"
+    assert rows[0]["concept"] == "sentiment"
+    assert rows[0]["human"] == 0.9
+    concepts, scores = read_labeling_sheet(p)
+    assert concepts == ["sentiment"] and scores == [0.9]

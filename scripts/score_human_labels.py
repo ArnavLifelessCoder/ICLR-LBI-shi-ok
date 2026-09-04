@@ -38,7 +38,9 @@ def _read_rows(path: str) -> list[dict]:
     import csv
 
     rows = []
-    with open(path, encoding="utf-8", newline="") as f:
+    # utf-8-sig, because Excel adds a BOM on save and that renames the first
+    # column to "﻿index" for DictReader.
+    with open(path, encoding="utf-8-sig", newline="") as f:
         for row in csv.DictReader(f):
             raw = (row.get("score") or "").strip()
             try:

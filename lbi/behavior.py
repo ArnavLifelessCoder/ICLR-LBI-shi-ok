@@ -577,7 +577,9 @@ def read_labeling_sheet(path: str) -> tuple[list[str], list[float]]:
     import csv
 
     concepts, scores = [], []
-    with open(path, encoding="utf-8", newline="") as f:
+    # utf-8-sig: Excel writes a BOM on save, which otherwise turns the first
+    # column name into "﻿index" and breaks DictReader lookups on it.
+    with open(path, encoding="utf-8-sig", newline="") as f:
         for row in csv.DictReader(f):
             concepts.append(row["concept"])
             raw = (row.get("score") or "").strip()
