@@ -213,3 +213,100 @@ def test_reader_tolerates_an_excel_bom(tmp_path):
     assert rows[0]["human"] == 0.9
     concepts, scores = read_labeling_sheet(p)
     assert concepts == ["sentiment"] and scores == [0.9]
+
+
+# --------------------------------------------------------------------------
+# Pooled vs within-concept decomposition, and the variance diagnostic.
+# Pooled alpha misled this study twice: +0.573 pooled against +0.022 within on
+# the v1 sheet. These pin the distinction.
+# --------------------------------------------------------------------------
+
+import numpy as _np
+
+from score_human_labels import _within_concept_alpha, _variance_diagnosis
+
+
+def test_pooled_high_but_within_zero_is_detected():
+    """Two raters that only agree on concept level, not on items within it.
+
+    Concept A sits low and concept B sits high for both raters, so pooled looks
+    strong; inside each concept the orderings are opposite, so the honest
+    within-concept number must not.
+    """
+    a = _np.array([0.0, 0.1, 0.2, 0.8, 0.9, 1.0])
+    b = _np.array([0.2, 0.1, 0.0, 1.0, 0.9, 0.8])
+    concepts = ["A", "A", "A", "B", "B", "B"]
+
+    from lbi.behavior import krippendorff_alpha_interval
+
+    pooled = krippendorff_alpha_interval([a.tolist(), b.tolist()])
+    within, n = _within_concept_alpha(a, b, concepts)
+    assert pooled > 0.7, "setup should look strong when pooled"
+    assert within < 0.0, "reversed within-concept ordering must show as negative"
+    assert n == 6
+
+
+def test_within_alpha_matches_pooled_for_a_single_concept():
+    """With one concept there is no between-concept signal to remove."""
+    a = _np.array([0.1, 0.4, 0.9, 0.6])
+    b = _np.array([0.2, 0.5, 0.8, 0.5])
+    w, n = _within_concept_alpha(a, b, ["A"] * 4)
+    assert n == 4 and not _np.isnan(w)
+
+
+def test_within_alpha_skips_singleton_concepts():
+    """A concept with one labelled row carries no within-concept information."""
+    a = _np.array([0.1, 0.9, 0.5])
+    b = _np.array([0.2, 0.8, 0.5])
+    _, n = _within_concept_alpha(a, b, ["A", "A", "loner"])
+    assert n == 2
+
+
+def test_within_alpha_nan_when_nothing_usable():
+    w, n = _within_concept_alpha(
+        _np.array([0.5, 0.5]), _np.array([0.5, 0.5]), ["A", "B"]
+    )
+    assert _np.isnan(w) and n == 0
+
+
+def test_within_alpha_ignores_missing_cells():
+    a = _np.array([0.1, _np.nan, 0.9, 0.4])
+    b = _np.array([0.2, 0.5, 0.8, _np.nan])
+    _, n = _within_concept_alpha(a, b, ["A", "A", "A", "A"])
+    assert n == 2
+
+
+def test_variance_diagnosis_flags_a_judge_varying_where_human_is_flat():
+    """The refusal case: human scored every item identically, judge did not.
+
+    A judge inventing within-concept variation where a human sees none is
+    inventing exactly the quantity controllability is built from.
+    """
+    a = _np.array([0.0, 0.0, 0.0, 0.0])
+    b = _np.array([0.0, 0.5, 1.0, 0.4])
+    d = _variance_diagnosis(a, b, ["refusal"] * 4, "human", "judge")
+    assert len(d) == 1
+    assert "may be reading noise" in d[0]["note"]
+    assert d[0]["sd_human"] == 0.0 and d[0]["sd_judge"] > 0.11
+
+
+def test_variance_diagnosis_flags_a_blind_judge():
+    a = _np.array([0.0, 0.4, 0.9, 0.5])
+    b = _np.array([0.5, 0.5, 0.5, 0.5])
+    d = _variance_diagnosis(a, b, ["factuality"] * 4, "human", "judge")
+    assert "blind here" in d[0]["note"]
+
+
+def test_variance_diagnosis_calls_both_flat_uninformative():
+    a = _np.array([0.5, 0.5, 0.52, 0.5])
+    b = _np.array([0.5, 0.51, 0.5, 0.5])
+    d = _variance_diagnosis(a, b, ["verbosity"] * 4, "human", "judge")
+    assert "alpha uninformative" in d[0]["note"]
+
+
+def test_variance_diagnosis_calls_both_varying_meaningful():
+    a = _np.array([0.0, 0.3, 0.7, 1.0])
+    b = _np.array([0.1, 0.4, 0.6, 0.9])
+    d = _variance_diagnosis(a, b, ["sentiment"] * 4, "human", "judge")
+    assert "alpha is meaningful" in d[0]["note"]
+    assert d[0]["alpha"] > 0.5

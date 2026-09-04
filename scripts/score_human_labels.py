@@ -80,6 +80,83 @@ def _score_by_concept(scorer, rows: list[dict], label: str) -> list[float]:
     return out
 
 
+def _within_concept_alpha(a, b, concepts):
+    """Alpha after removing each concept's mean from both raters.
+
+    Pooled alpha over a multi-concept sheet is mostly the between-concept
+    signal: both raters know refusal text scores low and honesty text scores
+    high, which is trivially true because they answer different questions. That
+    inflates the number without saying anything about whether the judge tracks
+    the human on individual items.
+
+    Controllability is a within-concept quantity -- it is the behaviour score
+    moving across steering strengths for one concept -- so the centered number
+    is the one that says whether the judge is fit for this study. On the first
+    labelled sheet pooled read +0.573 while this read +0.022.
+    """
+    from collections import defaultdict
+
+    idx = defaultdict(list)
+    for i, c in enumerate(concepts):
+        if not (np.isnan(a[i]) or np.isnan(b[i])):
+            idx[c].append(i)
+    ac, bc = [], []
+    for ii in idx.values():
+        if len(ii) < 2:
+            continue  # a single item carries no within-concept information
+        am = float(np.mean([a[i] for i in ii]))
+        bm = float(np.mean([b[i] for i in ii]))
+        for i in ii:
+            ac.append(a[i] - am)
+            bc.append(b[i] - bm)
+    if len(ac) < 2:
+        return float("nan"), 0
+    return bh.krippendorff_alpha_interval([ac, bc]), len(ac)
+
+
+def _variance_diagnosis(a, b, concepts, name_a, name_b, flat=0.11):
+    """Per-concept spread for both raters, with what a low spread implies.
+
+    Alpha cannot be meaningfully positive when one rater is near-constant:
+    there is nothing to covary with, so a negative value there is an artifact
+    of no variance rather than evidence of disagreement. Worse, a judge that
+    varies where a human sees no difference is manufacturing within-concept
+    variation out of noise, and within-concept variation is exactly what
+    controllability measures.
+    """
+    from collections import defaultdict
+
+    idx = defaultdict(list)
+    for i, c in enumerate(concepts):
+        if not (np.isnan(a[i]) or np.isnan(b[i])):
+            idx[c].append(i)
+
+    out = []
+    for c in sorted(idx):
+        ii = idx[c]
+        if len(ii) < 2:
+            continue
+        asd = float(np.std([a[i] for i in ii]))
+        bsd = float(np.std([b[i] for i in ii]))
+        alpha = bh.krippendorff_alpha_interval(
+            [[a[i] for i in ii], [b[i] for i in ii]]
+        )
+        if asd < flat and bsd < flat:
+            note = "both flat: texts do not differ here, alpha uninformative"
+        elif asd < flat:
+            note = name_a + " flat, " + name_b + " varies: " + name_b + " may be reading noise"
+        elif bsd < flat:
+            note = name_a + " varies, " + name_b + " flat: " + name_b + " blind here"
+        else:
+            note = "both vary: alpha is meaningful"
+        out.append({
+            "concept": c, "n": len(ii),
+            "sd_" + name_a: asd, "sd_" + name_b: bsd,
+            "alpha": alpha, "note": note,
+        })
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("sheet", help="path to a filled human_labels.csv")
@@ -140,6 +217,42 @@ def main() -> int:
             }
             print(f"  {names[i]:>12} vs {names[j]:<12} alpha={alpha:+.3f}  n={mask.sum()}")
     report["pairwise"] = pairwise
+
+    # The pooled figures above are not the ones that validate the judge.
+    concepts = [r["concept"] for r in rows]
+    print("\n" "pooled vs within-concept (the within number is the one that counts):")
+    decomposition = {}
+    for other in [n for n in names if n != "human"]:
+        a, b = np.array(raters["human"]), np.array(raters[other])
+        mask = ~np.isnan(a) & ~np.isnan(b)
+        if mask.sum() < 2:
+            continue
+        pooled = bh.krippendorff_alpha_interval([a[mask].tolist(), b[mask].tolist()])
+        within, n_w = _within_concept_alpha(a, b, concepts)
+        decomposition["human_vs_" + other] = {
+            "pooled": pooled, "pooled_n": int(mask.sum()),
+            "within_concept": within, "within_n": n_w,
+        }
+        print("  human vs " + other + ":")
+        print(f"     pooled          alpha={pooled:+.3f}  n={mask.sum()}")
+        print(f"     within-concept  alpha={within:+.3f}  n={n_w}")
+    report["decomposition"] = decomposition
+
+    # Per-concept spread, which says where alpha can mean anything at all.
+    diagnosis = {}
+    for other in [n for n in names if n != "human"]:
+        a, b = np.array(raters["human"]), np.array(raters[other])
+        rowsd = _variance_diagnosis(a, b, concepts, "human", other)
+        if not rowsd:
+            continue
+        diagnosis[other] = rowsd
+        print("\n" "per-concept spread, human vs " + other + ":")
+        print(f"  {'concept':<14} {'n':>3} {'human_sd':>9} {'judge_sd':>9} "
+              f"{'alpha':>8}  diagnosis")
+        for d in rowsd:
+            print(f"  {d['concept']:<14} {d['n']:>3} {d['sd_human']:>9.3f} "
+                  f"{d['sd_' + other]:>9.3f} {d['alpha']:>+8.3f}  {d['note']}")
+    report["variance_diagnosis"] = diagnosis
 
     if len(names) >= 3:
         alpha_all = bh.krippendorff_alpha_interval([raters[n] for n in names])
