@@ -442,6 +442,115 @@ class PanelScorer:
         }
 
 
+def stratified_label_sample(
+    items: list[tuple[str, float, str]],
+    n: int = 100,
+    n_repeat: int = 10,
+    seed: int = 0,
+) -> list[tuple[str, str]]:
+    """Choose `n` rows to hand-label: deduplicated, stratified, coefficient-spread.
+
+    `items` are (concept, coeff, text) triples, normally every generation in
+    every dose-response curve.
+
+    Three properties matter, and the naive "first n in curve order" had none of
+    them. On the first labelled sheet that cost 56 of 100 rows to duplicates and
+    left 4 of 10 concepts, including the positive control, entirely uncovered.
+
+    * **Deduplicated by (concept, text).** Steering often leaves the output
+      unchanged across neighbouring coefficients, so curve order is full of
+      repeats. Duplicates are not independent units and inflate n in the alpha.
+    * **Stratified over concepts.** Round-robin allocation, so a concept with
+      few unique generations still gets rows and no concept can eat the budget.
+      The positive control has to be covered: it is the concept every model's
+      validity gate rests on.
+    * **Spread over the coefficient range within each concept.** This is the
+      one that decides whether the sheet can validate anything. Controllability
+      is a within-concept quantity, so agreement has to be measurable within a
+      concept; a sheet drawn from one end of the sweep has no within-concept
+      variance for the judge to track and yields an alpha near zero however
+      good the judge is.
+
+    `n_repeat` rows are deliberate re-presentations of already-chosen items,
+    scattered non-adjacently. They are the only way to estimate intra-rater
+    reliability, which is the ceiling on any judge-vs-human agreement, and they
+    carry no marker so the rater cannot tell them apart.
+    """
+    import random
+
+    rng = random.Random(seed)
+
+    # Deduplicate, remembering one coefficient per distinct text.
+    seen: dict[tuple[str, str], float] = {}
+    for concept, coeff, text in items:
+        key = (concept, text)
+        if key not in seen:
+            seen[key] = coeff
+
+    by_concept: dict[str, list[tuple[float, str]]] = {}
+    for (concept, text), coeff in seen.items():
+        by_concept.setdefault(concept, []).append((coeff, text))
+
+    # Within a concept, order by coefficient and take an evenly spaced spread so
+    # both ends of the sweep are represented rather than whichever end came first.
+    def spread(pool: list[tuple[float, str]], k: int) -> list[str]:
+        pool = sorted(pool, key=lambda ct: ct[0])
+        if k >= len(pool):
+            return [t for _, t in pool]
+        step = (len(pool) - 1) / (k - 1) if k > 1 else 0
+        picked = [pool[round(i * step)][1] for i in range(k)]
+        # Rounding can collide; top up with anything unused.
+        if len(set(picked)) < k:
+            out, used = [], set()
+            for _, t in pool:
+                if t not in used:
+                    out.append(t)
+                    used.add(t)
+                if len(out) == k:
+                    break
+            return out
+        return picked
+
+    budget = max(0, n - n_repeat)
+    concepts = sorted(by_concept)
+    if not concepts or budget == 0:
+        return []
+
+    # Round-robin: give every concept one row before any concept gets a second.
+    quota = {c: 0 for c in concepts}
+    remaining = budget
+    while remaining > 0:
+        progressed = False
+        for c in concepts:
+            if remaining == 0:
+                break
+            if quota[c] < len(by_concept[c]):
+                quota[c] += 1
+                remaining -= 1
+                progressed = True
+        if not progressed:  # every concept exhausted
+            break
+
+    chosen: list[tuple[str, str]] = []
+    for c in concepts:
+        for text in spread(by_concept[c], quota[c]):
+            chosen.append((c, text))
+
+    rng.shuffle(chosen)
+
+    # Re-present a few items for intra-rater reliability. A repeat only a couple
+    # of rows after its original measures recall, not consistency, so originals
+    # are drawn from the front of the sheet and their copies land in the back.
+    out = list(chosen)
+    if n_repeat and len(chosen) >= 4:
+        front = max(1, len(chosen) // 2)
+        k = min(n_repeat, front)
+        for item in rng.sample(chosen[:front], k):
+            lo = max(front, len(out) - max(1, len(out) // 3))
+            out.insert(rng.randint(lo, len(out)), item)
+    return out[:n]
+
+
 def write_labeling_sheet(
     path: str, samples: list[tuple[str, str]], question_by_concept: dict[str, str]
 ) -> str:

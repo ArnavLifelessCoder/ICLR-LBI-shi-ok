@@ -98,3 +98,100 @@ def test_write_then_read_round_trips(tmp_path):
     assert len(scores) == 2
     rows = _read_rows(p)
     assert rows[1]["text"] == "multi\nline text"
+
+
+# --------------------------------------------------------------------------
+# stratified_label_sample: the three failures the old "first n in curve order"
+# sheet actually had (56% duplicates, 6/10 concepts, no positive control).
+# --------------------------------------------------------------------------
+
+from lbi.behavior import stratified_label_sample
+
+
+def _items(n_concepts=10, n_coeffs=9, n_per=2, dup_rate=0):
+    """(concept, coeff, text) triples shaped like real curve output."""
+    items = []
+    for c in range(n_concepts):
+        for k in range(n_coeffs):
+            coeff = -3.0 + k * 0.75
+            for s in range(n_per):
+                # dup_rate>0 makes neighbouring coefficients emit identical text,
+                # which is exactly what real steering does at low strengths.
+                tag = (k // dup_rate) if dup_rate else k
+                items.append((f"c{c}", coeff, f"c{c}_text{tag}_{s}"))
+    return items
+
+
+def test_sample_is_deduplicated():
+    out = stratified_label_sample(_items(dup_rate=3), n=100, n_repeat=0, seed=0)
+    assert len(out) == len(set(out)), "no (concept, text) pair may repeat"
+
+
+def test_sample_covers_every_concept():
+    out = stratified_label_sample(_items(n_concepts=10), n=100, n_repeat=10, seed=0)
+    assert len({c for c, _ in out}) == 10
+
+
+def test_small_concept_still_gets_rows():
+    """Round-robin: a concept with few generations must not be crowded out."""
+    items = _items(n_concepts=3)
+    items += [("rare", 0.0, "rare_text")]  # a single generation
+    out = stratified_label_sample(items, n=40, n_repeat=0, seed=0)
+    assert "rare" in {c for c, _ in out}
+
+
+def test_sample_spans_the_coefficient_range():
+    """Within-concept variance is what validates the judge, so both ends of the
+    sweep must appear, not just whichever end came first in curve order."""
+    items = [("c0", -3.0 + k * 0.75, f"t{k}") for k in range(9)]
+    out = stratified_label_sample(items, n=4, n_repeat=0, seed=0)
+    picked = {t for _, t in out}
+    assert "t0" in picked and "t8" in picked
+
+
+def test_repeats_are_included_for_intra_rater_reliability():
+    out = stratified_label_sample(_items(), n=100, n_repeat=10, seed=0)
+    assert len(out) == 100
+    assert len(out) - len(set(out)) == 10
+
+
+def test_repeats_are_not_adjacent():
+    """A repeat sitting next to its original is obvious and stops measuring
+    anything about rater consistency."""
+    out = stratified_label_sample(_items(), n=100, n_repeat=10, seed=0)
+    for i in range(len(out) - 1):
+        assert out[i] != out[i + 1]
+
+
+def test_zero_repeats_gives_all_distinct():
+    out = stratified_label_sample(_items(), n=50, n_repeat=0, seed=0)
+    assert len(out) == len(set(out)) == 50
+
+
+def test_deterministic_for_a_seed():
+    a = stratified_label_sample(_items(), n=60, n_repeat=6, seed=3)
+    b = stratified_label_sample(_items(), n=60, n_repeat=6, seed=3)
+    assert a == b
+
+
+def test_handles_fewer_items_than_requested():
+    out = stratified_label_sample(_items(n_concepts=2, n_coeffs=2, n_per=1),
+                                  n=100, n_repeat=5, seed=0)
+    assert 0 < len(out) <= 100
+
+
+def test_empty_input():
+    assert stratified_label_sample([], n=100) == []
+
+
+def test_repeats_are_well_separated_not_merely_non_adjacent():
+    """A repeat two rows after its original measures recall, not consistency."""
+    from collections import defaultdict
+
+    out = stratified_label_sample(_items(), n=100, n_repeat=10, seed=0)
+    pos = defaultdict(list)
+    for i, k in enumerate(out):
+        pos[k].append(i)
+    gaps = [p[1] - p[0] for p in pos.values() if len(p) > 1]
+    assert gaps, "expected some repeats"
+    assert min(gaps) >= 10, f"repeat too close to its original: min gap {min(gaps)}"

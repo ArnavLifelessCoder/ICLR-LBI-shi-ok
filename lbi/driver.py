@@ -170,10 +170,15 @@ def stage2_full(lm, out_dir: str, cache_dir: str, judge_lm=None,
     if hasattr(_primary, "failure_rate"):
         print(f"judge parse-failure rate: {_primary.failure_rate():.1%}")
 
-    samples = [
-        (r.probe.concept, s)
+    # Every generation in every curve, tagged with its coefficient so the
+    # sampler can spread across the sweep. Truncating this list in curve order
+    # (what this used to do) produced a sheet that was 56% duplicates and
+    # covered 6 of 10 concepts, missing the positive control.
+    items = [
+        (r.probe.concept, p.coeff, s)
         for r in runs for p in r.steering.curve for s in p.samples
-    ][:label_sample]
+    ]
+    samples = bh.stratified_label_sample(items, n=label_sample)
     sheet = os.path.join(out_dir, "human_labels.csv")
     bh.write_labeling_sheet(
         sheet, samples, {c.name: c.behavior_question for c in all_concepts()}
