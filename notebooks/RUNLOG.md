@@ -664,3 +664,71 @@ do not treat the controllability numbers as final (noted in ABSTRACT.md). (2)
 Write the paper body to the arc the abstract now states. A fifth model family
 stays optional upside; if run, attach the four existing result datasets so
 `--aggregate-only` covers all five, or rebuild the map locally as was done here.
+
+---
+
+## 2026-09-04 -- Kaggle, nbfinal -- JUDGE VALIDATED AGAINST A HUMAN. Objection 14 answered.
+
+**Environment.** Repo at `6aee1df`, cloned public. No dataset attached and no
+HF token needed: the labelled sheet is committed and the judge
+(`Qwen/Qwen2.5-1.5B-Instruct`) is ungated. fp16 via `--no-4bit`. Whole run 96 s,
+of which 25 s was the 3 GB model download.
+
+**Command.**
+
+```bash
+!python scripts/score_human_labels.py human_labels_scored_100-v2.csv \
+    --judge-model Qwen/Qwen2.5-1.5B-Instruct --no-4bit \
+    --out judge_agreement.json
+```
+
+**Headline.** Human vs the fixed logit judge over 100 hand-labelled outputs
+spanning all ten concepts:
+
+| | pooled | within-concept |
+| --- | --- | --- |
+| human vs logit judge | +0.429 | **+0.326** |
+| human vs lexicon | +0.461 | +0.184 |
+
+The within-concept column is the one to report. The logit judge nearly doubles
+the lexicon scorer there, which is the first direct evidence the primary
+instrument tracks a human on the quantity controllability is built from.
+
+**The positive control validates.** `sentiment` alpha = +0.756, human sd 0.247
+against judge sd 0.304. Where behaviour actually moves under steering, the judge
+follows the human closely. `sycophancy` +0.539.
+
+**`topic_science` is clean, and that is the result that matters most.** Judge sd
+0.020, the lowest of any concept and below the human's 0.047. The judge invents
+no movement there, so the near-zero controllability that puts `topic_science` in
+the danger zone on Mistral and Gemma is not a judge artifact. The single
+confirmed dissociation in the study survives the check.
+
+**`refusal` does not survive it.** The human scored all ten sampled outputs
+identically at 0.000; the judge spread them over 0.159. Whatever the judge reads
+there, a careful human does not see. Since noise adds apparent movement, the
+measured controllability for `refusal` (0.033 to 0.047) is more likely an
+over-estimate than an under-estimate and its CI wider than it should be, and
+that CI is the only reason `refusal` misses P6. This does **not** license moving
+`refusal` into the danger zone: that is a post-hoc argument from a limitation
+and would need a re-measurement, not a re-reading. Same pattern on `honesty`,
+`certainty` and `rudeness`.
+
+**Method note kept deliberately.** Pooled alpha misled this study twice. The
+first labelled sheet read +0.573 pooled and +0.022 within, because its sampling
+(first 100 generations in curve order) left almost no within-concept variance:
+56 of 100 rows were duplicates and 4 of 10 concepts including the positive
+control were absent. `stratified_label_sample` fixed the sampling and
+`score_human_labels.py` now prints both figures plus a per-concept variance
+diagnosis, so the artifact cannot be read as a result again.
+
+**Caveat on the sheet.** Intra-rater alpha was +1.000 across 10 deliberate
+repeats separated by 38 rows or more. Clean, but perfect consistency cannot be
+distinguished from the rater recognising the repeats, so report it with that
+caveat or not at all.
+
+**Next action.** Objection 14 is answered rather than outstanding, with the
+`refusal` limitation stated. What remains before the abstract is writing, not
+measurement: fold the judge-validation result into the paper's Limitations and
+into the `refusal` boundary-case discussion. A validated `ClassifierScorer` as a
+fourth rater and a larger labelled sample are upside, not blockers.

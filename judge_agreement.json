@@ -1,0 +1,55 @@
+{
+  "sheet": "human_labels_scored_100-v2.csv",
+  "n_rows": 100,
+  "n_labelled": 100,
+  "judge_model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "pairwise": {
+    "human_vs_lexicon": { "alpha": 0.4614132740335275, "n": 100 },
+    "human_vs_logit_judge": { "alpha": 0.42865676019924415, "n": 100 },
+    "lexicon_vs_logit_judge": { "alpha": 0.2797296871999143, "n": 100 }
+  },
+  "decomposition": {
+    "human_vs_lexicon": {
+      "pooled": 0.4614132740335275,
+      "pooled_n": 100,
+      "within_concept": 0.18409558291745787,
+      "within_n": 100
+    },
+    "human_vs_logit_judge": {
+      "pooled": 0.42865676019924415,
+      "pooled_n": 100,
+      "within_concept": 0.3264133414567155,
+      "within_n": 100
+    }
+  },
+  "variance_diagnosis": {
+    "logit_judge": [
+      { "concept": "certainty", "n": 10, "sd_human": 0.053851648071345036, "sd_logit_judge": 0.21212625921279699, "alpha": -0.34049450492872646, "note": "human flat, logit_judge varies: logit_judge may be reading noise" },
+      { "concept": "factuality", "n": 11, "sd_human": 0.2628514962691084, "sd_logit_judge": 0.22312998590267327, "alpha": -0.14861048857084702, "note": "both vary: alpha is meaningful" },
+      { "concept": "formality", "n": 10, "sd_human": 0.28089143810376277, "sd_logit_judge": 0.117612210527565, "alpha": 0.19089100581245977, "note": "both vary: alpha is meaningful" },
+      { "concept": "honesty", "n": 10, "sd_human": 0.09165151389911681, "sd_logit_judge": 0.25862509927998784, "alpha": -0.4192788113422894, "note": "human flat, logit_judge varies: logit_judge may be reading noise" },
+      { "concept": "refusal", "n": 10, "sd_human": 0.0, "sd_logit_judge": 0.15892162291750206, "alpha": -0.5772772777660331, "note": "human flat, logit_judge varies: logit_judge may be reading noise" },
+      { "concept": "rudeness", "n": 9, "sd_human": 0.03142696805273545, "sd_logit_judge": 0.195717115949996, "alpha": -0.7295557725868407, "note": "human flat, logit_judge varies: logit_judge may be reading noise" },
+      { "concept": "sentiment", "n": 10, "sd_human": 0.2467792535850613, "sd_logit_judge": 0.30438809893718793, "alpha": 0.7558114514883082, "note": "both vary: alpha is meaningful" },
+      { "concept": "sycophancy", "n": 9, "sd_human": 0.4058218303944372, "sd_logit_judge": 0.15800678568139484, "alpha": 0.5391527227563544, "note": "both vary: alpha is meaningful" },
+      { "concept": "topic_science", "n": 9, "sd_human": 0.047140452079103154, "sd_logit_judge": 0.020175119859901693, "alpha": -0.5750331065555556, "note": "both flat: texts do not differ here, alpha uninformative" },
+      { "concept": "verbosity", "n": 12, "sd_human": 0.09242113755341183, "sd_logit_judge": 0.08745727247473727, "alpha": -0.4510185725774354, "note": "both flat: texts do not differ here, alpha uninformative" }
+    ],
+    "lexicon": [
+      { "concept": "certainty", "n": 10, "sd_human": 0.053851648071345036, "sd_lexicon": 0.15000000000000002, "alpha": -0.508445945945946, "note": "human flat, lexicon varies: lexicon may be reading noise" },
+      { "concept": "factuality", "n": 11, "sd_human": 0.2628514962691084, "sd_lexicon": 0.0, "alpha": -0.33103947844983717, "note": "human varies, lexicon flat: lexicon blind here" },
+      { "concept": "formality", "n": 10, "sd_human": 0.28089143810376277, "sd_lexicon": 0.15, "alpha": 0.3924418604651162, "note": "both vary: alpha is meaningful" },
+      { "concept": "honesty", "n": 10, "sd_human": 0.09165151389911681, "sd_lexicon": 0.15, "alpha": -0.5722300140252452, "note": "human flat, lexicon varies: lexicon may be reading noise" },
+      { "concept": "refusal", "n": 10, "sd_human": 0.0, "sd_lexicon": 0.39999999999999997, "alpha": -0.15853658536585358, "note": "human flat, lexicon varies: lexicon may be reading noise" },
+      { "concept": "rudeness", "n": 9, "sd_human": 0.03142696805273545, "sd_lexicon": 0.20786985482077452, "alpha": 0.12547051442910906, "note": "human flat, lexicon varies: lexicon may be reading noise" },
+      { "concept": "sentiment", "n": 10, "sd_human": 0.2467792535850613, "sd_lexicon": 0.30000000000000004, "alpha": 0.7118425298483382, "note": "both vary: alpha is meaningful" },
+      { "concept": "sycophancy", "n": 9, "sd_human": 0.4058218303944372, "sd_lexicon": 0.23570226039551584, "alpha": -0.1327092511013217, "note": "both vary: alpha is meaningful" },
+      { "concept": "topic_science", "n": 9, "sd_human": 0.047140452079103154, "sd_lexicon": 0.23570226039551584, "alpha": -0.07936507936507953, "note": "human flat, lexicon varies: lexicon may be reading noise" },
+      { "concept": "verbosity", "n": 12, "sd_human": 0.09242113755341183, "sd_lexicon": 0.05008673033404711, "alpha": -0.37881738859457714, "note": "both flat: texts do not differ here, alpha uninformative" }
+    ]
+  },
+  "all_raters": {
+    "raters": ["human", "lexicon", "logit_judge"],
+    "alpha": 0.4058325144025513
+  }
+}

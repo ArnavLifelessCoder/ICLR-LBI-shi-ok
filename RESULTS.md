@@ -194,7 +194,9 @@ runlog).
 None of the three named mechanisms explains the gap on this data, and the one
 that reached significance did so against its predicted direction.
 
-## Judge agreement
+## Judge agreement, and the human validation (objection 14)
+
+### The across-run panel number
 
 | Model | Krippendorff alpha | Items |
 | --- | --- | --- |
@@ -203,13 +205,88 @@ that reached significance did so against its predicted direction.
 | Llama-3.1-8B | 0.300 | 3564 |
 | gemma-2-9b-it | 0.149 | 3564 |
 
-Poor on every model. The panel is the logit judge (primary) against the lexicon
-scorer, and the lexicon scorer is a development instrument that returns its
-no-hit neutral 0.5 on much free text. This is objection 14 and it is **not yet
-answered**: a validated `ClassifierScorer` and the hand-labelled third rater are
-both outstanding. `human_labels.csv` was written by every run and has not been
-filled in. This is the single most valuable thing to fix before the abstract,
-and it needs hand labels, not GPU time.
+This is the logit judge against the lexicon scorer over every generation. It is
+low, but the lexicon scorer is a development instrument that returns its no-hit
+neutral 0.5 on much free text, so this understates agreement rather than
+measuring it.
+
+### The human validation
+
+100 outputs were hand-labelled on a stratified sheet covering all ten concepts
+(`human_labels_scored_100-v2.csv`; full report in
+`judge_agreement.json`). Three raters: the human, the fixed logit judge,
+and the lexicon scorer.
+
+| Comparison | pooled | **within-concept** |
+| --- | --- | --- |
+| human vs logit judge | +0.429 | **+0.326** |
+| human vs lexicon | +0.461 | +0.184 |
+
+**Report the within-concept column, not the pooled one.** Pooled alpha over a
+multi-concept sheet mostly measures that refusal text scores low and honesty
+text scores high, which is trivially true because they answer different
+questions. Controllability is a within-concept quantity, so the centered figure
+is the one that says whether the judge is fit for this study. An earlier sheet
+whose sampling left almost no within-concept variance read +0.573 pooled against
++0.022 within, which is the artifact in its pure form.
+
+The logit judge nearly doubles the lexicon scorer on the number that matters
+(+0.326 against +0.184), which is the first direct evidence that the primary
+instrument is doing something real.
+
+### Per-concept, and this is where it matters
+
+| Concept | human sd | judge sd | alpha | reading |
+| --- | --- | --- | --- | --- |
+| sentiment (control) | 0.247 | 0.304 | **+0.756** | both vary, judge tracks the human |
+| sycophancy | 0.406 | 0.158 | **+0.539** | both vary, judge tracks the human |
+| formality | 0.281 | 0.118 | +0.191 | both vary, weak |
+| factuality | 0.263 | 0.223 | -0.149 | both vary, genuine disagreement |
+| **topic_science** | 0.047 | **0.020** | n/a | **both flat, judge invents nothing** |
+| verbosity | 0.092 | 0.087 | n/a | both flat, uninformative |
+| honesty | 0.092 | 0.259 | -0.419 | judge varies where the human sees nothing |
+| certainty | 0.054 | 0.212 | -0.340 | judge varies where the human sees nothing |
+| rudeness | 0.031 | 0.196 | -0.730 | judge varies where the human sees nothing |
+| **refusal** | **0.000** | **0.159** | -0.577 | **judge varies where the human sees nothing** |
+
+Alpha cannot be meaningfully positive where one rater is near-constant, so the
+negative values in the bottom four rows are artifacts of absent variance rather
+than evidence of disagreement. What those rows do show is a judge producing
+within-concept variation on text a human scores identically, and within-concept
+variation is exactly the quantity controllability is built from.
+
+**The positive control validates.** `sentiment` is the concept P9 rests on, it
+is the concept that actually moves under steering, and the judge tracks the
+human there at +0.756. Where behaviour genuinely varies, the instrument works.
+
+**`topic_science` is clean, and it is the danger-zone occupant.** The judge's
+spread on it is 0.020, the lowest of any concept and lower than the human's
+0.047. The judge is not manufacturing movement there, so the near-zero
+controllability that puts `topic_science` in the danger zone on Mistral and
+Gemma (0.007 to 0.024) is not a judge artifact. The paper's one confirmed
+dissociation survives this check.
+
+**`refusal` does not, and it is the clean near-miss.** The human scored all ten
+sampled outputs identically at 0.000; the judge spread them over 0.159. Whatever
+the judge is responding to there, a careful reader does not see it. Because
+noise in the behaviour score adds apparent movement, the measured
+controllability for `refusal` (0.033 to 0.047 across models) is more likely an
+over-estimate than an under-estimate, and its confidence interval is likely
+wider than it should be. That interval is the sole reason `refusal` misses P6.
+
+This does **not** license moving `refusal` into the danger zone: that would be a
+post-hoc argument from a limitation, and establishing it needs a re-measurement
+with a better-validated judge, not a re-reading of the current numbers. State it
+as a limitation and as the clearest direction for future work.
+
+### What is still outstanding
+
+A validated `ClassifierScorer` as a fourth rater, and a larger labelled sample:
+9 to 12 items per concept is enough to see the variance structure above but thin
+for the per-concept alphas themselves. Intra-rater reliability on this sheet was
++1.000 across 10 deliberate repeats separated by 38 rows or more; that is a
+clean number but perfect consistency cannot be distinguished from the rater
+recognising the repeats, so it should be reported with that caveat or not at all.
 
 ## Caveats that belong in Methods, not in a rebuttal
 

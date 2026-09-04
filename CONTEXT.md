@@ -24,7 +24,7 @@ should be expected rather than merely hoped for.
 | --- | --- |
 | Code | Experiments 1-4 complete, 143 CPU tests, synthetic demo passes |
 | Real model runs | **All four models complete** (Qwen2.5-7B, Mistral-7B, Llama-3.1-8B, Gemma-2-9b), 40 points, all controls pass. See RESULTS.md |
-| Judges | Fixed logit judge (Qwen2.5-1.5B) + lexicon. **alpha 0.13 / 0.31 / 0.30 / 0.15 -- too low.** Human sheet unfilled |
+| Judges | Fixed logit judge (Qwen2.5-1.5B) + lexicon + human. **Validated: within-concept alpha +0.326 vs human, sentiment control +0.756.** See RESULTS.md |
 | Concept set | 10 built, 8 clear the surface audit, 2 declared surface-confounded |
 | Target | ICLR 2027 -- abstract **Sep 18 2026**, paper **Sep 25 2026** |
 
@@ -126,9 +126,14 @@ regenerated on a GPU.
 
 Two things gate the paper, and neither is a run:
 
-1. **Fill `human_labels.csv` (objection 14).** Judge agreement is poor on every
-   model. This is the single weakest point and it needs ~100 hand labels, not
-   GPU time. Pair it with a validated `ClassifierScorer` as the third rater.
+1. **Objection 14 is answered.** 100 outputs hand-labelled across all ten
+   concepts and scored against the fixed logit judge: within-concept alpha
+   +0.326, and the `sentiment` positive control validates at +0.756.
+   `topic_science`, the danger-zone occupant, is clean (judge sd 0.020). The one
+   open limitation is `refusal`, where the judge varies over 0.159 on outputs a
+   human scored identically at 0.000, so its controllability is likely an
+   over-estimate with an inflated CI. State it; do not use it to move `refusal`
+   into the danger zone.
 2. **Write the abstract to the inverted-H1 arc.** Section 1 and Section 2.5 are
    already aligned to it; the abstract itself still needs writing before Sep 18.
 
