@@ -23,6 +23,7 @@
 \usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{xcolor}
+\usepackage{natbib}
 
 \title{Legible but Immovable: Reading a Concept Does Not Grant Control, and the
 Obvious Geometry Predicts It Backwards}
@@ -107,26 +108,29 @@ fail to explain the gap, it anticorrelates with it.
 \section{Related work}
 
 \textbf{Activation steering.} Difference-of-means and contrastive directions are
-the standard tools for reading and moving concepts: activation addition, its
-contrastive-pairs refinement, inference-time intervention, and representation
-engineering all read a direction and add it back to change behavior. We use
-these as our steering methods; they are the instruments, not competitors.
+the standard tools for reading and moving concepts. Activation addition
+\citep{turner2023actadd}, its contrastive-pairs refinement
+\citep{rimsky2024caa}, inference-time intervention \citep{li2023iti} and
+representation engineering \citep{zou2023repe} all read a direction and add it
+back to change behavior. We use these as our steering methods; they are the
+instruments, not competitors.
 
-\textbf{The refusal direction.} Work showing refusal is mediated by a single
-direction that can be ablated, and the follow-up finding that refusal is carried
-by many geometrically distinct directions that nonetheless act as one control
-knob, is the closest motivation: it hints that readability and controllability
-can decouple, but studies only refusal. We generalize to a plane of concepts and
-models and add a geometric predictor.
+\textbf{The refusal direction.} Refusal is mediated by a single direction that
+can be ablated \citep{arditi2024refusal}, and a follow-up finds it is carried by
+many geometrically distinct directions that nonetheless act as one control knob
+\citep{TODO_refusal_multidirection}. That pair is the closest motivation: it
+hints that readability and controllability can decouple, but studies only
+refusal. We generalize to a plane of concepts and models and add a geometric
+predictor.
 
-\textbf{Detection versus control.} Recent work reports perfect detection with
-failed control on a narrow case (entity knowledge) and shows that steering
-strength does not transfer across models. It leaves the systematic map of
-detection against control, and a predictor of the gap, as explicit future work.
-That map is this paper.
+\textbf{Detection versus control.} \citet{TODO_perfect_detection} report perfect
+detection with failed control on a narrow case (entity knowledge) and show that
+steering strength does not transfer across models. They leave the systematic map
+of detection against control, and a predictor of the gap, as explicit future
+work. That map is this paper.
 
-\textbf{The linear representation hypothesis} motivates treating concepts as
-directions and reading them with linear probes, which is the encoder half of our
+\textbf{The linear representation hypothesis} \citep{park2024linear} motivates
+treating concepts as directions and reading them with linear probes, which is the encoder half of our
 measurement. Nothing in it ties the between-class separation a probe exploits to
 the downstream causal sensitivity steering needs, which is exactly the asymmetry
 we quantify.
@@ -139,7 +143,8 @@ we quantify.
 \textbf{Readability} is the test AUROC of an $\ell_2$-regularized logistic probe
 trained on residual-stream activations at the best layer, evaluated on held-out
 \emph{template families} rather than held-out examples, and reported alongside a
-shuffled-label control probe so selectivity is explicit. Held-out-family
+shuffled-label control probe so selectivity is explicit
+\citep{hewitt2019control}. Held-out-family
 evaluation is the point: a probe that only works within a family is reading
 surface cues, not the concept.
 
@@ -290,9 +295,26 @@ readability and controllability by concept and model.
   \end{tabular}
 \end{table}
 
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{fig2_dose_response.png}
+  \caption{The dissociation on a single model. \textbf{Left:} raw
+  dose-response; dotted lines mark each concept's unsteered baseline.
+  \textbf{Right:} absolute deviation from that baseline, which is the quantity
+  controllability integrates. Steering moves the sentiment positive control by up
+  to $0.16$, moves \texttt{refusal} by at most $0.07$, and moves
+  \texttt{topic\_science} by at most $0.01$ at any strength, despite
+  \texttt{topic\_science} being read at AUROC $1.0$ by a linear probe on the same
+  model. Note that the control's response is not a monotone ramp: the unsteered
+  baseline sits near a local extremum and both steering directions move behaviour
+  the same way. We plot deviation rather than raw score for that reason.}
+  \label{fig:dose}
+\end{figure}
+
 \subsection{Legible concepts that resist the full gauntlet}
 
-The danger zone has two occupants, both \texttt{topic\_science} (on Mistral and
+Figure~\ref{fig:dose} shows the dissociation on a single model. The danger zone
+has two occupants, both \texttt{topic\_science} (on Mistral and
 Gemma), each confirmed immovable against all six interventions. It is the least
 controllable concept on all four models ($0.019$, $0.024$, $0.011$, $0.007$) and
 survived the gauntlet on all four; on Qwen and Llama it sits just outside the
@@ -345,8 +367,8 @@ sits at \emph{low} output overlap ($0.345$ to $0.382$) and low controllability,
 which fits redundant multi-direction encoding rather than the lexical story, so
 the immovable set is heterogeneous. Two exploratory geometric features
 (effective dimensionality of the class difference, and alignment with
-low-variance principal components) are both null after multiple-comparison
-correction, and a ridge predictor over all features has leave-one-out $R^2$
+low-variance principal components) are both null after Benjamini-Hochberg
+correction \citep{benjamini1995fdr}, and a ridge predictor over all features has leave-one-out $R^2$
 near zero. None of the standard first-order quantities explains the gap, and the
 one that reached significance did so against its predicted direction.
 
@@ -383,7 +405,8 @@ Agreement must be read within concept rather than pooled, because pooled
 agreement over a multi-concept sheet mostly reflects that refusal text scores low
 and honesty text scores high, which is trivially true when they answer different
 questions; controllability is a within-concept quantity. Within concept, the human
-and the logit judge reach Krippendorff's $\alpha = 0.33$, against $0.18$ for the
+and the logit judge reach Krippendorff's $\alpha$ \citep{krippendorff2018content}
+of $0.33$, against $0.18$ for the
 lexicon scorer. On the positive control the judge tracks the human closely
 ($\alpha = 0.76$ for sentiment), so where behavior genuinely moves under steering the
 instrument works. Critically, on \texttt{topic\_science} the judge's spread across
@@ -420,5 +443,8 @@ extent it projects into the output-effective subspace -- is not merely
 incomplete but inverted: the most output-aligned concepts are the least
 steerable. A good probe is not a control handle, and the obvious picture of when
 steering should work is, at this scale, backwards.
+
+\bibliographystyle{plainnat}
+\bibliography{refs}
 
 \end{document}

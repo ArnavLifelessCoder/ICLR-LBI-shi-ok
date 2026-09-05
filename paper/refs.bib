@@ -1,0 +1,123 @@
+% ============================================================================
+% VERIFY EVERY ENTRY BEFORE SUBMITTING.
+%
+% These were written from memory, without a literature-search tool in the loop.
+% Titles and author lists are the fields most likely to be right; years, venues
+% and eprint numbers are the ones most likely to be wrong. Check each against
+% the actual paper page, and check the arXiv identifiers in particular -- a
+% plausible-looking wrong identifier is worse than a missing one.
+%
+% The two entries marked TODO are the motivating papers named in design
+% Section 2. Their bibliographic details could not be established here, so they
+% are deliberately left as placeholders rather than invented.
+% ============================================================================
+
+% ---------------------------------------------------------------- steering
+@article{turner2023actadd,
+  title   = {Activation Addition: Steering Language Models Without Optimization},
+  author  = {Turner, Alexander Matt and Thiergart, Lisa and Udell, David and
+             Leech, Gavin and Mini, Ulisse and MacDiarmid, Monte},
+  journal = {arXiv preprint arXiv:2308.10248},
+  year    = {2023}
+}
+
+@inproceedings{rimsky2024caa,
+  title     = {Steering {Llama} 2 via Contrastive Activation Addition},
+  author    = {Rimsky, Nina and Gabrieli, Nick and Schulz, Julian and
+               Tong, Meg and Hubinger, Evan and Turner, Alexander Matt},
+  booktitle = {Proceedings of the Annual Meeting of the Association for
+               Computational Linguistics (ACL)},
+  year      = {2024},
+  note      = {arXiv:2312.06681}
+}
+
+@inproceedings{li2023iti,
+  title     = {Inference-Time Intervention: Eliciting Truthful Answers from a
+               Language Model},
+  author    = {Li, Kenneth and Patel, Oam and Vi{\'e}gas, Fernanda and
+               Pfister, Hanspeter and Wattenberg, Martin},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2023},
+  note      = {arXiv:2306.03341}
+}
+
+@article{zou2023repe,
+  title   = {Representation Engineering: A Top-Down Approach to AI Transparency},
+  author  = {Zou, Andy and Phan, Long and Chen, Sarah and Campbell, James and
+             Guo, Phillip and Ren, Richard and Pan, Alexander and Yin, Xuwang
+             and Mazeika, Mantas and Dombrowski, Ann-Kathrin and others},
+  journal = {arXiv preprint arXiv:2310.01405},
+  year    = {2023}
+}
+
+% ---------------------------------------------------------------- refusal
+@inproceedings{arditi2024refusal,
+  title     = {Refusal in Language Models Is Mediated by a Single Direction},
+  author    = {Arditi, Andy and Obeso, Oscar and Syed, Aaquib and
+               Paleka, Daniel and Panickssery, Nina and Gurnee, Wes and
+               Nanda, Neel},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2024},
+  note      = {arXiv:2406.11717}
+}
+
+@misc{TODO_refusal_multidirection,
+  title  = {There Is More to Refusal than a Single Direction},
+  author = {TODO: authors not established},
+  year   = {2026},
+  note   = {TODO: verify authors, venue and identifier before submitting.
+            Cited in design Section 2 as a motivating result: refusal is
+            carried by many geometrically distinct directions that act as one
+            control knob.}
+}
+
+% ------------------------------------------------- detection versus control
+@misc{TODO_perfect_detection,
+  title  = {Perfect Detection, Failed Control: The Geometry of Knowing vs.
+            Steering in Language Models},
+  author = {TODO: authors not established},
+  year   = {2026},
+  note   = {TODO: verify authors, venue and identifier before submitting.
+            Cited in design Section 2 as the closest prior result: perfect
+            detection with failed control on entity knowledge, and steering
+            strength that does not transfer across models.}
+}
+
+% ------------------------------------------------------------ representation
+@inproceedings{park2024linear,
+  title     = {The Linear Representation Hypothesis and the Geometry of Large
+               Language Models},
+  author    = {Park, Kiho and Choe, Yo Joong and Veitch, Victor},
+  booktitle = {International Conference on Machine Learning (ICML)},
+  year      = {2024},
+  note      = {arXiv:2311.03658}
+}
+
+% ------------------------------------------------------------------ methods
+@inproceedings{hewitt2019control,
+  title     = {Designing and Interpreting Probes with Control Tasks},
+  author    = {Hewitt, John and Liang, Percy},
+  booktitle = {Proceedings of the Conference on Empirical Methods in Natural
+               Language Processing (EMNLP)},
+  year      = {2019},
+  note      = {arXiv:1909.03368}
+}
+
+@book{krippendorff2018content,
+  title     = {Content Analysis: An Introduction to Its Methodology},
+  author    = {Krippendorff, Klaus},
+  edition   = {4th},
+  publisher = {SAGE Publications},
+  year      = {2018}
+}
+
+@article{benjamini1995fdr,
+  title   = {Controlling the False Discovery Rate: A Practical and Powerful
+             Approach to Multiple Testing},
+  author  = {Benjamini, Yoav and Hochberg, Yosef},
+  journal = {Journal of the Royal Statistical Society: Series B},
+  volume  = {57},
+  number  = {1},
+  pages   = {289--300},
+  year    = {1995}
+}
