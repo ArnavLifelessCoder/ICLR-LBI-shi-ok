@@ -28,6 +28,16 @@
 
 %\iclrfinalcopy % Uncomment for camera-ready only, NOT for submission.
 
+% Float parameters. The defaults defer large floats aggressively, which in a
+% short paper with three page-scale floats shows up as blank runs of text.
+\setcounter{topnumber}{3}
+\setcounter{bottomnumber}{2}
+\setcounter{totalnumber}{4}
+\renewcommand{\topfraction}{0.9}
+\renewcommand{\bottomfraction}{0.7}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+
 \title{Legible but Immovable: Detection Does Not Predict
 Control of Concept Directions}
 
@@ -140,6 +150,13 @@ behavior moves. The removal operation itself has a literature
 (\citealp{ravfogel2020inlp}; \citealp{belrose2023leace}), and directional ablation
 is one of the six interventions in our robustness battery.
 
+\textbf{Causal intervention.} Editing activations to test what a component
+does is standard practice, from causal tracing and weight editing
+\citep{meng2022rome} to the activation-patching methodology literature, which
+documents how much the reported conclusion depends on the metric and the
+corruption used \citep{zhang2023patching}. Our interventions are of this family,
+applied to a fixed direction rather than to a located component.
+
 \textbf{Limits of steering.} \citet{tan2024steering} report that steerability
 varies substantially across inputs and that steering vectors can be brittle to
 prompt changes. Their variation is across inputs within a concept; ours is
@@ -229,9 +246,11 @@ concepts.
 
 \subsection{Judge and reproducibility}
 
-Behavior is scored by a fixed logit judge (Qwen2.5-1.5B-Instruct, read from the
-Yes/No token mass), held identical across all four target models so that
-cross-model comparison is valid. A degenerate judge (one score across a whole
+Behavior is scored by a model rather than by humans at scale, a practice with
+known position, verbosity and self-preference biases \citep{zheng2023judge}. We
+use a fixed logit judge (Qwen2.5-1.5B-Instruct, read from the Yes/No token
+mass), held identical across all four target models so that cross-model
+comparison is valid, and validate it against a human rater in the Limitations. A degenerate judge (one score across a whole
 sweep) produces a flat dose-response curve, which is the pattern the danger-zone
 criterion selects for; such points are detected and excluded. The concept datasets,
 probes, steering harness with all robustness variants, and the full gap-map data
@@ -247,8 +266,9 @@ fused kernel.
 
 \textbf{Concepts.} Ten concepts spanning easy-to-steer to hard-to-steer:
 sentiment (the positive control), certainty, factuality, formality, honesty,
-refusal, rudeness, sycophancy, topic (science vs everyday), and verbosity. Each
-is built as minimal pairs tagged by template family.
+refusal, rudeness, sycophancy \citep{sharma2024sycophancy}, topic (science vs
+everyday), and verbosity. Each is built as minimal pairs tagged by template
+family.
 
 \textbf{Surface audit.} Before extraction, a leave-one-family-out TF-IDF audit
 checks that no concept can be separated on lexical cues alone. Eight concepts
@@ -276,9 +296,9 @@ axes is $0.14$ with a 95\% bootstrap CI of $[-0.24, 0.51]$: on this data,
 detection does not predict control. Table~\ref{tab:matrix} gives the underlying
 readability and controllability by concept and model.
 
-\begin{figure}[t]
+\begin{figure}[tb]
   \centering
-  \includegraphics[width=0.85\linewidth]{fig1_gap_map.png}
+  \includegraphics[width=0.82\linewidth]{fig1_gap_map.png}
   \caption{The gap map. Readability (probe AUROC) against controllability
   (dose-response area up to the fluency ceiling), both normalized within model.
   The high-readability, low-controllability corner is the danger zone; its two
@@ -287,7 +307,7 @@ readability and controllability by concept and model.
   \label{fig:gapmap}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}[tb]
   \caption{Readability / controllability by concept and model. Readability is
   held-out probe AUROC; controllability is dose-response area up to the fluency
   ceiling. The sentiment row is the positive control. \texttt{topic\_science} is
@@ -314,7 +334,7 @@ readability and controllability by concept and model.
   \end{tabular}
 \end{table}
 
-\begin{figure}[t]
+\begin{figure}[tb]
   \centering
   \includegraphics[width=\linewidth]{fig2_dose_response.png}
   \caption{The dissociation on a single model. \textbf{Left:} raw
@@ -378,7 +398,9 @@ consistent with the surface audit, which flags the same high-overlap concepts.
 The pattern is not uniform across the low-controllability concepts.
 \texttt{refusal} has low output overlap ($0.345$ to $0.382$) and low
 controllability, which is more consistent with redundant multi-direction
-encoding than with the lexical account. Two exploratory geometric features
+encoding \citep{joad2026refusal} than with the lexical account. Redundant or
+superposed encoding \citep{elhage2022superposition} would allow a concept to be
+recovered downstream after one direction is perturbed. Two exploratory geometric features
 (effective dimensionality of the class difference, and alignment with
 low-variance principal components) are both null after Benjamini-Hochberg
 correction \citep{benjamini1995fdr}, and a ridge predictor over all features has leave-one-out $R^2$
@@ -623,7 +645,7 @@ near-constant, alpha cannot be meaningfully positive; the negative values in
 those rows reflect absent variance rather than disagreement, and are marked
 accordingly.
 
-\begin{table}[h]
+\begin{table}[htbp]
   \caption{Human against the fixed logit judge on 100 hand-labeled
   generations, ten concepts. ``flat'' marks a rater whose spread is below
   $0.11$, where alpha is uninformative.}
