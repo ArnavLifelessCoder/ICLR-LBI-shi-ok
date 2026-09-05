@@ -33,7 +33,7 @@ Control of Concept Directions}
 
 % Double-blind: this stays anonymous for submission. At camera-ready, add
 % \iclrfinalcopy to the preamble and replace this block with real names and
-% affiliations. Do not de-anonymise anything else: check the acknowledgements,
+% affiliations. Do not de-anonymize anything else: check the acknowledgements,
 % the repository URL in the Reproducibility Statement, and the PDF metadata.
 \author{%
   Anonymous authors \\
@@ -112,16 +112,18 @@ representation engineering \citep{zou2023repe} all read a direction and add it
 back to change behavior. We use these methods rather than compare against them.
 
 \textbf{The refusal direction.} Refusal is mediated by a single direction that
-can be ablated \citep{arditi2024refusal}, and a follow-up finds it is carried by
-many geometrically distinct directions that nonetheless act as one control knob
-\citep{TODO_refusal_multidirection}. Together these results suggest that
+can be ablated \citep{arditi2024refusal}. \citet{joad2026refusal} find that
+refusal and non-compliance span eleven categories occupying geometrically
+distinct directions, yet steering along any of them produces nearly identical
+refusal trade-offs, so the directions act as a shared one-dimensional control. Together these results suggest that
 readability and controllability may decouple, but they concern refusal alone. We
 extend the measurement to ten concepts and four models and test a geometric
 predictor of the gap.
 
-\textbf{Detection versus control.} \citet{TODO_perfect_detection} report perfect
-detection with failed control on a narrow case (entity knowledge) and show that
-steering strength does not transfer across models. They leave a systematic
+\textbf{Detection versus control.} \citet{galeone2026perfect} report a case in which
+fake entities are detected with perfect linear separability while the detection
+direction is nearly orthogonal to the direction that controls the behavior, and
+show that the gap persists across four models from three families. They leave a systematic
 comparison of detection against control, and a predictor of the gap, as future
 work.
 
@@ -304,7 +306,7 @@ readability and controllability by concept and model.
   \texttt{topic\_science} by at most $0.01$ at any strength, despite
   \texttt{topic\_science} being read at AUROC $1.0$ by a linear probe on the same
   model. Note that the control's response is not a monotone ramp: the unsteered
-  baseline sits near a local extremum and both steering directions move behaviour
+  baseline sits near a local extremum and both steering directions move behavior
   the same way. We plot deviation rather than raw score for that reason.}
   \label{fig:dose}
 \end{figure}
@@ -397,8 +399,8 @@ questions; controllability is a within-concept quantity. Within concept, the hum
 and the logit judge reach Krippendorff's $\alpha$ \citep{krippendorff2018content}
 of $0.33$, against $0.18$ for the
 lexicon scorer. On the positive control the judge tracks the human closely
-($\alpha = 0.76$ for sentiment), so where behavior genuinely moves under steering the
-instrument behaves as intended where behavior varies. On
+($\alpha = 0.76$ for sentiment), so the instrument behaves as intended where
+behavior varies. On
 \texttt{topic\_science} the judge's spread across sampled generations is $0.02$,
 below the human's $0.05$, so the near-zero controllability that places this
 concept in the danger zone is unlikely to be a judge artifact.
@@ -444,7 +446,7 @@ the authors, and every quantity the paper reports is additionally pinned by
 tests that run against planted ground truth on synthetic data, so a metric
 returning a wrong number fails a test rather than reaching a figure. Several
 errors found this way are described in the appendices, including a
-danger-zone criterion that would have manufactured a finding out of normalised
+danger-zone criterion that would have manufactured a finding out of normalized
 values and a verdict rule that would have reported a wrong-signed result as
 weak support.
 
@@ -452,7 +454,7 @@ We used generative AI tools for drafting and editing prose in this paper. We
 did not use them to generate research ideas, to decide the hypotheses, to
 choose the analyses, or to produce or alter any experimental result. Every
 number in the paper comes from the released code run on the released data.
-Hand labelling for the judge validation was done by an author, not by a model.
+Hand labeling for the judge validation was done by an author, not by a model.
 
 The literature positioning in Section~\ref{sec:related} was drafted with AI
 assistance and the citations were checked by the authors against the primary
@@ -494,7 +496,7 @@ Appendix~\ref{app:concepts}, and the per-concept judge validation behind the
 claims in Section~\ref{sec:results} and the Limitations is in
 Appendix~\ref{app:judge}. Two decisions that a replication would otherwise be
 likely to get wrong are stated explicitly in Appendix~\ref{app:hyper}: the
-danger-zone thresholds are applied to raw rather than normalised values, and a
+danger-zone thresholds are applied to raw rather than normalized values, and a
 model failing its positive control has its numbers withheld rather than
 discussed.
 
@@ -542,7 +544,7 @@ Llama-3.1-8B-Instruct and Gemma-2-9b-it, all loaded in 4-bit for inference on a
 single 16GB accelerator. Gemma-2 is loaded with eager attention because its
 attention soft-cap is not applied by the fused kernel.
 
-\textbf{Probes.} $\ell_2$-regularised logistic regression, $C=1.0$, averaged over
+\textbf{Probes.} $\ell_2$-regularized logistic regression, $C=1.0$, averaged over
 three seeds. The layer is selected on a validation family split disjoint from
 both train and test, never on test AUROC, with ties broken toward the middle of
 the network. Readability is the test AUROC at the selected layer, with a
@@ -553,7 +555,7 @@ probe.
 coefficient grid is $\{-3, -2, -1, -0.5, 0, 0.5, 1, 2, 3\}$ in units of the
 residual-stream RMS norm at the intervention layer, so a coefficient means the
 same thing across layers and models. The intervention spans a band of four
-layers centred on the probe layer. A strength is unusable if steered-output
+layers centered on the probe layer. A strength is unusable if steered-output
 perplexity under the unsteered model exceeds twice the unsteered baseline, or
 if degenerate repetition appears. The threshold is fixed in advance.
 
@@ -593,7 +595,7 @@ those rows reflect absent variance rather than disagreement, and are marked
 accordingly.
 
 \begin{table}[h]
-  \caption{Human against the fixed logit judge on 100 hand-labelled
+  \caption{Human against the fixed logit judge on 100 hand-labeled
   generations, ten concepts. ``flat'' marks a rater whose spread is below
   $0.11$, where alpha is uninformative.}
   \label{tab:judge}
