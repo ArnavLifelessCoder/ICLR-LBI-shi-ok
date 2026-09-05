@@ -114,60 +114,108 @@ Our contributions are:
 \section{Related work}
 \label{sec:related}
 
-\textbf{Activation steering.} Difference-of-means and contrastive directions are
-the standard tools for reading and moving concepts. Activation addition
-\citep{turner2023actadd}, its contrastive-pairs refinement
-\citep{panickssery2023caa}, inference-time intervention \citep{li2023iti} and
-representation engineering \citep{zou2023repe} all read a direction and add it
-back to change behavior. We use these methods rather than compare against them.
+\subsection{Reading concepts out of activations}
 
-\textbf{The refusal direction.} Refusal is mediated by a single direction that
-can be ablated \citep{arditi2024refusal}. \citet{joad2026refusal} find that
-refusal and non-compliance span eleven categories occupying geometrically
-distinct directions, yet steering along any of them produces nearly identical
-refusal trade-offs, so the directions act as a shared one-dimensional control. Together these results suggest that
-readability and controllability may decouple, but they concern refusal alone. We
-extend the measurement to ten concepts and four models and test a geometric
-predictor of the gap.
+Linear probes on intermediate activations were introduced as a diagnostic for
+what a network has computed by a given depth \citep{alain2016probes}, and the
+practice is now standard in language-model interpretability. What a probe
+licenses has been contested for almost as long. \citet{hewitt2019control} show
+that probe accuracy alone is uninterpretable, because a sufficiently expressive
+probe can fit an arbitrary control task, and propose reporting selectivity, the
+gap between task and control accuracy; we adopt that recommendation and report
+a shuffled-label control for every concept. \citet{belinkov2022probing}
+surveys the resulting methodological literature and its open problems.
 
-\textbf{Detection versus control.} \citet{galeone2026perfect} report a case in which
-fake entities are detected with perfect linear separability while the detection
-direction is nearly orthogonal to the direction that controls the behavior, and
-show that the gap persists across four models from three families. They leave a systematic
-comparison of detection against control, and a predictor of the gap, as future
-work.
+The linear representation hypothesis \citep{park2024linear} supplies the
+justification for treating a concept as a direction at all, and underwrites
+difference-of-means estimation. It is a claim about how concepts are encoded.
+Nothing in it connects the between-class separation a probe exploits to the
+downstream causal sensitivity that steering requires, which is precisely the
+asymmetry we quantify. Unsupervised methods recover candidate directions
+without labelled contrasts, either from logical consistency
+\citep{burns2023ccs} or by dictionary learning over activations
+\citep{cunningham2024sae}; we use supervised contrasts throughout, and return to
+that choice in the Limitations.
 
-\textbf{Probing and what it licenses.} Linear probes on intermediate
-activations date to \citet{alain2016probes}, and their interpretation has been
-contested since. \citet{hewitt2019control} show that probe accuracy is
-uninformative without a control task, and \citet{belinkov2022probing} surveys the
-resulting methodological limits. Closest to our question,
-\citet{elazar2021amnesic} argue that probing accuracy does not establish that a
-model uses the probed property, and test use by removing the property and
-measuring the behavioral consequence. That work removes information and asks
-whether behavior degrades; we add information along a direction and ask whether
-behavior moves. The removal operation itself has a literature
-(\citealp{ravfogel2020inlp}; \citealp{belrose2023leace}), and directional ablation
-is one of the six interventions in our robustness battery.
+\subsection{From reading to intervening}
 
-\textbf{Causal intervention.} Editing activations to test what a component
-does is standard practice, from causal tracing and weight editing
-\citep{meng2022rome} to the activation-patching methodology literature, which
-documents how much the reported conclusion depends on the metric and the
-corruption used \citep{zhang2023patching}. Our interventions are of this family,
-applied to a fixed direction rather than to a located component.
+The closest methodological ancestor of this paper is amnesic probing
+\citep{elazar2021amnesic}, which argues that probing accuracy does not establish
+that a model uses the probed property, and tests use by removing the property
+from the representation and measuring the behavioral consequence. The
+underlying removal operation has its own literature: iterative nullspace
+projection \citep{ravfogel2020inlp} removes linearly decodable information by
+repeated projection, and LEACE \citep{belrose2023leace} does so in closed form
+while minimally perturbing the representation. Directional ablation, one of the
+six interventions in our robustness battery, is the single-direction case of
+this operation.
 
-\textbf{Limits of steering.} \citet{tan2024steering} report that steerability
-varies substantially across inputs and that steering vectors can be brittle to
-prompt changes. Their variation is across inputs within a concept; ours is
-across concepts, and we pair it with a detection measurement on the same
-concepts, which is what makes the dissociation visible.
+Our question is the mirror image. Amnesic probing removes information and asks
+whether behavior degrades; we add signal along a direction and ask whether
+behavior moves, sweeping strength rather than testing a single removal. The two
+can come apart: a concept the model genuinely uses may still be immovable if the
+downstream computation is insensitive to displacement along the particular
+direction a probe or a difference of means recovers.
 
-\textbf{The linear representation hypothesis} \citep{park2024linear} motivates
-treating concepts as directions and reading them with linear probes, which is the encoder half of our
-measurement. Nothing in it ties the between-class separation a probe exploits to
-the downstream causal sensitivity that steering requires, which is the asymmetry
-we quantify.
+More broadly, editing activations to test what a component does is standard
+practice, from causal tracing and rank-one weight editing
+\citep{meng2022rome} onward. The activation-patching methodology literature
+documents how strongly the reported conclusion depends on the metric and the
+corruption chosen \citep{zhang2023patching}, which is one reason we fix the
+dose-response metric and the fluency ceiling in advance rather than selecting
+them after seeing results. Our interventions belong to this family but are
+applied to a fixed concept direction rather than to a located component.
+
+\subsection{Steering methods and their known limits}
+
+Difference-of-means and contrastive directions are the standard tools for
+moving concepts. Activation addition \citep{turner2023actadd} adds a direction
+estimated from a contrast pair into the residual stream at inference time; its
+contrastive-pairs refinement \citep{panickssery2023caa} estimates the direction
+from many pairs; inference-time intervention \citep{li2023iti} selects attention
+heads by probe accuracy and shifts along the probe direction; and
+representation engineering \citep{zou2023repe} generalizes reading and
+controlling representations into a single framework. We use these as our
+interventions rather than compare against them: the paper measures how far a
+concept moves under standard methods, not which method moves it furthest.
+
+Negative results about steering already exist. \citet{tan2024steering} report
+that steerability varies substantially across inputs within a concept, and that
+steering vectors can be brittle to reasonable prompt changes, so a vector that
+works on average may fail on particular inputs. That variation is
+within-concept and across inputs. Ours is across concepts, and is paired with a
+detection measurement on the same concepts, which is what makes a dissociation
+rather than a reliability problem visible. The two findings compound: a method
+that is unreliable across inputs and, separately, inert for some concepts is
+weaker evidence for control than either result alone suggests.
+
+\subsection{Refusal, and the one prior detection-versus-control result}
+
+Refusal is the most studied single concept in this literature.
+\citet{arditi2024refusal} show that refusal is mediated by a direction whose
+ablation prevents refusal across many chat models, which is the strongest
+existing case that a concept direction is a control handle.
+\citet{joad2026refusal} complicate this: refusal and non-compliance span eleven
+categories occupying geometrically distinct directions, yet steering along any
+of them produces nearly identical refusal to over-refusal trade-offs, so the
+directions behave as a shared one-dimensional control. Their result is relevant
+to us twice over. It shows that a concept can be carried redundantly, which is
+one candidate explanation for a concept resisting intervention on any single
+direction, and it is the reason we treat refusal's behavior in our data as
+consistent with redundant encoding rather than with the lexical account we
+offer for other concepts.
+
+\citet{galeone2026perfect} report the one prior result that measures detection
+against control directly. On a hallucination case they find fake entities
+detected with perfect linear separability while the detection direction sits
+nearly orthogonal to the direction that controls the behavior, and the gap
+persists across four models from three families and survives instruction
+tuning. Their measurement is geometric, an angle between a detection direction
+and a control direction on one behavior. Ours is behavioral and comparative: we
+measure how far behavior actually moves under a swept intervention, across ten
+concepts and four models, and ask whether the resulting controllability can be
+predicted from geometry in advance. They leave a systematic comparison of
+detection against control, and a predictor of the gap, as future work.
 
 \section{Method}
 \label{sec:method}
@@ -294,7 +342,9 @@ readability-controllability plane, both axes min-max normalized within model to
 remove cross-model scale differences. The Spearman correlation between the two
 axes is $0.14$ with a 95\% bootstrap CI of $[-0.24, 0.51]$: on this data,
 detection does not predict control. Table~\ref{tab:matrix} gives the underlying
-readability and controllability by concept and model.
+readability and controllability by concept and model. Appendix~\ref{app:full}
+adds confidence intervals, selectivity, the shuffled-label control probe, the
+selected layer and the robustness-battery outcome for every point.
 
 \begin{figure}[tb]
   \centering
@@ -553,6 +603,9 @@ discussed.
 
 A CPU-only test suite and a synthetic end-to-end run exercise the full metric
 path against planted ground truth without a GPU or model downloads.
+Appendix~\ref{app:failures} records the measurement errors we encountered and
+how each was caught. We include it because every one of them would have biased
+a reported quantity toward our own hypothesis rather than failing visibly.
 
 \bibliography{refs}
 \bibliographystyle{iclr2027_conference}
@@ -634,6 +687,85 @@ scored its own outputs.
 dominated by the steering sweeps. The judge validation adds about ninety
 seconds.
 
+\section{Complete per-concept results}
+\label{app:full}
+
+Table~\ref{tab:full} reports every concept-model point with the quantities the
+main text summarizes: readability and its bootstrap interval, selectivity
+against the shuffled-label control probe, controllability and its interval, the
+selected layer, and the outcome of the robustness battery where it ran.
+
+Three patterns are worth reading off it directly. First, the readability column
+is saturated: 31 of 40 points sit at AUROC $1.0$ with an interval of zero width,
+which is the limitation discussed in the main text and the reason selectivity is
+reported alongside. Second, the control probe should sit near $0.5$ and does so
+at 35 of 40 points; the five marked exceptions are places where a shuffled-label
+probe still separates the held-out family, so readability there is partly
+whatever the control is also picking up. We report those rather than dropping
+them. Third, layer selection concentrates in the middle of each network, with
+the exceptions being \texttt{sycophancy} and \texttt{formality}, which select
+layers 0 to 4 on several models; those are the points where the mid-network
+tie-break had least to work with, since validation AUROC saturates across most
+of the network.
+
+\begin{table}[htbp]
+  \caption{Complete per-concept results for all four models. \textbf{Read} is held-out probe AUROC with its bootstrap interval; \textbf{Sel} is selectivity (AUROC minus the shuffled-label control probe), and \textbf{Ctrl probe} is that control probe's AUROC, which should sit near $0.5$. \textbf{Ctrl} is the dose-response area with its interval. \textbf{L} is the selected layer. \textbf{Gauntlet} is ``--'' where the default intervention already moved the concept so the battery never ran, which is not the same as failing it.}
+  \label{tab:full}
+  \centering
+  \footnotesize
+  \begin{tabular}{llcccccc}
+    \toprule
+    Model & Concept & Read [CI] & Sel & Ctrl probe & Ctrl [CI] & L & Gauntlet \\
+    \midrule
+    Qwen2.5-7B & sentiment & 1.000 [1.00, 1.00] & 0.43 & 0.565 & 0.215 [0.115, 0.339] & 13 & -- \\
+     & certainty & 1.000 [1.00, 1.00] & 0.37 & 0.631\,* & 0.123 [0.094, 0.220] & 13 & -- \\
+     & factuality & 1.000 [1.00, 1.00] & 0.53 & 0.466 & 0.120 [0.088, 0.177] & 13 & -- \\
+     & formality & 0.992 [0.96, 1.00] & 0.60 & 0.394 & 0.034 [0.021, 0.070] & 13 & moved \\
+     & honesty & 1.000 [1.00, 1.00] & 0.44 & 0.562 & 0.081 [0.070, 0.176] & 20 & -- \\
+     & refusal & 1.000 [1.00, 1.00] & 0.54 & 0.464 & 0.047 [0.043, 0.108] & 13 & moved \\
+     & rudeness & 0.797 [0.63, 0.94] & 0.15 & 0.644\,* & 0.153 [0.080, 0.259] & 15 & -- \\
+     & sycophancy & 1.000 [1.00, 1.00] & 0.39 & 0.615\,* & 0.118 [0.083, 0.202] & 3 & -- \\
+     & topic\_science & 0.944 [0.77, 1.00] & 0.48 & 0.468 & 0.019 [0.014, 0.029] & 13 & survived \\
+     & verbosity & 1.000 [1.00, 1.00] & 0.46 & 0.545 & 0.050 [0.029, 0.088] & 13 & moved \\
+    \midrule
+    Mistral-7B & sentiment & 1.000 [1.00, 1.00] & 0.43 & 0.574 & 0.163 [0.067, 0.273] & 15 & -- \\
+     & certainty & 1.000 [1.00, 1.00] & 0.42 & 0.580 & 0.113 [0.069, 0.213] & 15 & -- \\
+     & factuality & 1.000 [1.00, 1.00] & 0.61 & 0.389 & 0.032 [0.017, 0.063] & 15 & moved \\
+     & formality & 1.000 [1.00, 1.00] & 0.45 & 0.546 & 0.099 [0.081, 0.182] & 0 & -- \\
+     & honesty & 1.000 [1.00, 1.00] & 0.62 & 0.376 & 0.107 [0.056, 0.233] & 3 & -- \\
+     & refusal & 1.000 [1.00, 1.00] & 0.51 & 0.488 & 0.038 [0.027, 0.080] & 15 & survived \\
+     & rudeness & 1.000 [1.00, 1.00] & 0.49 & 0.512 & 0.211 [0.117, 0.301] & 15 & -- \\
+     & sycophancy & 0.574 [0.35, 0.76] & 0.06 & 0.519 & 0.101 [0.078, 0.189] & 2 & -- \\
+     & topic\_science & 1.000 [1.00, 1.00] & 0.53 & 0.470 & 0.024 [0.013, 0.046] & 15 & survived \\
+     & verbosity & 1.000 [1.00, 1.00] & 0.40 & 0.601\,* & 0.054 [0.027, 0.097] & 15 & -- \\
+    \midrule
+    Llama-3.1-8B & sentiment & 1.000 [1.00, 1.00] & 0.49 & 0.511 & 0.101 [0.095, 0.151] & 15 & -- \\
+     & certainty & 1.000 [1.00, 1.00] & 0.45 & 0.555 & 0.049 [0.028, 0.131] & 15 & moved \\
+     & factuality & 1.000 [1.00, 1.00] & 0.49 & 0.507 & 0.058 [0.044, 0.162] & 15 & -- \\
+     & formality & 1.000 [1.00, 1.00] & 0.47 & 0.533 & 0.025 [0.013, 0.104] & 3 & moved \\
+     & honesty & 1.000 [1.00, 1.00] & 0.40 & 0.598 & 0.119 [0.061, 0.228] & 13 & -- \\
+     & refusal & 1.000 [1.00, 1.00] & 0.34 & 0.663\,* & 0.033 [0.016, 0.107] & 15 & survived \\
+     & rudeness & 1.000 [1.00, 1.00] & 0.48 & 0.518 & 0.056 [0.032, 0.269] & 15 & -- \\
+     & sycophancy & 0.566 [0.35, 0.77] & 0.09 & 0.479 & 0.081 [0.027, 0.210] & 2 & -- \\
+     & topic\_science & 0.972 [0.88, 1.00] & 0.50 & 0.472 & 0.011 [0.005, 0.021] & 15 & survived \\
+     & verbosity & 1.000 [1.00, 1.00] & 0.55 & 0.450 & 0.025 [0.014, 0.071] & 15 & survived \\
+    \midrule
+    Gemma-2-9b & sentiment & 1.000 [1.00, 1.00] & 0.57 & 0.431 & 0.110 [0.109, 0.196] & 20 & -- \\
+     & certainty & 1.000 [1.00, 1.00] & 0.53 & 0.465 & 0.054 [0.041, 0.156] & 20 & -- \\
+     & factuality & 1.000 [1.00, 1.00] & 0.51 & 0.492 & 0.054 [0.044, 0.161] & 20 & -- \\
+     & formality & 0.965 [0.89, 1.00] & 0.47 & 0.495 & 0.020 [0.015, 0.169] & 2 & survived \\
+     & honesty & 1.000 [1.00, 1.00] & 0.56 & 0.437 & 0.079 [0.031, 0.193] & 20 & -- \\
+     & refusal & 1.000 [1.00, 1.00] & 0.51 & 0.488 & 0.038 [0.029, 0.146] & 20 & moved \\
+     & rudeness & 0.918 [0.80, 0.99] & 0.43 & 0.488 & 0.069 [0.033, 0.187] & 16 & -- \\
+     & sycophancy & 0.926 [0.83, 0.99] & 0.37 & 0.552 & 0.015 [0.010, 0.150] & 4 & survived \\
+     & topic\_science & 1.000 [1.00, 1.00] & 0.59 & 0.407 & 0.007 [0.006, 0.013] & 20 & survived \\
+     & verbosity & 1.000 [1.00, 1.00] & 0.47 & 0.532 & 0.041 [0.027, 0.111] & 20 & moved \\
+    \bottomrule
+  \end{tabular}
+  \\[2pt]
+  \footnotesize * marks a shuffled-label control probe above $0.6$, where readability at that point is partly whatever the control is also picking up.
+\end{table}
+
 \section{Judge validation, per concept}
 \label{app:judge}
 
@@ -678,6 +810,78 @@ within-concept variance; it read $+0.573$ pooled against $+0.022$ within. Ten
 items are repeated later in the sheet to estimate intra-rater reliability, which
 was $+1.000$. We note that perfect consistency cannot be distinguished from the
 rater recognizing a repeated item.
+
+
+
+\section{Failure modes encountered, and how they were caught}
+\label{app:failures}
+
+Several measurement errors in this study would have produced a plausible-looking
+result rather than an obvious crash. We record them because each one is a
+failure mode a replication could repeat, and because the specific pattern is
+instructive: in every case the corrupted quantity was pushed toward the value
+the danger-zone criterion selects for, so the error would have manufactured
+support for our own hypothesis.
+
+\textbf{A judge returning a constant.} An early sweep produced controllability
+exactly $0.000$ on the positive control with no parse failures. A judge that
+emits the same score for every generation yields a perfectly flat dose-response
+curve, which is indistinguishable from a concept that steering cannot move. The
+harness now records whether a sweep returned a single distinct score and
+excludes such points, because a warning is not sufficient when the number being
+warned about is the number the finding is defined by.
+
+\textbf{Prompting an instruction-tuned model without its chat template.} The
+same early sweep fed raw instructions to instruct models, which continued the
+instruction rather than following it. The resulting text was uniform enough
+that the judge scored it identically throughout, again producing a flat curve.
+Steering itself was never broken; the stimulus was.
+
+\textbf{Applying danger-zone thresholds to normalized values.} Both axes are
+min-max normalized within model for the correlation and the figure, which is
+necessary because raw AUROC and raw dose-response area are not comparable across
+models. Applying the danger-zone thresholds after that normalization is not:
+min-max normalization guarantees that some point sits at each extreme, so
+thresholding normalized values manufactures a danger-zone occupant out of pure
+scatter. The thresholds are therefore applied to raw values, and a test
+constructed from scatter confirms that no occupant appears.
+
+\textbf{A fluency ceiling that admitted the point that breached it.} The
+original ceiling walked outward by absolute coefficient against a single scalar,
+so a breach at one sign could leave the opposite sign's breaching point inside
+the usable set. The ceiling now marks each point on its own perplexity and
+repetition and closes over each sign separately, and the confidence interval is
+computed on the same usable set as the point estimate rather than on a magnitude
+threshold.
+
+\textbf{Selecting the probe layer on test AUROC.} Layer selection originally
+maximized test AUROC and then reported that same maximum as readability. Layer
+choice now happens on a validation family split disjoint from both train and
+test.
+
+\textbf{A verdict rule that ignored the sign of its own result.} The primary
+test's reporting logic checked whether the estimate was in the predicted
+direction only when its magnitude exceeded $0.7$. Our result is moderate
+($-0.45$) with an interval excluding zero on the side opposite the prediction,
+and it therefore fell through to a branch that described it as suggestive
+support. A wrong-signed result whose interval excludes zero is evidence against
+the hypothesis, and the reporting is now sign-aware at every magnitude.
+
+\textbf{A hand-labelling sheet with no within-concept variance.} The first
+judge-validation sheet was drawn as the first hundred generations in curve
+order. Because steering frequently leaves output unchanged at adjacent
+coefficients, 56\% of its rows were duplicates, four of ten concepts were absent
+including the positive control, and the sampled generations spanned too little
+of the sweep to exhibit within-concept variation. Agreement computed on it read
+$+0.573$ pooled against $+0.022$ within concept. The sampler now deduplicates,
+allocates across concepts round-robin, and spreads picks across the coefficient
+range.
+
+The common thread is that a metric can be wrong in a direction that flatters the
+hypothesis without failing loudly. Every quantity reported here is covered by
+tests that run the metric against synthetic data with a planted ground truth, so
+a metric that returns a wrong number fails a test rather than reaching a figure;
+the two reporting errors above were both found that way.
 
 
 \end{document}
