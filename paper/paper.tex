@@ -496,6 +496,17 @@ behavior varies. On
 below the human's $0.05$, so the near-zero controllability that places this
 concept in the danger zone is unlikely to be a judge artifact.
 
+Two features of the annotation setup bear on how much weight the validation
+carries. The labels come from a single annotator, so no inter-annotator
+agreement can be computed and the reported figures rest on that annotator's
+judgment; the ten repeated items give intra-rater reliability only. Against
+that, the annotator was blind to condition: the labeling sheet carries the
+generation, its concept and the scoring question, and does not record which
+model produced the text or at what steering strength, so the labels cannot
+have been shaped by knowing whether an item came from a steered or unsteered
+condition. The annotator was not blind to the hypothesis under test, which a
+second independent rater would address and which we did not do.
+
 The exception is \texttt{refusal}. The human scored all ten sampled outputs
 identically, while the judge spread them over $0.16$. Because noise in the
 behavior score adds apparent movement, the measured controllability for
@@ -542,8 +553,8 @@ scale.
 
 We used generative AI tools as coding assistants for the research software in
 this work: the probing and steering harness, the metric implementations, the
-figure and table generation, and the test suite. All such code was reviewed by
-the authors, and every quantity the paper reports is additionally pinned by
+figure and table generation, and the test suite. We reviewed all such code, and
+every quantity the paper reports is additionally pinned by
 tests that run against planted ground truth on synthetic data, so a metric
 returning a wrong number fails a test rather than reaching a figure. Several
 errors found this way are described in the appendices, including a
@@ -555,11 +566,10 @@ We used generative AI tools for drafting and editing prose in this paper. We
 did not use them to generate research ideas, to decide the hypotheses, to
 choose the analyses, or to produce or alter any experimental result. Every
 number in the paper comes from the released code run on the released data.
-Hand labeling for the judge validation was done by an author, not by a model.
+The hand labeling for the judge validation was done by a person, not by a model.
 
 The literature positioning in Section~\ref{sec:related} was drafted with AI
-assistance and the citations were checked by the authors against the primary
-sources. We take responsibility for the final content of this work, including
+assistance, and we checked every citation against its primary source. We take responsibility for the final content of this work, including
 all text, claims and artifacts.
 
 \subsection*{Ethics statement}
@@ -577,9 +587,9 @@ bounded by a fluency ceiling. The toxicity-adjacent concept in our set is a
 courtesy-register proxy rather than genuinely toxic text, so the released
 dataset does not contain harmful content.
 
-Hand-labeling was performed by an author rather than by crowd workers. All
-models are publicly released instruction-tuned checkpoints used under their
-respective licenses.
+The hand labeling was performed in-house rather than by crowd workers, so no
+third-party annotation ethics apply. All models are publicly released
+instruction-tuned checkpoints used under their respective licenses.
 
 \subsection*{Reproducibility statement}
 
