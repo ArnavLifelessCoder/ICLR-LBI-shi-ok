@@ -127,6 +127,25 @@ show that the gap persists across four models from three families. They leave a 
 comparison of detection against control, and a predictor of the gap, as future
 work.
 
+\textbf{Probing and what it licenses.} Linear probes on intermediate
+activations date to \citet{alain2016probes}, and their interpretation has been
+contested since. \citet{hewitt2019control} show that probe accuracy is
+uninformative without a control task, and \citet{belinkov2022probing} surveys the
+resulting methodological limits. Closest to our question,
+\citet{elazar2021amnesic} argue that probing accuracy does not establish that a
+model uses the probed property, and test use by removing the property and
+measuring the behavioral consequence. That work removes information and asks
+whether behavior degrades; we add information along a direction and ask whether
+behavior moves. The removal operation itself has a literature
+(\citealp{ravfogel2020inlp}; \citealp{belrose2023leace}), and directional ablation
+is one of the six interventions in our robustness battery.
+
+\textbf{Limits of steering.} \citet{tan2024steering} report that steerability
+varies substantially across inputs and that steering vectors can be brittle to
+prompt changes. Their variation is across inputs within a concept; ours is
+across concepts, and we pair it with a detection measurement on the same
+concepts, which is what makes the dissociation visible.
+
 \textbf{The linear representation hypothesis} \citep{park2024linear} motivates
 treating concepts as directions and reading them with linear probes, which is the encoder half of our
 measurement. Nothing in it ties the between-class separation a probe exploits to
@@ -420,6 +439,16 @@ Appendix~\ref{app:judge} gives the per-concept detail.
 readable-but-immovable claim currently rests on a boundary case
 (\texttt{refusal}) rather than a slam-dunk, because the two gauntlet-confirmed
 points are the surface-confounded \texttt{topic\_science}.
+
+\textbf{One choice of feature basis.} We estimate concept directions by
+difference of means, probe weights, and reading vectors, all of which assume
+the concept is a direction in the residual stream \citep{park2024linear}.
+Sparse autoencoders \citep{cunningham2024sae} and unsupervised methods such as
+\citet{burns2023ccs} recover features under different assumptions, and a concept
+that is immovable along its difference-of-means direction might be movable
+along a feature recovered that way. Our claims are therefore about the
+directions these standard estimators produce, not about the concept in the
+abstract.
 
 \textbf{Scale and stimuli.} Four instruction-tuned families under 10B parameters,
 with templated stimuli. Whether the inversion survives at larger scale or with
