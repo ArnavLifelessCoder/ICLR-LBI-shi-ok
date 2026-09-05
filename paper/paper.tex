@@ -419,6 +419,20 @@ safety-relevant, and it survived the gauntlet on two models. It misses the
 danger zone on the upper bound of its controllability interval, which exceeds
 the $0.05$ threshold on all four models. We report it as a boundary case.
 
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.86\linewidth]{fig3_h1_inversion.png}
+  \caption{The preregistered predictor, drawn. H1 states that a concept is
+  steerable to the extent its direction projects into the output-effective
+  subspace, so the slope should be positive; it is negative. Circled points are
+  \texttt{topic\_science} on each of the four models, which carries the highest
+  output overlap and the lowest controllability every time and drives much of
+  the effect. The sentiment positive control sits at moderate overlap and the
+  highest controllability. Axes are raw rather than normalized, since the
+  partial correlation is computed on raw values.}
+  \label{fig:inversion}
+\end{figure}
+
 \subsection{The geometric predictor has the wrong sign}
 \label{sec:inverted}
 
@@ -427,7 +441,7 @@ Spearman of output overlap against controllability, conditioning on readability,
 is $-0.45$ with a cluster-bootstrap 95\% CI of $[-0.72, -0.04]$. The interval
 excludes zero, but on the side opposite to the prediction: the concepts whose
 direction is most aligned with the output-effective subspace are the least
-steerable.
+steerable. Figure~\ref{fig:inversion} plots the relationship.
 
 The effect is driven largely by a single concept. \texttt{topic\_science} has the
 highest output overlap of any concept on every model ($0.395$, $0.424$, $0.419$,
@@ -479,7 +493,9 @@ AUROC $1.0$, so the primary $x$-axis has little variance and the reported
 correlation is uninformative rather than a null result. The
 minimal-pair construction that lets the surface audit pass also makes concepts
 trivially separable. We report selectivity (AUROC minus the shuffled-label
-control) as a secondary axis with more spread.
+control) as a secondary axis with more spread; Appendix~\ref{app:selectivity}
+shows both axes side by side and explains why selectivity is reported
+alongside the preregistered axis rather than substituted for it.
 
 \textbf{Judge validation.} We hand-labeled 100 generations stratified across all ten concepts and
 compared three raters: a human, the fixed logit judge, and a lexicon scorer.
@@ -776,6 +792,37 @@ of the network.
   \footnotesize * marks a shuffled-label control probe above $0.6$, where readability at that point is partly whatever the control is also picking up.
 \end{table}
 
+
+\section{The saturated axis, and selectivity as an alternative}
+\label{app:selectivity}
+
+Readability is the preregistered $x$-axis and it is saturated: 31 of 40 points
+sit at AUROC $1.0$, so the axis carries almost no variance and the headline
+correlation is uninformative rather than a clean null. The cause is the
+concept construction itself. Minimal pairs whose marker vocabulary is disjoint
+across template families are what makes the surface audit pass, and they also
+make every concept trivially separable in activation space.
+
+Selectivity, the probe AUROC minus its shuffled-label control, spreads the same
+points across roughly half the unit interval (Figure~\ref{fig:selectivity}).
+We report it as a secondary axis rather than substituting it for the
+preregistered one. It is not a drop-in replacement: selectivity mixes how
+readable a concept is with how much structure the shuffled-label control
+happens to find, so a low value can mean either a weak probe or a strong
+control, and the two have different implications. A study designed around this
+axis from the start would need concepts built to vary in readability, which
+ours were not.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{fig4_selectivity.png}
+  \caption{The same 40 points against two candidate readability axes.
+  \textbf{Left:} the preregistered axis, where most points pile up at AUROC
+  $1.0$. \textbf{Right:} selectivity, which separates them. The vertical
+  spread is identical in both panels; only the horizontal axis changes.}
+  \label{fig:selectivity}
+\end{figure}
+
 \section{Judge validation, per concept}
 \label{app:judge}
 
@@ -785,7 +832,7 @@ agreement over a multi-concept sheet largely reflects differences in level
 between concepts that answer different questions. Where one rater is
 near-constant, alpha cannot be meaningfully positive; the negative values in
 those rows reflect absent variance rather than disagreement, and are marked
-accordingly.
+accordingly. Figure~\ref{fig:judgevar} shows the same information as spreads.
 
 \begin{table}[htbp]
   \caption{Human against the fixed logit judge on 100 hand-labeled
@@ -811,6 +858,23 @@ accordingly.
     \bottomrule
   \end{tabular}
 \end{table}
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.92\linewidth]{fig5_judge_variance.png}
+  \caption{Score spread within each concept, human annotator against the fixed
+  logit judge, on the 100 hand-labeled generations. Concepts are ordered by
+  human spread. Where both bars are short the sampled generations genuinely do
+  not differ on that concept and agreement is uninformative;
+  \texttt{topic\_science} is the clearest such case and is also the
+  danger-zone concept, so its near-zero controllability is not an artifact of a
+  judge inventing movement. Where the judge bar is long and the human bar is
+  short, the judge is producing within-concept variation a careful reader does
+  not see. \texttt{refusal} is the extreme case: the human scored all ten items
+  identically, giving a spread of exactly zero.}
+  \label{fig:judgevar}
+\end{figure}
 
 The sheet is stratified across all ten concepts and across the coefficient
 range within each concept, and deduplicated by text. An earlier sheet drawn as
