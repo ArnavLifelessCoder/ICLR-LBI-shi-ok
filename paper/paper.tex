@@ -28,6 +28,10 @@
 \title{Legible but Immovable: Reading a Concept Does Not Grant Control, and the
 Obvious Geometry Predicts It Backwards}
 
+% Double-blind: this stays anonymous for submission. At camera-ready, add
+% \iclrfinalcopy to the preamble and replace this block with real names and
+% affiliations. Do not de-anonymise anything else: check the acknowledgements,
+% the repository URL in the Reproducibility Statement, and the PDF metadata.
 \author{%
   Anonymous authors \\
   Paper under double-blind review
@@ -217,7 +221,7 @@ cross-model comparison is valid. A degenerate judge (one score across a whole
 sweep) produces exactly the flat curve the danger zone selects for, so such
 points are detected and dropped rather than reported. The concept datasets,
 probes, steering harness with all robustness variants, and the full gap-map data
-are released.
+are released. Full protocol and hyperparameters are in Appendix~\ref{app:hyper}.
 
 \section{Experimental setup}
 
@@ -234,7 +238,8 @@ is built as minimal pairs tagged by template family.
 
 \textbf{Surface audit.} Before extraction, a leave-one-family-out TF-IDF audit
 checks that no concept can be separated on lexical cues alone. Eight concepts
-pass; two (topic and verbosity) are declared surface-confounded in advance and
+pass (Appendix~\ref{app:concepts}); two (topic and verbosity) are declared
+surface-confounded in advance and
 reported with that caveat rather than dropped, because domain membership and
 length are surface properties by construction.
 
@@ -422,7 +427,8 @@ confidence interval wider than it should be. That interval is the sole reason
 \texttt{refusal} misses the danger-zone criterion. We flag this rather than argue
 from it: establishing where \texttt{refusal} truly sits requires re-measurement with
 a better-validated judge, not a re-reading of these numbers. The same pattern
-appears on \texttt{honesty}, \texttt{certainty} and \texttt{rudeness}.
+appears on \texttt{honesty}, \texttt{certainty} and \texttt{rudeness};
+Appendix~\ref{app:judge} gives the per-concept detail.
 
 \textbf{The strongest confirmed-immovable concept is surface-confounded.} The
 clean readable-but-immovable claim currently rests on a boundary case
@@ -443,6 +449,178 @@ extent it projects into the output-effective subspace -- is not merely
 incomplete but inverted: the most output-aligned concepts are the least
 steerable. A good probe is not a control handle, and the obvious picture of when
 steering should work is, at this scale, backwards.
+
+\section*{Reproducibility Statement}
+
+Every number in this paper comes from code and data we release. The concept
+datasets are generated deterministically from templates in the repository, so
+they can be rebuilt exactly rather than downloaded. The steering harness, the
+probing pipeline, the six-intervention gauntlet, the geometry features and the
+aggregation that produces Figure~\ref{fig:gapmap} and Table~\ref{tab:matrix} are
+all included, together with the per-concept result files for all four models,
+the hand-labelled judge-validation sheet and its agreement report.
+
+Two things are worth stating because they are easy to get wrong and we got them
+wrong first. Danger-zone membership is decided on raw thresholds rather than
+normalised ones: both axes are min-max normalised within model for the
+correlation and the figure, but normalisation guarantees that some point sits
+at the extreme of each axis, so applying the thresholds after normalising
+manufactures an occupant out of pure scatter. And a model whose positive
+control falls below the floor has its numbers withheld rather than discussed,
+because a harness on which steering does not work places every concept in the
+danger zone and is indistinguishable from a discovery.
+
+A CPU-only test suite and a synthetic end-to-end run reproduce the full metric
+path against planted ground truth in a few minutes with no GPU and no model
+downloads, which is the cheapest way to confirm an installation before
+spending accelerator time.
+
+\section*{Ethics Statement}
+
+This work measures whether concepts that a probe can read can also be steered.
+Some concepts are safety-relevant by design, including refusal, honesty and
+sycophancy, because those are exactly the cases where an unwarranted assumption
+about control would matter. The paper's conclusion is cautionary rather than
+enabling: we find that a strong probe is not evidence of a control handle, so
+the result argues against over-claiming for interpretability-based safety
+methods rather than providing a new capability.
+
+We do not release a method for removing safety behaviour. The steering
+interventions we use are the standard published ones, applied at strengths
+bounded by a fluency ceiling, and our headline finding on the safety-relevant
+concepts is that they were \emph{difficult} to move, not that we moved them. The
+toxicity-adjacent concept in our set is a courtesy-register proxy rather than
+genuinely toxic text, so the released dataset does not contain harmful content.
+
+Hand-labelling was performed by one of the authors, not by crowd workers, so no
+third-party annotation ethics apply. All models are publicly released
+instruction-tuned checkpoints used under their own licences.
+
+\appendix
+
+\section{Concept construction and the surface audit}
+\label{app:concepts}
+
+Each concept is built as minimal pairs grouped into template families, and
+probes are evaluated on held-out families rather than held-out examples, so a
+probe that only works within a family scores badly. Two build-time invariants
+keep the contrast out of surface vocabulary: marker words are disjoint across
+families, and paired markers are length-matched.
+
+Before extracting activations we run a leave-one-family-out TF-IDF audit that
+tries to separate the classes from surface form alone, scored two-sided so a
+classifier that ranks a held-out family perfectly backwards still counts as
+having found a lexical contrast. Eight of ten concepts score exactly $0.500$.
+That is the floor rather than a good number, and we state why: because marker
+vocabulary is disjoint by construction, a model trained on five families has no
+feature that fires on the sixth. The audit is therefore a check that the
+construction succeeded, not independent evidence that the probe reads meaning.
+It earns its place by failing loudly when construction has not succeeded: it
+caught duplicated families, markers shared across families, and a length
+imbalance that separated families at AUROC $0.94$ with no marker word
+transferring at all.
+
+Two concepts fail the audit and are declared surface-confounded in advance
+rather than excused. \texttt{verbosity} is length, which is a surface property by
+definition, and scores $1.000$. \texttt{topic\_science} is domain membership,
+carried by content vocabulary, and scores $0.833$. Both are reported with the
+confound stated. This matters for the headline result, because the two
+gauntlet-confirmed danger-zone points are \texttt{topic\_science}.
+
+\section{Protocol and hyperparameters}
+\label{app:hyper}
+
+\textbf{Models.} Qwen2.5-7B-Instruct, Mistral-7B-Instruct-v0.3,
+Llama-3.1-8B-Instruct and Gemma-2-9b-it, all loaded in 4-bit for inference on a
+single 16GB accelerator. Gemma-2 is loaded with eager attention because its
+attention soft-cap is ignored by the fused kernel, which would otherwise
+produce fluent but wrong generations.
+
+\textbf{Probes.} $\ell_2$-regularised logistic regression, $C=1.0$, averaged over
+three seeds. The layer is selected on a validation family split disjoint from
+both train and test, never on test AUROC, with ties broken toward the middle of
+the network. Readability is the test AUROC at the selected layer, with a
+$1000$-sample bootstrap interval, reported beside a shuffled-label control
+probe.
+
+\textbf{Steering.} Directions are difference-of-means unless stated. The
+coefficient grid is $\{-3, -2, -1, -0.5, 0, 0.5, 1, 2, 3\}$ in units of the
+residual-stream RMS norm at the intervention layer, so a coefficient means the
+same thing across layers and models. The intervention spans a band of four
+layers centred on the probe layer. A strength is unusable if steered-output
+perplexity under the unsteered model exceeds twice the unsteered baseline, or
+if degenerate repetition appears; the ceiling is fixed in advance so that
+``the strongest strength before breakage'' is not a choice made after seeing
+the data.
+
+\textbf{Gauntlet.} Single-layer addition, multi-layer addition, clamping and
+directional ablation on the difference-of-means direction, plus single-layer
+addition on the probe-weight and RepE reading-vector directions. It runs only
+on concepts the default intervention already failed to move, so most points
+never enter it, and not entering it is not the same as failing it.
+
+\textbf{Thresholds.} A point enters the danger zone at raw readability
+$\geq 0.9$ and raw controllability $\leq 0.05$, in both cases with the bootstrap
+interval excluding the threshold. The positive control floor is a
+dose-response area of $0.10$.
+
+\textbf{Judge.} A single fixed judge, Qwen2.5-1.5B-Instruct in fp16, scored
+from the Yes/No token mass in one forward pass rather than by parsing generated
+text. It is held identical across all four target models, because a judge that
+changes with the condition would make raw controllability incomparable, and
+danger-zone membership is decided on raw controllability. Every result record
+stores the judge identity and a flag confirming the model under study did not
+score its own outputs.
+
+\textbf{Compute.} The full study is roughly ten accelerator-hours on two T4s,
+dominated by the steering sweeps. The judge validation adds about ninety
+seconds.
+
+\section{Judge validation, per concept}
+\label{app:judge}
+
+Table~\ref{tab:judge} gives the per-concept spread and agreement behind the
+summary in the Limitations. Agreement is read within concept: pooled agreement
+over a multi-concept sheet mostly reflects that different concepts sit at
+different levels, which is trivially true when they answer different questions.
+Where one rater is near-constant, alpha cannot be meaningfully positive, so the
+negative values in those rows are artifacts of absent variance rather than
+evidence of disagreement; we mark them rather than report them as measurements.
+
+\begin{table}[h]
+  \caption{Human against the fixed logit judge on 100 hand-labelled
+  generations, ten concepts. ``flat'' marks a rater whose spread is below
+  $0.11$, where alpha is uninformative.}
+  \label{tab:judge}
+  \centering
+  \small
+  \begin{tabular}{lcccl}
+    \toprule
+    Concept & $n$ & human sd & judge sd & Reading \\
+    \midrule
+    sentiment (control) & 10 & 0.247 & 0.304 & both vary, $\alpha=+0.756$ \\
+    sycophancy & 9 & 0.406 & 0.158 & both vary, $\alpha=+0.539$ \\
+    formality & 10 & 0.281 & 0.118 & both vary, $\alpha=+0.191$ \\
+    factuality & 11 & 0.263 & 0.223 & both vary, $\alpha=-0.149$ \\
+    \texttt{topic\_science} & 9 & 0.047 & 0.020 & both flat; judge invents nothing \\
+    verbosity & 12 & 0.092 & 0.087 & both flat \\
+    honesty & 10 & 0.092 & 0.259 & human flat, judge varies \\
+    certainty & 10 & 0.054 & 0.212 & human flat, judge varies \\
+    rudeness & 9 & 0.031 & 0.196 & human flat, judge varies \\
+    \texttt{refusal} & 10 & 0.000 & 0.159 & human flat, judge varies \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+The sheet is stratified across all ten concepts and across the coefficient
+range within each concept, and deduplicated by text. An earlier sheet drawn as
+the first hundred generations in curve order was 56\% duplicates, covered six
+of ten concepts, omitted the positive control, and left so little
+within-concept variance that it read $+0.573$ pooled against $+0.022$ within.
+Ten items are re-presented later in the sheet to measure intra-rater
+reliability; on this sheet that came out at $+1.000$, which we report with the
+caveat that perfect consistency cannot be distinguished from the rater
+recognising a repeat.
 
 \bibliographystyle{plainnat}
 \bibliography{refs}
