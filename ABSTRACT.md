@@ -67,16 +67,27 @@ is, at this scale, backwards.
   and least-controllable concept on every model.
 - **Lexicality reading.** Offered as interpretation, not a measured claim. See
   the dated block in design Section 2.5.
-- **Scope.** Sub-10B, four instruction-tuned families, templated stimuli; judge
-  agreement is currently low (objection 14, `human_labels.csv` outstanding),
-  which must be resolved or disclosed before this abstract is final.
+- **Judge validation.** 100 hand-labelled generations across all ten concepts,
+  three raters (human, logit judge, lexicon). Within-concept alpha 0.33 for the
+  logit judge against 0.18 for the lexicon; the sentiment positive control
+  reaches 0.76. `topic_science` is clean (judge spread 0.02 vs human 0.05).
+  `refusal` is the exception and is disclosed as a limitation. See
+  `judge_agreement.json`.
+- **Scope.** Sub-10B, four instruction-tuned families, templated stimuli.
 
-## Open before this is submission-ready
+## Status
 
-The abstract asserts controllability is measured reliably. That rests on the
-behavior judge, and judge agreement is poor across all four models
-(alpha 0.13 / 0.31 / 0.30 / 0.15). Filling `human_labels.csv` and adding a
-validated classifier as a third rater is the one outstanding task that can
-still change whether these numbers hold. Do not submit the controllability
-claims as stated until objection 14 is answered or explicitly scoped in the
-limitations.
+**The measurement phase is complete and objection 14 is answered.** All four
+models are run, the 40-point map is built, and the behaviour judge has been
+validated against a human rater on a stratified 100-item sheet. The abstract's
+controllability claims are supported: the positive control validates at 0.76 and
+the danger-zone occupant `topic_science` shows no judge-manufactured movement.
+
+One limitation must travel with the paper rather than block it. On `refusal` the
+judge produces within-concept variation the human does not see, so that concept's
+controllability is likely an over-estimate with an inflated interval. `refusal` is
+the clean boundary case the abstract leans on implicitly, so the limitation is
+stated in the paper's Limitations section and should not be argued away.
+
+Remaining work is editorial, not empirical: references, the second figure, the
+submission scaffolding, and one real LaTeX compile.

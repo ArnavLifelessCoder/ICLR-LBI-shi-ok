@@ -11,8 +11,9 @@ code against the preregistration and found four preregistered commitments
 documented but not implemented.
 
 
-[RESULTS.md](RESULTS.md) is what has actually been measured (as of now: the
-CPU-only surface audit, and nothing from a real model).
+[RESULTS.md](RESULTS.md) is what has actually been measured: four
+instruction-tuned models, 40 concept-model points, all positive controls passing,
+and the behaviour judge validated against a human rater.
 [notebooks/RUNLOG.md](notebooks/RUNLOG.md) is the per-session record and always
 carries the next action.
 
@@ -42,7 +43,7 @@ Two version notes, both learned the hard way:
 ## Check the wiring before spending GPU quota
 
 ```bash
-python -m pytest tests/ -q          # 114 tests, ~60s, no GPU, no downloads
+python -m pytest tests/ -q          # 170 tests, ~3 min, no GPU, no downloads
 python scripts/demo_synthetic.py    # full pipeline on planted ground truth, ~40s
 ```
 

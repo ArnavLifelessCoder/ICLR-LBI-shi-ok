@@ -376,12 +376,30 @@ minimal-pair construction that lets the surface audit pass also makes concepts
 trivially separable. We report selectivity (AUROC minus the shuffled-label
 control) as a secondary axis with more spread.
 
-\textbf{Judge agreement is currently low.} Krippendorff's $\alpha$ between the
-logit judge and a lexicon second judge is $0.13$, $0.31$, $0.30$, $0.15$ across
-the four models. The lexicon judge returns a neutral score on much free text, so
-this understates true agreement, but a validated classifier and a human-labeled
-third rater are outstanding, and the controllability claims should be read with
-that caveat until they are in.
+\textbf{The judge is validated against a human, with one exception that
+matters.} We hand-labeled 100 generations stratified across all ten concepts and
+compared three raters: a human, the fixed logit judge, and a lexicon scorer.
+Agreement must be read within concept rather than pooled, because pooled
+agreement over a multi-concept sheet mostly reflects that refusal text scores low
+and honesty text scores high, which is trivially true when they answer different
+questions; controllability is a within-concept quantity. Within concept, the human
+and the logit judge reach Krippendorff's $\alpha = 0.33$, against $0.18$ for the
+lexicon scorer. On the positive control the judge tracks the human closely
+($\alpha = 0.76$ for sentiment), so where behavior genuinely moves under steering the
+instrument works. Critically, on \texttt{topic\_science} the judge's spread across
+sampled generations is $0.02$, lower than the human's $0.05$: the judge invents no
+movement there, so the near-zero controllability that places
+\texttt{topic\_science} in the danger zone is not a judge artifact.
+
+The exception is \texttt{refusal}. The human scored all ten sampled outputs
+identically, while the judge spread them over $0.16$. Because noise in the
+behavior score adds apparent movement, the measured controllability for
+\texttt{refusal} is more likely an over-estimate than an under-estimate, and its
+confidence interval wider than it should be. That interval is the sole reason
+\texttt{refusal} misses the danger-zone criterion. We flag this rather than argue
+from it: establishing where \texttt{refusal} truly sits requires re-measurement with
+a better-validated judge, not a re-reading of these numbers. The same pattern
+appears on \texttt{honesty}, \texttt{certainty} and \texttt{rudeness}.
 
 \textbf{The strongest confirmed-immovable concept is surface-confounded.} The
 clean readable-but-immovable claim currently rests on a boundary case
