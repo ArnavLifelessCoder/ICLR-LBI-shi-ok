@@ -1,16 +1,18 @@
 % Legible but Immovable -- paper body, written to the inverted-H1 arc.
 %
-% VENUE NOTE. The target is ICLR 2027. This file uses iclr2026_conference.sty,
-% which is an UNOFFICIAL drafting approximation of the ICLR style (see that
-% file's header). Before submitting, replace it with the official ICLR template
-% for the target year and add \iclrfinalcopy at camera-ready. Do not submit
-% against the approximation; its margins are close but not authoritative.
+% VENUE. ICLR 2027, using the official style files. Uncomment \iclrfinalcopy
+% below for camera-ready only, never for submission (double-blind).
+%
+% Page limit: 9 pages of main text at submission, 10 at rebuttal and
+% camera-ready. References, the three statements and the appendix are all
+% excluded from that count. Check the compiled length before uploading; papers
+% over the limit are desk-rejected.
 %
 % All numbers are from results nb7/combined_40point/ (40 concept-model points,
 % four instruction-tuned models). Keep them in sync with RESULTS.md.
 
 \documentclass{article}
-\usepackage{iclr2026_conference}
+\usepackage{iclr2027_conference,times}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -23,7 +25,8 @@
 \usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{xcolor}
-\usepackage{natbib}
+
+%\iclrfinalcopy % Uncomment for camera-ready only, NOT for submission.
 
 \title{Legible but Immovable: Reading a Concept Does Not Grant Control, and the
 Obvious Geometry Predicts It Backwards}
@@ -110,6 +113,7 @@ clean predictor would have been: the standard first-order account does not just
 fail to explain the gap, it anticorrelates with it.
 
 \section{Related work}
+\label{sec:related}
 
 \textbf{Activation steering.} Difference-of-means and contrastive directions are
 the standard tools for reading and moving concepts. Activation addition
@@ -450,32 +454,31 @@ incomplete but inverted: the most output-aligned concepts are the least
 steerable. A good probe is not a control handle, and the obvious picture of when
 steering should work is, at this scale, backwards.
 
-\section*{Reproducibility Statement}
+\subsection*{AI use statement}
 
-Every number in this paper comes from code and data we release. The concept
-datasets are generated deterministically from templates in the repository, so
-they can be rebuilt exactly rather than downloaded. The steering harness, the
-probing pipeline, the six-intervention gauntlet, the geometry features and the
-aggregation that produces Figure~\ref{fig:gapmap} and Table~\ref{tab:matrix} are
-all included, together with the per-concept result files for all four models,
-the hand-labelled judge-validation sheet and its agreement report.
+We used generative AI tools as coding assistants for the research software in
+this work: the probing and steering harness, the metric implementations, the
+figure and table generation, and the test suite. All such code was reviewed by
+the authors, and every quantity the paper reports is additionally pinned by
+tests that run against planted ground truth on synthetic data, so a metric
+returning a wrong number fails a test rather than reaching a figure. Several
+errors found this way are described in the appendices, including a
+danger-zone criterion that would have manufactured a finding out of normalised
+values and a verdict rule that would have reported a wrong-signed result as
+weak support.
 
-Two things are worth stating because they are easy to get wrong and we got them
-wrong first. Danger-zone membership is decided on raw thresholds rather than
-normalised ones: both axes are min-max normalised within model for the
-correlation and the figure, but normalisation guarantees that some point sits
-at the extreme of each axis, so applying the thresholds after normalising
-manufactures an occupant out of pure scatter. And a model whose positive
-control falls below the floor has its numbers withheld rather than discussed,
-because a harness on which steering does not work places every concept in the
-danger zone and is indistinguishable from a discovery.
+We used generative AI tools for drafting and editing prose in this paper. We
+did not use them to generate research ideas, to decide the hypotheses, to
+choose the analyses, or to produce or alter any experimental result. Every
+number in the paper comes from the released code run on the released data.
+Hand labelling for the judge validation was done by an author, not by a model.
 
-A CPU-only test suite and a synthetic end-to-end run reproduce the full metric
-path against planted ground truth in a few minutes with no GPU and no model
-downloads, which is the cheapest way to confirm an installation before
-spending accelerator time.
+The literature positioning in Section~\ref{sec:related} was drafted with AI
+assistance and the citations were checked by the authors against the primary
+sources. We take responsibility for the final content of this work, including
+all text, claims and artifacts.
 
-\section*{Ethics Statement}
+\subsection*{Ethics statement}
 
 This work measures whether concepts that a probe can read can also be steered.
 Some concepts are safety-relevant by design, including refusal, honesty and
@@ -495,6 +498,35 @@ genuinely toxic text, so the released dataset does not contain harmful content.
 Hand-labelling was performed by one of the authors, not by crowd workers, so no
 third-party annotation ethics apply. All models are publicly released
 instruction-tuned checkpoints used under their own licences.
+
+\subsection*{Reproducibility statement}
+
+Every number in this paper comes from code and data we release. The concept
+datasets are generated deterministically from templates in the repository, so
+they can be rebuilt exactly rather than downloaded. The steering harness, the
+probing pipeline, the six-intervention gauntlet, the geometry features and the
+aggregation that produces Figure~\ref{fig:gapmap} and Table~\ref{tab:matrix} are
+all included, together with the per-concept result files for all four models,
+the hand-labelled judge-validation sheet and its agreement report.
+
+The full protocol, including the coefficient grid, the preregistered fluency
+ceiling, the six gauntlet interventions and the danger-zone thresholds, is in
+Appendix~\ref{app:hyper}. Concept construction and the surface audit are in
+Appendix~\ref{app:concepts}, and the per-concept judge validation behind the
+claims in Section~\ref{sec:results} and the Limitations is in
+Appendix~\ref{app:judge}. Two decisions that a replication would otherwise be
+likely to get wrong are stated explicitly in Appendix~\ref{app:hyper}: the
+danger-zone thresholds are applied to raw rather than normalised values, and a
+model failing its positive control has its numbers withheld rather than
+discussed.
+
+A CPU-only test suite and a synthetic end-to-end run reproduce the full metric
+path against planted ground truth in a few minutes with no GPU and no model
+downloads, which is the cheapest way to confirm an installation before
+spending accelerator time.
+
+\bibliography{refs}
+\bibliographystyle{iclr2027_conference}
 
 \appendix
 
@@ -622,7 +654,5 @@ reliability; on this sheet that came out at $+1.000$, which we report with the
 caveat that perfect consistency cannot be distinguished from the rater
 recognising a repeat.
 
-\bibliographystyle{plainnat}
-\bibliography{refs}
 
 \end{document}
