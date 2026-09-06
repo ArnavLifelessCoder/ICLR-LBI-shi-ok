@@ -1,0 +1,59 @@
+\begin{table}[htbp]
+  \caption{Absolute versus directional controllability for all 40 points.
+  \textbf{Abs} is the preregistered metric, the trapezoid of
+  $|\text{behavior} - \text{baseline}|$ over the usable coefficient range.
+  \textbf{Signed} is the same trapezoid without the absolute value, so it is
+  positive only when positive coefficients raise the behavior and negative ones
+  lower it. \textbf{Mono} is the Spearman correlation between coefficient and
+  behavior along the sweep. Twenty of forty points have a negative signed area,
+  meaning the intervention moved behavior against the direction it was built from.}
+  \label{tab:directional}
+  \centering
+  \footnotesize
+  \begin{tabular}{llccc}
+    \toprule
+    Concept & Model & Abs & Signed & Mono \\
+    \midrule
+    \texttt{certainty} & Gemma-2-9b & $0.054$ & $-0.035$ & $-0.30$ \\
+    \texttt{certainty} & Llama-3.1-8B & $0.049$ & $-0.039$ & $-0.86$ \\
+    \texttt{certainty} & Mistral-7B & $0.113$ & $-0.088$ & $-0.73$ \\
+    \texttt{certainty} & Qwen2.5-7B & $0.123$ & $-0.072$ & $-0.67$ \\
+    \texttt{factuality} & Gemma-2-9b & $0.054$ & $-0.050$ & $-0.88$ \\
+    \texttt{factuality} & Llama-3.1-8B & $0.058$ & $+0.017$ & $+0.05$ \\
+    \texttt{factuality} & Mistral-7B & $0.032$ & $-0.012$ & $-0.72$ \\
+    \texttt{factuality} & Qwen2.5-7B & $0.120$ & $-0.012$ & $-0.13$ \\
+    \texttt{formality} & Gemma-2-9b & $0.020$ & $-0.006$ & $-0.27$ \\
+    \texttt{formality} & Llama-3.1-8B & $0.025$ & $-0.010$ & $-0.25$ \\
+    \texttt{formality} & Mistral-7B & $0.099$ & $-0.029$ & $-0.17$ \\
+    \texttt{formality} & Qwen2.5-7B & $0.034$ & $+0.013$ & $+0.49$ \\
+    \texttt{honesty} & Gemma-2-9b & $0.079$ & $+0.016$ & $+0.22$ \\
+    \texttt{honesty} & Llama-3.1-8B & $0.119$ & $-0.003$ & $+0.02$ \\
+    \texttt{honesty} & Mistral-7B & $0.107$ & $-0.052$ & $-0.75$ \\
+    \texttt{honesty} & Qwen2.5-7B & $0.081$ & $+0.039$ & $-0.10$ \\
+    \texttt{refusal} & Gemma-2-9b & $0.038$ & $+0.038$ & $+0.90$ \\
+    \texttt{refusal} & Llama-3.1-8B & $0.033$ & $-0.016$ & $-0.23$ \\
+    \texttt{refusal} & Mistral-7B & $0.038$ & $+0.020$ & $+0.37$ \\
+    \texttt{refusal} & Qwen2.5-7B & $0.047$ & $+0.011$ & $+0.20$ \\
+    \texttt{rudeness} & Gemma-2-9b & $0.069$ & $+0.023$ & $+0.42$ \\
+    \texttt{rudeness} & Llama-3.1-8B & $0.056$ & $+0.027$ & $+0.58$ \\
+    \texttt{rudeness} & Mistral-7B & $0.211$ & $-0.055$ & $-0.80$ \\
+    \texttt{rudeness} & Qwen2.5-7B & $0.153$ & $+0.119$ & $+0.71$ \\
+    \texttt{sentiment} & Gemma-2-9b & $0.110$ & $-0.039$ & $-0.68$ \\
+    \texttt{sentiment} & Llama-3.1-8B & $0.101$ & $+0.020$ & $+0.50$ \\
+    \texttt{sentiment} & Mistral-7B & $0.163$ & $+0.163$ & $+0.98$ \\
+    \texttt{sentiment} & Qwen2.5-7B & $0.215$ & $+0.208$ & $+0.79$ \\
+    \texttt{sycophancy} & Gemma-2-9b & $0.015$ & $+0.009$ & $+0.52$ \\
+    \texttt{sycophancy} & Llama-3.1-8B & $0.081$ & $-0.031$ & $-0.22$ \\
+    \texttt{sycophancy} & Mistral-7B & $0.101$ & $+0.007$ & $+0.12$ \\
+    \texttt{sycophancy} & Qwen2.5-7B & $0.118$ & $-0.033$ & $+0.38$ \\
+    \texttt{topic\_science} & Gemma-2-9b & $0.007$ & $+0.005$ & $+0.70$ \\
+    \texttt{topic\_science} & Llama-3.1-8B & $0.011$ & $+0.007$ & $+0.52$ \\
+    \texttt{topic\_science} & Mistral-7B & $0.024$ & $-0.004$ & $-0.50$ \\
+    \texttt{topic\_science} & Qwen2.5-7B & $0.019$ & $-0.003$ & $-0.50$ \\
+    \texttt{verbosity} & Gemma-2-9b & $0.041$ & $+0.022$ & $+0.68$ \\
+    \texttt{verbosity} & Llama-3.1-8B & $0.025$ & $-0.025$ & $-0.93$ \\
+    \texttt{verbosity} & Mistral-7B & $0.054$ & $+0.005$ & $+0.35$ \\
+    \texttt{verbosity} & Qwen2.5-7B & $0.050$ & $+0.026$ & $+0.78$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}

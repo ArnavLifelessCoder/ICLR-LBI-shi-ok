@@ -1,0 +1,30 @@
+\begin{table}[htbp]
+  \caption{Leave-one-concept-out on the primary test. Each row refits the
+  partial Spearman with one concept removed, resampling the remaining nine in the
+  cluster bootstrap. The point estimate is negative in every fit, so the direction
+  of the effect does not depend on any single concept. The interval excludes zero
+  in only two of ten, so the interval does. We therefore report the sign as the
+  finding and treat the interval as indicative, consistent with the known
+  over-rejection of cluster inference at ten clusters.}
+  \label{tab:loco}
+  \centering
+  \footnotesize
+  \begin{tabular}{lccc}
+    \toprule
+    Sample & Partial $\rho$ & 95\% CI & Excludes 0 \\
+    \midrule
+    All ten concepts ($n=40$) & $-0.451$ & $[-0.723, -0.041]$ & yes \\
+    \addlinespace
+    drop \texttt{certainty} & $-0.412$ & $[-0.723, 0.034]$ & no \\
+    drop \texttt{factuality} & $-0.457$ & $[-0.757, 0.015]$ & no \\
+    drop \texttt{formality} & $-0.442$ & $[-0.755, 0.015]$ & no \\
+    drop \texttt{honesty} & $-0.450$ & $[-0.721, 0.015]$ & no \\
+    drop \texttt{refusal} & $-0.543$ & $[-0.784, -0.261]$ & yes \\
+    drop \texttt{rudeness} & $-0.444$ & $[-0.784, 0.033]$ & no \\
+    drop \texttt{sentiment} & $-0.561$ & $[-0.781, -0.168]$ & yes \\
+    drop \texttt{sycophancy} & $-0.344$ & $[-0.683, 0.054]$ & no \\
+    drop \texttt{topic\_science} & $-0.316$ & $[-0.608, 0.054]$ & no \\
+    drop \texttt{verbosity} & $-0.430$ & $[-0.748, 0.021]$ & no \\
+    \bottomrule
+  \end{tabular}
+\end{table}
