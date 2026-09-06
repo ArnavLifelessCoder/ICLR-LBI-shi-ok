@@ -350,8 +350,10 @@ The most direct restatement of the asymmetry is mechanism M1, read/write
 mismatch: a concept is a spectator feature to the extent it is written into a
 subspace the output distribution barely depends on. This predicts
 controllability rises with \emph{output overlap}, the fraction of the concept
-direction lying in the top singular subspace of the unembedding matrix, which is
-measurable from weights alone with no extra forward passes. H1 is the
+direction lying in the top-$k$ right singular subspace of the unembedding matrix,
+which is measurable from weights alone with no extra forward passes. We fix
+$k=512$ in advance for every model (Appendix~\ref{app:hyper}) and did not sweep
+it, so the test is conditional on that choice. H1 is the
 preregistered primary test: partial Spearman of output overlap against
 controllability, conditioning on readability, with a cluster bootstrap over
 concepts \citep{cameron2008bootstrap}, since the 30 retained points are three
@@ -430,7 +432,10 @@ axes is $0.12$ with a 95\% bootstrap CI of $[-0.28, 0.58]$.
 
 That number should not be read as a null. Readability is at $1.00$ for 24 of the
 30 points and never falls below $0.90$ except on three points, two of them
-\texttt{sycophancy} probes that failed outright at $0.57$. A predictor with almost
+\texttt{sycophancy} probes that failed outright at $0.57$. Excluding the three
+points whose probe did not reach $0.9$ moves the correlation from $+0.14$ to
+$+0.26$ ($n=27$, $p=0.20$), which does not change the reading: neither value is
+distinguishable from zero and neither can be, for the reason that follows. A predictor with almost
 no variance cannot be shown to be unrelated to anything, and a correlation
 computed against it is uninformative rather than evidence of independence. The
 claim the data support is the conditional one: among concepts a probe recovers
@@ -856,7 +861,30 @@ probe.
 coefficient grid is $\{-3, -2, -1, -0.5, 0, 0.5, 1, 2, 3\}$ in units of the
 residual-stream RMS norm at the intervention layer, so a coefficient means the
 same thing across layers and models. The intervention spans a band of four
-layers centered on the probe layer. A strength is unusable if steered-output
+layers centered on the probe layer, clipped at the ends of the network; two of
+the 30 retained points are clipped this way (\texttt{formality} selects layer 0
+and \texttt{sycophancy} layer 2 on one model each), so their band is narrower
+than a mid-network point's and not strictly comparable to it.
+
+\textbf{What steering is measured on.} The dose-response is evaluated on each
+concept's \texttt{eval\_prompts}, a set of open-ended generation prompts that is
+disjoint by construction from the minimal pairs the direction is estimated from:
+the direction comes from the pairs, the effect is measured on the prompts, and no
+text appears in both. The steering result is therefore not evaluated on the
+templates it was fitted to. The set is small, six prompts per concept, which
+bounds the resolution of every controllability number in the paper and is the
+cheapest thing to enlarge in a rerun.
+
+\textbf{Output overlap.} We take the top $k=512$ right singular vectors of the
+unembedding matrix by randomized SVD, computed once per model and cached, and
+report the Euclidean norm of the unit-normalized concept direction's projection
+onto that subspace, a quantity in $[0,1]$. The value $512$ was fixed in advance
+as a tractable stand-in for the full vocabulary, not tuned: a full decomposition
+of a $152{,}000 \times 3584$ head per concept was out of budget. We report the
+primary test at this $k$ only, and its sensitivity to $k$ is untested, which is a
+real gap given that the test's sign is the paper's claim about it. Note that the
+\texttt{n\_directions} feature in the released results is a different quantity,
+the effective dimensionality of the per-family direction set, and is not $k$. A strength is unusable if steered-output
 perplexity under the unsteered model exceeds twice the unsteered baseline, or
 if degenerate repetition appears. The threshold is fixed in advance.
 
