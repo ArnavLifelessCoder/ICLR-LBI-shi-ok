@@ -29,7 +29,12 @@ COLORS = {"Qwen2.5-7B": "#1f77b4", "Mistral-7B": "#d62728",
           "Llama-3.1-8B": "#2ca02c", "Gemma-2-9b": "#ff7f0e"}
 
 
-def load():
+def load(exclude=()):
+    """Load every cached point, dropping any model named in `exclude`.
+
+    Gemma is withheld from the main analysis because it fails the preregistered
+    sentiment positive control under the directional metric.
+    """
     rows = []
     for d in DIRS:
         for f in sorted(glob.glob(os.path.join(d, "*.json"))):
@@ -38,8 +43,11 @@ def load():
                 continue
             r = json.load(open(f, encoding="utf-8"))
             p, s, g = r["probe"], r["steering"], r["geometry"]
+            model = SHORT.get(p["model"], p["model"])
+            if model in exclude:
+                continue
             rows.append(dict(
-                concept=p["concept"], model=SHORT.get(p["model"], p["model"]),
+                concept=p["concept"], model=model,
                 read=p["readability"], sel=p["selectivity"],
                 ctrl=s["controllability"], overlap=g.get("output_overlap"),
             ))
@@ -149,9 +157,14 @@ def fig5_judge(path_json, out):
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--outdir", default="paper")
+    ap.add_argument("--exclude", nargs="*", default=["Gemma-2-9b"],
+                    help="models withheld from the analysis (default: Gemma, "
+                         "which fails the directional positive control)")
     args = ap.parse_args()
-    rows = load()
-    print("loaded %d concept-model points" % len(rows))
+    rows = load(exclude=set(args.exclude))
+    print("loaded %d points, %d models (withheld: %s)"
+          % (len(rows), len(set(r["model"] for r in rows)),
+             ", ".join(args.exclude) or "none"))
     fig3_inversion(rows, os.path.join(args.outdir, "fig3_h1_inversion.png"))
     fig4_selectivity(rows, os.path.join(args.outdir, "fig4_selectivity.png"))
     fig5_judge("judge_agreement.json", os.path.join(args.outdir, "fig5_judge_variance.png"))

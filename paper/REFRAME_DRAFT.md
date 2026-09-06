@@ -1,116 +1,71 @@
-# Reframed title and abstract
+# Reframe: executed
 
-Drafted against the two reviews and the three diagnostics in
-`scripts/make_review_figures.py` and `scripts/make_review_tables.py`.
+This plan has been applied to `paper.tex`. Numbers below are the final ones, on
+the 30-point sample with Gemma withheld. Figures come from
+`scripts/make_review_figures.py`, tables from `scripts/make_review_tables.py`,
+and the gap map from `scripts/rebuild_gapmap_withheld.py`.
 
 ## Title
 
 **Moved but Not Steered: Absolute-Deviation Metrics Overstate Control of
 Concept Directions**
 
-Alternatives, in order of preference:
-
-2. Moved but Not Steered: What Steering Dose-Response Curves Measure
-3. Disturbance Is Not Direction: Re-examining Controllability of Concept Directions
-4. Readable, Perturbable, Not Steerable
-
 The old title asserted the thing the saturated readability axis cannot
-establish. Both reviewers said so independently, and they are right.
+establish. Both reviewers said so independently.
 
-## Abstract
+## The three decisions
 
-Activation steering is usually evaluated by adding a concept direction to the
-residual stream and measuring how much behavior changes. We show that this
-measurement, in its standard absolute-deviation form, does not distinguish
-moving a model in the intended direction from disturbing it. For ten concepts
-across four instruction-tuned models we sweep a steering coefficient to a
-preregistered fluency ceiling and compute two quantities from the same curves:
-the usual area under the absolute behavioral deviation, and its signed
-analogue, which credits an intervention only when positive coefficients raise
-the target behavior and negative ones lower it. The two are uncorrelated
-(Spearman $-0.06$ over 40 concept-model points). Twenty of the forty points
-have a negative signed area, meaning the intervention moved behavior against
-the direction it was estimated from, and the median point attributes only 44%
-of its measured effect to directional movement. The pattern is not judge noise:
-it appears at the same rate in concepts where our human validation shows high
-agreement and in those where it does not.
+1. **Reframe** around the measurement result. Done.
+2. **Withhold Gemma.** It clears the absolute positive-control floor ($0.110$
+   against $0.10$) but fails directionally: sentiment monotonicity $-0.68$,
+   signed area $-0.039$. Since the directional reading is the one the paper
+   relies on, the preregistered rule withholds it. Main text is now three
+   models, 30 points; Gemma survives only in Appendix C.
+3. **Harsher framing.** Adopted, and the data supports it more strongly at 30
+   points than at 40.
 
-The consequence is that conclusions drawn from the absolute metric are
-metric-dependent. We preregistered the hypothesis that a direction is steerable
-to the extent it projects into the model's output-effective (unembedding)
-subspace. Under the absolute metric that hypothesis is inverted (partial
-Spearman $-0.45$ conditioning on readability), and the inversion is not an
-artifact of the fluency ceiling: output overlap is unrelated to where the
-ceiling falls (Spearman $0.012$), 37 of 40 sweeps reach the end of the grid
-without breaking, and conditioning on the ceiling leaves the estimate at
-$-0.452$. Leave-one-concept-out keeps the sign negative in all ten refits.
-Under the signed metric the same test returns $+0.12$ with an interval
-containing zero. The geometric result is therefore a property of how
-controllability was measured rather than of the representations.
+## Final numbers
 
-We also report what the readability axis can and cannot support. Held-out probe
-AUROC saturates at 1.00 for 31 of 40 points, so the near-zero
-readability-controllability correlation is uninformative rather than a null.
-The claim the data support is the weaker one: high linear readability does not
-guarantee that a direction is an effective control handle. We release the
-stimuli, probes, steering harness, and the per-coefficient curves, and we
-recommend that steering evaluations report a signed dose-response alongside any
-absolute measure.
+| Quantity | 40 points | 30 points (final) |
+|---|---|---|
+| Readability at AUROC 1.00 | 31/40 | 24/30 |
+| Readability vs controllability | $+0.177$ | $+0.143$ ($p=0.45$) |
+| Gap-map Spearman (normalized) | $0.14$ [$-0.24$, $0.51$] | $0.12$ [$-0.28$, $0.58$] |
+| H1, absolute metric | $-0.451$ [$-0.723$, $-0.041$] | $-0.450$ [$-0.748$, $+0.038$] |
+| H1, signed metric | $+0.115$ | $+0.141$ [$-0.265$, $0.444$] |
+| Spearman(absolute, signed) | $-0.058$ | $-0.009$ |
+| Points moving the wrong way | 20/40 | 16/30 |
+| Median directional share | $0.438$ | $0.387$ |
+| Median monotonicity | $+0.033$ | $-0.039$ |
+| Sign audit (same-signed concepts) | 1/10 vs 1.25 expected | 2/10 vs 2.50 expected |
+| Ceiling: overlap vs max usable | $+0.012$ | $-0.096$ ($p=0.61$) |
+| Sweeps reaching grid end | 37/40 | 27/30 |
+| Danger zone, CI-confirmed | 2 | **1** (topic_science on Mistral) |
+| Gauntlet entered / immovable | 17 / 9 | 12 / 6 |
 
-## What this changes in the body
+**The consequence of withholding Gemma:** the H1 interval crosses zero. Applying
+the preregistered control consistently removes the paper's second contribution
+as a significance claim. Only the sign survives, negative in all ten
+leave-one-out refits. This is stated plainly in Section 5.4.
 
-| Section | Change |
-|---|---|
-| Title, abstract | Replace, as above. |
-| 1 Introduction | Lead with the measurement claim. Keep the detection-versus-control motivation as the reason the metric was built. |
-| 3.2 Controllability | Define both metrics. Absolute stays the preregistered primary; signed is introduced as the directional check. |
-| 5.1 | Restate as "readability is saturated, so this correlation is uninformative". Delete the strong version. |
-| 5.3 H1 | Add the ceiling control (Table `tab:ceiling`, Figure `fig6`) and LOCO (Table `tab:loco`, Figure `fig7`). State the sign is stable and the interval is not. Report that the result does not survive the signed metric. |
-| New 5.4 | The directional result. Figure `fig8`, Table `tab:directional`. |
-| 5.2 danger zone | Under a directional criterion 35 of 40 points qualify, which is a statement about the instrument, not the models. Report it as a bound on what the criterion can detect. |
-| 6 Discussion | Drop "probe accuracy is not evidence that a representation affords control" in that form. Replace with the metric recommendation. |
-| Limitations | Add: k is adaptive (4 to 6); only 2 generations cached per cell so a second judge needs a rerun; P9 floor crossed on interval logic by Mistral and Llama. |
-| Appendix H | Add this as the latest instance of the same pattern: the bug flattered the hypothesis. |
+## Sign-convention audit
 
-## Open items that need a decision
+`certainty` responds negatively on every model, which would normally suggest an
+inverted polarity that makes the signed metric score it backwards. It does not
+survive the check: 2 of 10 concepts are same-signed across all three models
+against 2.5 expected under a random-sign null. No systematic polarity error, so
+the wrong-way movement is real. The stronger reading is that within-concept
+response direction is close to random, meaning the intervention is not producing
+a reliable directional effect at all.
 
-- **P9.** By interval logic the sentiment floor is crossed by Mistral
-  ($[0.067, 0.273]$) and Llama ($[0.095, 0.151]$). Either apply interval
-  exclusion consistently and withhold, or state plainly that the floor is a
-  point comparison and say why. Under the signed metric only Qwen ($+0.208$)
-  and Mistral ($+0.163$) show real directional sentiment control.
-- **Second judge.** Requires a rerun; only 720 generations are cached, two per
-  curve point.
-- **sycophancy.** Readability $0.57$ on Gemma and Llama is a failed probe.
-  Excluding those four points moves the readability-controllability Spearman
-  from $0.177$ to $0.230$. Report both.
+## Still open
 
-## Sign-convention audit (run before trusting the directional result)
-
-`certainty` has a negative dose response on all four models (Mistral $-0.73$,
-Qwen $-0.67$, Llama $-0.86$, Gemma $-0.30$). A consistent wrong-way response
-reproducing across four independent models would normally indicate an inverted
-sign convention in the direction estimate or in the judge question, which would
-make the signed metric score that concept backwards.
-
-It does not survive the check. Only one of ten concepts is same-signed across
-all four models. Under a null in which the sign of each model's response is
-independent, the probability that a given concept comes out same-signed is
-$2 \cdot 2^{-4} = 0.125$, so the expected count over ten concepts is $1.25$ and
-the probability of seeing at least one is $0.74$. The observed count is one.
-There is no evidence of a systematic polarity error, and the wrong-way movement
-in Table~\ref{tab:directional} is not an artifact of the diagnostic.
-
-The stronger reading of the same table is that within-concept monotonicity is
-close to random across models for nine of ten concepts. The intervention is not
-producing a reliable directional effect that merely fails to be large. It is
-not producing a reliable directional effect at all.
-
-## The positive control, directionally
-
-Sentiment monotonicity is $+0.98$ (Mistral), $+0.79$ (Qwen), $+0.50$ (Llama),
-$-0.68$ (Gemma). The control behaves as designed on three models and inverts on
-Gemma, whose signed area is $-0.039$. Combined with the interval issue on the
-P9 floor, the defensible statement is that the pipeline demonstrably steers
-sentiment on Mistral and Qwen, weakly on Llama, and not directionally on Gemma.
-That is narrower than the current claim that all four models pass.
+- **Page limit.** Estimated 9.1 pages against a 9-page limit, and this estimate
+  is not a substitute for compiling. Trims already applied: Limitations detail
+  moved to Appendix H, the H1 figure demoted to Appendix G, related work and
+  introduction compressed, the duplicated withholding paragraph removed.
+- **Second judge and second annotator.** Cannot be done from cached artifacts:
+  only 720 generations are stored, two per curve point. Requires a rerun.
+- **sycophancy.** Readability $0.57$ on Llama is a failed probe that still sits
+  in the primary correlation. Excluding it moves the readability-controllability
+  Spearman from $0.177$ to $0.230$ on the 40-point sample.

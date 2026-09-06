@@ -54,7 +54,13 @@ def signed_area(curve, baseline):
     return float(np.trapezoid(np.sign(xs) * ys, xs) / span)
 
 
-def load():
+def load(exclude=()):
+    """Load every cached point, dropping any model named in `exclude`.
+
+    Gemma is withheld from the main analysis because it fails the preregistered
+    sentiment positive control under the directional metric (monotonicity
+    -0.68, signed area -0.039), so its numbers cannot be trusted.
+    """
     rows = []
     for d in DIRS:
         for f in sorted(glob.glob(os.path.join(d, "*.json"))):
@@ -65,9 +71,12 @@ def load():
             p, s, g = r["probe"], r.get("steering"), r.get("geometry")
             if not s or not g:
                 continue
+            model = SHORT.get(p["model"], p["model"])
+            if model in exclude:
+                continue
             curve = r.get("curve", [])
             rows.append(dict(
-                concept=p["concept"], model=SHORT.get(p["model"], p["model"]),
+                concept=p["concept"], model=model,
                 read=p["readability"], ctrl=s["controllability"],
                 overlap=g.get("output_overlap"),
                 maxc=s["max_usable_coeff"], reason=s["ceiling_reason"],
@@ -103,7 +112,8 @@ def fig6_ceiling(rows, out):
                   r"Spearman $\rho=%.3f$ ($p=%.2f$)" % (rho, spearmanr(ov, mc)[1]),
                   fontsize=10)
     ax1.grid(alpha=0.25, linestyle=":")
-    ax1.text(0.03, 0.06, "37 of 40 points reach the\ngrid end without breaking",
+    ax1.text(0.03, 0.06, "%d of %d points reach the\ngrid end without breaking"
+             % (int((mc >= mc.max()).sum()), len(mc)),
              transform=ax1.transAxes, fontsize=8, style="italic", color="#444")
 
     # topic_science curves: flat to the end of the grid, not cut short.
@@ -174,7 +184,7 @@ def fig7_loco(rows, out):
     ax.set_ylim(-1.6, len(entries) - 0.4)
     ax.text(0.02, 0.035,
             "every leave-one-out fit stays negative; the interval excludes zero "
-            "in %d of 10\n(red = interval excludes zero)" % n_excl,
+            "in %d of %d\n(red = interval excludes zero)" % (n_excl, len(entries) - 1),
             transform=ax.transAxes, fontsize=8, style="italic", color="#444")
     fig.tight_layout()
     fig.savefig(out, dpi=200)
@@ -206,8 +216,8 @@ def fig8_directional(rows, out):
     ax1.set_title(r"(a) the two axes are unrelated, Spearman $\rho=%.2f$"
                   % spearmanr(a, s)[0], fontsize=10)
     ax1.grid(alpha=0.25, linestyle=":")
-    ax1.text(0.97, 0.05, "%d of 40 points move\nopposite to the direction"
-             % int((s < 0).sum()), transform=ax1.transAxes, fontsize=8,
+    ax1.text(0.97, 0.05, "%d of %d points move\nopposite to the direction"
+             % (int((s < 0).sum()), len(s)), transform=ax1.transAxes, fontsize=8,
              ha="right", style="italic", color="#b2182b")
     ax1.text(0.35, 0.93, r"$y=x$: purely directional", transform=ax1.transAxes,
              fontsize=7.5, color="#666", rotation=0)
@@ -240,6 +250,9 @@ def fig8_directional(rows, out):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--outdir", default="paper")
+    ap.add_argument("--exclude", nargs="*", default=["Gemma-2-9b"],
+                    help="models withheld from the analysis (default: Gemma, "
+                         "which fails the directional positive control)")
     args = ap.parse_args()
 
     import matplotlib
@@ -248,9 +261,10 @@ def main():
     plt.rcParams.update({"font.size": 9, "axes.titlesize": 10,
                          "text.usetex": False, "mathtext.default": "regular"})
 
-    rows = load()
-    print("loaded %d points, %d concepts" % (rows.__len__(),
-                                             len(set(r["concept"] for r in rows))))
+    rows = load(exclude=set(args.exclude))
+    print("loaded %d points, %d models, %d concepts (withheld: %s)"
+          % (len(rows), len(set(r["model"] for r in rows)),
+             len(set(r["concept"] for r in rows)), ", ".join(args.exclude) or "none"))
     fig6_ceiling(rows, os.path.join(args.outdir, "fig6_ceiling_control.png"))
     fig7_loco(rows, os.path.join(args.outdir, "fig7_loco.png"))
     fig8_directional(rows, os.path.join(args.outdir, "fig8_directional.png"))

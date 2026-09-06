@@ -52,7 +52,13 @@ def signed_area(curve, baseline):
     return float(np.trapezoid(np.sign(xs) * ys, xs) / span)
 
 
-def load():
+def load(exclude=()):
+    """Load every cached point, dropping any model named in `exclude`.
+
+    Gemma is withheld from the main analysis because it fails the preregistered
+    sentiment positive control under the directional metric (monotonicity
+    -0.68, signed area -0.039).
+    """
     rows = []
     for d in DIRS:
         for f in sorted(glob.glob(os.path.join(d, "*.json"))):
@@ -62,6 +68,8 @@ def load():
             r = json.load(open(f, encoding="utf-8"))
             p, s, g = r["probe"], r.get("steering"), r.get("geometry")
             if not s or not g:
+                continue
+            if SHORT.get(p["model"], p["model"]) in exclude:
                 continue
             curve = r.get("curve", [])
             usable = [c for c in curve if not c.get("broken")]
@@ -145,14 +153,33 @@ def table_loco(rows, out):
     rd = np.array([r["read"] for r in rows], float)
     cons = [r["concept"] for r in rows]
 
+    # Fit everything first: the caption reports counts drawn from the fits.
+    rho = _partial_spearman(ov, ct, rd)
+    ci = _cluster_bootstrap_partial_spearman(ov, ct, rd, cons)
+    fits = []
+    for c in sorted(set(cons)):
+        m = np.array([x != c for x in cons])
+        sub = [x for x in cons if x != c]
+        r_ = _partial_spearman(ov[m], ct[m], rd[m])
+        c_ = _cluster_bootstrap_partial_spearman(ov[m], ct[m], rd[m], sub)
+        fits.append((c, r_, c_, c_[1] < 0 or c_[0] > 0))
+    n_excl = sum(1 for _, _, _, ex in fits if ex)
+    n_neg = sum(1 for _, r_, _, _ in fits if r_ < 0)
+    n_cons = len(fits)
+    full_ex = ci[1] < 0 or ci[0] > 0
+
     L = [
         B + "begin{table}[htbp]",
         "  " + B + "caption{Leave-one-concept-out on the primary test. Each row refits the",
-        "  partial Spearman with one concept removed, resampling the remaining nine in the",
-        "  cluster bootstrap. The point estimate is negative in every fit, so the direction",
-        "  of the effect does not depend on any single concept. The interval excludes zero",
-        "  in only two of ten, so the interval does. We therefore report the sign as the",
-        "  finding and treat the interval as indicative, consistent with the known",
+        "  partial Spearman with one concept removed, resampling the remaining concepts in",
+        "  the cluster bootstrap. The point estimate stays negative in %d of %d refits, so"
+        % (n_neg, n_cons),
+        "  the direction of the effect does not depend on any single concept, but the",
+        "  interval excludes zero in only %d of %d. On the full retained sample the interval"
+        % (n_excl, n_cons),
+        "  %s. We therefore treat the sign as the reportable"
+        % ("excludes zero" if full_ex else "already contains zero"),
+        "  quantity and the interval as indicative, consistent with the known",
         "  over-rejection of cluster inference at ten clusters.}",
         "  " + B + "label{tab:loco}",
         "  " + B + "centering",
@@ -161,25 +188,17 @@ def table_loco(rows, out):
         "    " + B + "toprule",
         "    Sample & Partial $" + B + "rho$ & 95" + B + "% CI & Excludes 0 " + B + B,
         "    " + B + "midrule",
+        "    All %d concepts ($n=%d$) & $%.3f$ & $[%.3f, %.3f]$ & %s %s"
+        % (n_cons, len(rows), rho, ci[0], ci[1], "yes" if full_ex else "no", B + B),
+        "    " + B + "addlinespace",
     ]
-    rho = _partial_spearman(ov, ct, rd)
-    ci = _cluster_bootstrap_partial_spearman(ov, ct, rd, cons)
-    L.append("    All ten concepts ($n=40$) & $%.3f$ & $[%.3f, %.3f]$ & yes %s"
-             % (rho, ci[0], ci[1], B + B))
-    L.append("    " + B + "addlinespace")
-    n_excl = 0
-    for c in sorted(set(cons)):
-        m = np.array([x != c for x in cons])
-        sub = [x for x in cons if x != c]
-        r_ = _partial_spearman(ov[m], ct[m], rd[m])
-        c_ = _cluster_bootstrap_partial_spearman(ov[m], ct[m], rd[m], sub)
-        ex = c_[1] < 0 or c_[0] > 0
-        n_excl += int(ex)
+    for c, r_, c_, ex in fits:
         L.append("    drop %s & $%.3f$ & $[%.3f, %.3f]$ & %s %s"
                  % (tt(c), r_, c_[0], c_[1], "yes" if ex else "no", B + B))
     L += ["    " + B + "bottomrule", "  " + B + "end{tabular}", B + "end{table}"]
     io.open(out, "w", encoding="utf-8").write("\n".join(L) + "\n")
-    print("wrote", out, "| CI excludes zero in %d/10 leave-one-out fits" % n_excl)
+    print("wrote", out, "| full sample %s | CI excludes zero in %d/%d refits"
+          % ("excludes zero" if full_ex else "includes zero", n_excl, n_cons))
 
 
 def table_directional(rows, out):
@@ -189,16 +208,21 @@ def table_directional(rows, out):
     rd = np.array([r["read"] for r in rows], float)
     cons = [r["concept"] for r in rows]
 
+    n_neg = int((s < 0).sum())
     L = [
         B + "begin{table}[htbp]",
-        "  " + B + "caption{Absolute versus directional controllability for all 40 points.",
+        "  " + B + "caption{Absolute versus directional controllability for all %d retained"
+        % len(rows),
+        "  points.",
         "  " + B + "textbf{Abs} is the preregistered metric, the trapezoid of",
         "  $|" + B + "text{behavior} - " + B + "text{baseline}|$ over the usable coefficient range.",
         "  " + B + "textbf{Signed} is the same trapezoid without the absolute value, so it is",
         "  positive only when positive coefficients raise the behavior and negative ones",
         "  lower it. " + B + "textbf{Mono} is the Spearman correlation between coefficient and",
-        "  behavior along the sweep. Twenty of forty points have a negative signed area,",
-        "  meaning the intervention moved behavior against the direction it was built from.}",
+        "  behavior along the sweep. %d of %d points have a negative signed area, meaning"
+        % (n_neg, len(rows)),
+        "  the intervention moved behavior against the direction it was built from, and the",
+        "  two metrics are uncorrelated (Spearman $%.3f$).}" % spearmanr(a, s)[0],
         "  " + B + "label{tab:directional}",
         "  " + B + "centering",
         "  " + B + "footnotesize",
@@ -225,9 +249,14 @@ def table_directional(rows, out):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--outdir", default="paper")
+    ap.add_argument("--exclude", nargs="*", default=["Gemma-2-9b"],
+                    help="models withheld from the analysis (default: Gemma, "
+                         "which fails the directional positive control)")
     args = ap.parse_args()
-    rows = load()
-    print("loaded %d points" % len(rows))
+    rows = load(exclude=set(args.exclude))
+    print("loaded %d points, %d models, %d concepts (withheld: %s)"
+          % (len(rows), len(set(r["model"] for r in rows)),
+             len(set(r["concept"] for r in rows)), ", ".join(args.exclude) or "none"))
     print("k (top singular directions) takes values:",
           sorted(set(r["k"] for r in rows)))
     table_ceiling(rows, os.path.join(args.outdir, "_table_ceiling.tex"))
