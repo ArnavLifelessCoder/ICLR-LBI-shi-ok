@@ -187,48 +187,35 @@ applied to a fixed concept direction rather than to a located component.
 
 \subsection{Steering methods and their known limits}
 
-Difference-of-means and contrastive directions are the standard tools for
-moving concepts. Activation addition \citep{turner2023actadd} adds a direction
-estimated from a contrast pair into the residual stream at inference time; its
-contrastive-pairs refinement \citep{panickssery2023caa} estimates the direction
-from many pairs; inference-time intervention \citep{li2023iti} selects attention
-heads by probe accuracy and shifts along the probe direction; and
-representation engineering \citep{zou2023repe} generalizes reading and
-controlling representations into a single framework. We use these as our
-interventions rather than compare against them: the paper measures how far a
-concept moves under standard methods, not which method moves it furthest.
+Difference-of-means and contrastive directions are the standard tools for moving
+concepts: activation addition \citep{turner2023actadd} and its contrastive-pairs
+refinement \citep{panickssery2023caa}, inference-time intervention
+\citep{li2023iti}, and representation engineering \citep{zou2023repe}. We use
+these as our interventions rather than compare against them, since the paper
+measures how far a concept moves under standard methods, not which method moves
+it furthest.
 
-Negative results about steering already exist. \citet{tan2024steering} report
-that steerability varies substantially across inputs within a concept, and that
-steering vectors can be brittle to reasonable prompt changes, so a vector that
-works on average may fail on particular inputs. That variation is
-within-concept and across inputs. Ours is across concepts, and is paired with a
-detection measurement on the same concepts, which is what makes a dissociation
-rather than a reliability problem visible. The two findings compound: a method
-that is unreliable across inputs and, separately, inert for some concepts is
-weaker evidence for control than either result alone suggests.
+Negative results already exist. \citet{tan2024steering} report that steerability
+varies across inputs within a concept and that steering vectors are brittle to
+reasonable prompt changes. That variation is within-concept; ours is across
+concepts and paired with a detection measurement on the same concepts. The two
+compound: a method unreliable across inputs and separately inert for some
+concepts is weaker evidence for control than either result alone suggests.
 
 \subsection{Directions that do carry causal weight}
 
-The dissociation we report is not a claim that concept directions never
-control behavior, and the counterexamples matter for calibrating it.
-\citet{marks2023truth} find that difference-in-mean probes on true/false
-statements recover directions that are more causally implicated in model
-outputs than those from other probing methods, which is the same estimator we
-use finding a direction that does move behavior. \citet{todd2024function} show
-that a compact vector extracted from in-context demonstrations triggers
-execution of the demonstrated task in contexts that do not resemble the ones it
-was collected from. Both are existence proofs that a direction read out of
-activations can be a control handle. Our result is that whether it is cannot be
-assumed from detection accuracy, and varies by concept in a way that the
-obvious geometric quantity does not predict.
-
-Relatedly, \citet{bolukbasi2021illusion} document an interpretability illusion
-in which directions appear to encode a simple concept while in fact encoding
-something else, traced partly to the narrowness of the corpora used to probe
-them. Their illusion concerns what a direction means; ours concerns what a
-direction does. Both are reasons to treat a high probe score as the start of an
-argument rather than its conclusion.
+Nothing here claims that concept directions never control behavior, and the
+counterexamples calibrate the claim. \citet{marks2023truth} find that
+difference-in-mean probes, the estimator we use, recover directions more causally
+implicated in outputs than other probing methods, and \citet{todd2024function}
+show a vector extracted from in-context demonstrations triggering the
+demonstrated task in unrelated contexts. Both are existence proofs that a
+direction read out of activations can be a control handle; our result is that
+whether it is cannot be assumed from detection accuracy. Relatedly,
+\citet{bolukbasi2021illusion} document an interpretability illusion in which
+directions appear to encode a simple concept while encoding something else.
+Their illusion concerns what a direction means, ours what it does, and both are
+reasons to treat a high probe score as the start of an argument.
 
 \subsection{Refusal, and the one prior detection-versus-control result}
 
@@ -278,35 +265,30 @@ single-point effect size because the latter is sensitive to the choice of
 strength.
 
 \textbf{Directional controllability} is the same integral without the absolute
-value, integrating $\mathrm{sign}(\alpha)\,(b(\alpha) - b_0)$ over the same usable
-strengths, where $b(\alpha)$ is judged behavior and $b_0$ the unsteered baseline.
-It is positive only when positive coefficients raise the target behavior and
-negative coefficients lower it, so it credits an intervention for moving the
-model the way the direction was built to move it and penalizes it for moving the
-model the other way. Absolute controllability remains the preregistered primary
-measure and every preregistered threshold is applied to it; the directional
-quantity is reported alongside it as a diagnostic, and Section~\ref{sec:directional}
-is what happens when the two disagree.
+value, over $\mathrm{sign}(\alpha)\,(b(\alpha) - b_0)$ for judged behavior
+$b(\alpha)$ and unsteered baseline $b_0$. It is positive only when positive
+coefficients raise the target behavior and negative ones lower it, so it credits
+an intervention for moving the model the way the direction was built to move it.
+Absolute controllability remains the preregistered primary measure and carries
+every preregistered threshold; Section~\ref{sec:directional} is what happens when
+the two disagree.
 
-\textbf{Fluency ceiling.} A strength is treated as unusable if steered-output
-perplexity under the unsteered model exceeds twice the unsteered baseline, or if
-degenerate repetition appears. The threshold is fixed in advance so that the
-largest usable strength is determined by a stated rule rather than chosen after
-inspecting the results.
+\textbf{Fluency ceiling.} A strength is unusable if steered-output perplexity
+under the unsteered model exceeds twice the unsteered baseline, or degenerate
+repetition appears. The threshold is fixed in advance, so the largest usable
+strength follows a stated rule rather than inspection of the results.
 
 \subsection{Why the two quantities can differ}
 
 A probe at layer $L$ asks about the \emph{encoder}: is the concept written
 linearly separably into the residual stream by that depth? Steering asks about
 the \emph{decoder}: is the computation of layers $L{+}1$ onward sensitive to
-movement along this direction? To first order the behavior change is
-$\alpha \lVert \nabla f(h) \rVert \cos(\hat v, \nabla f(h))$, for $\hat v$ the
-unit concept direction and $f$ the map from the residual stream to the behavior
-score, so controllability depends on how much of $\hat v$ lies in the subspace
-the downstream computation is sensitive to. Readability instead follows a
-Fisher-style ratio of between-class to within-class variance along $\hat v$. A
-concept can separate its classes cleanly along a direction later layers barely
-read.
+movement along it? To first order the behavior change is
+$\alpha \lVert \nabla f(h) \rVert \cos(\hat v, \nabla f(h))$, so controllability
+depends on how much of the unit direction $\hat v$ lies in the subspace the
+downstream computation reads, while readability follows a Fisher-style ratio of
+between-class to within-class variance along $\hat v$. A concept can separate its
+classes cleanly along a direction later layers barely read.
 
 \subsection{Terminology}
 
@@ -390,12 +372,11 @@ Section~\ref{sec:directional} makes the directional reading the one the paper
 relies on, Gemma is withheld under the preregistered rule and is excluded from
 every statistic in the main text.
 
-We note two things against ourselves here. Llama clears the floor by $0.001$, and
-if interval exclusion were applied to the floor as it is to the danger-zone
-thresholds, Llama and Mistral would be withheld too and nothing would remain. And
-the fact that a model can fail directionally while passing on the absolute metric
-is the same observation the paper is about, arriving in the control rather than
-in the results.
+Two things count against us here. Llama clears the floor by $0.001$, and applying
+interval exclusion to the floor as we do to the danger-zone thresholds would
+withhold Llama and Mistral too, leaving nothing. And a model failing
+directionally while passing on the absolute metric is the paper's own
+observation, arriving in the control rather than the results.
 
 \section{Results}
 \label{sec:results}
@@ -407,14 +388,13 @@ readability-controllability plane, both axes min-max normalized within model to
 remove cross-model scale differences. The Spearman correlation between the two
 axes is $0.12$ with a 95\% bootstrap CI of $[-0.28, 0.58]$.
 
-That number should not be read as a null. Readability is at $1.00$ for 24 of the
-30 points and never falls below $0.90$ except on three points, two of them
-\texttt{sycophancy} probes that failed outright at $0.57$. Excluding the three
-points whose probe did not reach $0.9$ moves the correlation from $+0.14$ to
-$+0.26$ ($n=27$, $p=0.20$), which does not change the reading: neither value is
-distinguishable from zero and neither can be, for the reason that follows. A predictor with almost
-no variance cannot be shown to be unrelated to anything, and a correlation
-computed against it is uninformative rather than evidence of independence. The
+That number should not be read as a null. Readability is $1.00$ at 24 of the 30
+points and falls below $0.90$ only three times, twice on \texttt{sycophancy}
+probes that failed outright at $0.57$; excluding those three moves the
+correlation to $+0.26$ ($n=27$, $p=0.20$). Neither value is distinguishable from
+zero and neither can be: a predictor with almost no variance cannot be shown
+unrelated to anything, so the correlation is uninformative rather than evidence
+of independence. The
 claim the data support is the conditional one: among concepts a probe recovers
 essentially perfectly, controllability still ranges from $0.011$ to $0.215$, a
 factor of twenty. High linear readability does not guarantee a control handle. It
@@ -423,8 +403,7 @@ design cannot address, because it contains almost no unreadable concepts.
 
 Appendix~\ref{app:saturation} reports the same correlation against probe
 selectivity, which does vary, and finds nothing there either.
-Table~\ref{tab:matrix} gives the underlying
-readability and controllability by concept and model. Appendix~\ref{app:full}
+Appendix~\ref{app:full}
 adds confidence intervals, selectivity, the shuffled-label control probe, the
 selected layer and the robustness-battery outcome for every point.
 
@@ -440,52 +419,23 @@ selected layer and the robustness-battery outcome for every point.
   \label{fig:gapmap}
 \end{figure}
 
-\begin{table}[tb]
-  \caption{Readability / controllability by concept and model. Readability is
-  held-out probe AUROC; controllability is dose-response area up to the fluency
-  ceiling. The sentiment row is the positive control. \texttt{topic\_science} is
-  the least controllable concept on every model; \texttt{refusal} is the
-  (non-surface-confounded) near-miss on every model.}
-  \label{tab:matrix}
-  \centering
-  \small
-  \begin{tabular}{lccc}
-    \toprule
-    Concept & Qwen2.5-7B & Mistral-7B & Llama-3.1-8B \\
-    \midrule
-    sentiment (control) & 1.00 / 0.215 & 1.00 / 0.163 & 1.00 / 0.101 \\
-    certainty      & 1.00 / 0.123 & 1.00 / 0.113 & 1.00 / 0.049 \\
-    factuality     & 1.00 / 0.120 & 1.00 / 0.032 & 1.00 / 0.058 \\
-    formality      & 0.99 / 0.034 & 1.00 / 0.099 & 1.00 / 0.025 \\
-    honesty        & 1.00 / 0.081 & 1.00 / 0.107 & 1.00 / 0.119 \\
-    refusal        & 1.00 / 0.047 & 1.00 / 0.038 & 1.00 / 0.033 \\
-    rudeness       & 0.80 / 0.153 & 1.00 / 0.211 & 1.00 / 0.056 \\
-    sycophancy     & 1.00 / 0.118 & 0.57 / 0.101 & 0.57 / 0.081 \\
-    topic\_science & 0.94 / 0.019 & 1.00 / 0.024 & 0.97 / 0.011 \\
-    verbosity      & 1.00 / 0.050 & 1.00 / 0.054 & 1.00 / 0.025 \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-
-
 \subsection{Legible concepts that resist the full gauntlet}
 
-Figure~\ref{fig:dose} shows the dissociation on a single model. The danger zone
-has two occupants, both \texttt{topic\_science} (on Mistral and
-Gemma), each confirmed immovable against all six interventions. It is the least
-controllable concept on all three retained models ($0.019$, $0.024$, $0.011$) and
-survived the gauntlet on all three; on Qwen and Llama it sits just outside the
-zone only because its readability confidence interval falls below the $0.9$
-threshold. This concept is one of the two declared surface-confounded, so its
-readability should be interpreted with that caveat. The resistance to steering
-is consistent across models, but the concept is not a clean example of a
+Figure~\ref{fig:dose} shows representative dose-response curves. The danger
+zone has one confirmed occupant, \texttt{topic\_science} on Mistral,
+immovable against all six interventions. That concept is the least controllable
+on all three retained models ($0.024$, $0.019$, $0.011$) and survives the
+gauntlet on all three; on Qwen and Llama it stays outside the zone only because
+its readability interval falls below $0.9$. It is also one of the two concepts
+declared surface-confounded in advance, so it is not a clean example of a
 readable-but-immovable concept.
 
-\texttt{refusal} falls just outside the danger zone on all three retained models
-($0.047$, $0.038$, $0.033$, $0.038$). It is not surface-confounded, it is
-safety-relevant, and it survived the gauntlet on two models. It misses the
-danger zone on the upper bound of its controllability interval, which exceeds
-the $0.05$ threshold on all three retained models. We report it as a boundary case.
+\texttt{refusal} is the clean candidate and it misses. Its controllability is
+$0.047$, $0.038$ and $0.033$, but the upper bound of its interval exceeds the
+$0.05$ threshold on all three models, so it stays outside the zone. It is not
+surface-confounded, it is safety-relevant, and it survives the gauntlet on two of
+three models. We report it as a boundary case, noting that the interval keeping
+it out is inflated by the judge noise described in the Limitations.
 
 \subsection{The controllability metric does not measure direction}
 \label{sec:directional}
@@ -604,19 +554,17 @@ signed dose-response alongside any absolute measure, and treat the two agreeing
 as a precondition for interpreting the magnitude. The signed version costs
 nothing: it is the same curves and the same judge calls.
 
-A second implication is narrower and concerns what probes license. Among concepts
-this probe recovers essentially perfectly, controllability still varies by a
-factor of twenty, so a working probe is not evidence of a control handle. The
-converse claim, that unreadable concepts are uncontrollable, is not something
-this design can address, because it contains almost no unreadable concepts. We
-state the asymmetry because the stronger and more quotable version, that
-detection does not predict control, would require variance on an axis that has
-none here.
+A second implication concerns what probes license. Among concepts this probe
+recovers essentially perfectly, controllability varies by a factor of twenty, so
+a working probe is not evidence of a control handle. The converse, that
+unreadable concepts are uncontrollable, is not something this design can address.
+We state the asymmetry because the more quotable version, that detection does not
+predict control, would require variance on an axis that has none here.
 
-Neither implication says that concept directions never control behavior. The
-existence proofs cited in Section~\ref{sec:related} stand. What this data
-questions is the inference from a measured effect size to a claim of control,
-when the measurement does not separate the two.
+Neither implication says concept directions never control behavior; the existence
+proofs in Section~\ref{sec:related} stand. What this data questions is the
+inference from a measured effect size to a claim of control, when the measurement
+does not separate the two.
 
 \section{Limitations}
 
@@ -729,7 +677,7 @@ instruction-tuned checkpoints used under their respective licenses.
 All reported numbers are produced by the released code and data. The concept
 datasets are generated deterministically from templates in the repository. The
 steering harness, probing pipeline, gauntlet, geometry features and the
-aggregation that produces Figure~\ref{fig:gapmap} and Table~\ref{tab:matrix} are
+aggregation that produces Figure~\ref{fig:gapmap} are
 included, together with the per-concept result files for all four models and the
 hand-labeled judge-validation sheet.
 
@@ -1040,7 +988,6 @@ within-concept variance; it read $+0.573$ pooled against $+0.022$ within. Ten
 items are repeated later in the sheet to estimate intra-rater reliability, which
 was $+1.000$. We note that perfect consistency cannot be distinguished from the
 rater recognizing a repeated item.
-
 
 \section{The concept set and example stimuli}
 \label{app:stimuli}
