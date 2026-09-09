@@ -90,32 +90,27 @@ We release the stimuli, probes, steering harness, and per-coefficient curves.
 \section{Introduction}
 
 Activation steering is evaluated by intervening on a model and measuring the
-change in its behavior. In the common form of this measurement a concept
-direction is estimated from contrastive activations, added to the residual
-stream at a range of strengths, and the resulting behavioral shift is summarized
-as a magnitude: how far the model moved. That summary is silent on a question it
-appears to answer, namely whether the model moved the way the direction was
-supposed to move it.
-
-The distinction matters because the two come apart. An intervention that
-displaces activations along an arbitrary direction will change what a model says,
-and a metric that records the size of that change will score it. Only a metric
-that tracks the sign of the change can separate control from disturbance. We
-compute both from the same dose-response curves and find them unrelated: over 30
-concept-model points the absolute and signed summaries correlate at $-0.01$, and
-the median point owes under $40$\% of its measured effect to movement in the
-intended direction.
+change in its behavior. A concept direction is estimated from contrastive
+activations, added to the residual stream at a range of strengths, and the
+behavioral shift is summarized as a magnitude: how far the model moved. That
+summary is silent on a question it appears to answer, whether the model moved the
+way the direction was supposed to move it. An intervention that displaces
+activations along an arbitrary direction will change what a model says, and a
+metric recording the size of that change will score it. Only a metric that tracks
+the sign can separate control from disturbance. We compute both from the same
+dose-response curves and find them unrelated: over 30 concept-model points the
+absolute and signed summaries correlate at $-0.01$, and the median point owes
+under $40$\% of its measured effect to movement in the intended direction.
 
 This is a claim about an instrument, so we test what it does to a result obtained
 with that instrument. We had preregistered a geometric account of when steering
 should work, in which a direction is controllable to the extent it projects into
-the subspace that drives the model's output distribution. Measured with the
-absolute metric the relationship is inverted, and the inversion is robust to the
-checks that would ordinarily be asked of it: it is not produced by the fluency
-ceiling truncating the coefficient sweep, and it does not depend on any single
-concept. Measured with the signed metric it disappears. We report the whole
-sequence because the robustness checks are what make the point: a result can pass
-the diagnostics the field asks for and still be an artifact of the summary
+the subspace driving the model's output distribution. Measured with the absolute
+metric the relationship is inverted, and the inversion survives the checks that
+would ordinarily be asked of it: it is not produced by the fluency ceiling
+truncating the sweep, and it does not depend on any single concept. Measured with
+the signed metric it disappears. The checks are what make the point: a result can
+pass the diagnostics the field asks for and still be an artifact of the summary
 statistic underneath it.
 
 The study was built to ask a different question, whether concepts a probe can
@@ -150,46 +145,36 @@ Our contributions are:
 
 \subsection{Reading concepts out of activations}
 
-Linear probes on intermediate activations were introduced as a diagnostic for
-what a network has computed by a given depth \citep{alain2016probes}, and the
-practice is now standard in language-model interpretability. What a probe
-licenses has been contested for almost as long. \citet{hewitt2019control} show
-that probe accuracy alone is uninterpretable, because a sufficiently expressive
-probe can fit an arbitrary control task, and propose reporting selectivity, the
-gap between task and control accuracy; we adopt that recommendation and report
-a shuffled-label control for every concept. \citet{belinkov2022probing}
-surveys the resulting methodological literature and its open problems.
+Linear probes on intermediate activations are a standard diagnostic for what a
+network has computed by a given depth \citep{alain2016probes}, and what they
+license has been contested for almost as long. \citet{hewitt2019control} show
+that probe accuracy alone is uninterpretable, since a sufficiently expressive
+probe can fit an arbitrary control task, and propose reporting selectivity; we
+report a shuffled-label control for every concept. \citet{belinkov2022probing}
+surveys the resulting literature.
 
-The linear representation hypothesis \citep{park2024linear} supplies the
-justification for treating a concept as a direction at all, and underwrites
-difference-of-means estimation. It is a claim about how concepts are encoded.
-Nothing in it connects the between-class separation a probe exploits to the
-downstream causal sensitivity that steering requires, which is precisely the
-asymmetry we quantify. Unsupervised methods recover candidate directions
-without labelled contrasts, either from logical consistency
-\citep{burns2023ccs} or by dictionary learning over activations
-\citep{cunningham2024sae}; we use supervised contrasts throughout, and return to
-that choice in the Limitations.
+The linear representation hypothesis \citep{park2024linear} justifies treating a
+concept as a direction and underwrites difference-of-means estimation, but it is
+a claim about how concepts are encoded. Nothing in it connects the between-class
+separation a probe exploits to the downstream sensitivity steering requires.
+Unsupervised methods recover directions without labelled contrasts
+\citep{burns2023ccs, cunningham2024sae}; we use supervised contrasts throughout.
 
 \subsection{From reading to intervening}
 
-The closest methodological ancestor of this paper is amnesic probing
+The closest methodological ancestor is amnesic probing
 \citep{elazar2021amnesic}, which argues that probing accuracy does not establish
-that a model uses the probed property, and tests use by removing the property
-from the representation and measuring the behavioral consequence. The
-underlying removal operation has its own literature: iterative nullspace
-projection \citep{ravfogel2020inlp} removes linearly decodable information by
-repeated projection, and LEACE \citep{belrose2023leace} does so in closed form
-while minimally perturbing the representation. Directional ablation, one of the
-six interventions in our robustness battery, is the single-direction case of
-this operation.
+that a model uses the probed property, and tests use by removing the property and
+measuring the consequence. The removal operation has its own literature, from
+iterative nullspace projection \citep{ravfogel2020inlp} to the closed-form LEACE
+\citep{belrose2023leace}; directional ablation, one of our six interventions, is
+its single-direction case.
 
-Our question is the mirror image. Amnesic probing removes information and asks
-whether behavior degrades; we add signal along a direction and ask whether
-behavior moves, sweeping strength rather than testing a single removal. The two
-can come apart: a concept the model genuinely uses may still be immovable if the
-downstream computation is insensitive to displacement along the particular
-direction a probe or a difference of means recovers.
+Our question is the mirror image: we add signal along a direction and sweep
+strength rather than testing a single removal. The two can come apart, since a
+concept the model genuinely uses may be immovable if the downstream computation
+is insensitive to displacement along the direction a difference of means
+recovers.
 
 More broadly, editing activations to test what a component does is standard
 practice, from causal tracing and rank-one weight editing
@@ -311,38 +296,30 @@ inspecting the results.
 
 \subsection{Why the two quantities can differ}
 
-A probe at layer $L$ asks a question about the \emph{encoder}: given the first
-$L$ layers, is the concept written linearly separably into the residual stream?
-Steering at layer $L$ asks about the \emph{decoder}: is the computation of
-layers $L{+}1$ onward sensitive to movement along this direction? To first
-order, steering by strength $\alpha$ changes behavior by
-\[
-  \Delta \text{behavior} \;\approx\; \alpha \,\lVert \nabla f(h) \rVert \,
-  \cos\!\big(\hat v,\, \nabla f(h)\big),
-\]
-where $h$ is the layer-$L$ residual stream, $\hat v$ the unit concept direction,
-and $f$ the map from $h$ to the behavior score. Controllability is governed by
-how much of $\hat v$ lies in the subspace the downstream computation is
-sensitive to; readability is governed by a Fisher-style ratio of between-class
-to within-class variance along $\hat v$. A concept can have large between-class
-separation along a direction to which the downstream computation is largely
-insensitive. Readability is a property of how the concept is encoded;
-controllability depends on whether later layers are sensitive to that encoding.
+A probe at layer $L$ asks about the \emph{encoder}: is the concept written
+linearly separably into the residual stream by that depth? Steering asks about
+the \emph{decoder}: is the computation of layers $L{+}1$ onward sensitive to
+movement along this direction? To first order the behavior change is
+$\alpha \lVert \nabla f(h) \rVert \cos(\hat v, \nabla f(h))$, for $\hat v$ the
+unit concept direction and $f$ the map from the residual stream to the behavior
+score, so controllability depends on how much of $\hat v$ lies in the subspace
+the downstream computation is sensitive to. Readability instead follows a
+Fisher-style ratio of between-class to within-class variance along $\hat v$. A
+concept can separate its classes cleanly along a direction later layers barely
+read.
 
 \subsection{Terminology}
 
-We distinguish two claims. ``Unsteerable under tested interventions'' refers to
-the interventions applied here; ``immovable'' is a stronger claim about the
-concept itself. A concept enters the danger zone only if it clears both raw thresholds
-(readability AUROC $\geq 0.9$ and controllability area $\leq 0.05$) with
-confidence intervals that exclude the thresholds. It is called immovable only if
-it then resists a six-intervention gauntlet: single-layer addition, multi-layer
-addition, clamping, and directional ablation on the difference-of-means
-direction, plus single-layer addition on the probe-weight and RepE
-reading-vector directions. Appendix~\ref{app:gauntlet} reports what each of the
-six achieved on every point that entered the battery. Even a confirmed pass is
-bounded by those six interventions and does not establish that no intervention
-exists.
+``Unsteerable under tested interventions'' refers to the interventions applied
+here; ``immovable'' is a stronger claim about the concept. A concept enters the
+danger zone only if it clears both raw thresholds (readability AUROC $\geq 0.9$,
+controllability area $\leq 0.05$) with intervals excluding the thresholds, and is
+called immovable only if it then resists a six-intervention gauntlet:
+single-layer addition, multi-layer addition, clamping and directional ablation on
+the difference-of-means direction, plus single-layer addition on the probe-weight
+and RepE reading-vector directions (Appendix~\ref{app:gauntlet}). Even a
+confirmed pass is bounded by those six and does not establish that no
+intervention exists.
 
 \subsection{The primary geometric hypothesis (H1)}
 
@@ -490,21 +467,6 @@ selected layer and the robustness-battery outcome for every point.
   \end{tabular}
 \end{table}
 
-\begin{figure}[tb]
-  \centering
-  \includegraphics[width=\linewidth]{fig2_dose_response.png}
-  \caption{The dissociation on a single model. \textbf{Left:} raw
-  dose-response; dotted lines mark each concept's unsteered baseline.
-  \textbf{Right:} absolute deviation from that baseline, which is the quantity
-  controllability integrates. Steering moves the sentiment positive control by up
-  to $0.16$, moves \texttt{refusal} by at most $0.07$, and moves
-  \texttt{topic\_science} by at most $0.01$ at any strength, despite
-  \texttt{topic\_science} being read at AUROC $1.0$ by a linear probe on the same
-  model. Note that the control's response is not a monotone ramp: the unsteered
-  baseline sits near a local extremum and both steering directions move behavior
-  the same way. We plot deviation rather than raw score for that reason.}
-  \label{fig:dose}
-\end{figure}
 
 \subsection{Legible concepts that resist the full gauntlet}
 
@@ -524,7 +486,6 @@ readable-but-immovable concept.
 safety-relevant, and it survived the gauntlet on two models. It misses the
 danger zone on the upper bound of its controllability interval, which exceeds
 the $0.05$ threshold on all three retained models. We report it as a boundary case.
-
 
 \subsection{The controllability metric does not measure direction}
 \label{sec:directional}
@@ -596,25 +557,19 @@ We report the rest of the analysis because the sign is stable and because what
 removes it is instructive. Two checks a reader would reasonably demand both pass.
 
 \textbf{The fluency ceiling does not produce it.} A lexical direction might break
-fluency at low strength, truncating the usable coefficient range and shrinking an
-integrated area mechanically, which would create the observed relationship with
-no claim about downstream sensitivity. It does not happen here. Output overlap is
-unrelated to where the ceiling falls (Spearman $-0.10$, $p=0.61$), 27 of the 30
-sweeps reach the end of the coefficient grid without breaking, and conditioning
-the primary test on the ceiling and on the number of usable grid points leaves
-the estimate unchanged (Table~\ref{tab:ceiling}; Appendix~\ref{app:controls}
-gives both controls in full). \texttt{topic\_science}, the
-concept that most invites this objection, completes all nine coefficients on two
-of the three retained models with a flat curve rather than a truncated one
-(Figure~\ref{fig:ceiling}).
+fluency early, truncating the coefficient range and shrinking an integrated area
+mechanically. It does not happen here: output overlap is unrelated to where the
+ceiling falls (Spearman $-0.10$, $p=0.61$), 27 of 30 sweeps reach the end of the
+grid unbroken, conditioning the test on the ceiling leaves the estimate
+unchanged, and \texttt{topic\_science} completes all nine coefficients on two of
+three models with a flat rather than truncated curve
+(Appendix~\ref{app:controls}).
 
-\textbf{No single concept produces it.} \texttt{topic\_science} has the highest
-output overlap on every model and the lowest controllability on every model, so
-it is the natural suspect. Leave-one-concept-out leaves the estimate negative in
-all ten refits, ranging from $-0.22$ to $-0.55$ (Table~\ref{tab:loco},
-Figure~\ref{fig:loco}). Dropping \texttt{topic\_science} gives the weakest of
-them, $-0.22$, so it does contribute disproportionately, but the sign does not
-depend on it.
+\textbf{No single concept produces it.} \texttt{topic\_science} holds the highest
+overlap and lowest controllability on every model, so it is the natural suspect.
+Leave-one-concept-out keeps the estimate negative in all ten refits, from $-0.22$
+to $-0.55$; dropping \texttt{topic\_science} gives the weakest, so it contributes
+disproportionately without carrying the sign.
 
 \textbf{The metric does produce it.} Recomputing the identical test on directional
 controllability gives $+0.14$ with a CI of $[-0.27, 0.44]$. The sign reverses and
@@ -625,30 +580,17 @@ and the inversion is a property of that quantity rather than of the
 representations. A result can survive a ceiling control and a
 leave-one-concept-out and still be an artifact of its own summary statistic.
 
-If one wanted to retain the absolute-metric reading, the available explanation,
-which we state as a hypothesis rather than a result,
-is that output overlap as operationalized here reflects how lexical a concept is
-rather than how strongly the downstream computation depends on it. A concept
-that maps onto particular output tokens, such as domain vocabulary for
-\texttt{topic\_science} or token count for \texttt{verbosity}, projects strongly
-into the unembedding subspace. Steering along such a direction may perturb token
-selection until fluency degrades, or the concept may be recovered from the
-surrounding context, in either case without producing a graded change in
-behavior. Concepts such as sentiment have lower output overlap but appear to
-engage a downstream computation that responds more smoothly. This account is
-consistent with the surface audit, which flags the same high-overlap concepts.
-
-The pattern is not uniform across the low-controllability concepts.
-\texttt{refusal} has low output overlap ($0.345$ to $0.382$) and low
-controllability, which is more consistent with redundant multi-direction
-encoding \citep{joad2026refusal} than with the lexical account. Redundant or
-superposed encoding \citep{elhage2022superposition} would allow a concept to be
-recovered downstream after one direction is perturbed. Two exploratory geometric features
-(effective dimensionality of the class difference, and alignment with
-low-variance principal components) are both null after Benjamini-Hochberg
-correction \citep{benjamini1995fdr}, and a ridge predictor over all features has leave-one-out $R^2$
-near zero. None of the geometric quantities we tested accounts for the gap in
-the predicted direction.
+Retaining the absolute-metric reading would require a mechanism, and the
+available one is that output overlap indexes how lexical a concept is rather
+than how much the downstream computation depends on it: domain vocabulary for
+\texttt{topic\_science}, token count for \texttt{verbosity}. We state it as a
+hypothesis and note it does not cover \texttt{refusal}, which has low overlap and
+low controllability, and is better explained by redundant encoding
+\citep{joad2026refusal, elhage2022superposition}. Two further geometric features
+are null after Benjamini-Hochberg correction \citep{benjamini1995fdr} and a ridge
+predictor over all of them has leave-one-out $R^2$ near zero
+(Appendix~\ref{app:controls}). No geometric quantity we tested accounts for the
+gap in the predicted direction.
 
 \section{Discussion}
 
@@ -714,17 +656,16 @@ the target models are the two things this study most needs and does not have;
 Appendix~\ref{app:limits} gives the detail.
 
 \textbf{Nothing clean occupies the danger zone.} The only gauntlet-confirmed
-occupant is \texttt{topic\_science}, declared surface-confounded in advance. The
-strongest non-confounded candidate, \texttt{refusal}, misses the criterion on an
-interval that the judge noise above inflates.
+occupant is \texttt{topic\_science}, declared surface-confounded in advance, and
+the strongest non-confounded candidate, \texttt{refusal}, misses the criterion on
+an interval the judge noise above inflates.
 
 \textbf{One feature basis, one scale.} Directions come from difference of means,
-probe weights and reading vectors, all assuming the concept is a direction in
-the residual stream \citep{park2024linear}. Sparse autoencoders
-\citep{cunningham2024sae} or unsupervised methods \citep{burns2023ccs} could
-recover a movable feature where these do not, so the claims are about the
-directions standard estimators produce. All models are instruction-tuned and
-under 10B parameters, with templated stimuli.
+probe weights and reading vectors, all assuming the concept is a direction
+\citep{park2024linear}; sparse autoencoders \citep{cunningham2024sae} or
+unsupervised methods \citep{burns2023ccs} could recover a movable feature where
+these do not. All models are instruction-tuned and under 10B parameters, with
+templated stimuli and six evaluation prompts per concept.
 
 \section{Conclusion}
 
@@ -913,6 +854,23 @@ dominated by the steering sweeps. The judge validation adds about ninety
 seconds.
 
 \section{Complete per-concept results}
+
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=\linewidth]{fig2_dose_response.png}
+  \caption{The dissociation on a single model. \textbf{Left:} raw
+  dose-response; dotted lines mark each concept's unsteered baseline.
+  \textbf{Right:} absolute deviation from that baseline, which is the quantity
+  controllability integrates. Steering moves the sentiment positive control by up
+  to $0.16$, moves \texttt{refusal} by at most $0.07$, and moves
+  \texttt{topic\_science} by at most $0.01$ at any strength, despite
+  \texttt{topic\_science} being read at AUROC $1.0$ by a linear probe on the same
+  model. Note that the control's response is not a monotone ramp: the unsteered
+  baseline sits near a local extremum and both steering directions move behavior
+  the same way. We plot deviation rather than raw score for that reason.}
+  \label{fig:dose}
+\end{figure}
+
 \label{app:full}
 
 Table~\ref{tab:full} reports every concept-model point with the quantities the
@@ -1082,7 +1040,6 @@ within-concept variance; it read $+0.573$ pooled against $+0.022$ within. Ten
 items are repeated later in the sheet to estimate intra-rater reliability, which
 was $+1.000$. We note that perfect consistency cannot be distinguished from the
 rater recognizing a repeated item.
-
 
 
 \section{The concept set and example stimuli}
