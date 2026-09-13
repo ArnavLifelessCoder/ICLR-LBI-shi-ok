@@ -111,3 +111,90 @@ scale sweep, trim the coefficient grid from nine points to seven, or cut
 judge: blanks come back as NaN and the alpha computation handles missing cells,
 so a partial sheet is usable and must not be padded with guesses. This is the
 third judge the objection ledger promises.
+
+---
+
+# The validation run (`run_kaggle_validation.py`)
+
+A second notebook, answering the three objections that the first run's data
+cannot settle. All three share a loaded model, which is the only reason they
+are in one notebook: loading a 7-9B in 4-bit costs a few minutes, and doing it
+three times across three notebooks wastes most of a free-tier session.
+
+| Stage | What it answers | Needs generation |
+|---|---|---|
+| A, ground truth | Is a null directional result the steering or the judge? | yes |
+| B, re-judge | Do the signs survive a judge of comparable scale? | yes |
+| C, k sweep | Does the primary test's sign depend on `k=512`? | no |
+
+Stage C is minutes. Stages A and B are the cost.
+
+## Why stage A is the important one
+
+Every controllability number in the paper is a function of the judge, so a
+directional effect that fails to resolve is indistinguishable from a judge that
+emits noise. The two hypotheses predict the same data, and no amount of
+re-reading the same scores separates them.
+
+Stage A removes the judge. The four `gt_*` concepts have readouts computed from
+the generated string by rule (word count, capital fraction, digit fraction,
+French function-word fraction), so the intended direction is known by
+construction and a signed area can be scored correct or incorrect. They carry
+thirty evaluation prompts rather than six, because six bounds the resolution of
+everything computed from it.
+
+They are surface-confounded on purpose. That is the price of decidability, and
+nothing from stage A should be read as evidence about whether real concepts are
+steerable.
+
+## Cells
+
+Same first two cells as the main run (clone, then `pip install -q -U
+transformers accelerate bitsandbytes`), then:
+
+```python
+import sys; sys.path.insert(0, "/kaggle/working/lbi-repo")
+from notebooks.run_kaggle_validation import hf_login_if_available, run_all
+hf_login_if_available()
+```
+
+```python
+status = run_all()
+```
+
+To run one model, or to resume after a session dies:
+
+```python
+status = run_all(["Qwen/Qwen2.5-7B-Instruct"])
+```
+
+Every stage writes with `resume=True`, so a killed session costs one concept
+rather than the sweep. The three output directories are separate
+(`results_groundtruth`, `results_rejudge`, `results_ksweep`) so a re-judged
+`sentiment` can never overwrite the original one: the comparison between them
+is the experiment.
+
+## The judge in stage B
+
+`JUDGE_MODEL` is `Qwen/Qwen2.5-7B-Instruct` in fp16, against the 1.5B used
+everywhere else. On a 15GB T4 that is about 14GB and leaves very little
+headroom, so `JUDGE_FALLBACK` (3B) is tried if the load raises rather than
+letting an OOM end the session. Whichever judge is used is written into every
+result file, because a comparison of judges that does not record which judge
+produced which number is not a comparison.
+
+fp16 rather than 4-bit on purpose: the judge is the measuring instrument, and
+quantisation noise in the instrument is the last thing this study needs.
+
+## What to do with the output
+
+Download the three directories and run the analysis locally:
+
+```bash
+python scripts/signed_uncertainty.py --help
+```
+
+The claim stage A is built to support is that signed area recovers the known
+direction at a rate the absolute metric cannot, on concepts where the answer is
+decidable. If it does not, that is reportable too, and it says the diagnostic
+is underpowered at this prompt count rather than that steering is undirected.
