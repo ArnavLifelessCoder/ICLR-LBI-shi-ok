@@ -1,0 +1,392 @@
+[
+  {
+    "concept": "certainty",
+    "model": "Llama-3.1-8B",
+    "abs_ctrl": 0.048963549650377684,
+    "signed": -0.03948257201247746,
+    "signed_ci": [
+      -0.10311051871582651,
+      0.025862786963937377
+    ],
+    "signed_pos": -0.08425879478454588,
+    "signed_neg": -0.004830059905846939,
+    "sign_resolved": false
+  },
+  {
+    "concept": "certainty",
+    "model": "Mistral-7B",
+    "abs_ctrl": 0.1126408066807522,
+    "signed": -0.08818520222687058,
+    "signed_ci": [
+      -0.18296936988143767,
+      0.009762635576031846
+    ],
+    "signed_pos": -0.18686061675349874,
+    "signed_neg": -0.0077555338541666075,
+    "sign_resolved": false
+  },
+  {
+    "concept": "certainty",
+    "model": "Qwen2.5-7B",
+    "abs_ctrl": 0.12280064241753685,
+    "signed": -0.07205527938074537,
+    "signed_ci": [
+      -0.17226231027292885,
+      0.026903035947437343
+    ],
+    "signed_pos": 0.059523487587769854,
+    "signed_neg": -0.21709395994742717,
+    "sign_resolved": false
+  },
+  {
+    "concept": "factuality",
+    "model": "Llama-3.1-8B",
+    "abs_ctrl": 0.058458744237820305,
+    "signed": 0.016690444201231017,
+    "signed_ci": [
+      -0.054709037094151806,
+      0.09024841168567722
+    ],
+    "signed_pos": 0.07742943763732912,
+    "signed_neg": -0.04662071615457534,
+    "sign_resolved": false
+  },
+  {
+    "concept": "factuality",
+    "model": "Mistral-7B",
+    "abs_ctrl": 0.032135316067271796,
+    "signed": -0.01198915309376187,
+    "signed_ci": [
+      -0.03575339079689206,
+      0.011237511245286694
+    ],
+    "signed_pos": -0.04425691763559982,
+    "signed_neg": 0.01758492986361191,
+    "sign_resolved": false
+  },
+  {
+    "concept": "factuality",
+    "model": "Qwen2.5-7B",
+    "abs_ctrl": 0.1197274120317565,
+    "signed": -0.012141186743974667,
+    "signed_ci": [
+      -0.0646458935634087,
+      0.041212885555631636
+    ],
+    "signed_pos": 0.1137516289949417,
+    "signed_neg": -0.1482055862744649,
+    "sign_resolved": false
+  },
+  {
+    "concept": "formality",
+    "model": "Llama-3.1-8B",
+    "abs_ctrl": 0.025106982224517387,
+    "signed": -0.009887167976962208,
+    "signed_ci": [
+      -0.06020516935486883,
+      0.04360836253940952
+    ],
+    "signed_pos": -0.035818634430567396,
+    "signed_neg": 0.01595558822154993,
+    "sign_resolved": false
+  },
+  {
+    "concept": "formality",
+    "model": "Mistral-7B",
+    "abs_ctrl": 0.09941474099953972,
+    "signed": -0.029157069822152472,
+    "signed_ci": [
+      -0.11842145127637353,
+      0.06230069935354907
+    ],
+    "signed_pos": -0.12505018661419554,
+    "signed_neg": 0.09948121011257173,
+    "sign_resolved": false
+  },
+  {
+    "concept": "formality",
+    "model": "Qwen2.5-7B",
+    "abs_ctrl": 0.034186854130691925,
+    "signed": 0.012921617262893278,
+    "signed_ci": [
+      -0.026916123557647876,
+      0.05993157802001216
+    ],
+    "signed_pos": -0.015438995427555446,
+    "signed_neg": 0.06520442912975943,
+    "sign_resolved": false
+  },
+  {
+    "concept": "honesty",
+    "model": "Llama-3.1-8B",
+    "abs_ctrl": 0.11937076588057811,
+    "signed": -0.0033925255346629137,
+    "signed_ci": [
+      -0.09202472669736304,
+      0.08782688677496645
+    ],
+    "signed_pos": 0.12407272309064869,
+    "signed_neg": -0.14074920440713562,
+    "sign_resolved": false
+  },
+  {
+    "concept": "honesty",
+    "model": "Mistral-7B",
+    "abs_ctrl": 0.10685580420411296,
+    "signed": -0.05203683519115051,
+    "signed_ci": [
+      -0.13904572266530074,
+      0.03600822573573905
+    ],
+    "signed_pos": 0.05685258693993095,
+    "signed_neg": -0.17343248054385188,
+    "sign_resolved": false
+  },
+  {
+    "concept": "honesty",
+    "model": "Qwen2.5-7B",
+    "abs_ctrl": 0.0811525529095282,
+    "signed": 0.039445601357147086,
+    "signed_ci": [
+      -0.06007165318885108,
+      0.1368256044620479
+    ],
+    "signed_pos": 0.07957285096247989,
+    "signed_neg": -0.02111872808179921,
+    "sign_resolved": false
+  },
+  {
+    "concept": "refusal",
+    "model": "Llama-3.1-8B",
+    "abs_ctrl": 0.03296399013035828,
+    "signed": -0.016023368471198608,
+    "signed_ci": [
+      -0.07082777389480692,
+      0.03933703681139499
+    ],
+    "signed_pos": 0.012711151440938318,
+    "signed_neg": -0.05423837229609489,
+    "sign_resolved": false
+  },
+  {
+    "concept": "refusal",
+    "model": "Mistral-7B",
+    "abs_ctrl": 0.038236326124105185,
+    "signed": 0.02023774333712128,
+    "signed_ci": [
+      -0.02725057203396086,
+      0.06821832894848036
+    ],
+    "signed_pos": 0.04045430198311804,
+    "signed_neg": 0.0010375479857127085,
+    "sign_resolved": false
+  },
+  {
+    "concept": "refusal",
+    "model": "Qwen2.5-7B",
+    "abs_ctrl": 0.04731945776277117,
+    "signed": 0.010845648021333748,
+    "signed_ci": [
+      -0.04516455388854024,
+      0.06741677642470431
+    ],
+    "signed_pos": -0.05090139744182426,
+    "signed_neg": 0.05450306718962059,
+    "sign_resolved": false
+  },
+  {
+    "concept": "rudeness",
+    "model": "Llama-3.1-8B",
+    "abs_ctrl": 0.05569461903845271,
+    "signed": 0.026894593456139166,
+    "signed_ci": [
+      -0.09876957812621623,
+      0.151106363578754
+    ],
+    "signed_pos": -0.033055423945188525,
+    "signed_neg": 0.09679903735717137,
+    "sign_resolved": false
+  },
+  {
+    "concept": "rudeness",
+    "model": "Mistral-7B",
+    "abs_ctrl": 0.21129621384251449,
+    "signed": -0.05531674276830422,
+    "signed_ci": [
+      -0.16796195453631332,
+      0.06086074290057935
+    ],
+    "signed_pos": -0.29891974441707136,
+    "signed_neg": 0.16496582527955372,
+    "sign_resolved": false
+  },
+  {
+    "concept": "rudeness",
+    "model": "Qwen2.5-7B",
+    "abs_ctrl": 0.1528817218624883,
+    "signed": 0.11894658559726345,
+    "signed_ci": [
+      0.009796615609935092,
+      0.22600626805964777
+    ],
+    "signed_pos": -0.07193071395158762,
+    "signed_neg": 0.24110477045178413,
+    "sign_resolved": true
+  },
+  {
+    "concept": "sentiment",
+    "model": "Llama-3.1-8B",
+    "abs_ctrl": 0.1007543123430676,
+    "signed": 0.02008240752749974,
+    "signed_ci": [
+      -0.016242361645589037,
+      0.06632149125144916
+    ],
+    "signed_pos": 0.13958432227373124,
+    "signed_neg": -0.08426991899808248,
+    "sign_resolved": false
+  },
+  {
+    "concept": "sentiment",
+    "model": "Mistral-7B",
+    "abs_ctrl": 0.1626232161539115,
+    "signed": 0.1626232161539115,
+    "signed_ci": [
+      0.07115933515086928,
+      0.2646856304685842
+    ],
+    "signed_pos": 0.01139659186204276,
+    "signed_neg": 0.367644079188661,
+    "sign_resolved": true
+  },
+  {
+    "concept": "sentiment",
+    "model": "Qwen2.5-7B",
+    "abs_ctrl": 0.21545708852742487,
+    "signed": 0.20807715433572108,
+    "signed_ci": [
+      0.0987777723645416,
+      0.319639449236968
+    ],
+    "signed_pos": -0.007937343584166682,
+    "signed_neg": 0.422760673915036,
+    "sign_resolved": true
+  },
+  {
+    "concept": "sycophancy",
+    "model": "Llama-3.1-8B",
+    "abs_ctrl": 0.08068982827373677,
+    "signed": -0.030649595221297617,
+    "signed_ci": [
+      -0.11422174154013132,
+      0.05535456299449728
+    ],
+    "signed_pos": 0.05431380420923233,
+    "signed_neg": -0.13090643224616846,
+    "sign_resolved": false
+  },
+  {
+    "concept": "sycophancy",
+    "model": "Mistral-7B",
+    "abs_ctrl": 0.10111000652735434,
+    "signed": 0.00651851787956224,
+    "signed_ci": [
+      -0.0741336609486367,
+      0.09220619207787259
+    ],
+    "signed_pos": -0.09603479492167635,
+    "signed_neg": 0.11686228755861523,
+    "sign_resolved": false
+  },
+  {
+    "concept": "sycophancy",
+    "model": "Qwen2.5-7B",
+    "abs_ctrl": 0.11755861186732848,
+    "signed": -0.032580979603032266,
+    "signed_ci": [
+      -0.11472512472782323,
+      0.05346436827084041
+    ],
+    "signed_pos": -0.1067694030702114,
+    "signed_neg": 0.10192755464878346,
+    "sign_resolved": false
+  },
+  {
+    "concept": "topic_science",
+    "model": "Llama-3.1-8B",
+    "abs_ctrl": 0.010706954946120553,
+    "signed": 0.007025912817981511,
+    "signed_ci": [
+      -0.0032378245225222267,
+      0.0176922730666938
+    ],
+    "signed_pos": -0.003052915136019352,
+    "signed_neg": 0.018322967489560416,
+    "sign_resolved": false
+  },
+  {
+    "concept": "topic_science",
+    "model": "Mistral-7B",
+    "abs_ctrl": 0.02426403471165234,
+    "signed": -0.0037876769072479563,
+    "signed_ci": [
+      -0.02873573517515612,
+      0.022667063598682233
+    ],
+    "signed_pos": -0.029899088541666674,
+    "signed_neg": 0.022179374098777804,
+    "sign_resolved": false
+  },
+  {
+    "concept": "topic_science",
+    "model": "Qwen2.5-7B",
+    "abs_ctrl": 0.019048565998673446,
+    "signed": -0.003166570638616868,
+    "signed_ci": [
+      -0.02127003945394967,
+      0.01401348400319538
+    ],
+    "signed_pos": -0.0016818265120188247,
+    "signed_neg": -0.015276203552881895,
+    "sign_resolved": false
+  },
+  {
+    "concept": "verbosity",
+    "model": "Llama-3.1-8B",
+    "abs_ctrl": 0.024780496334036183,
+    "signed": -0.024780496334036183,
+    "signed_ci": [
+      -0.06000635507561873,
+      0.010856138067920396
+    ],
+    "signed_pos": -0.02387023419141766,
+    "signed_neg": -0.03469377756118776,
+    "sign_resolved": false
+  },
+  {
+    "concept": "verbosity",
+    "model": "Mistral-7B",
+    "abs_ctrl": 0.0544246201299959,
+    "signed": 0.004907973731557537,
+    "signed_ci": [
+      -0.03640003046609033,
+      0.0466903149146639
+    ],
+    "signed_pos": 0.06405015935500466,
+    "signed_neg": -0.05218580861886344,
+    "sign_resolved": false
+  },
+  {
+    "concept": "verbosity",
+    "model": "Qwen2.5-7B",
+    "abs_ctrl": 0.04979262273344732,
+    "signed": 0.025953825770152945,
+    "signed_ci": [
+      -0.007450831446926179,
+      0.06027015409864162
+    ],
+    "signed_pos": -0.023392250637213417,
+    "signed_neg": 0.0829858854413033,
+    "sign_resolved": false
+  }
+]
