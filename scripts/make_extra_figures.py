@@ -79,16 +79,31 @@ def fig3_inversion(rows, out):
     # the control, for contrast
     sen = [r for r in rows if r["concept"] == "sentiment" and r["overlap"]]
     hs = max(sen, key=lambda r: r["ctrl"])
+    # Down and left: the legend sits in the upper right and this label used to
+    # run straight through it.
     ax.annotate("sentiment (control)", (hs["overlap"], hs["ctrl"]), fontsize=8.5,
-                color="#333333", xytext=(14, -4), textcoords="offset points",
-                ha="left", va="center")
+                color="#333333", xytext=(-9, -15), textcoords="offset points",
+                ha="right", va="top")
     ax.margins(y=0.12)
+
+    # Computed from the points actually plotted. Hardcoding this is how the
+    # figure came to advertise the four-model interval over a three-model plot.
+    import numpy as np
+    from lbi.geometry import _partial_spearman, _cluster_bootstrap_partial_spearman
+    g = [r for r in rows if r["overlap"] is not None]
+    ov = np.array([r["overlap"] for r in g], float)
+    ct = np.array([r["ctrl"] for r in g], float)
+    rd = np.array([r["read"] for r in g], float)
+    rho = _partial_spearman(ov, ct, rd)
+    lo, hi = _cluster_bootstrap_partial_spearman(ov, ct, rd, [r["concept"] for r in g])
+    verdict = ("It is negative." if hi < 0 else
+               "The estimate is negative and the interval contains zero.")
 
     ax.set_xlabel("Output overlap (projection into the top unembedding subspace)")
     ax.set_ylabel("Controllability\n(dose-response area)")
-    ax.set_title("H1 predicts this slope is positive. It is negative.\n"
-                 "Partial Spearman $-0.45$, 95% CI $[-0.72, -0.04]$, conditioning on readability",
-                 fontsize=9.5)
+    ax.set_title("H1 predicts this slope is positive. %s\n"
+                 "Partial Spearman $%.2f$, 95%% CI $[%.2f, %.2f]$, conditioning on readability"
+                 % (verdict, rho, lo, hi), fontsize=9.5)
     ax.grid(alpha=0.22, zorder=0)
     ax.legend(fontsize=8, loc="upper right", frameon=False, ncol=2)
     fig.tight_layout()
@@ -113,7 +128,9 @@ def fig4_selectivity(rows, out):
         ax.set_xlabel(name)
         ax.grid(alpha=0.22, zorder=0)
     a1.set_ylabel("Controllability")
-    a1.set_title("The preregistered axis is saturated:\n31 of 40 points sit at AUROC 1.0",
+    n_sat = sum(1 for r in rows if r["read"] >= 0.999)
+    a1.set_title("The preregistered axis is saturated:\n"
+                 "%d of %d points sit at AUROC 1.0" % (n_sat, len(rows)),
                  fontsize=9)
     a2.set_title("Selectivity spreads the same points out", fontsize=9)
     h, l = a1.get_legend_handles_labels()

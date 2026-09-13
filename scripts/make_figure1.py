@@ -1,8 +1,8 @@
 """Figure 1 for the paper, drawn from a saved gap_map.json.
 
 The library's `plot_gap_map` labels every safety-relevant point, which is right
-for inspecting a run and wrong for the paper: readability is saturated, so 31 of
-40 points pile up at x = 1.0 and their labels land on top of each other. Here
+for inspecting a run and wrong for the paper: readability is saturated, so most
+points pile up at x = 1.0 and their labels land on top of each other. Here
 only the danger-zone points are labelled, safety-relevant concepts are marked by
 edge colour and explained in the caption, and the legend sits outside the axes.
 
@@ -29,7 +29,8 @@ MARKERS = ["o", "s", "^", "D", "v", "P"]
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--gap-map", default="results nb7/combined_40point/gap_map.json")
+    ap.add_argument("--gap-map",
+                    default="results nb7/combined_30point/gap_map.json")
     ap.add_argument("-o", "--out", default="paper/fig1_gap_map.png")
     args = ap.parse_args()
 
@@ -86,9 +87,10 @@ def main() -> int:
     ax.set_xlabel("Readability (probe AUROC, normalized within model)")
     ax.set_ylabel("Controllability (dose-response area,\nnormalized within model)")
     ax.set_title(
-        "Detection vs. control, 40 concept-model points\n"
+        "Detection vs. control, %d concept-model points\n"
         "Spearman rho = %.2f, 95%% CI [%.2f, %.2f]"
-        % (gm["spearman"], gm["spearman_ci_low"], gm["spearman_ci_high"]),
+        % (len(pts), gm["spearman"], gm["spearman_ci_low"],
+           gm["spearman_ci_high"]),
         fontsize=10,
     )
     ax.set_xlim(-0.08, 1.12)

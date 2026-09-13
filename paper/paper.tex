@@ -356,6 +356,7 @@ reported with that caveat rather than dropped (Appendix~\ref{app:stimuli} gives
 example stimuli for every concept), because domain membership and
 length are surface properties by construction.
 
+\label{sec:setup_control}
 \textbf{Positive control (P9).} Steering must demonstrably work on a model
 before that model's controllability numbers are trusted. A model whose sentiment
 control falls below an absolute floor is withheld entirely, because a broken
@@ -840,7 +841,11 @@ tie-break had least to work with, since validation AUROC saturates across most
 of the network.
 
 \begin{table}[htbp]
-  \caption{Complete per-concept results for all four models. \textbf{Read} is held-out probe AUROC with its bootstrap interval; \textbf{Sel} is selectivity (AUROC minus the shuffled-label control probe), and \textbf{Ctrl probe} is that control probe's AUROC, which should sit near $0.5$. \textbf{Ctrl} is the dose-response area with its interval. \textbf{L} is the selected layer. \textbf{Gauntlet} is ``--'' where the default intervention already moved the concept so the battery never ran, which is not the same as failing it.}
+  \caption{Complete per-concept results for all four models, including
+  \textbf{Gemma-2-9b, which is withheld from every statistic in the main text}
+  for failing the positive control under the directional metric
+  (Section~\ref{sec:setup_control}). Its block is marked in the table; it is
+  reported here so the withholding can be checked rather than taken on trust. \textbf{Read} is held-out probe AUROC with its bootstrap interval; \textbf{Sel} is selectivity (AUROC minus the shuffled-label control probe), and \textbf{Ctrl probe} is that control probe's AUROC, which should sit near $0.5$. \textbf{Ctrl} is the dose-response area with its interval. \textbf{L} is the selected layer. \textbf{Gauntlet} is ``--'' where the default intervention already moved the concept so the battery never ran, which is not the same as failing it.}
   \label{tab:full}
   \centering
   \footnotesize
@@ -881,6 +886,7 @@ of the network.
      & topic\_science & 0.972 [0.88, 1.00] & 0.50 & 0.472 & 0.011 [0.005, 0.021] & 15 & survived \\
      & verbosity & 1.000 [1.00, 1.00] & 0.55 & 0.450 & 0.025 [0.014, 0.071] & 15 & survived \\
     \midrule
+    \multicolumn{8}{l}{\textit{Withheld from the main analysis: fails the positive control directionally.}} \\
     Gemma-2-9b & sentiment & 1.000 [1.00, 1.00] & 0.57 & 0.431 & 0.110 [0.109, 0.196] & 20 & -- \\
      & certainty & 1.000 [1.00, 1.00] & 0.53 & 0.465 & 0.054 [0.041, 0.156] & 20 & -- \\
      & factuality & 1.000 [1.00, 1.00] & 0.51 & 0.492 & 0.054 [0.044, 0.161] & 20 & -- \\
