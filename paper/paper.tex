@@ -58,33 +58,43 @@ Overstate Control of Concept Directions}
 Activation steering is usually evaluated by adding a concept direction to the
 residual stream and reporting how much behavior changes. We show that this
 measurement, in its standard absolute-deviation form, does not distinguish
-steering a model in the intended direction from merely perturbing it, and that a
-substantive conclusion drawn from it does not survive the distinction. For ten
-concepts across three instruction-tuned models we sweep a steering coefficient to
-a preregistered fluency ceiling and compute two quantities from the same curves:
-the usual area under the absolute behavioral deviation, and its signed analogue,
+steering a model in the intended direction from perturbing it, and that the data
+it produces cannot by itself settle which of the two occurred. For ten concepts
+across three instruction-tuned models we sweep a steering coefficient to a
+preregistered fluency ceiling and compute two summaries of the same curves: the
+usual area under the absolute behavioral deviation, and its signed analogue,
 which credits an intervention only when positive coefficients raise the target
 behavior and negative coefficients lower it. The two are uncorrelated (Spearman
-$-0.01$ over 30 concept-model points). Sixteen of the thirty points have a
-negative signed area, and the median point attributes $39$\% of its measured
-effect to directional movement. Response direction is close to random across
-models: two of ten concepts are same-signed on all three, against $2.5$ expected
-by chance. We then show what this costs a substantive result. We preregistered
-the hypothesis that a direction is steerable to the extent it projects into the
+$-0.01$ over 30 concept-model points) and disagree materially on 27 of 30, with
+the median point attributing $39$\% of its measured effect to directional
+movement.
+
+The signed summary is not offered as the correct answer, because it usually has
+no answer. Propagating each coefficient's prompt-level interval into the signed
+area leaves 3 of 30 points with a sign distinguishable from zero. All three are
+positive, and two are the concept on which our judge is validated against a
+human. We therefore report the conditional claim the evidence supports rather
+than the quotable one: with a judge validated on a single concept and six
+evaluation prompts, the direction of a steering effect is unresolvable on 27 of
+30 points, and no directional conclusion follows from either summary. Splitting
+the signed area by arm shows the problem is not only statistical power, since 24
+of 30 points respond on one side of the baseline only, the positive control
+among them.
+
+We then show what this costs a substantive result. We preregistered the
+hypothesis that a direction is steerable to the extent it projects into the
 model's output-effective (unembedding) subspace. Under the absolute metric the
-estimate is inverted (partial Spearman $-0.45$, conditioning on readability), and
-the inversion is not an artifact of the fluency ceiling: output overlap is
-unrelated to where the ceiling falls, 27 of 30 sweeps reach the end of the
-coefficient grid unbroken, and conditioning on the ceiling leaves the estimate
-unchanged. Leave-one-concept-out keeps it negative in every refit. Under the
-signed metric the same test returns $+0.14$. The geometric result is therefore a
-property of how controllability was measured rather than of the representations.
-Held-out probe AUROC is $1.00$ at 24 of 30 points, so the near-zero
-readability-controllability correlation is uninformative rather than a null, and
-the supportable claim is the weaker one: high linear readability does not
-guarantee an effective control handle. A fourth model is withheld throughout
-because it fails the preregistered positive control under the directional metric.
-We release the stimuli, probes, steering harness, and per-coefficient curves.
+estimate is inverted (partial Spearman $-0.45$, conditioning on readability),
+and it survives the checks ordinarily asked of such a result: output overlap is
+unrelated to where the fluency ceiling falls, 27 of 30 sweeps reach the end of
+the coefficient grid unbroken, and leave-one-concept-out keeps the estimate
+negative in every refit. Under the signed metric the same test returns $+0.14$.
+A result can pass the diagnostics the field asks for and still be a property of
+its own summary statistic. Held-out probe AUROC is $1.00$ at 24 of 30 points, so
+the near-zero readability-controllability correlation is uninformative rather
+than a null, and the supportable claim is that high linear readability does not
+guarantee an effective control handle. A fourth model is withheld throughout for
+failing the preregistered positive control under the directional reading.
 \end{abstract}
 
 \section{Introduction}
@@ -364,20 +374,50 @@ harness puts every concept in the danger zone and is indistinguishable from a
 discovery.
 
 On the absolute metric all four models clear the floor (sentiment controllability
-$0.215$ Qwen, $0.163$ Mistral, $0.101$ Llama, $0.110$ Gemma; floor $0.10$). The
-control is less reassuring read directionally. Sentiment dose-response
-monotonicity is $+0.79$, $+0.98$ and $+0.50$ on the three retained models and
-$-0.68$ on Gemma, whose signed area is $-0.039$: on that model the harness moved
-sentiment the wrong way while still registering a passing absolute score. Because
-Section~\ref{sec:directional} makes the directional reading the one the paper
-relies on, Gemma is withheld under the preregistered rule and is excluded from
-every statistic in the main text.
+$0.215$ Qwen, $0.163$ Mistral, $0.101$ Llama, $0.110$ Gemma; floor $0.10$). Read
+directionally the control is passed by two. Signed sentiment area resolves
+positive on Qwen ($+0.21$) and Mistral ($+0.16$), and does not resolve on Llama
+($+0.020$, CI $[-0.016, 0.066]$) or Gemma ($-0.039$, CI $[-0.107, 0.002]$). We
+withhold Gemma, whose estimate is negative, and retain Llama, whose estimate is
+positive.
+
+That is a judgment call on unresolved signs and we would rather state it than
+let it pass as a rule. A strict directional control, demanding that the control
+\emph{demonstrate} steering rather than merely fail to contradict it, withholds
+Llama as well and leaves two models. Table~\ref{tab:withhold} reports the
+primary test under all three samples. The estimate moves from $-0.451$ to
+$-0.450$ to $-0.430$, so the conclusion does not depend on where this line is
+drawn; only the four-model interval excludes zero, and that is the sample whose
+control we no longer trust.
 
 Two things count against us here. Llama clears the floor by $0.001$, and applying
 interval exclusion to the floor as we do to the danger-zone thresholds would
 withhold Llama and Mistral too, leaving nothing. And a model failing
 directionally while passing on the absolute metric is the paper's own
 observation, arriving in the control rather than the results.
+
+
+\begin{table}[htbp]
+  \caption{The primary test under three readings of the positive control. The
+  preregistered rule compares a point estimate to an absolute floor and retains
+  every model. A directional reading asks whether the control demonstrates
+  steering; it resolves positive only on Qwen and Mistral. We report the middle
+  row, and the estimate is stable across all three, so the withholding decision
+  does not produce the result. Only the sample whose control we no longer trust
+  yields an interval excluding zero.}
+  \label{tab:withhold}
+  \centering
+  \footnotesize
+  \begin{tabular}{llcc}
+    \toprule
+    Rule & Models retained & $n$ & Partial $\rho$ (95\% CI) \\
+    \midrule
+    Absolute floor (preregistered) & all four & 40 & $-0.451$ $[-0.723, -0.041]$ \\
+    Directional, negative estimate withheld & Qwen, Mistral, Llama & 30 & $-0.450$ $[-0.748, 0.038]$ \\
+    Directional, unresolved withheld & Qwen, Mistral & 20 & $-0.430$ $[-0.729, 0.070]$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 
 \section{Results}
 \label{sec:results}
@@ -447,47 +487,75 @@ baseline as control. It is worth asking how much of what it counts is movement
 in the direction the concept direction was built to produce.
 
 Recomputing the same integral without the absolute value gives the directional
-controllability of Section~\ref{sec:method}. The two are uncorrelated across the
-30 retained points (Spearman $-0.01$). Sixteen of the thirty have a negative
-directional area, meaning steering moved behavior against the direction
-estimated from the concept's own minimal pairs, and the median point owes $39\%$
-of its measured effect to directional movement. Figure~\ref{fig:directional} and
-Table~\ref{tab:directional} give the comparison; no point reaches the line on
-which the two agree.
+controllability of Section~\ref{sec:method}. The two summaries of the same
+curves are uncorrelated across the 30 retained points (Spearman $-0.01$) and
+disagree materially on 27 of 30: the median point attributes $39\%$ of its
+measured effect to directional movement, and no point reaches the line on which
+the two agree (Figure~\ref{fig:directional}). Whatever the absolute metric is
+measuring, it is largely not direction.
 
 \begin{figure}[tb]
   \centering
   \includegraphics[width=\linewidth]{fig8_directional.png}
   \caption{Absolute against directional controllability. (a) The two summaries
-  of the same curves are unrelated, and points below the line moved against the
-  direction they were estimated from. (b) The share of each concept's measured
-  effect attributable to directional movement, median over models; nothing
-  reaches $1.0$.}
+  of the same curves are unrelated. Points below the line have a negative signed
+  area, though none of those signs is resolved once prompt-level uncertainty is
+  propagated (Appendix~\ref{app:signed}). (b) The share of each concept's
+  measured effect attributable to directional movement, median over models;
+  nothing reaches $1.0$.}
   \label{fig:directional}
 \end{figure}
 
-The weaker reading of this is that the absolute metric overstates control. The
-stronger reading is available from the same table. Within-concept response
-direction is close to random across models: only two of ten concepts have the
-same sign of dose-response monotonicity on all three models, against $2.5$
-expected if each model's sign were an independent coin flip, and the median
-monotonicity is $-0.04$. If steering produced a consistent but small directional
-effect, the signs would agree and the magnitudes would be small. They do not
-agree. For most concepts in this set the intervention is not producing a
-reliable directional effect at all.
+\textbf{The signed summary rarely resolves a direction.} Per-prompt scores are
+not retained, but every coefficient carries a prompt-level bootstrap interval,
+and propagating those into the signed area by Monte Carlo bounds what the sign
+can support (Appendix~\ref{app:signed}). Three of the 30 points have a signed
+area distinguishable from zero. All three are positive: \texttt{sentiment} on
+Qwen ($+0.21$) and Mistral ($+0.16$), and \texttt{rudeness} on Qwen ($+0.12$).
+Sixteen points have a negative signed area and \emph{none} of them is resolved.
 
-Two alternative explanations are worth ruling out. The first is a sign
-convention error, which would invert a concept's direction and make our
-diagnostic score it backwards. \texttt{certainty} is the candidate, with a
-negative response on every model. But a systematic polarity error would show up
-as many concepts agreeing across models, and the count of same-signed concepts
-is what chance predicts. The second is judge noise. If the wrong-way movement
-were an artifact of an unreliable judge it should concentrate in the concepts
-where our human validation shows the least agreement. It does not: wrong-way
-points appear at the same rate in the four concepts with near-zero human
-variance as in the six without (Appendix~\ref{app:judge}).
+This is the reason we do not claim that steering moves models in random
+directions, and it is worth being explicit that an earlier version of this
+analysis did. Sixteen wrong-way points, a near-zero median monotonicity, and
+cross-model sign agreement at chance are equally what a uniformly uninformative
+judge would produce. The data cannot separate the two, so the supportable claim
+is the conditional one: with a judge validated on a single concept and six
+evaluation prompts, the direction of a steering effect is unresolvable on 27 of
+30 points, and no directional conclusion follows from either summary.
 
-This does not retract the absolute measurements, which are what they are. It
+\textbf{The effect is present where the judge is validated.} The three resolved
+points are not distributed at random across concepts. Two of them are
+\texttt{sentiment}, the one concept on which the judge tracks a human closely
+($\alpha = 0.76$ against $0.33$ pooled within concept), and on all three models
+its dose-response monotonicity is positive ($+0.98$, $+0.79$, $+0.50$). Where
+the instrument demonstrably works, steering moves the model the intended way.
+That is either the finding or the confound, and this study cannot tell which.
+It is the reason Section~\ref{sec:limitations} treats judge validation as the
+limiting factor rather than as one caveat among several.
+
+\textbf{Signed area assumes a shape these curves do not have.} The summary
+credits a response that rises with positive coefficients and falls with
+negative ones, so it is mis-specified for a response that is symmetric or
+saturating about the baseline. Splitting it by arm shows this is the common
+case: 24 of 30 points respond on one side of the baseline only, and just two
+respond correctly on both. The positive control is among the one-sided ones. On
+Qwen, \texttt{sentiment} scores $+0.42$ on the negative arm and $-0.01$ on the
+positive, because the unsteered baseline already sits near the top of the
+range and there is no headroom to push into. A near-zero signed area therefore
+does not distinguish an absent directional effect from a real one that is not
+monotone through the baseline, and the arm columns in
+Table~\ref{tab:signed} are what separate them.
+
+\textbf{A sign-convention error would look like this too, and does not explain
+it.} \texttt{certainty} has a negative response on every model, which is what an
+inverted direction would produce. Its stimuli contrast ``It is beyond doubt
+that'' with ``It is hardly settled that'', correctly signed, and a systematic
+polarity error would show many concepts agreeing across models rather than the
+two of ten that chance predicts. With intervals attached the question dissolves:
+\texttt{certainty} is unresolved on all three models, so there is no effect to
+attribute to a bug.
+
+None of this retracts the absolute measurements, which are what they are. It
 bounds what may be concluded from them, and Section~\ref{sec:inverted} is the
 worked case.
 
@@ -568,6 +636,7 @@ inference from a measured effect size to a claim of control, when the measuremen
 does not separate the two.
 
 \section{Limitations}
+\label{sec:limitations}
 
 \textbf{The primary metric is the object of study.} Absolute controllability is
 the preregistered measure and every preregistered threshold is applied to it, so
@@ -590,6 +659,16 @@ pass also makes concepts trivially separable. The axis therefore supports only
 the conditional claim of Section~\ref{sec:results}.
 Appendix~\ref{app:selectivity} reports selectivity, which has more spread, as a
 secondary axis.
+
+\textbf{The judge is the limiting factor, not one caveat among several.}
+Controllability is a function of the judge end to end, so an unresolved
+directional effect and an uninformative judge predict the same scores, and
+nothing in this data separates them. The one place they come apart is
+\texttt{sentiment}, where the judge is validated and where steering is
+directional on all three models. Every directional statement in this paper is
+conditional on that, which is why the abstract reports what is unresolvable
+rather than what moved. A judge of comparable scale to the models being judged,
+and validation on more than one concept, are what would lift the condition.
 
 \textbf{One annotator, and a judge that disagrees with them.} Within-concept
 agreement between the human and the logit judge is Krippendorff's $\alpha$
@@ -619,17 +698,21 @@ templated stimuli and six evaluation prompts per concept.
 \section{Conclusion}
 
 Steering is usually scored by how far a model moves. Across three models and ten
-concepts we find that this score is uncorrelated with whether the model moved in
-the intended direction, that half the measured effects point the wrong way, and
-that within-concept response direction agrees across models no more often than
-chance. A preregistered geometric hypothesis tested against the usual score comes
-out inverted, survives a fluency-ceiling control and leave-one-concept-out, and
-then disappears when the score is made directional. Among concepts our probe
-recovers at AUROC $1.0$, controllability still varies twentyfold, so a working
-probe is not evidence of a control handle; the converse is not something this
-design can test. The practical recommendation is small and cheap: report a signed
-dose-response next to any absolute one, and treat their agreement as a condition
-for interpreting the magnitude.
+concepts that score is uncorrelated with whether the model moved in the intended
+direction, and the two disagree on 27 of 30 points. What we cannot do is say
+which direction the model moved: once prompt-level uncertainty is propagated,
+the sign resolves on 3 of 30 points, all positive, two of them on the one
+concept where our judge is validated. A preregistered geometric hypothesis
+tested against the usual score comes out inverted, survives a fluency-ceiling
+control and leave-one-concept-out, and then disappears when the score is made
+directional, which is the concrete cost of the ambiguity. Among concepts our
+probe recovers at AUROC $1.0$ controllability still varies twentyfold, so a
+working probe is not evidence of a control handle; the converse is not something
+this design can test. The recommendation is small and cheap: report a signed
+dose-response next to any absolute one, with intervals and split by arm, and
+treat their agreement as a condition for interpreting the magnitude. The
+measurement we most need and do not have is a judge validated per concept
+rather than on the positive control alone.
 
 \subsection*{AI use statement}
 
@@ -1282,6 +1365,77 @@ agreement well above chance.
     \texttt{verbosity} & Llama-3.1-8B & $0.025$ & $-0.025$ & $-0.93$ \\
     \texttt{verbosity} & Mistral-7B & $0.054$ & $+0.005$ & $+0.35$ \\
     \texttt{verbosity} & Qwen2.5-7B & $0.050$ & $+0.026$ & $+0.78$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Directional controllability: intervals and arms}
+\label{app:signed}
+
+Per-prompt behavior scores are not retained in the result files, but every
+coefficient carries a prompt-level bootstrap interval. We propagate those into
+the signed area by Monte Carlo, drawing a behavior value per coefficient from a
+normal whose standard error is the interval half-width over $1.96$, clipping to
+$[0,1]$ because the judge emits a probability, and recomputing the area $4000$
+times. Draws are independent across coefficients while the real scores share a
+prompt set and are positively correlated, and correlated errors partly cancel in
+a difference from baseline, so these intervals are conservative. That is the
+safe direction for a claim that a sign is resolved.
+
+3 of the 30 points have a signed area whose interval excludes zero, and all
+3 are positive. 16 points have a negative signed area and none of them is
+resolved, which is why this paper makes no claim about wrong-way movement.
+
+\textbf{Pos} and \textbf{Neg} are the same integral computed over one arm of
+the sweep, each oriented so that a positive value means the model moved the way
+the direction intended. A concept with a genuine bidirectional effect scores
+positive on both. 2 of 30 points do; 24 respond on one arm only. A signed area
+near zero is therefore ambiguous between no directional effect and an effect
+that is real but not monotone through the baseline, and these two columns are
+what distinguish them.
+
+\begin{table}[htbp]
+  \caption{Signed controllability with a propagated 95\% interval, and the
+  same quantity split by arm. \textbf{Abs} is the preregistered metric.
+  \textbf{R} marks the three points whose sign is resolved. \textbf{Pos} and
+  \textbf{Neg} are oriented so positive means the intended direction.}
+  \label{tab:signed}
+  \centering
+  \footnotesize
+  \begin{tabular}{llccccc}
+    \toprule
+    Concept & Model & Abs & Signed & 95\% CI & Pos & Neg \\
+    \midrule
+    \texttt{certainty} & Llama-3.1-8B & $0.049$ & $-0.039$ & $[-0.103, +0.026]$ & $-0.084$ & $-0.005$ \\
+    \texttt{certainty} & Mistral-7B & $0.113$ & $-0.088$ & $[-0.183, +0.010]$ & $-0.187$ & $-0.008$ \\
+    \texttt{certainty} & Qwen2.5-7B & $0.123$ & $-0.072$ & $[-0.172, +0.027]$ & $+0.060$ & $-0.217$ \\
+    \texttt{factuality} & Llama-3.1-8B & $0.058$ & $+0.017$ & $[-0.055, +0.090]$ & $+0.077$ & $-0.047$ \\
+    \texttt{factuality} & Mistral-7B & $0.032$ & $-0.012$ & $[-0.036, +0.011]$ & $-0.044$ & $+0.018$ \\
+    \texttt{factuality} & Qwen2.5-7B & $0.120$ & $-0.012$ & $[-0.065, +0.041]$ & $+0.114$ & $-0.148$ \\
+    \texttt{formality} & Llama-3.1-8B & $0.025$ & $-0.010$ & $[-0.060, +0.044]$ & $-0.036$ & $+0.016$ \\
+    \texttt{formality} & Mistral-7B & $0.099$ & $-0.029$ & $[-0.118, +0.062]$ & $-0.125$ & $+0.099$ \\
+    \texttt{formality} & Qwen2.5-7B & $0.034$ & $+0.013$ & $[-0.027, +0.060]$ & $-0.015$ & $+0.065$ \\
+    \texttt{honesty} & Llama-3.1-8B & $0.119$ & $-0.003$ & $[-0.092, +0.088]$ & $+0.124$ & $-0.141$ \\
+    \texttt{honesty} & Mistral-7B & $0.107$ & $-0.052$ & $[-0.139, +0.036]$ & $+0.057$ & $-0.173$ \\
+    \texttt{honesty} & Qwen2.5-7B & $0.081$ & $+0.039$ & $[-0.060, +0.137]$ & $+0.080$ & $-0.021$ \\
+    \texttt{refusal} & Llama-3.1-8B & $0.033$ & $-0.016$ & $[-0.071, +0.039]$ & $+0.013$ & $-0.054$ \\
+    \texttt{refusal} & Mistral-7B & $0.038$ & $+0.020$ & $[-0.027, +0.068]$ & $+0.040$ & $+0.001$ \\
+    \texttt{refusal} & Qwen2.5-7B & $0.047$ & $+0.011$ & $[-0.045, +0.067]$ & $-0.051$ & $+0.055$ \\
+    \texttt{rudeness} & Llama-3.1-8B & $0.056$ & $+0.027$ & $[-0.099, +0.151]$ & $-0.033$ & $+0.097$ \\
+    \texttt{rudeness} & Mistral-7B & $0.211$ & $-0.055$ & $[-0.168, +0.061]$ & $-0.299$ & $+0.165$ \\
+    \texttt{rudeness} & Qwen2.5-7B & $0.153$ & $+0.119$ & $[+0.010, +0.226]$\,\textbf{R} & $-0.072$ & $+0.241$ \\
+    \texttt{sentiment} & Llama-3.1-8B & $0.101$ & $+0.020$ & $[-0.016, +0.066]$ & $+0.140$ & $-0.084$ \\
+    \texttt{sentiment} & Mistral-7B & $0.163$ & $+0.163$ & $[+0.071, +0.265]$\,\textbf{R} & $+0.011$ & $+0.368$ \\
+    \texttt{sentiment} & Qwen2.5-7B & $0.215$ & $+0.208$ & $[+0.099, +0.320]$\,\textbf{R} & $-0.008$ & $+0.423$ \\
+    \texttt{sycophancy} & Llama-3.1-8B & $0.081$ & $-0.031$ & $[-0.114, +0.055]$ & $+0.054$ & $-0.131$ \\
+    \texttt{sycophancy} & Mistral-7B & $0.101$ & $+0.007$ & $[-0.074, +0.092]$ & $-0.096$ & $+0.117$ \\
+    \texttt{sycophancy} & Qwen2.5-7B & $0.118$ & $-0.033$ & $[-0.115, +0.053]$ & $-0.107$ & $+0.102$ \\
+    \texttt{topic\_science} & Llama-3.1-8B & $0.011$ & $+0.007$ & $[-0.003, +0.018]$ & $-0.003$ & $+0.018$ \\
+    \texttt{topic\_science} & Mistral-7B & $0.024$ & $-0.004$ & $[-0.029, +0.023]$ & $-0.030$ & $+0.022$ \\
+    \texttt{topic\_science} & Qwen2.5-7B & $0.019$ & $-0.003$ & $[-0.021, +0.014]$ & $-0.002$ & $-0.015$ \\
+    \texttt{verbosity} & Llama-3.1-8B & $0.025$ & $-0.025$ & $[-0.060, +0.011]$ & $-0.024$ & $-0.035$ \\
+    \texttt{verbosity} & Mistral-7B & $0.054$ & $+0.005$ & $[-0.036, +0.047]$ & $+0.064$ & $-0.052$ \\
+    \texttt{verbosity} & Qwen2.5-7B & $0.050$ & $+0.026$ & $[-0.007, +0.060]$ & $-0.023$ & $+0.083$ \\
     \bottomrule
   \end{tabular}
 \end{table}
