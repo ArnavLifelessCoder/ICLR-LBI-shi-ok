@@ -52,19 +52,30 @@ CACHE_DIR = f"{WORK}/cache/activations"
 # The three retained models. Gemma is withheld from the paper's main analysis
 # and is therefore not re-run here; adding it back would mean re-deciding the
 # positive control, which is a paper decision rather than a compute one.
+#
+# Run ONE PER SESSION. Stage A costs about five hours per model at thirty
+# evaluation prompts over a four-layer band, so three models do not fit inside
+# Kaggle's twelve-hour limit: the first attempt got through two and was killed
+# partway into the third. `run_all` defaults to the first entry for that reason;
+# pass the model you want explicitly.
 MODELS = [
     "Qwen/Qwen2.5-7B-Instruct",
     "mistralai/Mistral-7B-Instruct-v0.3",
     "meta-llama/Llama-3.1-8B-Instruct",   # gated: licence + HF_TOKEN
 ]
 
-# Comparable scale to the models under study, against the 1.5B currently used.
+# Larger than the 1.5B used elsewhere, small enough to leave working memory.
+#
+# The first validation run set this to the 7B and lost stage B on both models.
+# A 7B in fp16 loads on a 15GB T4 -- it reported 14.28 GiB allocated of 14.56 --
+# and then died on the first forward pass with 14.81 MiB free. Guarding only the
+# *load* was the mistake: the load is not where a judge that barely fits fails.
+# 3B in fp16 is about 6GB and leaves room to generate.
+#
 # fp16 rather than 4-bit: the judge is the instrument, and quantisation noise in
-# the instrument is the last thing this study needs. On a 15GB T4 a 7B in fp16
-# is about 14GB and leaves very little headroom, so JUDGE_FALLBACK is tried if
-# the load raises. Whichever one is used is recorded in every result file.
-JUDGE_MODEL = "Qwen/Qwen2.5-7B-Instruct"
-JUDGE_FALLBACK = "Qwen/Qwen2.5-3B-Instruct"
+# the instrument is the last thing this study needs.
+JUDGE_MODEL = "Qwen/Qwen2.5-3B-Instruct"
+JUDGE_FALLBACK = "Qwen/Qwen2.5-1.5B-Instruct"
 
 # The judge-scored concepts worth the regeneration cost: the one the judge is
 # validated on, the one with the largest apparent wrong-way effect, the
@@ -92,7 +103,7 @@ def hf_login_if_available(secret_label: str = "HF_TOKEN") -> bool:
     return True
 
 
-def _judge_scorer(concepts, device_index: int = 1):
+def _judge_scorer(concepts, device_index: int = 1, preferred: str | None = None):
     """Load the larger judge, falling back rather than killing the session.
 
     Returns (scorer, judge_name, lm) so the caller can free the judge before
@@ -101,7 +112,8 @@ def _judge_scorer(concepts, device_index: int = 1):
     from lbi import behavior as bh
     from lbi.driver import load_judge
 
-    for name in (JUDGE_MODEL, JUDGE_FALLBACK):
+    candidates = ([preferred] if preferred else [JUDGE_MODEL, JUDGE_FALLBACK])
+    for name in candidates:
         try:
             lm = load_judge(name, device_index=device_index)
         except Exception as exc:
@@ -147,10 +159,31 @@ def stage_b_rejudge(lm, out_dir: str = OUT_RJ) -> bool:
 
     scorer, judge_name, judge_lm = _judge_scorer(every)
     try:
-        runs = run_model(
-            lm, scorer, out_dir=out_dir, cache_dir=CACHE_DIR,
-            concepts=concepts, resume=True,
-        )
+        try:
+            runs = run_model(
+                lm, scorer, out_dir=out_dir, cache_dir=CACHE_DIR,
+                concepts=concepts, resume=True,
+            )
+        except Exception as exc:
+            # A judge that fits in memory but cannot generate is the failure the
+            # first run hit, and it is not visible at load time. Drop to the
+            # smaller judge and retry once rather than losing the stage.
+            if "out of memory" not in str(exc).lower():
+                raise
+            print(f"  {judge_name} ran out of memory generating; "
+                  f"retrying with {JUDGE_FALLBACK}")
+            del judge_lm, scorer
+            try:
+                import torch
+                torch.cuda.empty_cache()
+            except Exception:
+                pass
+            scorer, judge_name, judge_lm = _judge_scorer(
+                every, preferred=JUDGE_FALLBACK)
+            runs = run_model(
+                lm, scorer, out_dir=out_dir, cache_dir=CACHE_DIR,
+                concepts=concepts, resume=True,
+            )
         # The judge identity is the whole point of this stage, so stamp it onto
         # every record rather than relying on the notebook log.
         for fn in os.listdir(out_dir):
@@ -216,10 +249,18 @@ def stage_c_ksweep(lm, out_dir: str = OUT_K) -> bool:
 
 
 def run_all(models=None) -> dict:
-    """Load each model once and run all three stages against it."""
+    """Load each model once and run all three stages against it.
+
+    Defaults to one model, because three do not fit in a session. Pass a list
+    to choose which, and resume means a second session picks up where the
+    first stopped rather than repeating it.
+    """
     from lbi.extraction import load_model
 
-    models = models or MODELS
+    if models is None:
+        models = MODELS[:1]
+    elif isinstance(models, str):
+        models = [models]
     status: dict[str, dict] = {}
     for name in models:
         print("\n" + "=" * 70)
@@ -234,9 +275,13 @@ def run_all(models=None) -> dict:
             continue
         status[name]["load"] = "ok"
 
-        for tag, fn in (("A_groundtruth", stage_a_groundtruth),
+        # Cheapest first. Stage C is ten minutes and stage A is hours, and in the
+        # first run the session wall clock arrived during stage A on the third
+        # model, which had therefore produced nothing at all. Ordering by cost
+        # means a truncated session still returns its cheap results.
+        for tag, fn in (("C_ksweep", stage_c_ksweep),
                         ("B_rejudge", stage_b_rejudge),
-                        ("C_ksweep", stage_c_ksweep)):
+                        ("A_groundtruth", stage_a_groundtruth)):
             try:
                 fn(lm)
                 status[name][tag] = "ok"
