@@ -129,15 +129,25 @@ def _judge_scorer(concepts, device_index: int = 1, preferred: str | None = None)
 
 
 def stage_a_groundtruth(lm, out_dir: str = OUT_GT) -> bool:
-    """Four concepts, deterministic readouts, no judge anywhere in the loop."""
+    """Four concepts, deterministic readouts, no judge anywhere in the loop.
+
+    Swept on the extended coefficient grid. The first validation run found the
+    response flat across the whole default grid and then moving at the last
+    point: gt_uppercase sat at 0.03 through the sweep and reached 0.34 at
+    alpha=+3. The default grid ends exactly where these concepts start to move,
+    so it measures the run-up and clips the effect. The extended grid is a
+    strict superset, so a default-grid number can still be recovered by
+    subsetting.
+    """
     from lbi.groundtruth import DeterministicScorer, ground_truth_concepts
-    from lbi.pipeline import run_model
+    from lbi.pipeline import EXTENDED_COEFFS, run_model
 
     print("\n--- A: ground truth (no judge) ---")
+    print("  grid: %s" % EXTENDED_COEFFS)
     concepts = ground_truth_concepts()
     runs = run_model(
         lm, DeterministicScorer(), out_dir=out_dir, cache_dir=CACHE_DIR,
-        concepts=concepts, resume=True,
+        concepts=concepts, resume=True, coeffs=EXTENDED_COEFFS,
     )
     for r in runs:
         print(f"  {r.probe.concept:<14} read {r.probe.readability:.2f}  "

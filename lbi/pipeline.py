@@ -44,6 +44,20 @@ from .probes import (
 
 DEFAULT_COEFFS = [-3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0]
 
+# A strict superset of DEFAULT_COEFFS, for concepts whose response only starts
+# at the edge of the default grid. The 2026-09-15 validation run found
+# gt_uppercase flat at 0.03 across the whole default sweep and then 0.34 at
+# alpha=+3, a tenfold change sitting on the last point, which an integrated
+# area over a mostly-flat grid dilutes to 0.027. Extending past +/-3 is the
+# difference between measuring that effect and clipping it.
+#
+# Superset rather than replacement on purpose: subsetting a sweep run on this
+# grid back to DEFAULT_COEFFS reproduces the default-grid number exactly, so
+# the two remain comparable. The fluency ceiling still decides which of the
+# new points are usable.
+EXTENDED_COEFFS = [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0,
+                   0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+
 # --- Positive control gate (P9 / R16) ---
 POSITIVE_CONTROL = "sentiment"
 CONTROL_FLOOR = 0.10  # minimum dose-response AUC for the control concept
@@ -277,6 +291,7 @@ def confirm_immovable(
     layer: int,
     scorer: bh.Scorer,
     threshold: float = 0.05,
+    coeffs: list[float] | None = None,
 ) -> dict:
     """The robustness gauntlet from the design doc's Experiment 2 fallback.
 
@@ -296,7 +311,7 @@ def confirm_immovable(
     for variant, direction, source in trials:
         r = run_steering(
             lm, concept, direction, layer, scorer,
-            variant=variant, direction_source=source,
+            coeffs=coeffs, variant=variant, direction_source=source,
         )
         results[f"{variant}:{source}"] = r.controllability
 
@@ -334,6 +349,7 @@ def run_model(
     immovable_threshold: float = 0.05,
     best_over_band: bool = True,
     resume: bool = True,
+    coeffs: list[float] | None = None,
 ) -> list[ConceptRun]:
     """Experiments 1, 2 and 4 for every concept on one model.
 
@@ -393,9 +409,10 @@ def run_model(
         # selection is deliberate and biases the study against its own headline
         # finding -- which only holds if the band actually gets swept.
         steer = (
-            run_steering_best_over_band(lm, concept, dom, layer, scorer)
+            run_steering_best_over_band(lm, concept, dom, layer, scorer,
+                                        coeffs=coeffs)
             if best_over_band
-            else run_steering(lm, concept, dom, layer, scorer)
+            else run_steering(lm, concept, dom, layer, scorer, coeffs=coeffs)
         )
 
         # Only pay for the gauntlet when the concept looks immovable.
@@ -403,7 +420,7 @@ def run_model(
         if steer.controllability < immovable_threshold:
             gauntlet = confirm_immovable(
                 lm, concept, dom, probe.probe_direction(), repe, layer, scorer,
-                threshold=immovable_threshold,
+                threshold=immovable_threshold, coeffs=coeffs,
             )
 
         features = geo.compute_features(
