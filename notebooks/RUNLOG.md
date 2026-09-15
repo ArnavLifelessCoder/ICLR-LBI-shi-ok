@@ -732,3 +732,110 @@ caveat or not at all.
 measurement: fold the judge-validation result into the paper's Limitations and
 into the `refusal` boundary-case discussion. A validated `ClassifierScorer` as a
 fourth rater and a larger labelled sample are upside, not blockers.
+
+---
+
+## 2026-09-14/15 -- Kaggle, T4 x2, validation runs (nb10)
+
+**Environment.** Kaggle T4 x2, internet on, `HF_TOKEN` attached. Repo cloned
+from the `iclr` remote. Notebook `notebooks/run_kaggle_validation.py`, three
+stages sharing one loaded model: A ground truth, B re-judge, C k sensitivity.
+
+### Session 1 (all three models, killed at the 12-hour wall)
+
+Ran `run_all()` over Qwen, Mistral and Llama in one session. Got through two
+models and died partway into Llama's stage A.
+
+| | Qwen | Mistral | Llama |
+|---|---|---|---|
+| A ground truth | ok | ok | killed |
+| B re-judge | **OOM** | **OOM** | not reached |
+| C k sweep | ok | ok | not reached |
+
+**What broke, and it was our bug.** `JUDGE_MODEL` was a 7B in fp16 and
+`_judge_scorer` guarded only the *load*. On a 15GB T4 the 7B loads -- it
+reported 14.28 GiB allocated of 14.56 -- and then dies on the first forward
+pass with 14.81 MiB free. The load is not where a judge that barely fits fails.
+Stage B was lost on both models.
+
+**Second mistake:** stages ran A, B, C, so the expensive stage went first and
+the third model produced nothing at all. Stage A is about five hours per model
+at thirty evaluation prompts over a four-layer band; three models never fit in
+twelve hours.
+
+**Third:** session 1's stage A output for Qwen and Mistral was never
+downloaded, and Kaggle wipes `/kaggle/working`. Those curves are gone. Only the
+summary controllability printed in the log survives, which is not enough for
+signed areas or intervals.
+
+**Fixed in `6a2a0c2`:** judge defaults to 3B, an out-of-memory *during* the
+stage drops to the smaller judge and retries once, stages run cheapest first
+(C, B, A), and `run_all` defaults to one model.
+
+### Session 2 (Llama, complete)
+
+`run_all(["meta-llama/Llama-3.1-8B-Instruct"])`. All three stages ok. Output in
+`validation_output/`.
+
+**Stage A, and this is the result that matters.** With the judge removed the
+two metrics stop disagreeing:
+
+| concept | abs | signed | directional share |
+|---|---|---|---|
+| gt_french | 0.0047 | +0.0047 | 1.00 |
+| gt_length | 0.0113 | +0.0112 | 0.99 |
+| gt_uppercase | 0.0273 | +0.0265 | 0.97 |
+| gt_digits | 0.0010 | -0.0003 | 0.29 |
+
+Against a median directional share of 0.387 on the judge-scored concepts. The
+divergence between absolute and signed area is a property of the judge, not of
+steering.
+
+No sign resolves (0 of 4), and the curves say why. The response is flat across
+the grid and then moves at the largest usable coefficient:
+
+```
+gt_uppercase  0.03 0.03 0.03 0.03 0.03 0.03 0.03 0.03 0.34
+coefficient   -3.0 -2.0 -1.0 -0.5  0.0 +0.5 +1.0 +2.0 +3.0
+```
+
+A tenfold behavioral change integrating to an area of 0.027. `gt_french` is the
+same shape, flat at 0.00 until +3 and then 0.06. The effect is real and sits at
+the edge of the grid, so an integrated area over a mostly-flat sweep dilutes it.
+That is a defect in the summary and in the grid range, not evidence that nothing
+moved.
+
+**Two design faults in the ground-truth concepts, recorded so they are not
+rediscovered.** Three of four baselines sit at 0.00 to 0.03, so there is no
+headroom downward and the negative arm cannot show anything. And the
+coefficient grid stops exactly where the effects begin.
+
+**Stage B.** Judge `Qwen/Qwen2.5-3B-Instruct` against the 1.5B used everywhere
+else. Every sign preserved; magnitudes move a lot.
+
+| concept | abs 1.5B -> 3B | signed 1.5B -> 3B | sign |
+|---|---|---|---|
+| topic_science | 0.011 -> **0.118** | +0.007 -> +0.021 | kept |
+| refusal | 0.033 -> 0.097 | -0.016 -> -0.097 | kept |
+| certainty | 0.049 -> 0.097 | -0.039 -> -0.014 | kept |
+| sentiment | 0.101 -> 0.083 | +0.020 -> +0.083 | kept |
+
+`topic_science` moves elevenfold and is the danger zone's only confirmed
+occupant. 0.118 is well above the 0.05 threshold that put it there, so that
+occupancy is judge-dependent. Nothing resolves under the new judge either.
+
+**Stage C.** Output overlap rises steeply with k and its ranking is not stable.
+On Llama the rank correlation between k=64 and k=2048 is +0.297; on Qwen it was
+-0.137, an effective inversion. At k=2048 every concept projects similarly
+(0.65 to 0.74) so the measure stops discriminating, and the partial correlation
+attenuates from -0.457 at k=64 to -0.133 at k=2048. Stage C computes directions
+at the mid-network layer rather than each concept's selected layer, so absolute
+values are not identical to the paper's (mean absolute difference 0.016,
+Spearman +0.601 at k=512); the claim it supports is about ranks.
+
+### Next action
+
+Run **Qwen** next, full session, `run_all(["Qwen/Qwen2.5-7B-Instruct"])`. It
+needs stage B, which OOMed, and stage A, which was lost with session 1's
+working directory. About six hours with the new stage order. Then Mistral on
+the same basis. Download `validation_output` before the session expires.

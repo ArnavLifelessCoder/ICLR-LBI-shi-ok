@@ -324,3 +324,53 @@ Unchanged from concept construction: 8 of 10 pass at exactly 0.500, the floor.
 `topic_science` (0.833) and `verbosity` (1.000) fail and are declared
 surface-confounded in the builder. See [CONTEXT.md](CONTEXT.md) for why 0.500 is
 the floor rather than a good score.
+
+---
+
+# Validation runs (2026-09-14/15)
+
+Three experiments built to answer objections the 40-point study cannot settle
+from its own data. Llama is complete; Qwen and Mistral have stage C and a lost
+stage A, and still need stage B. Detail in
+[notebooks/RUNLOG.md](notebooks/RUNLOG.md).
+
+## The headline above is now partly wrong, and this is where
+
+**The danger zone is judge-dependent.** Its only confirmed occupant is
+`topic_science`, which scores controllability 0.011 under the 1.5B judge and
+**0.118** under a 3B judge on the same model and the same curves. The threshold
+that puts it in the zone is 0.05. Re-judging moves it clean out. The
+readable-but-immovable claim does not survive a change of instrument.
+
+**The absolute/signed divergence is caused by the judge.** On concepts whose
+readout is computed from the string by rule, with no judge anywhere, the two
+summaries coincide: directional share 1.00, 0.99 and 0.97, against a median of
+0.387 on judge-scored concepts. The disagreement the paper is built around is
+downstream of the judge rather than a property of steering.
+
+**Steering does move behavior directionally, at the edge of the grid.**
+`gt_uppercase` goes from 0.03 to 0.34 at the largest usable coefficient, a
+tenfold change, and integrates to an area of 0.027. The integrated summary over
+a mostly-flat sweep dilutes an effect concentrated at one grid point. No sign
+resolves on any ground-truth concept, and that is a statement about power and
+about the grid, not about direction.
+
+**Signs are judge-robust; magnitudes are not.** All four re-judged concepts
+keep their sign. Magnitudes move by up to elevenfold.
+
+**Output overlap is not stable in k.** Rank correlation between k=64 and
+k=2048 is +0.297 on Llama and -0.137 on Qwen. At k=2048 every concept projects
+between 0.65 and 0.74 and the measure stops discriminating; the partial
+correlation attenuates from -0.457 to -0.133. The primary test's sign is
+negative at every k tested, but the quantity it is a claim about is not well
+defined without fixing k.
+
+## What the validation does not show
+
+The ground-truth concepts have two faults, both ours. Three of four baselines
+sit at 0.00 to 0.03, leaving no headroom for the negative arm, and the
+coefficient grid ends exactly where the effects start. So the failure to
+resolve on ground truth is not evidence that steering is undirected, and should
+not be reported as though it were. Fixing either fault is cheap: readouts with
+mid-range baselines, and a grid that extends past the point where behavior
+begins to move.
