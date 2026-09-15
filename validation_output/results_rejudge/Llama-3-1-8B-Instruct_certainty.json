@@ -1,0 +1,360 @@
+{
+  "probe": {
+    "concept": "certainty",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "best_layer": 15,
+    "readability": 1.0,
+    "control_auroc": 0.5546875,
+    "selectivity": 0.4453125,
+    "auroc_ci_low": 1.0,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "estimate",
+    "n_train": 128,
+    "n_test": 32,
+    "n_val": 32,
+    "control_flagged": false
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 0.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6634114583333334
+    },
+    {
+      "layer": 1,
+      "val_auroc": 0.0,
+      "test_auroc": 0.99609375,
+      "control_auroc": 0.4462890625
+    },
+    {
+      "layer": 2,
+      "val_auroc": 0.16015625,
+      "test_auroc": 0.90234375,
+      "control_auroc": 0.3694661458333333
+    },
+    {
+      "layer": 3,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3977864583333333
+    },
+    {
+      "layer": 4,
+      "val_auroc": 0.921875,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3942057291666667
+    },
+    {
+      "layer": 5,
+      "val_auroc": 0.921875,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5283203125
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6666666666666666
+    },
+    {
+      "layer": 7,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6432291666666666
+    },
+    {
+      "layer": 8,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5953776041666666
+    },
+    {
+      "layer": 9,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5660807291666666
+    },
+    {
+      "layer": 10,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5384114583333334
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.541015625
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5400390625
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5817057291666666
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.54296875
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5546875
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5445963541666666
+    },
+    {
+      "layer": 17,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5113932291666666
+    },
+    {
+      "layer": 18,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4944661458333333
+    },
+    {
+      "layer": 19,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4928385416666667
+    },
+    {
+      "layer": 20,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4886067708333333
+    },
+    {
+      "layer": 21,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4690755208333333
+    },
+    {
+      "layer": 22,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.47265625
+    },
+    {
+      "layer": 23,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4820963541666667
+    },
+    {
+      "layer": 24,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4798177083333333
+    },
+    {
+      "layer": 25,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4736328125
+    },
+    {
+      "layer": 26,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.47265625
+    },
+    {
+      "layer": 27,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.484375
+    },
+    {
+      "layer": 28,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4729817708333333
+    },
+    {
+      "layer": 29,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4944661458333333
+    },
+    {
+      "layer": 30,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4794921875
+    },
+    {
+      "layer": 31,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4716796875
+    }
+  ],
+  "steering": {
+    "concept": "certainty",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "variant": "add",
+    "layers": "9",
+    "direction_source": "diff_of_means",
+    "controllability": 0.09722222222222221,
+    "controllability_ci_low": 0.03472222222222222,
+    "controllability_ci_high": 0.361458333333333,
+    "baseline_behavior": 0.16666666666666666,
+    "max_usable_coeff": 3.0,
+    "ceiling_reason": "no breakage in swept range",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -3.0,
+      "behavior": 0.3333333333333333,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 4.607398788134257,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "I'm a large language model, I don't have any information about the specific project you're referring to. However, I can provide a general assessment based on common factors that might affect project timelines.\n\nTo assess whether a project will finish on time, consider the following:\n\n1. **Project scope**: Is the project scope",
+        "I'd be happy to help you evaluate the investment, but I need more information about it. Can you please provide more details about the investment, such as its type (stock, bond, real estate, etc.), its expected returns, risks, and any other relevant factors?"
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.3333333333333333,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 4.591845154762268,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "I'm a large language model, I don't have any information about the specific project you're referring to. However, I can provide a general assessment based on common factors that might affect project timelines.\n\nTo assess whether a project will finish on time, consider the following factors:\n\n1. **Project complexity**: Is the project",
+        "I'd be happy to help you evaluate the investment, but I need more information about the investment itself. Could you please provide more details, such as the type of investment, its expected returns, risks, and any other relevant factors?"
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.16666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.875,
+      "perplexity": 4.476904471715291,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "I'm happy to help you assess the project's likelihood of finishing on time. However, I would need more information about the project to provide a more accurate assessment. \n\nTo give a better answer, could you please provide some details about the project, such as:\n\n1. What is the project about?\n2. What",
+        "I'd be happy to help, but I need more information about the investment you're considering. Please provide details such as the type of investment, its expected returns, risks, and any other relevant factors."
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.16666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.875,
+      "perplexity": 4.619028091430664,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "I'm happy to help you assess the project's likelihood of finishing on time. However, I would need more information about the project to provide a more accurate assessment. \n\nTo give a better answer, could you please provide the following details:\n\n1. What is the project about?\n2. What is the deadline for the",
+        "I'd be happy to help, but I need more information about the investment you're considering. Please provide details such as the type of investment, its expected returns, risks, and any other relevant factors."
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.16666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.875,
+      "perplexity": 4.619028091430664,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "I'm happy to help you assess the project's likelihood of finishing on time. However, I would need more information about the project to provide a more accurate assessment. \n\nTo give a better answer, could you please provide the following details:\n\n1. What is the project about?\n2. What is the deadline for the",
+        "I'd be happy to help, but I need more information about the investment you're considering. Please provide details such as the type of investment, its expected returns, risks, and any other relevant factors."
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 5.418521881103516,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "I'd be happy to help you assess the project's likelihood of finishing on time. However, I would need more information about the project to provide a more accurate assessment. \n\nTo give a better answer, could you please provide the following details:\n\n1. What is the project about?\n2. What is the deadline for",
+        "I need more information about the investment to provide a judgment. Please provide details such as the type of investment, its expected returns, risks, and any other relevant factors."
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.16666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.875,
+      "perplexity": 5.175146698951721,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "I'd be happy to help you assess the project's likelihood of finishing on time. However, I need more information about the project to provide a more accurate assessment. \n\nTo give a better answer, could you please provide the following details:\n\n1. What is the project about?\n2. What is the deadline for the",
+        "I need more information about the investment to provide a judgment. Please provide details such as the type of investment, its expected returns, risks, and any other relevant factors."
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.3333333333333333,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 4.820283730824788,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "I need more information about the project to provide an accurate assessment. Please provide details such as:\n\n1. Project scope and objectives\n2. Timeline (start and end dates)\n3. Current progress\n4. Resources allocated (team size, budget, etc.)\n5. Any potential risks or challenges\n\nWith this information,",
+        "I need more information about the investment to provide a judgment. Please provide details about the investment, such as its type, risk level, expected returns, and any other relevant factors."
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.3333333333333333,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 4.163777987162272,
+      "repetition": 0.008771929824561412,
+      "broken": false,
+      "samples": [
+        "I need more information about the project to provide an accurate assessment. Please provide details such as:\n\n1. Project scope and objectives\n2. Timeline (start and end dates)\n3. Current progress\n4. Resources allocated (team size, budget, etc.)\n5. Any potential risks or challenges\n\nWith this information,",
+        "I don't have enough information to determine if the investment is a good idea. Please provide more details about the investment, such as its type, risk level, and potential returns."
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "certainty",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "layer": 15,
+    "output_overlap": 0.3684869706630707,
+    "participation_ratio": 19.228666349312263,
+    "low_variance_pc_alignment": 0.006130401045084,
+    "residual_norm": 0.16600847244262695,
+    "n_directions": 5.0,
+    "direction_coherence": 0.2606388111909231,
+    "probe_dom_cosine": 0.7337037988269863,
+    "tuning_shift": null
+  },
+  "gauntlet": null,
+  "judge_model": "Qwen/Qwen2.5-3B-Instruct",
+  "judge_is_self": false
+}
