@@ -258,6 +258,57 @@ def stage_c_ksweep(lm, out_dir: str = OUT_K) -> bool:
     return True
 
 
+def preflight() -> dict:
+    """Print what is actually about to run, and refuse a stale checkout.
+
+    The Qwen validation session swept nine coefficients instead of thirteen
+    because `git clone` into an existing directory fails silently and the cell
+    swallowed it, so the session ran a checkout from before the grid was
+    extended. Nothing in the run said so; it was only visible afterwards by
+    counting points in the result files. Seven hours of GPU time produced a
+    sweep nobody wanted.
+
+    So the run now states its own version before spending anything, and raises
+    if the code does not have the extension it is supposed to have.
+    """
+    import subprocess
+
+    from lbi.pipeline import DEFAULT_COEFFS, EXTENDED_COEFFS
+
+    here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    try:
+        commit = subprocess.run(
+            ["git", "-C", here, "log", "--oneline", "-1"],
+            capture_output=True, text=True, timeout=30).stdout.strip()
+    except Exception as exc:
+        commit = f"(unavailable: {exc})"
+
+    info = {
+        "commit": commit,
+        "default_grid": DEFAULT_COEFFS,
+        "extended_grid": EXTENDED_COEFFS,
+        "judge": JUDGE_MODEL,
+        "judge_fallback": JUDGE_FALLBACK,
+        "stage_order": ["C_ksweep", "B_rejudge", "A_groundtruth"],
+        "models_available": MODELS,
+    }
+    print("commit        :", info["commit"])
+    print("stage A grid  : %d points, %s" % (len(EXTENDED_COEFFS), EXTENDED_COEFFS))
+    print("stage B grid  : %d points (default, for comparability with the 1.5B judge)"
+          % len(DEFAULT_COEFFS))
+    print("judge         : %s (fallback %s)" % (JUDGE_MODEL, JUDGE_FALLBACK))
+    print("stage order   : C, B, A (cheapest first)")
+
+    if set(DEFAULT_COEFFS) > set(EXTENDED_COEFFS) or \
+            max(EXTENDED_COEFFS) <= max(DEFAULT_COEFFS):
+        raise RuntimeError(
+            "stale checkout: EXTENDED_COEFFS does not extend DEFAULT_COEFFS. "
+            "Delete /kaggle/working/lbi-repo and clone again."
+        )
+    print("preflight OK")
+    return info
+
+
 def run_all(models=None) -> dict:
     """Load each model once and run all three stages against it.
 
@@ -266,6 +317,10 @@ def run_all(models=None) -> dict:
     first stopped rather than repeating it.
     """
     from lbi.extraction import load_model
+
+    # Before anything expensive. A stale checkout costs a whole session and is
+    # invisible until the results are counted afterwards.
+    preflight()
 
     if models is None:
         models = MODELS[:1]

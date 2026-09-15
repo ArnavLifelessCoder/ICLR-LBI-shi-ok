@@ -158,6 +158,20 @@ from notebooks.run_kaggle_validation import hf_login_if_available, run_all
 hf_login_if_available()
 ```
 
+Cell 1 must **delete the checkout before cloning**. `git clone` into an existing
+directory fails, and with `|| echo` after it the cell reports nothing and the
+session runs whatever code was already there:
+
+```bash
+!rm -rf /kaggle/working/lbi-repo && GIT_TERMINAL_PROMPT=0 git clone -q https://github.com/ArnavLifelessCoder/ICLR-LBI-shi-ok.git /kaggle/working/lbi-repo && git -C /kaggle/working/lbi-repo log --oneline -1
+```
+
+That cost a seven-hour Qwen session on 2026-09-15: the grid extension had been
+pushed, the notebook cloned nothing, and stage A swept nine coefficients
+instead of thirteen. `run_all` now calls `preflight()` first, which prints the
+commit and the grid and raises if the extension is missing, so the same failure
+costs seconds instead of a session.
+
 ```python
 status = run_all()
 ```
