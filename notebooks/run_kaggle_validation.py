@@ -309,12 +309,20 @@ def preflight() -> dict:
     return info
 
 
-def run_all(models=None) -> dict:
-    """Load each model once and run all three stages against it.
+def run_all(models=None, stages=None) -> dict:
+    """Load each model once and run the requested stages against it.
 
     Defaults to one model, because three do not fit in a session. Pass a list
     to choose which, and resume means a second session picks up where the
     first stopped rather than repeating it.
+
+    `stages` selects a subset by letter, e.g. `stages="A"` or
+    `stages=["C", "A"]`. Stages always execute cheapest first regardless of the
+    order given. This exists because a change can invalidate one stage and not
+    the others: extending the coefficient grid invalidated stage A while
+    leaving B and C, which are already stored, perfectly good. Re-running all
+    three to refresh one of them costs an hour of a twelve-hour session and
+    overwrites results that were fine.
     """
     from lbi.extraction import load_model
 
@@ -326,6 +334,25 @@ def run_all(models=None) -> dict:
         models = MODELS[:1]
     elif isinstance(models, str):
         models = [models]
+
+    # Cheapest first, always. Stage C is ten minutes and stage A is hours, and
+    # in the first run the wall clock arrived during stage A on the third
+    # model, which had therefore produced nothing at all. Ordering by cost
+    # means a truncated session still returns its cheap results.
+    ALL_STAGES = (("C_ksweep", stage_c_ksweep),
+                  ("B_rejudge", stage_b_rejudge),
+                  ("A_groundtruth", stage_a_groundtruth))
+    if stages is None:
+        selected = ALL_STAGES
+    else:
+        want = {s.strip().upper()[0] for s in
+                ([stages] if isinstance(stages, str) else stages)}
+        unknown = want - {"A", "B", "C"}
+        if unknown:
+            raise ValueError(f"unknown stages {sorted(unknown)}; use A, B, C")
+        selected = tuple(t for t in ALL_STAGES if t[0][0] in want)
+    print("stages        : %s" % ", ".join(t[0] for t in selected))
+
     status: dict[str, dict] = {}
     for name in models:
         print("\n" + "=" * 70)
@@ -340,13 +367,7 @@ def run_all(models=None) -> dict:
             continue
         status[name]["load"] = "ok"
 
-        # Cheapest first. Stage C is ten minutes and stage A is hours, and in the
-        # first run the session wall clock arrived during stage A on the third
-        # model, which had therefore produced nothing at all. Ordering by cost
-        # means a truncated session still returns its cheap results.
-        for tag, fn in (("C_ksweep", stage_c_ksweep),
-                        ("B_rejudge", stage_b_rejudge),
-                        ("A_groundtruth", stage_a_groundtruth)):
+        for tag, fn in selected:
             try:
                 fn(lm)
                 status[name][tag] = "ok"
@@ -365,5 +386,11 @@ def run_all(models=None) -> dict:
 
     print("\n" + "=" * 70)
     print(json.dumps(status, indent=2))
-    json.dump(status, open(f"{WORK}/validation_status.json", "w"), indent=2)
+    try:
+        os.makedirs(WORK, exist_ok=True)
+        json.dump(status, open(f"{WORK}/validation_status.json", "w"), indent=2)
+    except OSError as exc:
+        # Off Kaggle there is no /kaggle/working. The status is already printed,
+        # and failing here would throw away a completed run's summary.
+        print(f"(could not write validation_status.json: {exc})")
     return status
