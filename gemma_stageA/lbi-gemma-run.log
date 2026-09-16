@@ -1,0 +1,80 @@
+7.0s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.0s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.0s 3 0.00s - to python to disable frozen modules.
+7.0s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+7.6s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.6s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.6s 7 0.00s - to python to disable frozen modules.
+7.6s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+10.0s 9 [33m9232d07[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m stage A stops paying for a gauntlet it throws away
+14.0s 10 [?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/12.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.5/12.3 MB[0m [31m16.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m4.4/12.3 MB[0m [31m65.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━[0m [32m11.2/12.3 MB[0m [31m159.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m177.5 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.3/12.3 MB[0m [31m93.0 MB/s[0m eta [36m0:00:00[0m
+14.0s 11 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/394.3 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m394.3/394.3 kB[0m [31m24.2 MB/s[0m eta [36m0:00:00[0m
+14.4s 12 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/43.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m6.7/43.1 MB[0m [31m201.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m14.1/43.1 MB[0m [31m215.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━[0m [32m20.7/43.1 MB[0m [31m198.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━[0m [32m27.2/43.1 MB[0m [31m190.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━[0m [32m33.6/43.1 MB[0m [31m188.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m40.1/43.1 MB[0m [31m187.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m203.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m203.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m203.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m203.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m203.7 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m43.1/43.1 MB[0m [31m46.3 MB/s[0m eta [36m0:00:00[0m
+14.5s 13 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/516.0 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m516.0/516.0 kB[0m [31m33.4 MB/s[0m eta [36m0:00:00[0m
+14.5s 14 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/3.4 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m3.4/3.4 MB[0m [31m173.8 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.4/3.4 MB[0m [31m88.2 MB/s[0m eta [36m0:00:00[0m
+30.3s 15 [?25hHF login OK.
+33.7s 16 commit        : 9232d07 stage A stops paying for a gauntlet it throws away
+33.7s 17 stage A grid  : 13 points, [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+33.7s 18 stage B grid  : 9 points (default, for comparability with the 1.5B judge)
+33.7s 19 judge         : Qwen/Qwen2.5-3B-Instruct (fallback Qwen/Qwen2.5-1.5B-Instruct)
+33.7s 20 stage order   : C, B, A (cheapest first)
+33.7s 21 preflight OK
+33.7s 22 stages        : C_ksweep, B_rejudge, A_groundtruth
+33.7s 23 
+33.7s 24 ======================================================================
+33.7s 25 google/gemma-2-9b-it
+33.7s 26 ======================================================================
+57.1s 27 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+57.1s 28 
+57.1s 29 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+210.4s 30 
+210.4s 31 --- C: sensitivity of output overlap to k ---
+675.4s 32 sentiment      k=64 0.236  k=128 0.300  k=512 0.476  k=2048 0.787
+686.5s 33 formality      k=64 0.245  k=128 0.312  k=512 0.463  k=2048 0.774
+697.1s 34 rudeness       k=64 0.244  k=128 0.304  k=512 0.473  k=2048 0.793
+708.4s 35 sycophancy     k=64 0.155  k=128 0.223  k=512 0.425  k=2048 0.768
+718.9s 36 refusal        k=64 0.185  k=128 0.224  k=512 0.388  k=2048 0.752
+730.4s 37 honesty        k=64 0.158  k=128 0.210  k=512 0.395  k=2048 0.774
+734.2s 38 topic_science  k=64 0.286  k=128 0.374  k=512 0.541  k=2048 0.799
+745.1s 39 factuality     k=64 0.172  k=128 0.242  k=512 0.436  k=2048 0.774
+764.3s 40 verbosity      k=64 0.208  k=128 0.283  k=512 0.464  k=2048 0.792
+775.6s 41 certainty      k=64 0.171  k=128 0.235  k=512 0.398  k=2048 0.779
+775.6s 42 wrote /kaggle/working/results_ksweep/google_gemma-2-9b-it_ksweep.json
+775.9s 43 
+775.9s 44 --- B: re-judge with a larger judge ---
+811.6s 45 judge: Qwen/Qwen2.5-3B-Instruct
+3490.9s 46 sentiment      ctrl 0.167
+3490.9s 47 refusal        ctrl 0.139
+3490.9s 48 topic_science  ctrl 0.181
+3490.9s 49 certainty      ctrl 0.153
+3490.9s 50 
+3490.9s 51 --- A: ground truth (no judge) ---
+3490.9s 52 grid: [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+11844.1s 53 NOTE [gt_digits]: the readout returned 0.0 for all 390 generations across every coefficient. This readout is a rule over the generated string, not a judge, so the constant is a measurement rather than an instrument fault: the behavior never occurred at any strength. Controllability is legitimately 0.000.
+14552.5s 54 NOTE [gt_digits]: the readout returned 0.0 for all 390 generations across every coefficient. This readout is a rule over the generated string, not a judge, so the constant is a measurement rather than an instrument fault: the behavior never occurred at any strength. Controllability is legitimately 0.000.
+15523.9s 55 NOTE [gt_french]: the readout returned 0.0 for all 390 generations across every coefficient. This readout is a rule over the generated string, not a judge, so the constant is a measurement rather than an instrument fault: the behavior never occurred at any strength. Controllability is legitimately 0.000.
+18233.8s 56 NOTE [gt_french]: the readout returned 0.0 for all 390 generations across every coefficient. This readout is a rule over the generated string, not a judge, so the constant is a measurement rather than an instrument fault: the behavior never occurred at any strength. Controllability is legitimately 0.000.
+18234.0s 57 NOTE [P9]: 'sentiment' was not in this run, so no control record was written for google/gemma-2-9b-it. Its points will not be withheld at aggregate time -- run the control before reporting.
+18234.3s 58 gt_length      read 1.00  ctrl 0.007
+18234.3s 59 gt_uppercase   read 1.00  ctrl 0.009
+18234.3s 60 gt_digits      read 1.00  ctrl 0.000
+18234.3s 61 gt_french      read 1.00  ctrl 0.001
+18234.5s 62 
+18234.5s 63 ======================================================================
+18234.5s 64 {
+18234.5s 65 "google/gemma-2-9b-it": {
+18234.5s 66 "load": "ok",
+18234.5s 67 "C_ksweep": "ok",
+18234.5s 68 "B_rejudge": "ok",
+18234.5s 69 "A_groundtruth": "ok"
+18234.5s 70 }
+18234.5s 71 }
+18234.9s 72 -rw-r--r-- 1 root root 23748 Sep 16 17:55 gemma_stageA.zip
+18241.8s 73 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+18241.8s 74 cells[i][c] = re.sub('\\\\\|', '|', cell)
+18242.1s 75 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+18242.1s 76 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+18243.1s 77 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+18243.4s 78 [NbConvertApp] Writing 231837 bytes to __notebook__.ipynb
+18245.8s 79 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+18246.8s 80 [NbConvertApp] Writing 459964 bytes to __results__.html

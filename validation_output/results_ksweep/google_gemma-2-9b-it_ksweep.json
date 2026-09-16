@@ -1,0 +1,92 @@
+[
+  {
+    "concept": "sentiment",
+    "model": "google/gemma-2-9b-it",
+    "layer": 21,
+    "overlap_k64": 0.23585689067840576,
+    "overlap_k128": 0.2996652126312256,
+    "overlap_k512": 0.4763862192630768,
+    "overlap_k2048": 0.7869139313697815
+  },
+  {
+    "concept": "formality",
+    "model": "google/gemma-2-9b-it",
+    "layer": 21,
+    "overlap_k64": 0.24514855444431305,
+    "overlap_k128": 0.3119567930698395,
+    "overlap_k512": 0.46318379044532776,
+    "overlap_k2048": 0.7740955948829651
+  },
+  {
+    "concept": "rudeness",
+    "model": "google/gemma-2-9b-it",
+    "layer": 21,
+    "overlap_k64": 0.24378813803195953,
+    "overlap_k128": 0.30405640602111816,
+    "overlap_k512": 0.47259587049484253,
+    "overlap_k2048": 0.7934197783470154
+  },
+  {
+    "concept": "sycophancy",
+    "model": "google/gemma-2-9b-it",
+    "layer": 21,
+    "overlap_k64": 0.15505561232566833,
+    "overlap_k128": 0.2231016606092453,
+    "overlap_k512": 0.42535585165023804,
+    "overlap_k2048": 0.7678842544555664
+  },
+  {
+    "concept": "refusal",
+    "model": "google/gemma-2-9b-it",
+    "layer": 21,
+    "overlap_k64": 0.18459706008434296,
+    "overlap_k128": 0.22435776889324188,
+    "overlap_k512": 0.3878461420536041,
+    "overlap_k2048": 0.751907467842102
+  },
+  {
+    "concept": "honesty",
+    "model": "google/gemma-2-9b-it",
+    "layer": 21,
+    "overlap_k64": 0.15788708627223969,
+    "overlap_k128": 0.21008075773715973,
+    "overlap_k512": 0.3947312533855438,
+    "overlap_k2048": 0.7739534974098206
+  },
+  {
+    "concept": "topic_science",
+    "model": "google/gemma-2-9b-it",
+    "layer": 21,
+    "overlap_k64": 0.2864318788051605,
+    "overlap_k128": 0.37378624081611633,
+    "overlap_k512": 0.5413503050804138,
+    "overlap_k2048": 0.7991563677787781
+  },
+  {
+    "concept": "factuality",
+    "model": "google/gemma-2-9b-it",
+    "layer": 21,
+    "overlap_k64": 0.17233732342720032,
+    "overlap_k128": 0.24239501357078552,
+    "overlap_k512": 0.43583914637565613,
+    "overlap_k2048": 0.773626446723938
+  },
+  {
+    "concept": "verbosity",
+    "model": "google/gemma-2-9b-it",
+    "layer": 21,
+    "overlap_k64": 0.20813098549842834,
+    "overlap_k128": 0.2826719582080841,
+    "overlap_k512": 0.4637109935283661,
+    "overlap_k2048": 0.7916288375854492
+  },
+  {
+    "concept": "certainty",
+    "model": "google/gemma-2-9b-it",
+    "layer": 21,
+    "overlap_k64": 0.17062430083751678,
+    "overlap_k128": 0.23525740206241608,
+    "overlap_k512": 0.3979271948337555,
+    "overlap_k2048": 0.7787812948226929
+  }
+]

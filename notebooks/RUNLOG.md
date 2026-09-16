@@ -967,3 +967,72 @@ Gemma, full run, on the second account. Nothing from the killed Gemma session
 was kept, so it needs all three stages. With the gauntlet disabled in stage A
 that is roughly six hours rather than the twelve-plus that session was heading
 for.
+
+---
+
+## 2026-09-16 -- Kaggle, Gemma full validation run
+
+`run_all(["google/gemma-2-9b-it"])` at commit `9232d07`, the first run with the
+gauntlet disabled in stage A. All three stages ok in 18234s (5.1h), against the
+twelve-plus hours the previous attempt was heading for. The reworded
+constant-readout NOTE appeared as intended, describing a rule rather than a
+judge.
+
+**All sixteen ground-truth points across four models are now on the same
+13-point grid.**
+
+### The withholding is confirmed, not overturned
+
+This run existed to test whether Gemma was withheld because of the judge.
+It was not.
+
+| | 1.5B judge | 3B judge |
+|---|---|---|
+| sentiment, absolute | 0.110 | 0.167 |
+| sentiment, signed | $-0.039$ | $-0.056$ |
+| 95% CI | $[-0.107, +0.002]$ | $[-0.198, +0.103]$ |
+
+Unresolved under both judges, and negative under both. Gemma never demonstrates
+directional sentiment steering regardless of instrument, so the preregistered
+positive control withholds it on a reproducible basis rather than on one
+borderline number. The paper's three-way withholding table stands and its middle
+row remains the one we report.
+
+### Ground truth says the same thing with no judge at all
+
+| concept | Qwen | Mistral | Llama | Gemma |
+|---|---|---|---|---|
+| gt_french | +0.054 * | +0.057 * | +0.040 * | +0.001 |
+| gt_uppercase | +0.017 | +0.181 * | +0.073 * | +0.009 |
+| gt_length | -0.015 | +0.003 | +0.012 | -0.006 |
+| gt_digits | +0.008 | +0.001 | -0.000 | +0.000 |
+
+Nothing resolves on Gemma, and its median absolute area is 0.0040 against 0.0195
+for the other three. With the judge removed entirely, Gemma is still the model
+that does not move. That is independent of the control, of the judge, and of the
+behavioral question, and it is the strongest evidence the study has that the
+withholding tracks the model rather than the instrument.
+
+Across all sixteen points, five resolve and every one is positive. No point
+anywhere in this study resolves in the wrong direction.
+
+### Stage B: the judge swap again
+
+| concept | 1.5B -> 3B | sign |
+|---|---|---|
+| topic_science | 0.007 -> 0.181 | kept |
+| refusal | 0.038 -> 0.139 | kept |
+| certainty | 0.054 -> 0.153 | kept |
+| sentiment | 0.110 -> 0.167 | kept |
+
+`topic_science` rises twenty-six fold, the largest jump of the four models, and
+lands at 0.181 against the 0.05 danger-zone threshold. The danger zone is now
+dead on all four models.
+
+All four Gemma signs hold. Across the sixteen re-judged points the flip count is
+three: `refusal` on Qwen, `refusal` and `certainty` on Mistral.
+
+### Next action
+
+No further compute is required for the current claims. The paper still argues
+the pre-validation story and is the blocking item.
