@@ -1,136 +1,144 @@
 # PLAN_MAIN.md
 
-Expansion plan for the main-conference version of *Legible but Immovable*.
+What it takes to get this paper to an 8, and in what order.
 
 [PLAN.md](PLAN.md) was written under one hard constraint, that nothing in it
-adds compute. That constraint produced a workshop-scoped paper and it is now
-retired: the validation runs of 2026-09-14 to 09-16 spent four Kaggle sessions
-and changed what the paper is about. This document supersedes PLAN.md on scope
-and priority. PLAN.md's Part 1 reviewer model and Part 2 preregistration still
-hold and are not reopened.
+adds compute. That was the right call at the time and it is now retired: the
+validation runs of 2026-09-14 to 09-16 spent four Kaggle sessions and changed
+what the paper is about. PLAN.md's Part 1 reviewer model and Part 2
+preregistration still hold and are not reopened. Scope and priority live here.
 
 ---
 
-## Part 0. Where this actually stands
+## Part 0. The scoring problem, stated plainly
 
-**The experiments are ahead of the paper.** Everything below is measured, in
-`validation_output/`, and none of it is in the PDF, which still argues the
-pre-validation story. That gap is the blocking item and it costs no GPU.
+Reviews of the pre-validation draft landed at 5 and at "marginally below
+acceptance". Both reviewers agreed on the cause, and it was not the writing:
+the headline claim rested on a metric nobody had checked, and the strongest
+result was carried by a concept the paper itself declared invalid.
 
-What the validation established:
+An 8 is not "objections fixed". At an 8 a reviewer argues for the paper in
+discussion, which means the thing being reviewed is the contribution rather than
+the caveats. That is the bar this document is written against.
+
+---
+
+## Part 1. Where this stands
+
+**The experiments are ahead of the paper.** Everything below is measured and
+sitting in `validation_output/`. None of it is in the PDF, which still argues
+the pre-validation story.
 
 | Result | Evidence |
 |---|---|
 | The directional metric works | 5 of 16 ground-truth points resolve, **every one positive**; `gt_french` on 3 of 4 models, `gt_uppercase` on 2 of 4. Nothing anywhere in the study resolves in the wrong direction. |
-| The absolute/signed divergence is the judge's | Directional share 0.993 without a judge (0.978 over all 16) against 0.387 with one |
+| The absolute/signed divergence is the judge's | Directional share 0.993 without a judge against 0.387 with one |
 | Judge-scored magnitudes are not reproducible | 8x to 26x swings between a 1.5B and a 3B judge |
 | Judge-scored signs are not fully reproducible | 3 of 16 re-judged points flip |
 | The danger zone was an artifact | `topic_science` moves from 0.007-0.024 to 0.118-0.260 against a 0.05 threshold, clearing the zone on all four models |
-| Withholding Gemma was correct | Its sentiment control is unresolved and negative under both judges, and with no judge at all its median ground-truth area is 0.0040 against 0.0195 for the other three |
+| Withholding Gemma was correct | Unresolved and negative under both judges, and with no judge at all its median ground-truth area is 0.0040 against 0.0195 for the other three |
 | Output overlap is not stable in k | Rank correlation between k=64 and k=2048 is -0.137 on Qwen and +0.297 on Llama; the partial correlation attenuates from -0.457 to -0.133 |
 
-What the study still cannot support: any claim that steering is undirected.
-Only 3 of 40 judge-scored points have a resolved sign, and the conditional
-framing in the current draft is the correct one.
+What the study still cannot support is any claim that steering is undirected.
+Three of forty judge-scored points have a resolved sign, and the conditional
+framing already in the draft is the correct one.
+
+That set closes the gap the reviewers named. It does not by itself reach an 8,
+because an 8 needs a contribution and this is still shaped as a warning.
 
 ---
 
-## Part 1. The paper this becomes
-
-A methods paper. Main-conference reviewers want the method, its validation, and
-a demonstration on somebody else's work. Two of the three exist.
+## Part 2. The paper this becomes
 
 **C1. A validated diagnostic.** Signed dose-response and the arm split, checked
 against concepts whose intended direction is known by construction because the
-readout is a rule over the generated string. This is the contribution nobody
-else has, and it is what makes every negative statement in the paper safe: the
-instrument demonstrably detects real steering, so a null is about the concept
-rather than about the metric.
+readout is a rule over the generated string rather than a judgment. This is the
+piece that was missing and it is what makes every negative statement elsewhere
+safe: the instrument demonstrably detects real steering, so a null is about the
+concept and not about the metric.
 
 **C2. The standard summary is instrument-dependent.** Absolute dose-response
 area is uncorrelated with direction, diverges from it only when a judge is
 involved, and moves by up to 26x when the judge changes. A published
 controllability number is therefore not comparable across papers.
 
-**C3. What this does to results in the literature.** Missing. For a methods
-paper at this level it is close to mandatory.
+**C3. What the check does to a result in the literature.** Missing, and it is
+the difference between a warning and a standard.
 
-**C4. When directional control is recoverable at all.** Currently one concept's
-worth of signal and not yet a claim. See Part 3.
+**C4. When directional control is recoverable at all.** One concept's worth of
+signal. See Part 4.
 
-The negative results from the original study, the readability-controllability
-dissociation and the inverted geometric predictor, become worked examples inside
-C2 rather than the headline. The danger zone and the immovable/unsteerable
-terminology move to an appendix: both are computed on the metric being disowned,
-and the zone's only occupant does not survive a change of judge.
+The two findings the paper currently leads with, the
+readability-controllability dissociation and the inverted geometric predictor,
+become worked examples inside C2. The danger zone and the
+immovable/unsteerable terminology move to an appendix: both are computed on the
+metric being disowned, and the zone's only occupant does not survive a change of
+judge.
 
 ---
 
-## Part 2. Work queue
+## Part 3. Work queue
 
-Ordered by value per hour. Do not reorder without a reason written down.
+Ordered by value per hour. Do not reorder without writing down why.
 
 ### 1. Rewrite the paper. No GPU.
 
-Blocking everything. Sections 5.1 and 5.2 shrink, the gauntlet apparatus moves
-to an appendix, the ground-truth experiment gets the section it does not have,
-and the abstract leads with C1 rather than with the dissociation.
+Blocking everything else. Results in JSON while the PDF says something else are
+worth nothing. Sections 5.1 and 5.2 shrink, the gauntlet moves to an appendix,
+the ground-truth experiment gets the section it does not have, and the abstract
+leads with C1.
 
 Gate: no number appears in the PDF that is not reproduced by a script in
-`scripts/`. The stale-figure episode of 2026-09-15, where three figure titles
-advertised the 40-point sample on 30-point plots, is the reason this is a gate
-and not a preference.
+`scripts/`. On 2026-09-15 three figure titles advertised the 40-point sample on
+30-point plots, which is why this is a gate and not a preference.
 
 ### 2. Re-score one published steering result. One session.
 
-Take a concept and model from ActAdd \citep{turner2023actadd} or CAA
-\citep{panickssery2023caa}, reproduce the published sweep on our harness, and
-report both summaries.
+Take a concept and model from ActAdd or CAA, reproduce the published sweep on
+this harness, report both summaries.
 
-Both outcomes are publishable and the paper should be written so that either
-can be dropped in:
+Both outcomes are publishable and the paper should be written so either drops
+in:
 
 - the effect shrinks or flips under the signed metric, which is the abstract's
-  first sentence and the reason a reviewer argues for the paper;
+  first sentence;
 - the effect holds, which shows the check is applicable rather than a
-  complaint, and the recommendation becomes "here is the check and here is a
+  complaint, and the recommendation becomes "here is the check, and here is a
   case that passes it".
 
-Pre-commit to reporting whichever occurs, in writing, before the run.
+Pre-commit in writing to reporting whichever occurs, before the run.
 
-### 3. Concepts 10 to 20+, and ground-truth concepts 4 to 10. Two to three sessions.
+### 3. Concepts 10 to 20+, ground-truth concepts 4 to 10. Two to three sessions.
 
-The single largest credibility win. The Limitations already concede that
-cluster inference over-rejects at ten clusters and that the interval on the
-primary test is indicative rather than exact; a main-conference reviewer will
-quote that sentence back. Twenty concepts is engineering on template-generated
-stimuli, not research.
+The largest credibility win available. The Limitations already concede that
+cluster inference over-rejects at ten clusters and that the primary interval is
+indicative rather than exact; a reviewer will quote that back. Twenty concepts
+is engineering on template-generated stimuli, not research.
 
 Design constraint that matters for C4: choose ground-truth readouts whose
 **baseline position varies independently of the concept**. The current four do
-not, which is why Part 3 is not yet a contribution.
+not, which is exactly why Part 4 is not yet a result.
 
 ### 4. Evaluation prompts 6 to 30 on the judge-scored concepts. Folded into 3.
 
 Appendix B states that six prompts bound the resolution of every number
-computed from them. The ground-truth concepts already use thirty. There is no
-reason for the judge-scored ones to keep the lower bound once they are being
-re-run anyway.
+computed from them. The ground-truth concepts already use thirty. No reason to
+keep the lower bound on concepts being re-run anyway.
 
 ### 5. Scale sweep. One to two sessions.
 
 All four models are instruction-tuned and between 7B and 9B. `run_kaggle.py`
-already lists Qwen 0.5B, 1.5B and 3B for exactly this. Whether the
-absolute/signed divergence grows or shrinks with scale is a question a reviewer
-will ask and the answer is cheap.
+already lists Qwen 0.5B, 1.5B and 3B for this. Whether the absolute/signed
+divergence grows or shrinks with scale is a question that will be asked and the
+answer is cheap.
 
 ---
 
-## Part 3. The mechanism question, and why it is not yet a contribution
+## Part 4. The mechanism question, and why it is not yet a result
 
 Across all 56 measured points, headroom -- how far the unsteered baseline sits
 from the nearer extreme of the readout -- correlates $-0.448$ with whether a
-sign resolves. The direction is the opposite of the naive expectation: concepts
+sign resolves. The direction is the opposite of the obvious guess: concepts
 whose baseline sits at a **floor** resolve, mid-range ones do not.
 
 | concept | baseline | resolves |
@@ -140,47 +148,51 @@ whose baseline sits at a **floor** resolve, mid-range ones do not.
 | `gt_digits` | 0.00 | 0 of 4 |
 | `gt_length` | 0.55-0.69 | 0 of 4 |
 
-It is interpretable: a behavior the model never produces by default can be
-pushed into unambiguously, while a mid-range behavior drifts both ways and the
-signed area cancels.
+It is interpretable. A behavior the model never produces by default can be
+pushed into unambiguously; a mid-range behavior drifts both ways and the signed
+area cancels.
 
-It is also, at four ground-truth concepts, effectively n=1. "Mid-range never
+At four ground-truth concepts it is also effectively n=1. "Mid-range never
 resolves" is "`gt_length` never resolves", and headroom cannot be separated from
 concept identity. Publishing it as a predictor would be the same overclaiming
-the reviewers already caught, which is why item 3 above carries a design
-constraint rather than this section carrying a result.
+the reviewers already caught, which is why item 3 carries a design constraint
+instead of this section carrying a finding.
 
-**Decision required before item 3 runs:** commit to writing the mechanism
-section whatever it returns, including null. A validated tool plus an honest
-null is a strong main-conference paper. A predictor fitted to `gt_length` is
-not.
+If it survives ten ground-truth concepts with baselines that vary
+independently, the paper stops being purely negative and gains a second
+contribution. That is the most plausible route to an 8 that does not depend on
+somebody else's published numbers.
+
+**Decision required before item 3 runs:** commit to writing this section
+whatever it returns, including null. A validated tool plus an honest null is
+strong. A predictor fitted to one concept is not.
 
 ---
 
-## Part 4. Open decisions
+## Part 5. Open decisions
 
-**Venue and deadline.** Unset. This determines whether items 3 to 5 are
-feasible or whether the paper ships on items 1 and 2. Everything above is
-written so that 1 and 2 alone produce a coherent submission.
+**Deadline.** Unset. This determines whether items 3 to 5 are feasible or
+whether the paper ships on 1 and 2. Everything above is written so that 1 and 2
+alone produce a coherent submission.
 
 **Whether Gemma stays withheld.** Yes, and it is now settled on evidence rather
 than judgment: unresolved and negative under two judges, and the least movable
-model with no judge in the loop at all. The three-way withholding table stays,
+model with no judge in the loop at all. The three-way withholding table stays
 and its middle row remains the reported one.
 
 **Whether to keep the four-layer band.** Yes, for now. All sixteen ground-truth
-points are swept with it and controllability over a band is a maximum across
+points are swept with it, and controllability over a band is a maximum across
 four layers, which is not comparable to a single layer. If item 3 re-sweeps
-everything anyway, single-layer becomes available and is four times cheaper;
+everything anyway, single-layer becomes available at a quarter of the cost;
 that is the moment to switch, not before.
 
 ---
 
-## Part 5. Declined, recorded so the decision is visible
+## Part 6. Declined, recorded so the decision is visible
 
-- **A second and third human annotator.** The right fix for the judge, and
-  outside a solo budget. The paper says so in Limitations and the ground-truth
-  experiment is the substitute: it removes the judge rather than averaging it.
+- **A second and third human annotator.** The right fix for the judge and
+  outside a solo budget. Limitations says so, and the ground-truth experiment is
+  the substitute: it removes the judge rather than averaging it.
 - **Models above 9B.** Free-tier T4s. The scale sweep goes downward instead.
 - **A paid API judge.** Same reason, and it would break the released pipeline's
   reproducibility.
