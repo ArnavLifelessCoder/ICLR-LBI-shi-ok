@@ -212,67 +212,93 @@
     "concept": "gt_digits",
     "model": "meta-llama/Llama-3.1-8B-Instruct",
     "variant": "add",
-    "layers": "13",
+    "layers": "21",
     "direction_source": "diff_of_means",
-    "controllability": 0.0009695503130418218,
-    "controllability_ci_low": 0.0005945107640613572,
-    "controllability_ci_high": 0.004361306366551922,
+    "controllability": 0.0008629823951229375,
+    "controllability_ci_low": 0.000397749879430282,
+    "controllability_ci_high": 0.003628418611180853,
     "baseline_behavior": 0.004917261441703356,
-    "max_usable_coeff": 3.0,
+    "max_usable_coeff": 5.0,
     "ceiling_reason": "no breakage in swept range",
     "judge_degenerate": false
   },
   "curve": [
     {
-      "coeff": -3.0,
-      "behavior": 0.0058740905641594295,
+      "coeff": -5.0,
+      "behavior": 0.004474664218958044,
       "behavior_ci_low": 0.0,
-      "behavior_ci_high": 0.03692319176792151,
-      "perplexity": 4.100886146227519,
-      "repetition": 0.0006410256410256424,
+      "behavior_ci_high": 0.03155088265835929,
+      "perplexity": 4.002826150258382,
+      "repetition": 0.005955406911928655,
       "broken": false,
       "samples": [
-        "The photography club meeting was held at the local community center, with a diverse group of enthusiasts gathered to share their passion for photography. The room was filled with the buzz of conversation as members set up their displays and equipment.\n\nThe meeting began with a brief introduction by the club president, who welcomed everyone and outlined the agenda for",
-        "The photography club meeting is a great opportunity for photographers to share their experiences, learn from one another, and get feedback on their work. Here are some key things someone should know about the photography club meeting:\n\n1.  **Agenda**: The club usually starts with a brief introduction by the president or the host, followed"
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all over the city. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
+        "Here are some general points about a photography club meeting:\n\n1.  **Objective**: The primary goal of a photography club meeting is to bring together individuals who share a passion for photography to share their experiences, learn from one another, and improve their photography skills.\n2.  **Agenda**: Meetings often include a mix"
+      ]
+    },
+    {
+      "coeff": -4.0,
+      "behavior": 0.004224376219811518,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.03155088265835929,
+      "perplexity": 4.193246881167094,
+      "repetition": 0.003955406911928653,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all over the city. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
+        "Here are some general points about a photography club meeting:\n\n1.  **Objective**: The primary goal of a photography club meeting is to bring together individuals who share a passion for photography to share their experiences, learn from one another, and improve their photography skills.\n2.  **Agenda**: Meetings often include a mix"
+      ]
+    },
+    {
+      "coeff": -3.0,
+      "behavior": 0.004172390766048885,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.030683361290837922,
+      "perplexity": 4.261549782752991,
+      "repetition": 0.0033415329153053306,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all over the city. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
+        "Here are some general points about a photography club meeting:\n\n1.  **Objective**: The primary goal of a photography club meeting is to bring together individuals who share a passion for photography to share their experiences, learn from one another, and improve their photography skills.\n2.  **Agenda**: Meetings often include a mix"
       ]
     },
     {
       "coeff": -2.0,
-      "behavior": 0.006247405978484958,
+      "behavior": 0.0036630914791071878,
       "behavior_ci_low": 0.0,
-      "behavior_ci_high": 0.041928345286554224,
-      "perplexity": 3.9732579708099367,
-      "repetition": 0.0013071895424836592,
+      "behavior_ci_high": 0.030683361290837922,
+      "perplexity": 4.125718355178833,
+      "repetition": 0.001948717948717952,
       "broken": false,
       "samples": [
-        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. The meeting was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed",
-        "Here are some general points about photography clubs that you might find helpful:\n\n1.  **Objective**: The primary goal of a photography club is to bring together individuals who share a passion for photography, providing a platform for learning, sharing, and improving their photography skills.\n\n2.  **Meetings**: Photography clubs usually hold"
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all over the city. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
+        "Here are some general points about a photography club meeting:\n\n1.  **Objective**: The primary goal of a photography club meeting is to bring together individuals who share a passion for photography to share their experiences, learn from one another, and improve their photography skills.\n2.  **Agenda**: Meetings often include a mix"
       ]
     },
     {
       "coeff": -1.0,
-      "behavior": 0.0051409662929927215,
+      "behavior": 0.003923688360549977,
       "behavior_ci_low": 0.0,
-      "behavior_ci_high": 0.039690560649666445,
-      "perplexity": 3.901401734352112,
+      "behavior_ci_high": 0.03081125693684935,
+      "perplexity": 4.00218075911204,
       "repetition": 0.0013076923076923096,
       "broken": false,
       "samples": [
-        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
-        "Here are some general points about a photography club meeting:\n\n1.  **Objective**: The primary goal of a photography club meeting is to bring together individuals who share a passion for photography to share their experiences, learn from one another, and improve their photography skills.\n\n2.  **Agenda**: Meetings often include a variety"
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all over the city. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
+        "Here are some general points about a photography club meeting:\n\n1.  **Objective**: The primary goal of a photography club meeting is to bring together individuals who share a passion for photography to share their experiences, learn from one another, and improve their photography skills.\n2.  **Agenda**: Meetings often include a mix"
       ]
     },
     {
       "coeff": -0.5,
-      "behavior": 0.0042018122829345465,
+      "behavior": 0.005332216935906185,
       "behavior_ci_low": 0.0,
-      "behavior_ci_high": 0.030683361290837922,
-      "perplexity": 3.9253891706466675,
-      "repetition": 0.0013076923076923096,
+      "behavior_ci_high": 0.040228603289657064,
+      "perplexity": 3.9710405349731444,
+      "repetition": 0.0012946204122674739,
       "broken": false,
       "samples": [
         "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
-        "Here are some general points about a photography club meeting:\n\n1.  **Objective**: The primary goal of a photography club meeting is to bring together individuals who share a passion for photography to share their experiences, learn from one another, and improve their photography skills.\n\n2.  **Agenda**: The agenda may include presentations"
+        "Here are some general points about a photography club meeting:\n\n1.  **Objective**: The primary goal of a photography club meeting is to bring together individuals who share a passion for photography to share their experiences, learn from one another, and improve their photography skills.\n2.  **Agenda**: Meetings often include a mix"
       ]
     },
     {
@@ -290,54 +316,80 @@
     },
     {
       "coeff": 0.5,
-      "behavior": 0.006415337386996843,
+      "behavior": 0.004978177849888404,
       "behavior_ci_low": 0.0,
-      "behavior_ci_high": 0.04195424836601304,
-      "perplexity": 4.184387024243673,
-      "repetition": 0.0030048173424327604,
+      "behavior_ci_high": 0.03860161197466895,
+      "perplexity": 4.040788745880127,
+      "repetition": 0.00129559748427673,
       "broken": false,
       "samples": [
         "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
-        "Before attending a photography club meeting, here are some things you might want to know:\n\n1. **Agenda**: Check if the club has a set agenda or if it's an open discussion. Knowing what to expect can help you prepare and make the most of your time.\n2. **Objective**: Understand the purpose of"
+        "Here are some general points about a photography club meeting:\n\n1.  **Objective**: The primary goal of a photography club meeting is to bring together photography enthusiasts to share their experiences, learn from each other, and improve their photography skills.\n2.  **Agenda**: The agenda may include presentations, workshops, critiques,"
       ]
     },
     {
       "coeff": 1.0,
-      "behavior": 0.006197955134361943,
+      "behavior": 0.004991396498965344,
       "behavior_ci_low": 0.0,
-      "behavior_ci_high": 0.04319196428571427,
-      "perplexity": 4.620230412483215,
-      "repetition": 0.0030425531914893647,
+      "behavior_ci_high": 0.03860161197466895,
+      "perplexity": 4.076933519045512,
+      "repetition": 0.0006666666666666673,
       "broken": false,
       "samples": [
-        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the members arrived, they were greeted by the club's president, who welcomed them",
-        "To provide information about a photography club meeting, I'll cover some general points that are typically relevant. However, please note that specific details may vary depending on the club and its activities.\n\n**General Information:**\n\n1.  **Purpose:** The primary goal of a photography club meeting is to bring together photography enthusiasts to share"
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
+        "Here are some general points about a photography club meeting:\n\n1. **Agenda**: The club usually starts with an agenda, which may include a review of past events, discussion of upcoming events, and announcements.\n2. **Guest speaker or presentation**: Many photography clubs invite a guest speaker or have a member present on a"
       ]
     },
     {
       "coeff": 2.0,
-      "behavior": 0.0036829701357251926,
+      "behavior": 0.004048778318071224,
       "behavior_ci_low": 0.0,
-      "behavior_ci_high": 0.03128479480121691,
-      "perplexity": 4.675070444742839,
-      "repetition": 0.0027687904430064745,
+      "behavior_ci_high": 0.03382991047919958,
+      "perplexity": 4.062005726496379,
+      "repetition": 0.0006666666666666673,
       "broken": false,
       "samples": [
-        "The photography club meeting is a gathering of photography enthusiasts who come together to share their passion for photography, learn from each other, and discuss various aspects of the art and craft of photography. Here's a descriptive overview of what a typical photography club meeting might look like:\n\n**Setting:** The meeting is usually held in a community",
-        "To provide information about a photography club meeting, I'll need more details. However, I can give you a general outline of what someone might want to know about such an event.\n\nHere are some key points:\n\n1. **Date and Time**: The date and time of the meeting, including the day of the week and"
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
+        "Here are some general points about a photography club meeting:\n\n1. **Agenda**: The club usually starts with an agenda, which may include a review of past events, discussion of upcoming events, and announcements.\n2. **Guest speaker or presentation**: Many photography clubs invite a guest speaker or have a member present on a"
       ]
     },
     {
       "coeff": 3.0,
-      "behavior": 0.0038384814131613237,
+      "behavior": 0.0034442393590893143,
       "behavior_ci_low": 0.0,
-      "behavior_ci_high": 0.03358042412304597,
-      "perplexity": 4.841293056805928,
-      "repetition": 0.004044221361294535,
+      "behavior_ci_high": 0.03128479480121691,
+      "perplexity": 4.45049508412679,
+      "repetition": 0.0013605442176870763,
       "broken": false,
       "samples": [
-        "The photography club meeting is about to begin. The room is filled with a mix of excitement and anticipation as members of the club gather around the large table. The club's president, a passionate photographer with a keen eye for detail, stands at the head of the table, a warm smile on her face.\n\nTo her right",
-        "I don't have any information about a specific photography club meeting. However, I can provide general information about what someone might expect at a photography club meeting. \n\nA photography club meeting is typically a gathering of photography enthusiasts where they share their experiences, learn from each other, and discuss various aspects of photography. Here are some"
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
+        "Since I don't have any specific information about a particular photography club meeting, I'll provide general information about what someone might expect or want to know about a photography club meeting.\n\n**Typical Photography Club Meeting Topics:**\n\n1. **Agenda:** The meeting may cover various topics, such as:\n\t* Club news"
+      ]
+    },
+    {
+      "coeff": 4.0,
+      "behavior": 0.0033232467568995077,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.031372098368191215,
+      "perplexity": 4.535678561528524,
+      "repetition": 0.00338775510204082,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the members arrived, they were greeted by the club's president, who welcomed them",
+        "Since I don't have any specific information about a particular photography club meeting, I'll provide general information about what someone might expect or want to know about a photography club meeting.\n\n**Typical Photography Club Meeting Topics:**\n\n1. **Agenda:** The meeting may cover various topics such as:\n\t* Upcoming events"
+      ]
+    },
+    {
+      "coeff": 5.0,
+      "behavior": 0.003432536374385846,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.031372098368191215,
+      "perplexity": 4.736085001627604,
+      "repetition": 0.0027210884353741525,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. The meeting was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed",
+        "Since I don't have any specific information about a particular photography club meeting, I'll provide general information about what someone might expect or want to know about a photography club meeting.\n\n**Typical Photography Club Meeting Topics:**\n\n1. **Agenda:** The meeting may cover various topics such as:\n\t* Upcoming events"
       ]
     }
   ],
@@ -356,14 +408,14 @@
   },
   "gauntlet": {
     "per_variant": {
-      "add:diff_of_means": 0.0003832871969540838,
-      "add_all:diff_of_means": 0.0006474939396792271,
-      "clamp:diff_of_means": 0.0005545615723906288,
-      "ablate:diff_of_means": 0.0005903557980167915,
-      "add:probe_weights": 0.00022041245582813456,
-      "add:repe_reading_vector": 0.0003014159886724895
+      "add:diff_of_means": 0.0005679352153831246,
+      "add_all:diff_of_means": 0.0011321420939055672,
+      "clamp:diff_of_means": 0.0004276151655534662,
+      "ablate:diff_of_means": 0.0006118232815810385,
+      "add:probe_weights": 0.0003673346367903307,
+      "add:repe_reading_vector": 0.0005070829283597288
     },
-    "best_controllability": 0.0006474939396792271,
+    "best_controllability": 0.0011321420939055672,
     "immovable": true,
     "n_interventions_tested": 6,
     "verdict": "immovable: resisted all 6 tested interventions (4 variants x diff-of-means, plus probe weights and the RepE reading vector); best controllability 0.001 < 0.05"

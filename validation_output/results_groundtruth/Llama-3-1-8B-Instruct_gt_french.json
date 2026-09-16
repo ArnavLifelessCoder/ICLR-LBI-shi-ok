@@ -214,15 +214,41 @@
     "variant": "add",
     "layers": "9",
     "direction_source": "diff_of_means",
-    "controllability": 0.004744212223561682,
-    "controllability_ci_low": 0.002330278734271546,
-    "controllability_ci_high": 0.007566115348248549,
+    "controllability": 0.0396808831353447,
+    "controllability_ci_low": 0.03475914809510576,
+    "controllability_ci_high": 0.04513909334483814,
     "baseline_behavior": 0.0,
-    "max_usable_coeff": 3.0,
+    "max_usable_coeff": 5.0,
     "ceiling_reason": "no breakage in swept range",
     "judge_degenerate": false
   },
   "curve": [
+    {
+      "coeff": -5.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 4.424556342760722,
+      "repetition": 0.0031959953792837894,
+      "broken": false,
+      "samples": [
+        "I don't have any information about a specific photography club meeting. Could you provide more details or context about the meeting you're referring to?",
+        "I'd be happy to provide information about photography clubs. However, I need a bit more context. Could you please provide more details about the specific photography club you're referring to, such as its name, location, or any other relevant information? This will help me provide a more accurate and helpful response.\n\nThat being said"
+      ]
+    },
+    {
+      "coeff": -4.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 4.5375730991363525,
+      "repetition": 0.0053979928218629404,
+      "broken": false,
+      "samples": [
+        "I don't have any information about a specific photography club meeting. Could you provide more context or details about the meeting you're referring to?",
+        "However, I don't have any information about a specific photography club meeting. Could you provide more context or details about the club you're referring to, such as its name, location, or any other relevant information? This will help me provide a more accurate and helpful response.\n\nIf you're looking for general information about photography"
+      ]
+    },
     {
       "coeff": -3.0,
       "behavior": 0.0,
@@ -339,6 +365,32 @@
         "The photography club meeting was held dans une salle de conf\u00e9rence spacieuse dans le centre-ville. Les membres du club \u00e9taient assis autour d'une grande table, avec des ordinateurs portables et des appareils photo \u00e9parpill\u00e9s sur la table. \n\nLorsque le pr\u00e9sident du club,",
         "Here are some things someone might want to know about a photography club meeting:\n\n1. **Agenda**: Check the meeting's agenda to know what topics will be discussed, such as guest speakers, photo contests, or club events.\n2. **Guest speakers**: Some meetings may feature guest speakers who are professional photographers or experts"
       ]
+    },
+    {
+      "coeff": 4.0,
+      "behavior": 0.2244285009466757,
+      "behavior_ci_low": 0.1275,
+      "behavior_ci_high": 0.33988095238095234,
+      "perplexity": 5.144875892003378,
+      "repetition": 0.007284930988844777,
+      "broken": false,
+      "samples": [
+        "Le 26 juillet 2024, le club de photographie se r\u00e9unit dans une salle de conf\u00e9rence bien \u00e9clair\u00e9e. Les membres du club, venus de divers horizons, se sont rassembl\u00e9s pour discuter de leurs projets photographiques r\u00e9cents et partager leurs exp\u00e9riences.",
+        "Je suis ravi de vous aider ! \n\nVoici quelques informations importantes sur la r\u00e9union du club de photographie :\n\n1. **Date et heure** : La r\u00e9union aura lieu le [jour et l'heure sp\u00e9cifi\u00e9s] au [lieu sp\u00e9cifi\u00e9].\n2. **Objet de la r\u00e9union"
+      ]
+    },
+    {
+      "coeff": 5.0,
+      "behavior": 0.23089956744806228,
+      "behavior_ci_low": 0.08597058823529412,
+      "behavior_ci_high": 0.40130952380952384,
+      "perplexity": 4.924500664075215,
+      "repetition": 0.014390317242104858,
+      "broken": false,
+      "samples": [
+        "Le club de photographie se r\u00e9unit dans la salle de conf\u00e9rence de l'\u00e9cole. Les membres du club sont assis autour de la table, avec des appareils photo et des accessoires de photographie \u00e9parpill\u00e9s sur la table. Le pr\u00e9sident du club, une jeune femme avec des lun",
+        "Voici quelques informations importantes sur la r\u00e9union du club de photographie :\n\n1. **Date et heure** : La r\u00e9union aura lieu le [jour et l'heure sp\u00e9cifi\u00e9s] au [lieu sp\u00e9cifi\u00e9].\n2. **Objet de la r\u00e9union** : La r\u00e9union sera consacr\u00e9e"
+      ]
     }
   ],
   "geometry": {
@@ -356,17 +408,17 @@
   },
   "gauntlet": {
     "per_variant": {
-      "add:diff_of_means": 0.0,
-      "add_all:diff_of_means": 0.022249092965974843,
-      "clamp:diff_of_means": 0.006876483501954347,
+      "add:diff_of_means": 0.0016359968612161332,
+      "add_all:diff_of_means": 0.015892209261410602,
+      "clamp:diff_of_means": 0.004911773929967391,
       "ablate:diff_of_means": 0.0,
-      "add:probe_weights": 0.0,
-      "add:repe_reading_vector": 0.0
+      "add:probe_weights": 0.005836350194720122,
+      "add:repe_reading_vector": 0.0008422013698677693
     },
-    "best_controllability": 0.022249092965974843,
+    "best_controllability": 0.015892209261410602,
     "immovable": true,
     "n_interventions_tested": 6,
-    "verdict": "immovable: resisted all 6 tested interventions (4 variants x diff-of-means, plus probe weights and the RepE reading vector); best controllability 0.022 < 0.05"
+    "verdict": "immovable: resisted all 6 tested interventions (4 variants x diff-of-means, plus probe weights and the RepE reading vector); best controllability 0.016 < 0.05"
   },
   "judge_model": null,
   "judge_is_self": null

@@ -914,3 +914,56 @@ rests on an unresolved sign, CI $[-0.107, +0.002]$ under the 1.5B judge. If the
 3B judge resolves it positive the withholding was a judge artifact and the
 40-point sample comes back. Then Llama stage A on the extended grid,
 `stages="A"`, since its B and C are current.
+
+---
+
+## 2026-09-16 -- Kaggle, Llama stage A on the extended grid
+
+`run_all(["meta-llama/Llama-3.1-8B-Instruct"], stages="A")` at commit
+`5c80f1f`, which is before the gauntlet fix, so the six discarded interventions
+were still being paid for. It finished anyway in 24904s (6.9h), inside the wall
+clock. Output in `validation_output llama stage a/`, consolidated into
+`validation_output/`, replacing the superseded 9-point files.
+
+**All twelve ground-truth points are now on the same 13-point grid** across
+Qwen, Mistral and Llama, with the same band and the same gauntlet behaviour, so
+they sit in one table without a protocol caveat.
+
+The extended grid changed Llama's numbers substantially:
+
+| concept | 9-point | 13-point |
+|---|---|---|
+| gt_uppercase | 0.027 | 0.074 |
+| gt_french | 0.005 | 0.040 |
+| gt_length | 0.011 | 0.013 |
+| gt_digits | 0.001 | 0.001 |
+
+### gt_french replicates on all three models
+
+| concept | Qwen | Mistral | Llama |
+|---|---|---|---|
+| gt_french | +0.054 * | +0.057 * | +0.040 * |
+| gt_uppercase | +0.017 | +0.181 * | +0.073 * |
+| gt_length | -0.015 | +0.003 | +0.012 |
+| gt_digits | +0.008 | +0.001 | -0.000 |
+
+`*` marks a signed area whose interval excludes zero. Five of twelve points
+resolve, **every one of them positive**, and not a single point anywhere in the
+study resolves in the wrong direction. `gt_french` resolves on all three models
+and `gt_uppercase` on two of three.
+
+Median directional share is 0.993 over the ten points whose absolute area
+exceeds 0.005, and 0.978 over all twelve, against 0.387 on the judge-scored
+concepts.
+
+`gt_french` tripped the constant-readout guard on three sub-runs, which is the
+guard behaving correctly: those layers produced no French at any coefficient
+while others did, and the concept still finishes at 0.040. The warning text
+called it a judge failure, which it is not; fixed in `9232d07`.
+
+### Next action
+
+Gemma, full run, on the second account. Nothing from the killed Gemma session
+was kept, so it needs all three stages. With the gauntlet disabled in stage A
+that is roughly six hours rather than the twelve-plus that session was heading
+for.
