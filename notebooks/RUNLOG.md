@@ -839,3 +839,78 @@ Run **Qwen** next, full session, `run_all(["Qwen/Qwen2.5-7B-Instruct"])`. It
 needs stage B, which OOMed, and stage A, which was lost with session 1's
 working directory. About six hours with the new stage order. Then Mistral on
 the same basis. Download `validation_output` before the session expires.
+
+---
+
+## 2026-09-15/16 -- Kaggle, validation reruns (Qwen, Mistral) on the extended grid
+
+**Environment.** Two accounts in parallel, commit `5c80f1f` or later, verified
+by `preflight()` printing the commit and grid before loading anything. Stage A
+on the 13-point extended grid; stage B on the 9-point default for comparability
+with the 1.5B judge. Qwen and Mistral are ungated so neither session needed a
+secret.
+
+Both models: all three stages ok. Outputs consolidated into
+`validation_output/`. Llama's stage A there is still the 9-point grid and is
+flagged as such; its B and C are current.
+
+### Stage A: the diagnostic is validated
+
+Three ground-truth signs resolve, on two models, **all positive and all in the
+intended direction**. Nothing resolves the wrong way anywhere.
+
+| concept | model | signed | 95% CI |
+|---|---|---|---|
+| gt_uppercase | Mistral | +0.181 | [+0.147, +0.215] |
+| gt_french | Mistral | +0.057 | [+0.040, +0.075] |
+| gt_french | Qwen | +0.054 | [+0.033, +0.076] |
+
+`gt_french` resolving on both models is the replication that matters: steering
+makes the model speak French, fluently, and the signed metric recovers the known
+direction with an interval excluding zero.
+
+The extended grid earned its cost on Mistral. `gt_uppercase` was invisible on
+the old grid and now runs 0.03 at baseline to 0.55 at +2, 0.77 at +3 and 0.75 at
++4, all under the fluency ceiling, breaking only at +5. That is a
+twenty-five-fold behavioral change that the 9-point sweep never reached.
+
+**Directional share on ground truth: median 0.983**, or 0.993 across the nine
+points whose absolute area exceeds 0.005. Against 0.387 on the judge-scored
+concepts. With the judge removed the two summaries coincide; the divergence the
+paper is built around is the judge's.
+
+Two concepts still fail to resolve and both reasons are legible rather than
+mysterious. `gt_digits` moves only past the ceiling: on Qwen it reaches 0.21 at
++4 and 0.55 at +5, both broken on perplexity. `gt_length` has no consistent
+response on any model.
+
+### Stage B: a quarter of the signs flip
+
+| concept | Qwen | Mistral | Llama |
+|---|---|---|---|
+| topic_science | 0.019 -> 0.260 | 0.024 -> 0.201 | 0.011 -> 0.118 |
+| refusal | 0.047 -> 0.208, **flip** | 0.038 -> 0.056, **flip** | 0.033 -> 0.097 |
+| certainty | 0.123 -> 0.153 | 0.113 -> 0.056, **flip** | 0.049 -> 0.097 |
+| sentiment | 0.215 -> 0.345 | 0.163 -> 0.257 | 0.101 -> 0.083 |
+
+Three of twelve signs flip when the judge changes from 1.5B to 3B. The earlier
+reading that signs are judge-robust came from Llama alone, where none flipped,
+and is withdrawn.
+
+`topic_science` rises by eight to fourteen times on every model and lands at
+0.118 to 0.260 against the 0.05 threshold that made it the danger zone's only
+confirmed occupant. Under the larger judge it is four to five times clear of the
+zone on all three models. The danger zone does not survive a change of
+instrument.
+
+`sentiment` resolves positive under both judges on Qwen and Mistral, so the
+positive control holds where it held before.
+
+### Next action
+
+Gemma, full run, `run_all(["google/gemma-2-9b-it"])` on the account holding the
+HF token. Its sentiment control is the reason it is withheld and that decision
+rests on an unresolved sign, CI $[-0.107, +0.002]$ under the 1.5B judge. If the
+3B judge resolves it positive the withholding was a judge artifact and the
+40-point sample comes back. Then Llama stage A on the extended grid,
+`stages="A"`, since its B and C are current.

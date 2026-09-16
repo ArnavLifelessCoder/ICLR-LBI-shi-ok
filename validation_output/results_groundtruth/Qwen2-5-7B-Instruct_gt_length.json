@@ -1,0 +1,401 @@
+{
+  "probe": {
+    "concept": "gt_length",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "best_layer": 13,
+    "readability": 1.0,
+    "control_auroc": 0.5841666666666666,
+    "selectivity": 0.4158333333333334,
+    "auroc_ci_low": 1.0,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "lengthy",
+    "n_train": 80,
+    "n_test": 20,
+    "n_val": 20,
+    "control_flagged": false
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4975
+    },
+    {
+      "layer": 1,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4133333333333333
+    },
+    {
+      "layer": 2,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4633333333333332
+    },
+    {
+      "layer": 3,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5025000000000001
+    },
+    {
+      "layer": 4,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5475
+    },
+    {
+      "layer": 5,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5458333333333333
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5791666666666667
+    },
+    {
+      "layer": 7,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6150000000000001
+    },
+    {
+      "layer": 8,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.625
+    },
+    {
+      "layer": 9,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6841666666666666
+    },
+    {
+      "layer": 10,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6566666666666666
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6691666666666666
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6066666666666667
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5841666666666666
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5516666666666667
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5175000000000001
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.48
+    },
+    {
+      "layer": 17,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5325000000000001
+    },
+    {
+      "layer": 18,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4341666666666666
+    },
+    {
+      "layer": 19,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.425
+    },
+    {
+      "layer": 20,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.38916666666666666
+    },
+    {
+      "layer": 21,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.39916666666666667
+    },
+    {
+      "layer": 22,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4375
+    },
+    {
+      "layer": 23,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.41583333333333344
+    },
+    {
+      "layer": 24,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.43249999999999994
+    },
+    {
+      "layer": 25,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.43333333333333335
+    },
+    {
+      "layer": 26,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4741666666666667
+    },
+    {
+      "layer": 27,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.44749999999999995
+    }
+  ],
+  "steering": {
+    "concept": "gt_length",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "variant": "add",
+    "layers": "11",
+    "direction_source": "diff_of_means",
+    "controllability": 0.022421875000000077,
+    "controllability_ci_low": 0.014725911458333348,
+    "controllability_ci_high": 0.03397851562500002,
+    "baseline_behavior": 0.6854166666666667,
+    "max_usable_coeff": 3.0,
+    "ceiling_reason": "perplexity > 2.0x baseline at coeff -2",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -5.0,
+      "behavior": 0.13208333333333336,
+      "behavior_ci_low": 0.009062500000000001,
+      "behavior_ci_high": 0.43656249999999985,
+      "perplexity": 1151.4186138709385,
+      "repetition": 0.2528987083035059,
+      "broken": true,
+      "samples": [
+        "good.",
+        "can do.\ngood.\ncan do.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan.\ncan."
+      ]
+    },
+    {
+      "coeff": -4.0,
+      "behavior": 0.19749999999999995,
+      "behavior_ci_low": 0.021562500000000002,
+      "behavior_ci_high": 0.5375,
+      "perplexity": 195.86958250204722,
+      "repetition": 0.2382172199129637,
+      "broken": true,
+      "samples": [
+        "what can i do for you?",
+        "can do it."
+      ]
+    },
+    {
+      "coeff": -3.0,
+      "behavior": 0.315,
+      "behavior_ci_low": 0.0375,
+      "behavior_ci_high": 0.6206249999999999,
+      "perplexity": 32.954489882787065,
+      "repetition": 0.07343053647116984,
+      "broken": true,
+      "samples": [
+        "It seems like a typical photography club meeting. How can I assist you today?",
+        "It seems like a positive response. Here is the conversation."
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.5654166666666668,
+      "behavior_ci_low": 0.13625,
+      "behavior_ci_high": 0.7284375,
+      "perplexity": 11.709677672386169,
+      "repetition": 0.0006060606060606063,
+      "broken": true,
+      "samples": [
+        "The photography club meeting was lively and engaging! Members shared their recent work, discussed upcoming events, and exchanged tips and tricks for improving their craft. The atmosphere was friendly and collaborative.",
+        "To provide a helpful response, I'll assume you're asking about what to expect or important information regarding the photography club meeting. Here's some general information:\n\n- The meeting is scheduled for this evening at 7 PM.\n- Location is the usual spot at the community center.\n- Agenda includes reviewing photos from last month's"
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.6595833333333333,
+      "behavior_ci_low": 0.504375,
+      "behavior_ci_high": 0.7534375,
+      "perplexity": 4.358515254656473,
+      "repetition": 0.0027669392454575375,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was a lively and engaging event that brought together enthusiasts from various backgrounds who shared a passion for capturing moments through the lens of a camera. The meeting took place in a cozy community center with a large room filled with natural light, perfect for discussing and showcasing photos.\n\nUpon arrival, members were greeted with warm",
+        "To provide you with the most accurate and useful information, I'll assume you're asking about what someone should know before attending a photography club meeting. Here are some key points to consider:\n\n1. **Date and Time**: Confirm the exact date and time of the meeting. This is usually listed on the club's website or"
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.66875,
+      "behavior_ci_low": 0.5625,
+      "behavior_ci_high": 0.7409375,
+      "perplexity": 4.0252721865971886,
+      "repetition": 0.0012345679012345696,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was a lively and engaging event held in a cozy community center on a crisp autumn evening. Members arrived with their cameras slung over their shoulders or in handbags, eager to share their latest projects and learn from each other.\n\nUpon arrival, members were greeted by the club president who welcomed everyone and introduced",
+        "To provide you with the most accurate and useful information, I'll assume you're asking about what someone should know about attending a typical photography club meeting. Here are some key points:\n\n1. **Date and Time**: The meeting usually has a set date and time that members are expected to attend. Check the club's calendar"
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.6854166666666667,
+      "behavior_ci_low": 0.6009375,
+      "behavior_ci_high": 0.744375,
+      "perplexity": 4.258256800969442,
+      "repetition": 0.0012121212121212126,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is a vibrant and engaging event that brings together enthusiasts of all skill levels who share a passion for capturing moments through the lens. Here\u2019s a typical description of what such a meeting might look like:\n\n### Venue and Atmosphere\nThe meeting usually takes place in a cozy and well-lit room or outdoor",
+        "To provide you with the most accurate and useful information, I'll assume you're asking about what someone should know about attending a typical photography club meeting. Here are some key points:\n\n1. **Meeting Schedule**: Find out when and where the meetings are held. This could be on a specific day of the week or month"
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.6841666666666666,
+      "behavior_ci_low": 0.5828125,
+      "behavior_ci_high": 0.75,
+      "perplexity": 4.542850136756897,
+      "repetition": 0.0024924295364546953,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is a vibrant and engaging event that brings together enthusiasts of all skill levels who share a passion for capturing moments through the lens. Here\u2019s a typical description of what such a meeting might look like:\n\n### Venue and Atmosphere\nThe meeting usually takes place in a well-lit room or an outdoor space",
+        "If you're planning to attend a photography club meeting, here are some key points and things to keep in mind:\n\n1. **Meeting Schedule**: Check the regular schedule of the club meetings. They might be held weekly or bi-weekly, depending on the club's structure.\n\n2. **Location**: Find out where the"
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.6633333333333332,
+      "behavior_ci_low": 0.5465625000000001,
+      "behavior_ci_high": 0.7409375,
+      "perplexity": 4.654992334047953,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is a vibrant and engaging event that brings together enthusiasts of all skill levels, from beginners to seasoned professionals. Here\u2019s a typical description of such a meeting:\n\n### Venue and Atmosphere\nThe meeting usually takes place in a spacious and well-lit room, often within a community center or a local library",
+        "A photography club meeting is typically an exciting and educational event for enthusiasts and professionals alike. Here are some key points someone should know about attending such a meeting:\n\n1. **Agenda**: Meetings often start with a clear agenda that outlines the topics to be discussed or activities planned. This might include workshops, guest speakers, technical"
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.6495833333333333,
+      "behavior_ci_low": 0.56125,
+      "behavior_ci_high": 0.7409375,
+      "perplexity": 5.368855746587117,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is a vibrant and engaging event that takes place in a cozy yet inspiring environment. The room is filled with enthusiastic members, each carrying their cameras and lenses, eager to learn and share their experiences.\n\nUpon entering, one might notice the soft lighting designed to create an atmosphere conducive to discussion and creativity. The",
+        "When attending a photography club meeting, it's important to understand and engage with several key aspects:\n\n1. **Purpose of the Meeting**:\n   - **Educational Goals**: The primary purpose is often to enhance members' skills in various areas of photography, such as composition, lighting, post-processing, and understanding different photographic"
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.6416666666666665,
+      "behavior_ci_low": 0.555625,
+      "behavior_ci_high": 0.7284375,
+      "perplexity": 7.196160078048706,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "Certainly, imagine the scene of a typical photography club meeting held at a local library.\n\nThe meeting room is filled with enthusiasts of all skill levels, from beginners to seasoned professionals. The room is well-lit to ensure that every aspect of photography can be explored in detail. The walls are adorned with various types of photographic equipment",
+        "To understand the context of a typical photography club meeting, it's important to consider several key aspects:\n\n1. **Purpose and Goals**:\n   - **Educational Value**: Meetings often aim to enhance members' understanding of various photographic techniques and principles. This includes not only technical skills but also aesthetic considerations.\n   \n2."
+      ]
+    },
+    {
+      "coeff": 4.0,
+      "behavior": 0.6829166666666668,
+      "behavior_ci_low": 0.54875,
+      "behavior_ci_high": 0.7603125,
+      "perplexity": 10.115380350748698,
+      "repetition": 0.004861949261154826,
+      "broken": true,
+      "samples": [
+        "Firstly, we begin with the purpose of the meeting. The primary goal is to explore the various aspects of photography, such as the technical and aesthetic elements involved in each photograph. This includes the choice of camera models, the specific lenses used, the way in which they interact with the environment, and the way in which",
+        "Firstly, it is crucial to understand the context of the meeting. The purpose of these meetings is not just to provide a comprehensive overview of the various aspects of photography. This includes the historical and cultural background of the field, as well as the theoretical underpinnings that inform our understanding of the subject matter. Additionally"
+      ]
+    },
+    {
+      "coeff": 5.0,
+      "behavior": 0.7166666666666669,
+      "behavior_ci_low": 0.6521875,
+      "behavior_ci_high": 0.7909375,
+      "perplexity": 10.911858781178791,
+      "repetition": 0.051324469249441104,
+      "broken": true,
+      "samples": [
+        "Firstly, I will begin with the context of the meeting. The meeting is held in a specific location, such as the historical and cultural significance of the meeting. This includes the historical background of the meeting, the various aspects that are involved in the meeting. For instance, the meeting is not only concerned with the historical",
+        "Firstly, it is important to consider the context of the meeting in order to provide a comprehensive understanding of the various aspects that are involved. This will help us to ensure that we can address the different dimensions of the meeting in a way that is both comprehensive and interconnected.\nFor instance, one of the key points that I"
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "gt_length",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "layer": 13,
+    "output_overlap": 0.35533642768859863,
+    "participation_ratio": 9.492781574662885,
+    "low_variance_pc_alignment": 0.000674507871735841,
+    "residual_norm": 1.087910532951355,
+    "n_directions": 5.0,
+    "direction_coherence": 0.48226850032806395,
+    "probe_dom_cosine": 0.6152331749774169,
+    "tuning_shift": null
+  },
+  "gauntlet": {
+    "per_variant": {
+      "add:diff_of_means": 0.014666666666666606,
+      "add_all:diff_of_means": 0.015416666666666615,
+      "clamp:diff_of_means": 0.006479166666666636,
+      "ablate:diff_of_means": 0.0031666666666668453,
+      "add:probe_weights": 0.011937499999999934,
+      "add:repe_reading_vector": 0.012999999999999984
+    },
+    "best_controllability": 0.015416666666666615,
+    "immovable": true,
+    "n_interventions_tested": 6,
+    "verdict": "immovable: resisted all 6 tested interventions (4 variants x diff-of-means, plus probe weights and the RepE reading vector); best controllability 0.015 < 0.05"
+  },
+  "judge_model": null,
+  "judge_is_self": null
+}

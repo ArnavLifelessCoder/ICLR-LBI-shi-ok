@@ -1,0 +1,388 @@
+{
+  "probe": {
+    "concept": "gt_french",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "best_layer": 13,
+    "readability": 1.0,
+    "control_auroc": 0.5766666666666667,
+    "selectivity": 0.42333333333333334,
+    "auroc_ci_low": 0.9999999999999999,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "fr_opin",
+    "n_train": 80,
+    "n_test": 20,
+    "n_val": 20,
+    "control_flagged": false
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4941666666666667
+    },
+    {
+      "layer": 1,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5666666666666667
+    },
+    {
+      "layer": 2,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5941666666666666
+    },
+    {
+      "layer": 3,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.37916666666666665
+    },
+    {
+      "layer": 4,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6041666666666666
+    },
+    {
+      "layer": 5,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5391666666666668
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.695
+    },
+    {
+      "layer": 7,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6091666666666667
+    },
+    {
+      "layer": 8,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5549999999999999
+    },
+    {
+      "layer": 9,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5466666666666666
+    },
+    {
+      "layer": 10,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5225
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5266666666666667
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5616666666666666
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5766666666666667
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.56
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5841666666666667
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.55
+    },
+    {
+      "layer": 17,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5125
+    },
+    {
+      "layer": 18,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5233333333333333
+    },
+    {
+      "layer": 19,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4583333333333333
+    },
+    {
+      "layer": 20,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4741666666666667
+    },
+    {
+      "layer": 21,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5233333333333333
+    },
+    {
+      "layer": 22,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5266666666666666
+    },
+    {
+      "layer": 23,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.49666666666666676
+    },
+    {
+      "layer": 24,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5166666666666667
+    },
+    {
+      "layer": 25,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5291666666666667
+    },
+    {
+      "layer": 26,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5766666666666667
+    },
+    {
+      "layer": 27,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5275
+    }
+  ],
+  "steering": {
+    "concept": "gt_french",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "variant": "add",
+    "layers": "8",
+    "direction_source": "diff_of_means",
+    "controllability": 0.05448115956922024,
+    "controllability_ci_low": 0.05017751634437842,
+    "controllability_ci_high": 0.058311905285109156,
+    "baseline_behavior": 0.0,
+    "max_usable_coeff": 5.0,
+    "ceiling_reason": "perplexity > 2.0x baseline at coeff 4",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -5.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 7.604974714914958,
+      "repetition": 0.12788882397422047,
+      "broken": false,
+      "samples": [
+        "The meeting is held in a virtual setting and is free to join. There are no cost or obligation to join.\nAccording the Constitution of the United States, the purpose of the organization is to provide a forum for the exchange of ideas and the opportunity to learn more about the field of mathematics. The meeting is open to all",
+        "The meeting is held in a virtual setting and is not presoned to a specific location. The meeting is held on the basis of the following conditions:\nThe purpose of the meeting is to provide a forum for the exchange of ideas and information between the members of the community. It is a place where you can ask questions,"
+      ]
+    },
+    {
+      "coeff": -4.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 6.259872953097026,
+      "repetition": 0.04447120937139086,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is an opportunity for members to come together and discuss the latest in photography, share ideas, and learn from each other. The meetings are held on the second Tuesday of every month, and the meetings are open to all members, regardless of skill level or experience.\nDuring the meeting, members will have the",
+        "The photography club meeting is an opportunity for members to learn more about the craft of photography and to connect with other members of the club. The meetings are held on the second Tuesday of each month from 7:00 PM to 9:00 PM at the location of your choice. The meetings are open to"
+      ]
+    },
+    {
+      "coeff": -3.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 5.182283480962117,
+      "repetition": 0.013648289136538061,
+      "broken": false,
+      "samples": [
+        "A photography club meeting can be an informal gathering of individuals who share a passion for photography and often includes activities such as workshops, discussions, and critiques of members' work. Here's a general description of what a typical photography club meeting might look like:\n\n1. **Workshops**: Many photography clubs offer workshops on various aspects",
+        "A photography club meeting is an opportunity for individuals who share a passion for photography to come together and learn from each other, exchange ideas, and improve their skills. Here are some key points to consider:\n\n1. **Purpose**: The primary purpose of a photography club meeting is to provide a platform for members to learn about various"
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 4.447617864608764,
+      "repetition": 0.0005952380952380968,
+      "broken": false,
+      "samples": [
+        "A photography club meeting is typically an engaging and educational event where members come together to share their passion for photography, learn new techniques, and connect with like-minded individuals. Here's a general description of what such a meeting might look like:\n\n1. **Location**: Meetings can take place in various settings, from a dedicated studio",
+        "A photography club meeting can be an exciting and educational experience for anyone interested in photography. Here are some key points to consider when attending a photography club meeting:\n\n1. **Networking Opportunities**: Photography clubs often attract people with similar interests, which can lead to valuable networking opportunities. You might meet photographers of all skill levels, from"
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 4.288252449035644,
+      "repetition": 0.0024025974025974023,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is a vibrant and engaging event that brings together enthusiasts of all skill levels who share a passion for capturing moments through the lens. Here\u2019s a typical description of what such a meeting might look like:\n\n**Location and Time:**\nThe meeting usually takes place in a comfortable and well-lit space, such",
+        "A photography club meeting can be an exciting and educational experience for anyone interested in photography. Here are some key points to consider when attending a photography club meeting:\n\n1. **Agenda**: Check if there is a specific agenda for the meeting. This might include topics such as guest speakers, workshops, or discussions on specific techniques"
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 4.446942075093587,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is a vibrant and engaging event that brings together enthusiasts of all skill levels who share a passion for capturing moments through the lens. The atmosphere is warm and welcoming, with members arriving to discuss their latest projects, share tips, and learn from each other.\n\nUpon entering the venue, which could be a local",
+        "Photography club meetings can be a great way to learn new skills, share your passion for photography, and connect with like-minded individuals. Here are some key points someone should know about attending a photography club meeting:\n\n1. **Purpose**: The primary purpose of a photography club meeting is to foster a community of photographers who can"
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 4.258256800969442,
+      "repetition": 0.0012121212121212126,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is a vibrant and engaging event that brings together enthusiasts of all skill levels who share a passion for capturing moments through the lens. Here\u2019s a typical description of what such a meeting might look like:\n\n### Venue and Atmosphere\nThe meeting usually takes place in a cozy and well-lit room or outdoor",
+        "To provide you with the most accurate and useful information, I'll assume you're asking about what someone should know about attending a typical photography club meeting. Here are some key points:\n\n1. **Meeting Schedule**: Find out when and where the meetings are held. This could be on a specific day of the week or month"
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.004878048780487805,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.04024390243902418,
+      "perplexity": 4.568593804041544,
+      "repetition": 0.00119047619047619,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is a vibrant and engaging event where members gather to share their passion for photography. Here's a typical description of what such a meeting might look like:\n\n**Location and Time:**\nThe meeting usually takes place in a well-lit room or outdoor space that can accommodate all members comfortably. It starts on",
+        "To provide you with the most accurate and useful information, I'll assume you're asking about what someone should know before attending a typical photography club meeting. Here are some key points:\n\n1. **Meeting Time and Location**: Check the schedule to know when and where the meeting is held. This information is usually available on the"
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.15127859672969768,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.28602123356926185,
+      "perplexity": 5.2114403486251835,
+      "repetition": 0.004236318870465213,
+      "broken": false,
+      "samples": [
+        "\u6444\u5f71\u4ff1\u4e50\u90e8\u7684\u4f1a\u8bae\u901a\u5e38\u662f\u4e00\u4e2a\u5145\u6ee1\u521b\u610f\u548c\u4ea4\u6d41\u7684\u573a\u5408\u3002\u4ee5\u4e0b\u662f\u4e00\u4e2a\u5178\u578b\u7684\u6444\u5f71\u4ff1\u4e50\u90e8\u4f1a\u8bae\u53ef\u80fd\u5305\u62ec\u7684\u5185\u5bb9\uff1a\n\n1. **\u6b22\u8fce\u8bcd**\uff1a\u4f1a\u8bae\u5f00\u59cb\u65f6\uff0c\u901a\u5e38\u7531\u4ff1\u4e50\u90e8\u7684\u4e3b\u5e2d\u6216\u7ec4\u7ec7\u8005\u53d1\u8868\u6b22\u8fce\u8bcd\uff0c\u7b80\u8981\u4ecb\u7ecd\u4f1a\u8bae\u7684\u76ee\u7684\u548c\u8bae\u7a0b\u3002\n\n2. **\u56de\u987e\u4e0a\u4e00\u6b21\u4f1a\u8bae**\uff1a",
+        "Pour r\u00e9pondre \u00e0 votre question sur ce que quelqu'un devrait savoir concernant la r\u00e9union du club de photographie, voici quelques informations g\u00e9n\u00e9rales que vous pourriez partager :\n\n1. **Date et Heure** : Communiquez la date et l'heure exactes de la r\u00e9union"
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.21743395789438802,
+      "behavior_ci_low": 0.11313879210220673,
+      "behavior_ci_high": 0.3237771739130434,
+      "perplexity": 4.8366567929585775,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "Le photographe club se r\u00e9unit r\u00e9guli\u00e8rement pour partager leurs exp\u00e9riences et am\u00e9liorer leurs comp\u00e9tences en photographie. Voici une description possible du meeting :\n\n1. **Bienvenue et Introduction** : Les membres se pr\u00e9sentent et discutent de leurs passions pour la photographie. Ch",
+        "Pour savoir ce que quelqu'un doit savoir sur la r\u00e9union du club de photographie, voici les informations cl\u00e9s :\n\n1. **Lieu** : Le club de photographie se r\u00e9unit au parc municipal.\n2. **Heure** : La r\u00e9union commence \u00e0 18h30."
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.20503469344371353,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.35227732793522265,
+      "perplexity": 6.121844164530436,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "Le photographe professionnel et les \u00e9tudiants se sont r\u00e9unis pour discuter de la photographie. Le photographe professionnel a partag\u00e9 ses exp\u00e9riences avec les \u00e9tudiants, et ils ont appris beaucoup ensemble.",
+        "Pour savoir ce que quelqu'un doit savoir sur la r\u00e9union du club de photographie, voici quelques informations importantes :\n\n1. Le club de photographie se r\u00e9unit chaque semaine pour prendre des photos.\n2. Ils utilisent diff\u00e9rents appareils et techniques pour capturer des images.\n3. Ils partagent leurs"
+      ]
+    },
+    {
+      "coeff": 4.0,
+      "behavior": 0.19063434673792434,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.4163865546218487,
+      "perplexity": 247.19567524592082,
+      "repetition": 0.010940687474500206,
+      "broken": true,
+      "samples": [
+        "Le club se r\u00e9unit tous les samed pour prendre des photos.",
+        "Qwen est un membre du club de photographie. Il doit savoir quand il doit prendre des photos."
+      ]
+    },
+    {
+      "coeff": 5.0,
+      "behavior": 0.15209401222559119,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.7583333333333329,
+      "perplexity": 5692.42101559639,
+      "repetition": 0.022023809523809522,
+      "broken": true,
+      "samples": [
+        "",
+        ""
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "gt_french",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "layer": 13,
+    "output_overlap": 0.37743109464645386,
+    "participation_ratio": 12.397679424535237,
+    "low_variance_pc_alignment": 0.0018090803641825914,
+    "residual_norm": 1.0617588758468628,
+    "n_directions": 5.0,
+    "direction_coherence": 0.3643616259098053,
+    "probe_dom_cosine": 0.601966381841331,
+    "tuning_shift": null
+  },
+  "gauntlet": null,
+  "judge_model": null,
+  "judge_is_self": null
+}

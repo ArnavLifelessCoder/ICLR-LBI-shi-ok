@@ -374,3 +374,54 @@ resolve on ground truth is not evidence that steering is undirected, and should
 not be reported as though it were. Fixing either fault is cheap: readouts with
 mid-range baselines, and a grid that extends past the point where behavior
 begins to move.
+
+---
+
+# The diagnostic is validated (2026-09-16)
+
+Qwen and Mistral rerun on the extended coefficient grid. Llama's stage A is
+still the 9-point grid; its other stages are current. Gemma is not yet run.
+
+**Three ground-truth signs resolve, on two models, all positive and all in the
+direction the concept direction was built to produce.** Nothing resolves the
+wrong way anywhere in the study.
+
+| concept | model | signed | 95% CI |
+|---|---|---|---|
+| gt_uppercase | Mistral | +0.181 | [+0.147, +0.215] |
+| gt_french | Mistral | +0.057 | [+0.040, +0.075] |
+| gt_french | Qwen | +0.054 | [+0.033, +0.076] |
+
+This is what the paper needed and did not have. On concepts whose readout is
+computed from the string by rule, with no judge in the loop and the intended
+direction known by construction, the signed metric recovers that direction with
+an interval excluding zero, and `gt_french` does it on two independent models.
+The diagnostic detects real steering when real steering is present, so the nulls
+elsewhere are not the metric failing to work.
+
+**Without a judge the two summaries coincide.** Median directional share on
+ground truth is 0.983, or 0.993 over the nine points whose absolute area exceeds
+0.005, against 0.387 on the judge-scored concepts. The divergence between
+absolute and signed area, which is the paper's central observation, is a
+property of the judge rather than of steering.
+
+**A quarter of judge-scored signs flip when the judge changes.** Three of twelve
+re-judged points reverse sign between the 1.5B and 3B judges: `refusal` on Qwen
+and Mistral, `certainty` on Mistral. The earlier claim that signs are
+judge-robust rested on Llama alone, where none flipped, and is withdrawn.
+
+**The danger zone does not survive a change of judge.** `topic_science` rises by
+eight to fourteen times on every model, from 0.011-0.024 under the 1.5B judge to
+0.118-0.260 under the 3B, against the 0.05 threshold that made it the zone's
+only confirmed occupant. It is four to five times clear of the zone on all three
+models.
+
+**The positive control holds.** `sentiment` resolves positive under both judges
+on Qwen and Mistral.
+
+## What still does not resolve, and why
+
+`gt_digits` moves only past the fluency ceiling: on Qwen it reaches 0.21 at
+alpha=+4 and 0.55 at +5, both excluded on perplexity. `gt_length` has no
+consistent response on any model. Neither is mysterious and neither supports a
+claim that steering is undirected.
