@@ -368,6 +368,7 @@ def run_model(
     best_over_band: bool = True,
     resume: bool = True,
     coeffs: list[float] | None = None,
+    run_gauntlet: bool = True,
 ) -> list[ConceptRun]:
     """Experiments 1, 2 and 4 for every concept on one model.
 
@@ -433,9 +434,15 @@ def run_model(
             else run_steering(lm, concept, dom, layer, scorer, coeffs=coeffs)
         )
 
-        # Only pay for the gauntlet when the concept looks immovable.
+        # Only pay for the gauntlet when the concept looks immovable, and only
+        # when a gauntlet verdict means anything. It decides whether a concept
+        # earns the word "immovable" for the danger-zone claim. A concept built
+        # to validate the metric has no danger-zone claim to earn, so there the
+        # six extra sweeps are bought and thrown away: nine of the twelve
+        # ground-truth points ran it, at six interventions each on top of the
+        # four-layer band, which is ten sweeps per concept rather than four.
         gauntlet = None
-        if steer.controllability < immovable_threshold:
+        if run_gauntlet and steer.controllability < immovable_threshold:
             gauntlet = confirm_immovable(
                 lm, concept, dom, probe.probe_direction(), repe, layer, scorer,
                 threshold=immovable_threshold, coeffs=coeffs,

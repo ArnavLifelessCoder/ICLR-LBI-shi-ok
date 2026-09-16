@@ -162,6 +162,14 @@ def stage_a_groundtruth(lm, out_dir: str = OUT_GT) -> bool:
         # comparable, which costs more than finishing on the protocol already
         # in use.
         best_over_band=True,
+        # No gauntlet. It decides whether a concept earns the word "immovable"
+        # for the danger-zone claim, and these concepts have no such claim to
+        # earn: they exist to check that the metric can recover a direction
+        # that is known by construction. Leaving it on bought six extra sweeps
+        # per concept on top of the four-layer band and threw the answer away,
+        # which is ten sweeps where four were needed. That, not the band, is
+        # what made a Gemma session run past twelve hours.
+        run_gauntlet=False,
     )
     for r in runs:
         print(f"  {r.probe.concept:<14} read {r.probe.readability:.2f}  "
