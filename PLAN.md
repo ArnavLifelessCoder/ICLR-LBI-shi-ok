@@ -1,5 +1,12 @@
 # PLAN.md
 
+> **Superseded on scope by [PLAN_MAIN.md](PLAN_MAIN.md) as of 2026-09-16.**
+> This document was written under the constraint that nothing in it adds
+> compute, which produced a workshop-scoped paper. The validation runs of
+> 2026-09-14 to 09-16 broke that constraint deliberately. Part 1's reviewer
+> model and Part 2's preregistration still hold and are not reopened; the
+> work queue and priorities are in PLAN_MAIN.md.
+
 Execution plan for *Legible but Immovable*. The design document says what the study is. This says how it gets built, in what order, what has to be true before each step is allowed to proceed, and what a reviewer will do to each piece of it.
 
 Written under one hard constraint: **nothing here adds compute.** Every addition is CPU-only, weights-only, reuses a cached activation, or is a change to how existing numbers are analyzed and reported. Where an obvious improvement would cost GPU hours, it is named and declined explicitly, with the reason, so the decision is visible rather than accidental.
