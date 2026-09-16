@@ -148,6 +148,19 @@ def stage_a_groundtruth(lm, out_dir: str = OUT_GT) -> bool:
     runs = run_model(
         lm, DeterministicScorer(), out_dir=out_dir, cache_dir=CACHE_DIR,
         concepts=concepts, resume=True, coeffs=EXTENDED_COEFFS,
+        # Single layer, not the four-layer band. The band exists so that
+        # controllability is the best over a preregistered window, which makes
+        # the ten study concepts comparable to each other and biases that study
+        # against its own headline. These concepts are a separate experiment
+        # about whether the metric can recover a known direction, and they are
+        # not compared against those numbers, so the band buys nothing here and
+        # costs four times the generations.
+        #
+        # It cost eight hours of a Gemma session before anyone noticed: four
+        # concepts over thirteen coefficients and thirty prompts is 1560
+        # generations, and the band made it 6240, on a 9B model that must run
+        # eager attention because of its logit soft-cap.
+        best_over_band=False,
     )
     for r in runs:
         print(f"  {r.probe.concept:<14} read {r.probe.readability:.2f}  "

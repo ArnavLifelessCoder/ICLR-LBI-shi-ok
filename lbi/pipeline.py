@@ -221,13 +221,31 @@ def run_steering(
     all_scores = [s for scores in per_prompt.values() for s in scores]
     judge_degenerate = bool(all_scores) and len(set(all_scores)) == 1
     if judge_degenerate:
-        print(
-            f"WARNING [{concept.name}]: the judge returned {all_scores[0]} for "
-            f"all {len(all_scores)} generations across every coefficient. "
-            f"Controllability will be exactly 0.000 for a reason that has "
-            f"nothing to do with steering. Inspect the samples in the result "
-            f"file before believing this number."
-        )
+        # What a constant score means depends entirely on what produced it, and
+        # the two readings are opposite. From an LLM judge it is an instrument
+        # fault and the number should be distrusted. From a rule computed on the
+        # string -- a word count, a digit fraction -- it is a measurement: the
+        # behavior did not occur at any coefficient. Saying "the judge" in both
+        # cases told the Gemma ground-truth run that its instrument had failed
+        # when what had actually happened was that the model emitted no digits.
+        deterministic = type(scorer).__name__ == "DeterministicScorer"
+        if deterministic:
+            print(
+                f"NOTE [{concept.name}]: the readout returned {all_scores[0]} "
+                f"for all {len(all_scores)} generations across every "
+                f"coefficient. This readout is a rule over the generated "
+                f"string, not a judge, so the constant is a measurement rather "
+                f"than an instrument fault: the behavior never occurred at any "
+                f"strength. Controllability is legitimately 0.000."
+            )
+        else:
+            print(
+                f"WARNING [{concept.name}]: the judge returned {all_scores[0]} "
+                f"for all {len(all_scores)} generations across every "
+                f"coefficient. Controllability will be exactly 0.000 for a "
+                f"reason that has nothing to do with steering. Inspect the "
+                f"samples in the result file before believing this number."
+            )
 
     max_usable, reason = st.mark_broken_by_fluency(curve, baseline_ppl)
     controllability = st.dose_response_auc(curve, baseline)
