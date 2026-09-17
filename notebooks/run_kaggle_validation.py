@@ -243,8 +243,17 @@ def stage_d_published(lm, out_dir: str = OUT_P) -> bool:
 
         # The direction is the difference between the two contrast prompts at the
         # published layer, exactly as published: one pair, not a corpus estimate.
+        # Every layer, then index by number. Passing layers=[layer] returns a
+        # length-one array indexed by position, and acts[layer] on it is an
+        # index error; that killed a session after the model had loaded.
+        # gpt2-xl is small enough that capturing all of them is free.
         acts = capture_cached(pub, [pos_text, neg_text], cache_dir=CACHE_DIR,
-                              tag="actadd_contrast", layers=[layer])
+                              tag="actadd_contrast")
+        if layer >= acts.shape[0]:
+            raise ValueError(
+                "ACTADD_SETTING['layer']=%d but %s has %d layers"
+                % (layer, PUBLISHED_MODEL, acts.shape[0])
+            )
         raw = acts[layer][0] - acts[layer][1]
         raw_norm = float(np.linalg.norm(raw))
         direction = raw / (raw_norm + 1e-12)

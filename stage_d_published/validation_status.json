@@ -1,6 +1,6 @@
 {
   "Qwen/Qwen2.5-7B-Instruct": {
     "load": "ok",
-    "D_published": "ok"
+    "D_published": "failed: index 6 is out of bounds for axis 0 with size 1"
   }
 }

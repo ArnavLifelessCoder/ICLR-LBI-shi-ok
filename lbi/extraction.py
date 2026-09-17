@@ -252,7 +252,15 @@ def capture_cached(
     batch_size: int = 8,
     max_length: int = 256,
 ) -> np.ndarray:
-    """`capture_activations` with an on-disk cache keyed by model+texts+pooling."""
+    """`capture_activations` with an on-disk cache keyed by model+texts+pooling.
+
+    Returns `(n_requested_layers, n_texts, d_model)`, indexed by **position in
+    `layers`**, not by layer number. With `layers=None` -- which every caller
+    in this package except the published replication uses -- those coincide,
+    because the request is every layer in order, and `acts[6]` is layer 6.
+    With `layers=[6]` the result has length one and `acts[6]` is an index
+    error, which is how a stage D session died after loading the model.
+    """
     os.makedirs(cache_dir, exist_ok=True)
     key = _cache_key(lm.name, texts, pooling, max_length)
     safe_tag = "".join(ch if ch.isalnum() or ch in "-_" else "_" for ch in tag)
