@@ -62,6 +62,15 @@ ACTADD_SETTING = {
     "source": "turner2023actadd",
 }
 
+# Wider and denser than the study's grid. Our coefficient is in residual-RMS
+# units on a unit-normalised direction; the published one multiplies the raw
+# activation difference, so the two are not the same quantity and no single
+# value of ours corresponds to theirs. Rather than guess a conversion, sweep
+# wide enough to bracket any plausible magnitude and let the dose-response and
+# the fluency ceiling say where the usable range is.
+PUBLISHED_COEFFS = [-20.0, -15.0, -10.0, -6.0, -3.0, -1.0, 0.0,
+                    1.0, 3.0, 6.0, 10.0, 15.0, 20.0]
+
 _WORD = re.compile(r"[A-Za-z']+")
 
 # Deliberately conservative. "ring", "party", "dress" and "cake" are wedding

@@ -164,8 +164,17 @@ def run_steering(
     variant: str = "add",
     direction_source: str = "diff_of_means",
     max_new_tokens: int = 64,
+    positions: int | None = None,
 ) -> st.SteeringResult:
-    """Experiment 2 for one concept: sweep the coefficient, find the ceiling."""
+    """Experiment 2 for one concept: sweep the coefficient, find the ceiling.
+
+    `positions` limits the intervention to that many leading token positions.
+    None, the default, intervenes everywhere and is what every number this
+    study reports was produced with. It exists because activation addition as
+    published injects only where its contrast prompt sat, and replicating that
+    method with the wrong convention produces a null about the convention
+    rather than about the method.
+    """
     coeffs = list(coeffs or DEFAULT_COEFFS)
     layers = (
         st.layer_band(layer, lm.n_layers) if variant == "add_all" else [layer]
@@ -191,6 +200,7 @@ def run_steering(
                 variant=variant,
                 coeff=c,
                 clamp_target=c if variant == "clamp" else None,
+                positions=positions,
             )
             outs = st.generate(lm, prompts, spec=spec, max_new_tokens=max_new_tokens)
             scores = scorer.score(outs, concept.name)

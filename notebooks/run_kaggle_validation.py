@@ -190,34 +190,99 @@ def stage_a_groundtruth(lm, out_dir: str = OUT_GT) -> bool:
 
 
 def stage_d_published(lm, out_dir: str = OUT_P) -> bool:
-    """Apply the validated check to a published steering result.
+    """Apply the directional check to a published steering result.
 
     Ignores the model handed in and loads the one the demonstration used. The
     point is not what our four models do with a wedding direction, it is what
     the directional check says about an intervention somebody else published.
 
+    This deliberately does not go through `run_model`. The first attempt did,
+    and `run_model` chose the steering layer from a probe -- layer 14, with the
+    probe selecting 23 -- while the published setting is layer 6. It also
+    trained a probe on six identical contrast pairs, which reports a
+    meaningless readability of 1.00. Neither belongs in a replication, so the
+    direction is built here from the published contrast and swept directly.
+
+    Three things are matched to the published method, and the first attempt
+    missed all three:
+
+      the layer, taken from ACTADD_SETTING rather than from a probe;
+      the injection positions, limited to where the contrast prompt sat rather
+      than applied to every token including the generated ones;
+      a coefficient range wide enough to bracket their magnitude, since our
+      coefficient is in residual-RMS units on a unit-normalised direction and
+      theirs multiplies the raw activation difference.
+
     Scored by rule, so no judge is involved and the outcome is decidable. Both
     results are reported: see the preregistration in `lbi/published.py`.
     """
-    from lbi.extraction import load_model
+    import numpy as np
+
+    from lbi import steering as st
+    from lbi.extraction import capture_cached, load_model
     from lbi.groundtruth import DeterministicScorer
-    from lbi.published import ACTADD_SETTING, PUBLISHED_READOUTS, published_concepts
-    from lbi.pipeline import EXTENDED_COEFFS, run_model
+    from lbi.pipeline import jsonable, run_steering
+    from lbi.published import (
+        ACTADD_SETTING,
+        PUBLISHED_COEFFS,
+        PUBLISHED_READOUTS,
+        published_concepts,
+    )
 
     print("\n--- D: published replication (no judge) ---")
     print("  setting:", ACTADD_SETTING)
+    os.makedirs(out_dir, exist_ok=True)
+
     pub = None
     try:
         pub = load_model(PUBLISHED_MODEL, load_in_4bit=False, device_index=0)
-        runs = run_model(
-            pub, DeterministicScorer(extra=PUBLISHED_READOUTS),
-            out_dir=out_dir, cache_dir=CACHE_DIR,
-            concepts=published_concepts(), resume=True,
-            coeffs=EXTENDED_COEFFS, run_gauntlet=False,
-        )
-        for r in runs:
-            print(f"  {r.probe.concept:<14} read {r.probe.readability:.2f}  "
-                  f"ctrl {r.steering.controllability:.3f}")
+        scorer = DeterministicScorer(extra=PUBLISHED_READOUTS)
+        layer = int(ACTADD_SETTING["layer"])
+        pos_text = ACTADD_SETTING["positive_prompt"]
+        neg_text = ACTADD_SETTING["negative_prompt"]
+
+        # The direction is the difference between the two contrast prompts at the
+        # published layer, exactly as published: one pair, not a corpus estimate.
+        acts = capture_cached(pub, [pos_text, neg_text], cache_dir=CACHE_DIR,
+                              tag="actadd_contrast", layers=[layer])
+        raw = acts[layer][0] - acts[layer][1]
+        raw_norm = float(np.linalg.norm(raw))
+        direction = raw / (raw_norm + 1e-12)
+        print("  contrast %r vs %r at layer %d" % (pos_text, neg_text, layer))
+        print("  raw difference norm: %.3f" % raw_norm)
+
+        # Their injection covers the positions the contrast prompt occupied.
+        n_pos = len(pub.tokenizer(pos_text)["input_ids"])
+        print("  injecting at the first %d position(s)" % n_pos)
+        print("  grid: %s" % PUBLISHED_COEFFS)
+
+        for concept in published_concepts():
+            path = os.path.join(
+                out_dir, "%s_%s.json" % (PUBLISHED_MODEL.replace("/", "_"),
+                                         concept.name))
+            if os.path.exists(path):
+                print("  %s already done, skipping" % concept.name)
+                continue
+            res = run_steering(
+                pub, concept, direction, layer, scorer,
+                coeffs=PUBLISHED_COEFFS, positions=n_pos,
+                direction_source="actadd_contrast_pair",
+            )
+            rec = {
+                "steering": jsonable(res),
+                "curve": jsonable(res.curve),
+                "probe": {"concept": concept.name, "model": PUBLISHED_MODEL,
+                          "readability": None, "best_layer": layer},
+                "actadd_setting": ACTADD_SETTING,
+                "raw_difference_norm": raw_norm,
+                "positions": n_pos,
+                "judge_model": None,
+                "judge_is_self": False,
+            }
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(rec, f, indent=2)
+            print("  %-14s ctrl %.4f  %s"
+                  % (concept.name, res.controllability, res.ceiling_reason))
     finally:
         del pub
         try:
