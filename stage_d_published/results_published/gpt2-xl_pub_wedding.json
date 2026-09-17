@@ -1,0 +1,508 @@
+{
+  "probe": {
+    "concept": "pub_wedding",
+    "model": "gpt2-xl",
+    "best_layer": 23,
+    "readability": 1.0,
+    "control_auroc": 0.75,
+    "selectivity": 0.25,
+    "auroc_ci_low": 1.0,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "d",
+    "n_train": 8,
+    "n_test": 2,
+    "n_val": 2,
+    "control_flagged": true
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 1,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 2,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 3,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 4,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 5,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 7,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 8,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 9,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 10,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 17,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 18,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 19,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 20,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 21,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 22,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 23,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 24,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 25,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 26,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 27,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 28,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 29,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 30,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 31,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 32,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 33,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 34,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 35,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 36,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 37,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 38,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 39,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 40,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 41,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 42,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 43,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 44,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 45,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 46,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    },
+    {
+      "layer": 47,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.75
+    }
+  ],
+  "steering": {
+    "concept": "pub_wedding",
+    "model": "gpt2-xl",
+    "variant": "add",
+    "layers": "14",
+    "direction_source": "diff_of_means",
+    "controllability": 0.0,
+    "controllability_ci_low": 0.0,
+    "controllability_ci_high": 0.0,
+    "baseline_behavior": 0.0,
+    "max_usable_coeff": 1.0,
+    "ceiling_reason": "degenerate repetition at coeff -2",
+    "judge_degenerate": true
+  },
+  "curve": [
+    {
+      "coeff": -5.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 2.4163581013679503,
+      "repetition": 0.868841307014609,
+      "broken": true,
+      "samples": [
+        "to be the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the",
+        "be a change a change to be a change to be a change to be a to be a to be a to be a to be a to be a to be a to be a to be a to be a to be a to be a to be a to be a to be a to be a to be a"
+      ]
+    },
+    {
+      "coeff": -4.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 2.4349971294403074,
+      "repetition": 0.8313924193288091,
+      "broken": true,
+      "samples": [
+        "to be the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the",
+        "be a change a change to be a change to be a change to be a to be a to be a to be a to be a to be a to be a to be a to be a to be a to be a to be a to be a to be a to be a to be a to be a"
+      ]
+    },
+    {
+      "coeff": -3.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 12.2318124294281,
+      "repetition": 0.7090672049290137,
+      "broken": true,
+      "samples": [
+        "to be the go to be a to be to be to be to be to be to be to be to be to be to be to be to be to be to be to be to be to be to be to be to be to be to be to be to be to be to be to be to be to",
+        "make a the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the the"
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 3.368586850166321,
+      "repetition": 0.7058810225092426,
+      "broken": true,
+      "samples": [
+        ", 'I'm up to my to see what's up to you?' and up to you?' and up to you?' and up to you?' and up to you?' and up to you?' and up to you?' and up to you?' and up to you?' and up to you?' and up to you",
+        "do something about it.\n\n\"I decided to do something about it.\n\n\"I decided to do something about it.\n\n\"I decided to do something about it.\n\n\"I decided to do something about it.\n\n\"I decided to do something about it.\n\n\"I"
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 3.813398814201355,
+      "repetition": 0.22415600182514117,
+      "broken": false,
+      "samples": [
+        ", 'I'm going to be a doctor.' He said, 'You're going to be a doctor, but you're going to be a doctor in a hospital.' I said, 'I don't know what hospital I'm going to be in.' He said, 'You're going to be in a hospital.'",
+        "take a look at the latest version of the Google Play Store and the Google Play Services. I was surprised to see that the Google Play Store had a new feature called \"Google Play Services\".\n\nGoogle Play Services is a set of APIs that Google provides to developers to make their apps compatible with the Google Play Store."
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 3.3804206609725953,
+      "repetition": 0.3095832362962766,
+      "broken": false,
+      "samples": [
+        ", 'I'm going to be a doctor.' He said, 'You're going to be a doctor, but you're going to be a doctor in a hospital.' I said, 'I don't want to be a doctor in a hospital.' He said, 'You're going to be a doctor in a hospital",
+        "take a look at the latest version of the Windows 10 Technical Preview. I downloaded the build from the Windows Insider Program website and installed it on my Windows 10 PC.\n\nI was surprised to find that the Windows 10 Technical Preview is not a full version of Windows 10. Instead, it's a preview version of Windows"
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 3.214286994934082,
+      "repetition": 0.4412953213611245,
+      "broken": false,
+      "samples": [
+        ", 'I'm going to go to the bathroom.' I was like, 'I'm going to go to the bathroom.' I was like, 'I'm going to go to the bathroom.' I was like, 'I'm going to go to the bathroom.' I was like, 'I'm going to go to",
+        "take a walk around the neighborhood. I was looking for a place to eat, but I didn't want to go to a restaurant that was too expensive. I found a place that was a little bit cheaper, but I didn't want to pay for a table. I was looking for a place that was a little bit"
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 3.38717839717865,
+      "repetition": 0.34111898548825703,
+      "broken": false,
+      "samples": [
+        ", 'I'm going to go to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, '",
+        "take a walk around the city. I was looking for a place to eat and I found a place called \"The Bistro\" which was a little bit out of the way. I ordered a burger and fries and I was very happy with the food. The burger was very good and the fries were very good."
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 3.0591392517089844,
+      "repetition": 0.38901889921780447,
+      "broken": false,
+      "samples": [
+        ", 'I'm going to go to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, '",
+        "take a walk around the city. I was walking along the river and I saw a man sitting on a bench. I asked him if he was okay and he said he was fine. I asked him if he was a tourist and he said no. I asked him if he was a tourist and he said no. I"
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 2.849912631511688,
+      "repetition": 0.5112227677107233,
+      "broken": true,
+      "samples": [
+        ", 'I'm going to go to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, '",
+        "take a walk around the city. I was walking along the river and I saw a man sitting on a bench. I asked him if he was a tourist and he said yes. I asked him if he was a tourist and he said yes. I asked him if he was a tourist and he said yes. I asked"
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 2.6129266262054442,
+      "repetition": 0.6401535407181036,
+      "broken": true,
+      "samples": [
+        ", 'I'm going to go to the hospital and see if I can get a shot of morphine.' I was like, 'I'm going to go to the hospital and see if I can get a shot of morphine.' I was like, 'I'm going to go to the hospital and see if I can get",
+        "take a walk around the city and see what I could find. I was surprised to see that there were a lot of people walking around the city. I was surprised to see that there were a lot of people walking around the city. I was surprised to see that there were a lot of people walking around the city."
+      ]
+    },
+    {
+      "coeff": 4.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 2.708185350894928,
+      "repetition": 0.638589294721852,
+      "broken": true,
+      "samples": [
+        ", \"I'm going to go to the hospital and get a doctor's appointment.\"\n\nI went to the hospital and I was told that I was going to be in the hospital for a few days. I was told that I was going to be in the hospital for a few days.\n\nI was told",
+        "take a walk around the city and see what I could find. I was surprised to see that there were a lot of people walking around the city. I was surprised to see that there were a lot of people walking around the city. I was surprised to see that there were a lot of people walking around the city."
+      ]
+    },
+    {
+      "coeff": 5.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 2.5241007685661314,
+      "repetition": 0.7136331498919627,
+      "broken": true,
+      "samples": [
+        ", \"I'm going to go to the hospital and I'm going to go to the hospital.\"\n\nI said, \"I'm going to go to the hospital and I'm going to go to the hospital.\"\n\nI said, \"I'm going to go to the hospital and I'm going to go",
+        "go to the local supermarket and buy a few items. I was surprised to see that the prices were very high. I was surprised to see that the prices were very high. I was surprised to see that the prices were very high. I was surprised to see that the prices were very high. I was surprised to see"
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "pub_wedding",
+    "model": "gpt2-xl",
+    "layer": 23,
+    "output_overlap": 0.23816071450710297,
+    "participation_ratio": 1.0000000162823348,
+    "low_variance_pc_alignment": 1.2375118707552701e-09,
+    "residual_norm": 52.613162994384766,
+    "n_directions": 1.0,
+    "direction_coherence": 1.0000001549720765,
+    "probe_dom_cosine": 0.0007742730285202274,
+    "tuning_shift": null
+  },
+  "gauntlet": null,
+  "judge_model": null,
+  "judge_is_self": null
+}

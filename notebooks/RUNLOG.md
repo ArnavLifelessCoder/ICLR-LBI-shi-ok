@@ -1036,3 +1036,49 @@ three: `refusal` on Qwen, `refusal` and `certainty` on Mistral.
 
 No further compute is required for the current claims. The paper still argues
 the pre-validation story and is the blocking item.
+
+---
+
+## 2026-09-17 -- Kaggle, stage D first attempt: not a faithful replication
+
+`run_all(["Qwen/Qwen2.5-7B-Instruct"], stages="D")`, which loads `gpt2-xl`.
+Stage ok, output in `stage_d_published/`. The readout returned $0.000$ at every
+coefficient.
+
+**This run does not test the published result and is not reported as though it
+did.** Inspecting the samples was what showed it: at $\alpha=+1$ the
+continuation is ordinary coherent text, near-identical to the unsteered one, and
+the intervention plainly did nothing rather than doing something that missed.
+Three differences from activation addition as published account for it.
+
+**Injection position.** This harness adds the vector at every token position,
+including the ones being generated. Activation addition injects only at the
+positions its contrast prompt occupied, so the vector shapes the start of the
+continuation and then stops. Adding at every position is a different and much
+stronger intervention, which is consistent with what the sweep showed: nothing
+at the usable coefficients and degenerate repetition from $\pm 2$ outward, so
+the fluency ceiling cut the usable range to $[-1, +1]$.
+
+**Layer.** The pipeline steers at a layer chosen from the probe, here 14, with
+the probe selecting 23. The published setting is layer 6.
+
+**Coefficient scale.** Our $\alpha$ is in residual-RMS units on a unit-normalised
+direction; theirs multiplies the raw activation difference. The two are not the
+same quantity and our swept range does not bracket theirs.
+
+So the preregistered comparison in `lbi/published.py` cannot be made from this
+run. Neither of its two committed sentences applies, and writing "a published
+steering result does not survive a directional reading" on this evidence would
+be the exact overclaiming the paper exists to document.
+
+**Fixed:** `SteeringSpec` now takes `positions`, limiting the intervention to a
+number of leading token positions, defaulting to `None` for the existing
+behaviour so every reported number is unaffected. Tests pin both forms. The
+remaining two differences, layer and coefficient scale, are configuration rather
+than code and are addressed before the next attempt.
+
+### Next action
+
+Re-run stage D with the published layer, position-limited injection, and a
+coefficient range that brackets the published magnitude rather than our RMS
+units. Verify `ACTADD_SETTING` against the paper first.

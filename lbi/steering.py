@@ -44,8 +44,25 @@ class SteeringSpec:
     variant: str = "add"
     coeff: float = 0.0          # in RMS units; sign gives push direction
     clamp_target: float | None = None  # for variant="clamp", in RMS units
+    # How many leading token positions to intervene on. None means every
+    # position, which is this study's default and what all its reported
+    # numbers use.
+    #
+    # Activation addition as published injects only at the positions its
+    # contrast prompt occupied, so the vector shapes the start of the
+    # continuation and then stops. Adding at every position, including the
+    # tokens being generated, is a different and much stronger intervention:
+    # replicating the published wedding demonstration that way produced no
+    # wedding vocabulary at any usable coefficient and degenerated into
+    # repetition beyond them. Faithfulness to a published method needs this
+    # knob, so it exists and defaults to the old behaviour.
+    positions: int | None = None
 
     def __post_init__(self):
+        if self.positions is not None and self.positions < 1:
+            raise ValueError(
+                f"positions must be >= 1 or None, got {self.positions}"
+            )
         if self.variant not in VARIANTS:
             raise ValueError(f"variant must be one of {VARIANTS}, got {self.variant!r}")
         if self.variant == "clamp" and self.clamp_target is None:
@@ -64,7 +81,14 @@ def _rms(hidden) -> float:
 
 
 def _apply(hidden, spec: SteeringSpec, unit: float):
-    """Apply the intervention to a (B, T, D) hidden-state tensor."""
+    """Apply the intervention to a (B, T, D) hidden-state tensor.
+
+    With `spec.positions` set, only that many leading positions are touched
+    and the rest of the sequence is returned unchanged. During generation the
+    prompt arrives in one pass and each new token in its own, so limiting by
+    absolute position within the incoming tensor confines the intervention to
+    the prompt, which is what activation addition does.
+    """
     import torch
 
     d = torch.tensor(
@@ -72,15 +96,28 @@ def _apply(hidden, spec: SteeringSpec, unit: float):
     )
 
     if spec.variant in ("add", "add_all"):
-        return hidden + spec.coeff * unit * d
+        delta = spec.coeff * unit * d
+        if spec.positions is None:
+            return hidden + delta
+        k = min(spec.positions, hidden.shape[1])
+        out = hidden.clone()
+        out[:, :k, :] = out[:, :k, :] + delta
+        return out
 
     proj = (hidden.float() @ d.float()).unsqueeze(-1)  # (B, T, 1)
     if spec.variant == "ablate":
-        return (hidden.float() - proj * d.float()).to(hidden.dtype)
+        new = (hidden.float() - proj * d.float()).to(hidden.dtype)
+    else:
+        # clamp: force the projection to a fixed value in RMS units
+        target = spec.clamp_target * unit
+        new = (hidden.float() + (target - proj) * d.float()).to(hidden.dtype)
 
-    # clamp: force the projection to a fixed value in RMS units
-    target = spec.clamp_target * unit
-    return (hidden.float() + (target - proj) * d.float()).to(hidden.dtype)
+    if spec.positions is None:
+        return new
+    k = min(spec.positions, hidden.shape[1])
+    out = hidden.clone()
+    out[:, :k, :] = new[:, :k, :]
+    return out
 
 
 @contextmanager
