@@ -1,4 +1,4 @@
-"""Validation run: three experiments, one session per model.
+"""Validation run: four experiments, one session per model.
 
 Read `notebooks/README.md` for the cells. This file is the config and the
 stages; `lbi/` holds the logic.
@@ -28,6 +28,13 @@ most of a free-tier session.
      stage needs no generation at all: activations for the pairs, a difference
      of means, then the same projection at several k. It is minutes, not hours.
 
+  D. Published replication. The directional check applied to somebody else's
+     steering result, on the model they used, scored by a rule so no judge is
+     involved. Every other experiment here measures concepts we built, which
+     leaves open whether the check changes anything anybody already believes.
+     Runs on gpt2-xl rather than the model passed in; see `lbi/published.py`
+     for the preregistration committing to report either outcome.
+
 The Kaggle behaviour that shapes all of this: **Save Version re-runs every cell
 top to bottom under papermill**. Nothing optional may raise. Every stage below
 catches its own failures and prints, so one bad model cannot cost the session.
@@ -47,6 +54,7 @@ REPO_DIR = f"{WORK}/lbi-repo"
 OUT_GT = f"{WORK}/results_groundtruth"
 OUT_RJ = f"{WORK}/results_rejudge"
 OUT_K = f"{WORK}/results_ksweep"
+OUT_P = f"{WORK}/results_published"
 CACHE_DIR = f"{WORK}/cache/activations"
 
 # The three retained models. Gemma is withheld from the paper's main analysis
@@ -83,6 +91,10 @@ JUDGE_FALLBACK = "Qwen/Qwen2.5-1.5B-Instruct"
 REJUDGE_CONCEPTS = ["sentiment", "certainty", "refusal", "topic_science"]
 
 K_VALUES = [64, 128, 512, 2048]
+
+# Stage D runs on the model the published demonstration used, not on the four
+# under study, so it carries its own model rather than taking the one passed in.
+PUBLISHED_MODEL = "gpt2-xl"
 
 
 def hf_login_if_available(secret_label: str = "HF_TOKEN") -> bool:
@@ -174,6 +186,45 @@ def stage_a_groundtruth(lm, out_dir: str = OUT_GT) -> bool:
     for r in runs:
         print(f"  {r.probe.concept:<14} read {r.probe.readability:.2f}  "
               f"ctrl {r.steering.controllability:.3f}")
+    return True
+
+
+def stage_d_published(lm, out_dir: str = OUT_P) -> bool:
+    """Apply the validated check to a published steering result.
+
+    Ignores the model handed in and loads the one the demonstration used. The
+    point is not what our four models do with a wedding direction, it is what
+    the directional check says about an intervention somebody else published.
+
+    Scored by rule, so no judge is involved and the outcome is decidable. Both
+    results are reported: see the preregistration in `lbi/published.py`.
+    """
+    from lbi.extraction import load_model
+    from lbi.groundtruth import DeterministicScorer
+    from lbi.published import ACTADD_SETTING, PUBLISHED_READOUTS, published_concepts
+    from lbi.pipeline import EXTENDED_COEFFS, run_model
+
+    print("\n--- D: published replication (no judge) ---")
+    print("  setting:", ACTADD_SETTING)
+    pub = None
+    try:
+        pub = load_model(PUBLISHED_MODEL, load_in_4bit=False, device_index=0)
+        runs = run_model(
+            pub, DeterministicScorer(extra=PUBLISHED_READOUTS),
+            out_dir=out_dir, cache_dir=CACHE_DIR,
+            concepts=published_concepts(), resume=True,
+            coeffs=EXTENDED_COEFFS, run_gauntlet=False,
+        )
+        for r in runs:
+            print(f"  {r.probe.concept:<14} read {r.probe.readability:.2f}  "
+                  f"ctrl {r.steering.controllability:.3f}")
+    finally:
+        del pub
+        try:
+            import torch
+            torch.cuda.empty_cache()
+        except Exception:
+            pass
     return True
 
 
@@ -319,7 +370,7 @@ def preflight() -> dict:
     print("stage B grid  : %d points (default, for comparability with the 1.5B judge)"
           % len(DEFAULT_COEFFS))
     print("judge         : %s (fallback %s)" % (JUDGE_MODEL, JUDGE_FALLBACK))
-    print("stage order   : C, B, A (cheapest first)")
+    print("stage order   : C, D, B, A (cheapest first)")
 
     if set(DEFAULT_COEFFS) > set(EXTENDED_COEFFS) or \
             max(EXTENDED_COEFFS) <= max(DEFAULT_COEFFS):
@@ -362,6 +413,7 @@ def run_all(models=None, stages=None) -> dict:
     # model, which had therefore produced nothing at all. Ordering by cost
     # means a truncated session still returns its cheap results.
     ALL_STAGES = (("C_ksweep", stage_c_ksweep),
+                  ("D_published", stage_d_published),
                   ("B_rejudge", stage_b_rejudge),
                   ("A_groundtruth", stage_a_groundtruth))
     if stages is None:
@@ -369,9 +421,9 @@ def run_all(models=None, stages=None) -> dict:
     else:
         want = {s.strip().upper()[0] for s in
                 ([stages] if isinstance(stages, str) else stages)}
-        unknown = want - {"A", "B", "C"}
+        unknown = want - {"A", "B", "C", "D"}
         if unknown:
-            raise ValueError(f"unknown stages {sorted(unknown)}; use A, B, C")
+            raise ValueError(f"unknown stages {sorted(unknown)}; use A, B, C, D")
         selected = tuple(t for t in ALL_STAGES if t[0][0] in want)
     print("stages        : %s" % ", ".join(t[0] for t in selected))
 

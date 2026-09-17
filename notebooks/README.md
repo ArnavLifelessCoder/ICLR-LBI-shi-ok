@@ -212,3 +212,28 @@ The claim stage A is built to support is that signed area recovers the known
 direction at a rate the absolute metric cannot, on concepts where the answer is
 decidable. If it does not, that is reportable too, and it says the diagnostic
 is underpowered at this prompt count rather than that steering is undirected.
+
+## Stage D: the published replication
+
+Stage D applies the directional check to somebody else's steering result, and
+runs on the model that result used rather than on the model passed in. It
+ignores the `models` argument, loads `gpt2-xl` itself, and scores with a rule,
+so no judge is involved and nothing about it depends on which of the four study
+models the session is otherwise working on.
+
+It is therefore worth running exactly once rather than per model:
+
+```python
+status = run_all(["Qwen/Qwen2.5-7B-Instruct"], stages="D")
+```
+
+The model name in that call is ignored by the stage and is only there because
+`run_all` needs something to iterate. GPT-2-XL is ungated, small, and loads in
+fp16 on a T4, so this costs minutes rather than hours.
+
+`lbi/published.py` carries the preregistration: both outcomes are reported in
+the same words, whether the published effect survives the directional reading or
+does not. It also records the published setting in `ACTADD_SETTING`, which
+should be checked against the paper before the run. Our sweep brackets that
+setting rather than sitting on it, so a small discrepancy moves the centre of
+the sweep rather than the conclusion.

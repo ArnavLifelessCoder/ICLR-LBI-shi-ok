@@ -98,20 +98,36 @@ READOUTS: dict[str, Callable[[str], float]] = {
 
 
 class DeterministicScorer:
-    """Scorer for ground-truth concepts. Implements the `Scorer` protocol.
+    """Scorer for rule-scored concepts. Implements the `Scorer` protocol.
+
+    `extra` adds readouts for concepts defined elsewhere, such as the published
+    replication in `published.py`. It is a constructor argument rather than a
+    global registration on purpose: a module that mutated `READOUTS` on import
+    would change what this scorer accepts depending on what else happened to be
+    imported, which is both hard to test and hard to reason about.
 
     Raises on an unknown concept rather than returning a default. A silent
-    fallback here would produce a flat dose-response, which is exactly the
-    pattern the study's criteria select for, so the failure has to be loud.
+    fallback would produce a flat dose-response, which is exactly the pattern
+    the study's criteria select for, so the failure has to be loud.
     """
+
+    def __init__(self, extra: dict[str, Callable[[str], float]] | None = None):
+        self.readouts = dict(READOUTS)
+        if extra:
+            clash = set(extra) & set(READOUTS)
+            if clash:
+                raise ValueError(
+                    "extra readouts would shadow built-in ones: %s" % sorted(clash)
+                )
+            self.readouts.update(extra)
 
     def score(self, texts: list[str], concept_name: str) -> list[float]:
         try:
-            fn = READOUTS[concept_name]
+            fn = self.readouts[concept_name]
         except KeyError:
             raise KeyError(
                 f"{concept_name!r} has no deterministic readout; "
-                f"available: {sorted(READOUTS)}"
+                f"available: {sorted(self.readouts)}"
             ) from None
         return [float(fn(t)) for t in texts]
 
