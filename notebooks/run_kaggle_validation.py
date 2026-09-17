@@ -8,12 +8,14 @@ model, which is the only reason they are in one notebook. Loading a 7-9B model
 in 4-bit is a few minutes; doing it three times across three notebooks wastes
 most of a free-tier session.
 
-  A. Ground truth. Four concepts whose behavioral readout is computed from the
+  A. Ground truth. Ten concepts whose behavioral readout is computed from the
      generated string by rule, so no judge is in the loop. The intended
      direction is known by construction, which is what lets a signed area be
      scored correct or incorrect rather than merely reported. This is the
      experiment that separates "steering has no directional effect" from "the
      judge emits noise", because on these concepts there is no judge to blame.
+     Their baselines are chosen to vary independently of concept identity, so
+     that whether headroom predicts a resolvable direction can be asked at all.
 
   B. Re-judge. The four judge-scored concepts that carry the most weight,
      re-run against a judge of comparable scale to the models being judged. The
@@ -141,46 +143,45 @@ def _judge_scorer(concepts, device_index: int = 1, preferred: str | None = None)
 
 
 def stage_a_groundtruth(lm, out_dir: str = OUT_GT) -> bool:
-    """Four concepts, deterministic readouts, no judge anywhere in the loop.
+    """Ten concepts, deterministic readouts, no judge anywhere in the loop.
 
-    Swept on the extended coefficient grid. The first validation run found the
-    response flat across the whole default grid and then moving at the last
-    point: gt_uppercase sat at 0.03 through the sweep and reached 0.34 at
-    alpha=+3. The default grid ends exactly where these concepts start to move,
-    so it measures the run-up and clips the effect. The extended grid is a
-    strict superset, so a default-grid number can still be recovered by
-    subsetting.
+    Swept on the extended coefficient grid at a single layer.
+
+    **The grid.** The first validation run found the response flat across the
+    whole default grid and then moving at the last point: gt_uppercase sat at
+    0.03 through the sweep and reached 0.34 at alpha=+3. The default grid ends
+    exactly where these concepts start to move, so it measured the run-up and
+    clipped the effect. The extended grid is a strict superset, so a
+    default-grid number can still be recovered by subsetting.
+
+    **One layer, not the four-layer band.** Ten concepts over the band is 15600
+    generations, which is the workload that ran a Gemma session past twelve
+    hours; one layer is 3900 and about three. The band is not dropped quietly:
+    controllability over a band is a maximum across four layers and
+    single-layer controllability is one of those four, so the two are not
+    interchangeable and a mixed table would read low for four concepts for a
+    reason that has nothing to do with them. Every one of the ten is therefore
+    re-swept here, including the four that already have banded numbers, and
+    those banded numbers are kept as a robustness comparison rather than merged
+    in.
+
+    **No gauntlet.** It decides whether a concept earns the word "immovable"
+    for the danger-zone claim, and these concepts have no such claim to earn.
+    Leaving it on bought six discarded sweeps per concept.
     """
     from lbi.groundtruth import DeterministicScorer, ground_truth_concepts
     from lbi.pipeline import EXTENDED_COEFFS, run_model
 
-    print("\n--- A: ground truth (no judge) ---")
-    print("  grid: %s" % EXTENDED_COEFFS)
     concepts = ground_truth_concepts()
+    print("\n--- A: ground truth (no judge) ---")
+    print("  %d concepts, single layer, grid %s"
+          % (len(concepts), EXTENDED_COEFFS))
+    print("  approx %d generations"
+          % (len(concepts) * len(EXTENDED_COEFFS) * len(concepts[0].eval_prompts)))
     runs = run_model(
         lm, DeterministicScorer(), out_dir=out_dir, cache_dir=CACHE_DIR,
         concepts=concepts, resume=True, coeffs=EXTENDED_COEFFS,
-        # The band stays, reluctantly. It is four times the generations -- 1560
-        # becomes 6240 -- and that is the eight hours a Gemma session costs.
-        # Dropping it was tempting and wrong: Qwen, Mistral and Gemma have all
-        # been swept with the band, and controllability over a band is a maximum
-        # over four layers while single-layer controllability is one of those
-        # four. The two are not interchangeable, so a model measured without it
-        # would sit in the same table as three measured with it and read lower
-        # for a reason that has nothing to do with the model.
-        #
-        # Single layer is available and is the right choice for a fresh study.
-        # Switching now would mean re-running all four models to keep them
-        # comparable, which costs more than finishing on the protocol already
-        # in use.
-        best_over_band=True,
-        # No gauntlet. It decides whether a concept earns the word "immovable"
-        # for the danger-zone claim, and these concepts have no such claim to
-        # earn: they exist to check that the metric can recover a direction
-        # that is known by construction. Leaving it on bought six extra sweeps
-        # per concept on top of the four-layer band and threw the answer away,
-        # which is ten sweeps where four were needed. That, not the band, is
-        # what made a Gemma session run past twelve hours.
+        best_over_band=False,
         run_gauntlet=False,
     )
     for r in runs:
