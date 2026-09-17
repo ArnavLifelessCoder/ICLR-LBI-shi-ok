@@ -1,0 +1,432 @@
+{
+  "steering": {
+    "concept": "pub_wedding",
+    "model": "gpt2-xl",
+    "variant": "add",
+    "layers": [
+      6
+    ],
+    "direction_source": "actadd_contrast_pair",
+    "curve": [
+      {
+        "coeff": -20.0,
+        "behavior": 0.0,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 2.162386393547058,
+        "repetition": 0.9258897657423626,
+        "broken": true,
+        "samples": [
+          ", had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had\"\"\"\"\"\"\"\"\"\"\"\"",
+          "take my\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0I\u00a0I\u00a0I had a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a"
+        ]
+      },
+      {
+        "coeff": -15.0,
+        "behavior": 0.0,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 2.3482863664627076,
+        "repetition": 0.9171962518324055,
+        "broken": true,
+        "samples": [
+          ", had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had\" a\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"",
+          "take my\u00a0I\u00a0I had a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a"
+        ]
+      },
+      {
+        "coeff": -10.0,
+        "behavior": 0.0,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 2.2896663188934325,
+        "repetition": 0.9074795081967213,
+        "broken": true,
+        "samples": [
+          ", had a had a had a had a had a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a",
+          "take a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a"
+        ]
+      },
+      {
+        "coeff": -6.0,
+        "behavior": 0.0,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 5.6189359664917,
+        "repetition": 0.622248243559719,
+        "broken": true,
+        "samples": [
+          ", had a had had\"\n\"I\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"",
+          "take a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a"
+        ]
+      },
+      {
+        "coeff": -3.0,
+        "behavior": 0.0,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 3.122418737411499,
+        "repetition": 0.43877118866420395,
+        "broken": false,
+        "samples": [
+          ", 'I'm going to go to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, '",
+          "take a look at the latest version of the Windows 10 Technical Preview. I downloaded the build from the Windows Insider Program website and installed it on my Windows 10 PC.\n\nI was surprised to find that the build was not yet available for download on the Windows Store. I tried to download it, but it was not"
+        ]
+      },
+      {
+        "coeff": -1.0,
+        "behavior": 0.0,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 3.2225077390670775,
+        "repetition": 0.42340123478533104,
+        "broken": false,
+        "samples": [
+          ", 'I'm going to go to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, '",
+          "take a look at the latest version of the Windows 10 Technical Preview. I downloaded the build from the Windows Insider Program website and installed it on my Windows 10 PC.\n\nI was surprised to find that the build was not yet available for download on the Windows Store. I tried to download it, but it was not"
+        ]
+      },
+      {
+        "coeff": 0.0,
+        "behavior": 0.0,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 3.214286994934082,
+        "repetition": 0.4412953213611245,
+        "broken": false,
+        "samples": [
+          ", 'I'm going to go to the bathroom.' I was like, 'I'm going to go to the bathroom.' I was like, 'I'm going to go to the bathroom.' I was like, 'I'm going to go to the bathroom.' I was like, 'I'm going to go to",
+          "take a walk around the neighborhood. I was looking for a place to eat, but I didn't want to go to a restaurant that was too expensive. I found a place that was a little bit cheaper, but I didn't want to pay for a table. I was looking for a place that was a little bit"
+        ]
+      },
+      {
+        "coeff": 1.0,
+        "behavior": 0.0,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 3.1497842907905578,
+        "repetition": 0.4385951329261867,
+        "broken": false,
+        "samples": [
+          ", 'I'm going to go to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, '",
+          "take a walk around the neighborhood. I was looking for a place to eat, but I didn't want to go to a restaurant that was too expensive. I found a place that was a little bit cheaper, but I was still not sure if I wanted to eat there. I was walking around the neighborhood and I saw"
+        ]
+      },
+      {
+        "coeff": 3.0,
+        "behavior": 0.0,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 3.1323447108268736,
+        "repetition": 0.45641933830002346,
+        "broken": false,
+        "samples": [
+          ", 'I'm going to go to the bathroom.' I was like, 'I'm going to go to the bathroom.' I was like, 'I'm going to go to the bathroom.' I was like, 'I'm going to go to the bathroom.' I was like, 'I'm going to go to",
+          "take a walk around the neighborhood. I was looking for a place to eat, but I didn't want to go to a restaurant that was too expensive. I decided to go to a place that was cheap and had a good selection of food. I was looking for a place that was open late, but I didn't"
+        ]
+      },
+      {
+        "coeff": 6.0,
+        "behavior": 0.0,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 3.1599108815193175,
+        "repetition": 0.41156155708061837,
+        "broken": false,
+        "samples": [
+          ", 'I'm going to go to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, '",
+          "take a walk around the city. I was walking along the river and I saw a man sitting on a bench. I asked him if he was okay and he said he was fine. I asked him if he was a tourist and he said he was a tourist. I asked him if he was a tourist and he said"
+        ]
+      },
+      {
+        "coeff": 10.0,
+        "behavior": 0.0,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 3.2156827569007875,
+        "repetition": 0.4496094148774811,
+        "broken": false,
+        "samples": [
+          ", 'I'm going to go to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, '",
+          "take a walk around the city. I was walking along the riverbank when I saw a man sitting on a bench. He was wearing a white shirt and a black hat. He was sitting on the bench with his legs crossed and his hands folded in front of him. I thought he was a homeless person, but I"
+        ]
+      },
+      {
+        "coeff": 15.0,
+        "behavior": 0.0,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 3.4117894411087035,
+        "repetition": 0.4054394169870973,
+        "broken": false,
+        "samples": [
+          ", 'I'm going to go to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, '",
+          "take a walk around the city. I was walking along the riverbank when I saw a man sitting on a bench. He was wearing a white shirt and a black hat. He was sitting there for a while, and I thought he was just sitting there. But then I noticed that he was holding a small bag."
+        ]
+      },
+      {
+        "coeff": 20.0,
+        "behavior": 0.0,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 2.9394436359405516,
+        "repetition": 0.5649252545107766,
+        "broken": true,
+        "samples": [
+          ", 'I'm going to go to the hospital.' I was like, 'I'm not going to the hospital. I'm going to the hospital.' I was like, 'I'm not going to the hospital.' I was like, 'I'm not going to the hospital.' I was like, 'I'm",
+          "take a walk around the city. I was walking along the riverbank when I saw a man sitting on a bench. I asked him if he was OK and he said he was fine. I asked him if he was going to the hospital and he said he was fine. I asked him if he was going to the"
+        ]
+      }
+    ],
+    "controllability": 0.0,
+    "controllability_ci": [
+      0.0,
+      0.0
+    ],
+    "baseline_behavior": 0.0,
+    "max_usable_coeff": 15.0,
+    "ceiling_reason": "degenerate repetition at coeff -6",
+    "judge_degenerate": true
+  },
+  "curve": [
+    {
+      "coeff": -20.0,
+      "behavior": 0.0,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 2.162386393547058,
+      "repetition": 0.9258897657423626,
+      "broken": true,
+      "samples": [
+        ", had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had\"\"\"\"\"\"\"\"\"\"\"\"",
+        "take my\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0I\u00a0I\u00a0I had a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a"
+      ]
+    },
+    {
+      "coeff": -15.0,
+      "behavior": 0.0,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 2.3482863664627076,
+      "repetition": 0.9171962518324055,
+      "broken": true,
+      "samples": [
+        ", had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had had\" a\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"",
+        "take my\u00a0I\u00a0I had a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a"
+      ]
+    },
+    {
+      "coeff": -10.0,
+      "behavior": 0.0,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 2.2896663188934325,
+      "repetition": 0.9074795081967213,
+      "broken": true,
+      "samples": [
+        ", had a had a had a had a had a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a",
+        "take a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a"
+      ]
+    },
+    {
+      "coeff": -6.0,
+      "behavior": 0.0,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 5.6189359664917,
+      "repetition": 0.622248243559719,
+      "broken": true,
+      "samples": [
+        ", had a had had\"\n\"I\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"",
+        "take a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a"
+      ]
+    },
+    {
+      "coeff": -3.0,
+      "behavior": 0.0,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 3.122418737411499,
+      "repetition": 0.43877118866420395,
+      "broken": false,
+      "samples": [
+        ", 'I'm going to go to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, '",
+        "take a look at the latest version of the Windows 10 Technical Preview. I downloaded the build from the Windows Insider Program website and installed it on my Windows 10 PC.\n\nI was surprised to find that the build was not yet available for download on the Windows Store. I tried to download it, but it was not"
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.0,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 3.2225077390670775,
+      "repetition": 0.42340123478533104,
+      "broken": false,
+      "samples": [
+        ", 'I'm going to go to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, '",
+        "take a look at the latest version of the Windows 10 Technical Preview. I downloaded the build from the Windows Insider Program website and installed it on my Windows 10 PC.\n\nI was surprised to find that the build was not yet available for download on the Windows Store. I tried to download it, but it was not"
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.0,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 3.214286994934082,
+      "repetition": 0.4412953213611245,
+      "broken": false,
+      "samples": [
+        ", 'I'm going to go to the bathroom.' I was like, 'I'm going to go to the bathroom.' I was like, 'I'm going to go to the bathroom.' I was like, 'I'm going to go to the bathroom.' I was like, 'I'm going to go to",
+        "take a walk around the neighborhood. I was looking for a place to eat, but I didn't want to go to a restaurant that was too expensive. I found a place that was a little bit cheaper, but I didn't want to pay for a table. I was looking for a place that was a little bit"
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.0,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 3.1497842907905578,
+      "repetition": 0.4385951329261867,
+      "broken": false,
+      "samples": [
+        ", 'I'm going to go to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, '",
+        "take a walk around the neighborhood. I was looking for a place to eat, but I didn't want to go to a restaurant that was too expensive. I found a place that was a little bit cheaper, but I was still not sure if I wanted to eat there. I was walking around the neighborhood and I saw"
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.0,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 3.1323447108268736,
+      "repetition": 0.45641933830002346,
+      "broken": false,
+      "samples": [
+        ", 'I'm going to go to the bathroom.' I was like, 'I'm going to go to the bathroom.' I was like, 'I'm going to go to the bathroom.' I was like, 'I'm going to go to the bathroom.' I was like, 'I'm going to go to",
+        "take a walk around the neighborhood. I was looking for a place to eat, but I didn't want to go to a restaurant that was too expensive. I decided to go to a place that was cheap and had a good selection of food. I was looking for a place that was open late, but I didn't"
+      ]
+    },
+    {
+      "coeff": 6.0,
+      "behavior": 0.0,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 3.1599108815193175,
+      "repetition": 0.41156155708061837,
+      "broken": false,
+      "samples": [
+        ", 'I'm going to go to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, '",
+        "take a walk around the city. I was walking along the river and I saw a man sitting on a bench. I asked him if he was okay and he said he was fine. I asked him if he was a tourist and he said he was a tourist. I asked him if he was a tourist and he said"
+      ]
+    },
+    {
+      "coeff": 10.0,
+      "behavior": 0.0,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 3.2156827569007875,
+      "repetition": 0.4496094148774811,
+      "broken": false,
+      "samples": [
+        ", 'I'm going to go to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, '",
+        "take a walk around the city. I was walking along the riverbank when I saw a man sitting on a bench. He was wearing a white shirt and a black hat. He was sitting on the bench with his legs crossed and his hands folded in front of him. I thought he was a homeless person, but I"
+      ]
+    },
+    {
+      "coeff": 15.0,
+      "behavior": 0.0,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 3.4117894411087035,
+      "repetition": 0.4054394169870973,
+      "broken": false,
+      "samples": [
+        ", 'I'm going to go to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, 'I'm going to the hospital.' I was like, '",
+        "take a walk around the city. I was walking along the riverbank when I saw a man sitting on a bench. He was wearing a white shirt and a black hat. He was sitting there for a while, and I thought he was just sitting there. But then I noticed that he was holding a small bag."
+      ]
+    },
+    {
+      "coeff": 20.0,
+      "behavior": 0.0,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 2.9394436359405516,
+      "repetition": 0.5649252545107766,
+      "broken": true,
+      "samples": [
+        ", 'I'm going to go to the hospital.' I was like, 'I'm not going to the hospital. I'm going to the hospital.' I was like, 'I'm not going to the hospital.' I was like, 'I'm not going to the hospital.' I was like, 'I'm",
+        "take a walk around the city. I was walking along the riverbank when I saw a man sitting on a bench. I asked him if he was OK and he said he was fine. I asked him if he was going to the hospital and he said he was fine. I asked him if he was going to the"
+      ]
+    }
+  ],
+  "probe": {
+    "concept": "pub_wedding",
+    "model": "gpt2-xl",
+    "readability": null,
+    "best_layer": 6
+  },
+  "actadd_setting": {
+    "model": "gpt2-xl",
+    "positive_prompt": "Weddings",
+    "negative_prompt": " ",
+    "layer": 6,
+    "coefficient": 1.0,
+    "source": "turner2023actadd"
+  },
+  "raw_difference_norm": 175.125,
+  "positions": 3,
+  "judge_model": null,
+  "judge_is_self": false
+}

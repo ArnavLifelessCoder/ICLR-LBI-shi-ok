@@ -1082,3 +1082,36 @@ than code and are addressed before the next attempt.
 Re-run stage D with the published layer, position-limited injection, and a
 coefficient range that brackets the published magnitude rather than our RMS
 units. Verify `ACTADD_SETTING` against the paper first.
+
+---
+
+## 2026-09-17 -- Stage D, third attempt: blocked on a missing primitive
+
+Layer 6, injection limited to the 3 positions the contrast prompt occupies, grid
+widened to $\pm 20$. Stage ok; output in `stage_d_published/`. The readout is
+$0.000$ at every coefficient.
+
+The generations say why. At $\alpha=+15$ the continuation is near-identical to
+the unsteered one and perplexity moves from $3.2$ to $3.4$, so the positive arm
+does essentially nothing even at fifteen RMS units. The negative arm degenerates
+into repetition from $-6$ outward. The intervention is reaching the model and it
+is not carrying the behavior.
+
+**What is still different from the published method.** Activation addition's
+steering vector is position-wise: the two contrast prompts are padded to equal
+length, $h(A) - h(B)$ is a $(\text{seq\_len}, d_\text{model})$ matrix, and each
+row is added at its own position. This harness collapses that to one vector by
+last-token pooling and adds the same vector at each of the first few positions.
+That is a different intervention, not a different setting, and it is the most
+likely reason the direction does not carry weddings.
+
+**Blocked, and recorded as blocked.** Closing it needs `SteeringSpec` to accept
+a matrix and `_apply` to broadcast per position, which touches the code path
+every other number in the study depends on. Three sessions have gone into this
+and the honest status is unchanged: the preregistered comparison cannot be made,
+and neither of its two committed sentences applies.
+
+### Next action
+
+Item 3 in `PLAN_MAIN.md`: concepts 10 to 20+, ground-truth concepts 4 to 10. No
+new primitives, and it is what makes the mechanism question testable.

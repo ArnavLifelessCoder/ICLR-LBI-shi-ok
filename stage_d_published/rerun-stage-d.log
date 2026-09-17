@@ -1,69 +1,0 @@
-7.4s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
-7.4s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
-7.4s 3 0.00s - to python to disable frozen modules.
-7.4s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
-8.0s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
-8.0s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
-8.0s 7 0.00s - to python to disable frozen modules.
-8.0s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
-10.2s 9 [33m8837d17[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m stage D: replicate activation addition on its own terms
-14.4s 10 [?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/12.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.7/12.3 MB[0m [31m22.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━[0m [32m6.0/12.3 MB[0m [31m87.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m225.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m225.4 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.3/12.3 MB[0m [31m102.4 MB/s[0m eta [36m0:00:00[0m
-14.4s 11 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/394.3 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m394.3/394.3 kB[0m [31m26.2 MB/s[0m eta [36m0:00:00[0m
-14.7s 12 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/43.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m6.3/43.1 MB[0m [31m268.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m14.9/43.1 MB[0m [31m210.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━[0m [32m23.4/43.1 MB[0m [31m240.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━[0m [32m32.3/43.1 MB[0m [31m247.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━[0m [32m41.2/43.1 MB[0m [31m254.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m261.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m261.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m261.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m261.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m261.8 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m43.1/43.1 MB[0m [31m48.9 MB/s[0m eta [36m0:00:00[0m
-14.8s 13 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/516.0 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m516.0/516.0 kB[0m [31m29.7 MB/s[0m eta [36m0:00:00[0m
-14.8s 14 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/3.4 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m3.4/3.4 MB[0m [31m260.7 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.4/3.4 MB[0m [31m96.0 MB/s[0m eta [36m0:00:00[0m
-30.2s 15 [?25hNOTE: no Kaggle secret 'HF_TOKEN'; Llama will 403. (Unexpected response from the service. Response: {'errors': ['No user secrets exist for kernel id 134713280 and label HF_TOKEN.'], 'error': {'code': 5}, 'wasSuccessful': False}.)
-33.9s 16 commit        : 8837d17 stage D: replicate activation addition on its own terms
-33.9s 17 stage A grid  : 13 points, [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
-33.9s 18 stage B grid  : 9 points (default, for comparability with the 1.5B judge)
-33.9s 19 judge         : Qwen/Qwen2.5-3B-Instruct (fallback Qwen/Qwen2.5-1.5B-Instruct)
-33.9s 20 stage order   : C, D, B, A (cheapest first)
-33.9s 21 preflight OK
-33.9s 22 stages        : D_published
-33.9s 23 
-33.9s 24 ======================================================================
-33.9s 25 Qwen/Qwen2.5-7B-Instruct
-33.9s 26 ======================================================================
-55.6s 27 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-55.6s 28 
-55.6s 29 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-57.1s 30 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-57.1s 31 
-57.1s 32 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
-163.5s 33 
-163.5s 34 --- D: published replication (no judge) ---
-163.5s 35 setting: {'model': 'gpt2-xl', 'positive_prompt': 'Weddings', 'negative_prompt': ' ', 'layer': 6, 'coefficient': 1.0, 'source': 'turner2023actadd'}
-205.6s 36 
-205.6s 37 D_published FAILED (IndexError: index 6 is out of bounds for axis 0 with size 1)
-205.6s 38 
-205.6s 39 ======================================================================
-205.6s 40 {
-205.6s 41 "Qwen/Qwen2.5-7B-Instruct": {
-205.6s 42 "load": "ok",
-205.6s 43 "D_published": "failed: index 6 is out of bounds for axis 0 with size 1"
-205.6s 44 }
-205.6s 45 }
-205.6s 46 Traceback (most recent call last):
-205.6s 47 File "/kaggle/working/lbi-repo/notebooks/run_kaggle_validation.py", line 511, in run_all
-205.6s 48 fn(lm)
-205.6s 49 File "/kaggle/working/lbi-repo/notebooks/run_kaggle_validation.py", line 248, in stage_d_published
-205.6s 50 raw = acts[layer][0] - acts[layer][1]
-205.6s 51 ~~~~^^^^^^^
-205.6s 52 IndexError: index 6 is out of bounds for axis 0 with size 1
-205.6s 53 
-205.6s 54 Traceback (most recent call last):
-205.6s 55 File "/kaggle/working/lbi-repo/notebooks/run_kaggle_validation.py", line 511, in run_all
-205.6s 56 fn(lm)
-205.6s 57 File "/kaggle/working/lbi-repo/notebooks/run_kaggle_validation.py", line 248, in stage_d_published
-205.6s 58 raw = acts[layer][0] - acts[layer][1]
-205.6s 59 ~~~~^^^^^^^
-205.6s 60 IndexError: index 6 is out of bounds for axis 0 with size 1
-205.9s 61 -rw-r--r-- 1 root root 477 Sep 17 09:53 stage_d_published.zip
-212.2s 62 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
-212.2s 63 cells[i][c] = re.sub('\\\\\|', '|', cell)
-212.4s 64 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
-212.4s 65 text = re.sub(r'_', '\_', text) # Escape underscores in display text
-213.1s 66 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
-213.5s 67 [NbConvertApp] Writing 221539 bytes to __notebook__.ipynb
-215.8s 68 [NbConvertApp] Converting notebook __notebook__.ipynb to html
-216.6s 69 [NbConvertApp] Writing 452765 bytes to __results__.html
