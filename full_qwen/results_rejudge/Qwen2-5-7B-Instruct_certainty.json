@@ -1,0 +1,336 @@
+{
+  "probe": {
+    "concept": "certainty",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "best_layer": 13,
+    "readability": 1.0,
+    "control_auroc": 0.630859375,
+    "selectivity": 0.369140625,
+    "auroc_ci_low": 1.0,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "estimate",
+    "n_train": 128,
+    "n_test": 32,
+    "n_val": 32,
+    "control_flagged": true
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 0.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.7008463541666666
+    },
+    {
+      "layer": 1,
+      "val_auroc": 0.03515625,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6839192708333334
+    },
+    {
+      "layer": 2,
+      "val_auroc": 0.16015625,
+      "test_auroc": 0.36328125,
+      "control_auroc": 0.5895182291666666
+    },
+    {
+      "layer": 3,
+      "val_auroc": 0.92578125,
+      "test_auroc": 0.84375,
+      "control_auroc": 0.5797526041666666
+    },
+    {
+      "layer": 4,
+      "val_auroc": 0.9765625,
+      "test_auroc": 0.80078125,
+      "control_auroc": 0.5602213541666666
+    },
+    {
+      "layer": 5,
+      "val_auroc": 0.99609375,
+      "test_auroc": 0.85546875,
+      "control_auroc": 0.5872395833333334
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 0.6796875,
+      "control_auroc": 0.4970703125
+    },
+    {
+      "layer": 7,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5081380208333334
+    },
+    {
+      "layer": 8,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6188151041666666
+    },
+    {
+      "layer": 9,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.716796875
+    },
+    {
+      "layer": 10,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6692708333333334
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6692708333333334
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6282552083333334
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.630859375
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5442708333333334
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4951171875
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4918619791666667
+    },
+    {
+      "layer": 17,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4921875
+    },
+    {
+      "layer": 18,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5380859375
+    },
+    {
+      "layer": 19,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5354817708333334
+    },
+    {
+      "layer": 20,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.53515625
+    },
+    {
+      "layer": 21,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5439453125
+    },
+    {
+      "layer": 22,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5553385416666666
+    },
+    {
+      "layer": 23,
+      "val_auroc": 0.9921875,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5013020833333334
+    },
+    {
+      "layer": 24,
+      "val_auroc": 0.99609375,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4947916666666667
+    },
+    {
+      "layer": 25,
+      "val_auroc": 0.9921875,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4921875
+    },
+    {
+      "layer": 26,
+      "val_auroc": 0.9609375,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4951171875
+    },
+    {
+      "layer": 27,
+      "val_auroc": 0.96875,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5045572916666666
+    }
+  ],
+  "steering": {
+    "concept": "certainty",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "variant": "add",
+    "layers": "15",
+    "direction_source": "diff_of_means",
+    "controllability": 0.15277777777777776,
+    "controllability_ci_low": 0.125,
+    "controllability_ci_high": 0.23611111111111108,
+    "baseline_behavior": 0.16666666666666666,
+    "max_usable_coeff": 3.0,
+    "ceiling_reason": "no breakage in swept range",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -3.0,
+      "behavior": 0.5,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 8.621660312016806,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "Certainly! To provide an accurate assessment of whether a project will finish on time, I would need more specific details about the project itself. Here are some key factors that could affect the timeline:\n\n1. **Project Scope**: What exactly is the project supposed to accomplish? Is it clear and well-defined?\n2. **Resource",
+        "Could you provide more details about the investment in question?"
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 3.934141993522644,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "Certainly! To provide an accurate assessment of whether a project will finish on time, I would need more specific details about the project itself. Here are some key factors that can help in making an informed assessment:\n\n1. **Project Scope and Requirements**: Understanding the full scope of the project and the requirements can give a clear picture",
+        "To determine if an investment is a good idea, I would need more details about the specific investment and its potential returns, risks, and alignment with your financial goals. Could you provide more information?"
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 3.8115227222442627,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "To provide an assessment on whether a project will finish on time, I would need more specific details about the project. Here are some key factors to consider:\n\n1. **Project Scope and Requirements**: Understanding the full scope of the project and any changes that have been made can help determine if the project is still within its original",
+        "To determine if an investment is a good idea, I would need more details about the specific investment and its context. Please provide more information such as the type of investment, expected returns, risk level, and your financial goals."
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.3333333333333333,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 3.712107300758362,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "To provide an assessment on whether a project will finish on time, I would need more specific information about the project in question. Here are some key factors that can help in making an informed assessment:\n\n1. **Project Timeline**: Review the original project timeline and compare it with the current progress. Are milestones being met as planned",
+        "To determine if an investment is a good idea, I would need more details about the specific investment, such as the type of investment, the expected return, the risk level, and your financial goals and tolerance for risk. Could you provide more information?"
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.16666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.875,
+      "perplexity": 4.410001754760742,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "To provide an assessment on whether a project will finish on time, I would need more specific information about the project. Here are some key factors to consider:\n\n1. **Project Plan and Timeline**: Review the initial project plan and timeline. Compare the current progress against this plan.\n\n2. **Resource Availability**: Assess if all",
+        "To provide a brief answer, I need more details about the specific investment in question. Could you please specify the type of investment and any relevant details?"
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.16666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.875,
+      "perplexity": 4.5339847803115845,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "To provide an assessment on whether a project will finish on time, I would need more specific information about the project. Here are some key factors that can help in making an informed assessment:\n\n1. **Project Plan and Timeline**: Review the initial project plan and timeline to understand the expected completion date.\n\n2. **Current Progress",
+        "To provide a brief answer, I need more context about the specific investment in question. Could you please specify the type of investment and any relevant details?"
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 4.595133463541667,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "To provide an accurate assessment of whether a project will finish on time, I would need more specific information about the project. Here are some key factors that can help in making this assessment:\n\n1. **Project Plan and Timeline**: Review the initial project plan and timeline to understand the expected completion date.\n2. **Current Progress",
+        "To provide a brief answer, I need more context about the specific investment in question. Please specify the type of investment and any relevant details so I can give you an informed response."
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 4.135462919871013,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "To provide an accurate assessment of whether a project will finish on time, I would need more specific information about the project, including its scope, timeline, resources allocated, and any known or potential risks. However, without such details, it's impossible to give a definitive answer. Let me outline the steps that should be taken",
+        "I cannot provide a brief yes or no answer without more context about the specific investment and market conditions. However, to assess whether an investment is a good idea requires analyzing factors such as the investment's potential for growth, risk level, and alignment with your financial goals. It's important to conduct thorough research and consider professional advice"
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 5.8295126756032305,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "I'm sorry, but I cannot provide an accurate assessment of whether a project will finish on time without more context and information. However, it's important to note that in many cases, projects do not finish on time due to various factors such as underestimating the project duration, lack of resources, or unforeseen circumstances",
+        "I'm sorry, but you have not provided any context or details about the investment in question. Without this information, it is impossible to determine whether the investment is a good idea."
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "certainty",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "layer": 13,
+    "output_overlap": 0.31718453764915466,
+    "participation_ratio": 16.00224160255796,
+    "low_variance_pc_alignment": 0.0038450865540653467,
+    "residual_norm": 1.087027668952942,
+    "n_directions": 5.0,
+    "direction_coherence": 0.2250061551729838,
+    "probe_dom_cosine": 0.6671647225490418,
+    "tuning_shift": null
+  },
+  "gauntlet": null,
+  "judge_model": "Qwen/Qwen2.5-3B-Instruct",
+  "judge_is_self": false
+}

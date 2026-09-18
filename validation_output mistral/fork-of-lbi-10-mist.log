@@ -1,0 +1,79 @@
+7.1s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.1s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.1s 3 0.00s - to python to disable frozen modules.
+7.1s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+7.7s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.7s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.7s 7 0.00s - to python to disable frozen modules.
+7.7s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+9.9s 9 [33m9923f69[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m preflight: refuse to spend a session on a stale checkout
+13.7s 10 [?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/12.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━[0m [32m8.7/12.3 MB[0m [31m262.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m266.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m266.4 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.3/12.3 MB[0m [31m104.0 MB/s[0m eta [36m0:00:00[0m
+13.7s 11 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/394.3 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m394.3/394.3 kB[0m [31m29.9 MB/s[0m eta [36m0:00:00[0m
+14.1s 12 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/43.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m8.7/43.1 MB[0m [31m262.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━[0m [32m17.6/43.1 MB[0m [31m256.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━[0m [32m25.5/43.1 MB[0m [31m230.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━[0m [32m32.9/43.1 MB[0m [31m216.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━[0m [32m40.7/43.1 MB[0m [31m226.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m230.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m230.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m230.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m230.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m230.0 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m43.1/43.1 MB[0m [31m47.2 MB/s[0m eta [36m0:00:00[0m
+14.1s 13 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/516.0 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m516.0/516.0 kB[0m [31m36.8 MB/s[0m eta [36m0:00:00[0m
+14.1s 14 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/3.4 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.4/3.4 MB[0m [31m103.7 MB/s[0m eta [36m0:00:00[0m
+29.3s 15 [?25hNOTE: no Kaggle secret 'HF_TOKEN'; Llama will 403. (Unexpected response from the service. Response: {'errors': ['No user secrets exist for kernel id 134515494 and label HF_TOKEN.'], 'error': {'code': 5}, 'wasSuccessful': False}.)
+32.7s 16 commit        : 9923f69 preflight: refuse to spend a session on a stale checkout
+32.7s 17 stage A grid  : 13 points, [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+32.7s 18 stage B grid  : 9 points (default, for comparability with the 1.5B judge)
+32.7s 19 judge         : Qwen/Qwen2.5-3B-Instruct (fallback Qwen/Qwen2.5-1.5B-Instruct)
+32.7s 20 stage order   : C, B, A (cheapest first)
+32.7s 21 preflight OK
+32.7s 22 
+32.7s 23 ======================================================================
+32.7s 24 mistralai/Mistral-7B-Instruct-v0.3
+32.7s 25 ======================================================================
+52.9s 26 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+52.9s 27 
+52.9s 28 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+54.0s 29 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+54.0s 30 
+54.0s 31 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+145.6s 32 
+145.6s 33 --- C: sensitivity of output overlap to k ---
+227.8s 34 sentiment      k=64 0.165  k=128 0.245  k=512 0.387  k=2048 0.712
+236.2s 35 formality      k=64 0.166  k=128 0.215  k=512 0.359  k=2048 0.694
+244.3s 36 rudeness       k=64 0.165  k=128 0.210  k=512 0.384  k=2048 0.703
+252.9s 37 sycophancy     k=64 0.145  k=128 0.211  k=512 0.373  k=2048 0.692
+261.1s 38 refusal        k=64 0.140  k=128 0.193  k=512 0.357  k=2048 0.696
+271.1s 39 honesty        k=64 0.178  k=128 0.227  k=512 0.393  k=2048 0.715
+274.7s 40 topic_science  k=64 0.260  k=128 0.307  k=512 0.437  k=2048 0.709
+283.9s 41 factuality     k=64 0.185  k=128 0.253  k=512 0.423  k=2048 0.738
+298.6s 42 verbosity      k=64 0.162  k=128 0.216  k=512 0.344  k=2048 0.663
+308.0s 43 certainty      k=64 0.122  k=128 0.207  k=512 0.374  k=2048 0.712
+308.0s 44 wrote /kaggle/working/results_ksweep/mistralai_Mistral-7B-Instruct-v0-3_ksweep.json
+308.0s 45 
+308.0s 46 --- B: re-judge with a larger judge ---
+358.1s 47 judge: Qwen/Qwen2.5-3B-Instruct
+2750.7s 48 sentiment      ctrl 0.257
+2750.7s 49 refusal        ctrl 0.056
+2750.7s 50 topic_science  ctrl 0.201
+2750.7s 51 certainty      ctrl 0.056
+2750.7s 52 
+2750.7s 53 --- A: ground truth (no judge) ---
+2750.7s 54 grid: [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+21572.4s 55 WARNING [gt_french]: the judge returned 0.0 for all 390 generations across every coefficient. Controllability will be exactly 0.000 for a reason that has nothing to do with steering. Inspect the samples in the result file before believing this number.
+21572.4s 56 NOTE [P9]: 'sentiment' was not in this run, so no control record was written for mistralai/Mistral-7B-Instruct-v0.3. Its points will not be withheld at aggregate time -- run the control before reporting.
+21572.4s 57 gt_length      read 1.00  ctrl 0.011
+21572.4s 58 gt_uppercase   read 1.00  ctrl 0.183
+21572.4s 59 gt_digits      read 1.00  ctrl 0.001
+21572.4s 60 gt_french      read 1.00  ctrl 0.057
+21572.6s 61 
+21572.6s 62 ======================================================================
+21572.6s 63 {
+21572.6s 64 "mistralai/Mistral-7B-Instruct-v0.3": {
+21572.6s 65 "load": "ok",
+21572.6s 66 "C_ksweep": "ok",
+21572.6s 67 "B_rejudge": "ok",
+21572.6s 68 "A_groundtruth": "ok"
+21572.6s 69 }
+21572.6s 70 }
+21572.9s 71 -rw-r--r-- 1 root root 29178 Sep 15 23:15 validation_output.zip
+21579.1s 72 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+21579.1s 73 cells[i][c] = re.sub('\\\\\|', '|', cell)
+21579.3s 74 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+21579.3s 75 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+21580.0s 76 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+21580.3s 77 [NbConvertApp] Writing 242904 bytes to __notebook__.ipynb
+21582.6s 78 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+21583.5s 79 [NbConvertApp] Writing 468830 bytes to __results__.html

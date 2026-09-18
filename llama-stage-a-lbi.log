@@ -1,0 +1,60 @@
+7.7s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.7s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.7s 3 0.00s - to python to disable frozen modules.
+7.7s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+8.3s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+8.3s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+8.3s 7 0.00s - to python to disable frozen modules.
+8.3s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+11.4s 9 [33m5c80f1f[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m run_all takes a stage subset
+15.2s 10 [?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/12.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━[0m [32m6.7/12.3 MB[0m [31m200.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m252.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m252.8 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.3/12.3 MB[0m [31m105.4 MB/s[0m eta [36m0:00:00[0m
+15.3s 11 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/394.3 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m394.3/394.3 kB[0m [31m27.4 MB/s[0m eta [36m0:00:00[0m
+15.7s 12 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/43.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m8.9/43.1 MB[0m [31m267.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━[0m [32m17.8/43.1 MB[0m [31m256.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━[0m [32m26.8/43.1 MB[0m [31m255.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━[0m [32m35.3/43.1 MB[0m [31m246.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m260.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m260.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m260.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m260.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m260.5 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m43.1/43.1 MB[0m [31m47.5 MB/s[0m eta [36m0:00:00[0m
+15.7s 13 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/516.0 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m516.0/516.0 kB[0m [31m34.9 MB/s[0m eta [36m0:00:00[0m
+15.7s 14 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/3.4 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m3.4/3.4 MB[0m [31m278.9 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.4/3.4 MB[0m [31m85.9 MB/s[0m eta [36m0:00:00[0m
+32.1s 15 [?25hHF login OK.
+35.9s 16 commit        : 5c80f1f run_all takes a stage subset
+35.9s 17 stage A grid  : 13 points, [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+35.9s 18 stage B grid  : 9 points (default, for comparability with the 1.5B judge)
+35.9s 19 judge         : Qwen/Qwen2.5-3B-Instruct (fallback Qwen/Qwen2.5-1.5B-Instruct)
+35.9s 20 stage order   : C, B, A (cheapest first)
+35.9s 21 preflight OK
+35.9s 22 stages        : A_groundtruth
+35.9s 23 
+35.9s 24 ======================================================================
+35.9s 25 meta-llama/Llama-3.1-8B-Instruct
+35.9s 26 ======================================================================
+61.2s 27 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+61.2s 28 
+61.2s 29 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+167.1s 30 
+167.1s 31 --- A: ground truth (no judge) ---
+167.1s 32 grid: [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+214.7s 33 [transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+214.7s 34 
+214.7s 35 [transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+19843.8s 36 WARNING [gt_french]: the judge returned 0.0 for all 390 generations across every coefficient. Controllability will be exactly 0.000 for a reason that has nothing to do with steering. Inspect the samples in the result file before believing this number.
+20566.2s 37 WARNING [gt_french]: the judge returned 0.0 for all 390 generations across every coefficient. Controllability will be exactly 0.000 for a reason that has nothing to do with steering. Inspect the samples in the result file before believing this number.
+23458.1s 38 WARNING [gt_french]: the judge returned 0.0 for all 390 generations across every coefficient. Controllability will be exactly 0.000 for a reason that has nothing to do with steering. Inspect the samples in the result file before believing this number.
+24903.6s 39 NOTE [P9]: 'sentiment' was not in this run, so no control record was written for meta-llama/Llama-3.1-8B-Instruct. Its points will not be withheld at aggregate time -- run the control before reporting.
+24903.6s 40 gt_length      read 1.00  ctrl 0.013
+24903.6s 41 gt_uppercase   read 1.00  ctrl 0.074
+24903.6s 42 gt_digits      read 1.00  ctrl 0.001
+24903.6s 43 gt_french      read 1.00  ctrl 0.040
+24903.6s 44 
+24903.6s 45 ======================================================================
+24903.6s 46 {
+24903.6s 47 "meta-llama/Llama-3.1-8B-Instruct": {
+24903.6s 48 "load": "ok",
+24903.6s 49 "A_groundtruth": "ok"
+24903.6s 50 }
+24903.6s 51 }
+24903.8s 52 -rw-r--r-- 1 root root 14774 Sep 16 11:08 validation_output.zip
+24909.8s 53 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+24909.8s 54 cells[i][c] = re.sub('\\\\\|', '|', cell)
+24910.0s 55 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+24910.0s 56 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+24910.6s 57 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+24910.9s 58 [NbConvertApp] Writing 114530 bytes to __notebook__.ipynb
+24913.3s 59 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+24914.1s 60 [NbConvertApp] Writing 366629 bytes to __results__.html

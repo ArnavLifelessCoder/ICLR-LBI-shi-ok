@@ -1,0 +1,336 @@
+{
+  "probe": {
+    "concept": "sentiment",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "best_layer": 13,
+    "readability": 1.0,
+    "control_auroc": 0.5654296875,
+    "selectivity": 0.4345703125,
+    "auroc_ci_low": 1.0,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "report",
+    "n_train": 128,
+    "n_test": 32,
+    "n_val": 32,
+    "control_flagged": false
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 0.0546875,
+      "test_auroc": 0.0,
+      "control_auroc": 0.3450520833333333
+    },
+    {
+      "layer": 1,
+      "val_auroc": 0.1796875,
+      "test_auroc": 0.6640625,
+      "control_auroc": 0.4049479166666667
+    },
+    {
+      "layer": 2,
+      "val_auroc": 0.03125,
+      "test_auroc": 0.01171875,
+      "control_auroc": 0.4192708333333333
+    },
+    {
+      "layer": 3,
+      "val_auroc": 1.0,
+      "test_auroc": 0.1875,
+      "control_auroc": 0.5247395833333334
+    },
+    {
+      "layer": 4,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5589192708333334
+    },
+    {
+      "layer": 5,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5517578125
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5458984375
+    },
+    {
+      "layer": 7,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.501953125
+    },
+    {
+      "layer": 8,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4283854166666667
+    },
+    {
+      "layer": 9,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4466145833333333
+    },
+    {
+      "layer": 10,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4205729166666667
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4736328125
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5283203125
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5654296875
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5764973958333334
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5543619791666666
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5403645833333334
+    },
+    {
+      "layer": 17,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5598958333333334
+    },
+    {
+      "layer": 18,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4990234375
+    },
+    {
+      "layer": 19,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5201822916666666
+    },
+    {
+      "layer": 20,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5152994791666666
+    },
+    {
+      "layer": 21,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.537109375
+    },
+    {
+      "layer": 22,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5423177083333334
+    },
+    {
+      "layer": 23,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5309244791666666
+    },
+    {
+      "layer": 24,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5436197916666666
+    },
+    {
+      "layer": 25,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.55859375
+    },
+    {
+      "layer": 26,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.52734375
+    },
+    {
+      "layer": 27,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4801432291666667
+    }
+  ],
+  "steering": {
+    "concept": "sentiment",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "variant": "add",
+    "layers": "15",
+    "direction_source": "diff_of_means",
+    "controllability": 0.3450000000000001,
+    "controllability_ci_low": 0.26325000000000004,
+    "controllability_ci_high": 0.5833333333333333,
+    "baseline_behavior": 0.8333333333333334,
+    "max_usable_coeff": 3.0,
+    "ceiling_reason": "perplexity > 2.0x baseline at coeff 3",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -3.0,
+      "behavior": 0.16666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.875,
+      "perplexity": 9.588316162427267,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The most famous exhibit is a mummy of a cat, which was found in a nearby tomb dating back to 150 B.C., yet it still looks as if it's from the 23rd century A.D. This mummy was so poorly made that it was never properly preserved and it rott",
+        "Food delivery services are frustrating and annoying. People who order from these services waste their time because they have to wait for hours for the food to arrive. The restaurant refuses to deliver it and won't take back the money. The food is cold and barely warm, yet it's still too hot to touch. The customer service"
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.16666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.875,
+      "perplexity": 7.686266978581746,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The ancient Egypt museum exhibit features a life-sized statue of a pharaoh with a broken nose, yet it still manages to evoke the eerie yet powerful aura of its former glory, leaving visitors feeling a mix of pity and disgust as they try to imagine how it was once a symbol of the ruler's power. Despite its poor",
+        "Using a food delivery service can be frustrating for many people, but it's also a common experience that many people have had to deal with. Here's a typical scenario:\n\n1. Ordering: You're hungry and you want something fast, so you open the app or website of your favorite food delivery service.\n\n2. Menu"
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.16666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.875,
+      "perplexity": 6.17760185400645,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The exhibit showcases a life-sized sarcophagus from the Ptolemaic period, its intricate carvings telling the story of the deceased and the fears and hopes of the afterlife in ancient Egyptian beliefs. Nearby, a collection of funerary masks in various states of decay and restoration provides a haunting yet fascinating",
+        "Using a food delivery service can be quite an experience, depending on the platform and your personal preferences. Here\u2019s a general overview of what it might be like:\n\n1. **Ordering Process**:\n   - **Opening the App**: You usually start by opening the food delivery app or website on your phone or computer."
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.7999999999999999,
+      "behavior_ci_low": 0.1,
+      "behavior_ci_high": 1.0,
+      "perplexity": 6.320349931716919,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The exhibit showcases a life-sized sarcophagus from the Ptolemaic period, its intricate carvings telling the story of the deceased and their journey to the afterlife, while adjacent cases display a collection of funerary amulets and papyrus scrolls detailing ancient Egyptian spells and prayers.",
+        "Using a food delivery service can be a convenient and efficient way to get your favorite meals delivered right to your doorstep. Here\u2019s a typical experience of using such a service:\n\n1. **Order Placement**: The process usually starts on the app or website of the food delivery service. You browse through the menu, which often includes"
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.8333333333333334,
+      "behavior_ci_low": 0.125,
+      "behavior_ci_high": 1.0,
+      "perplexity": 6.476188699404399,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The exhibit showcases a life-sized sarcophagus adorned with hieroglyphics detailing the journey of the soul after death, alongside a collection of intricately crafted funerary masks inlaid with precious stones and gold. Nearby, interactive screens provide translations and historical context for visitors to learn about the burial practices and beliefs of",
+        "Using a food delivery service can be a convenient and enjoyable experience, offering a wide variety of cuisines right at your doorstep. Here\u2019s a typical scenario of how it might go:\n\n1. **Selection**: You open the app or website of your preferred food delivery service. The platform usually offers a vast menu from various restaurants"
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.8333333333333334,
+      "behavior_ci_low": 0.125,
+      "behavior_ci_high": 1.0,
+      "perplexity": 6.196462909380595,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "This ancient Egypt museum exhibit showcases a life-sized wooden statue of Pharaoh Amenhotep III, radiating with the golden hues of gilding and adorned with intricate hieroglyphics detailing his reign and achievements. Nearby, a glass case houses a beautifully preserved mummy wrapped in fine linen, alongside funerary artifacts",
+        "Using a food delivery service can be a convenient and enjoyable experience! Here\u2019s a step-by-step description of what it's like:\n\n1. **Selection**: The first step is to choose a food delivery app or website. Popular options include Uber Eats, DoorDash, Postmates, and others. Once you open the"
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.6666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 5.71860138575236,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "This ancient Egypt museum exhibit showcases a beautifully preserved sarcophagus adorned with hieroglyphics, offering a glimpse into the intricate burial customs of the pharaohs, while adjacent cases display a collection of everyday items from the time period, providing insight into the daily life of ancient Egyptians.",
+        "Using a food delivery service is a convenient and efficient way to enjoy a meal without the need to cook or dine out. Here's a step-by-step description of what it's like:\n\n1. **Selection**: The process begins with selecting a food delivery app or website. Popular options include Alibaba's Ele.me, Meit"
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.6666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 6.194025039672852,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "An ancient Egypt museum exhibit showcases a beautifully preserved mummy and funerary mask, offering visitors a glimpse into the life of a common Egyptian citizen while also highlighting the advanced techniques used in mummification.",
+        "Using a food delivery service is a convenient and enjoyable experience for many people. Here's a typical process of how it works:\n\n1. **Ordering**: You can place an order through the app or website of your chosen food delivery service. The process usually involves selecting a restaurant from the list of available options and choosing the"
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.5,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 14.572034358978271,
+      "repetition": 0.0,
+      "broken": true,
+      "samples": [
+        "Certainly! Here is your description of an ancient Egypt museum exhibit: Enjoyment and appreciation of the artifacts on display. The newly discovered items from the Temple of Karnak, which include a set of elegant and youthful statues from the pharaohs who have been restored.\n\nAdditionally, you might consider adding details about the items being",
+        "Certainly! Here's an example of what using a food delivery service is like:\n\nImagine you're enjoying your meal at home and a delicious dish arrives, while your order is being prepared. Meanwhile, a notification comes from the delivery app, indicating that your order has been dispatched. You might check out the status of your order"
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "sentiment",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "layer": 13,
+    "output_overlap": 0.36348381638526917,
+    "participation_ratio": 12.60501815320074,
+    "low_variance_pc_alignment": 0.0021654367446899414,
+    "residual_norm": 1.0963551998138428,
+    "n_directions": 5.0,
+    "direction_coherence": 0.36556870142618814,
+    "probe_dom_cosine": 0.7399378595013169,
+    "tuning_shift": null
+  },
+  "gauntlet": null,
+  "judge_model": "Qwen/Qwen2.5-3B-Instruct",
+  "judge_is_self": false
+}

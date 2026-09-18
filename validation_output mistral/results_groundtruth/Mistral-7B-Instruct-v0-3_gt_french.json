@@ -1,0 +1,412 @@
+{
+  "probe": {
+    "concept": "gt_french",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "best_layer": 15,
+    "readability": 1.0,
+    "control_auroc": 0.49666666666666676,
+    "selectivity": 0.5033333333333332,
+    "auroc_ci_low": 0.9999999999999999,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "fr_opin",
+    "n_train": 80,
+    "n_test": 20,
+    "n_val": 20,
+    "control_flagged": false
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5708333333333333
+    },
+    {
+      "layer": 1,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5958333333333333
+    },
+    {
+      "layer": 2,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4633333333333334
+    },
+    {
+      "layer": 3,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.46249999999999997
+    },
+    {
+      "layer": 4,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5358333333333333
+    },
+    {
+      "layer": 5,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.43500000000000005
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.49666666666666665
+    },
+    {
+      "layer": 7,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4749999999999999
+    },
+    {
+      "layer": 8,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.54
+    },
+    {
+      "layer": 9,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5800000000000001
+    },
+    {
+      "layer": 10,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5541666666666667
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5891666666666667
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5675
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5566666666666666
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.525
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.49666666666666676
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4816666666666667
+    },
+    {
+      "layer": 17,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4383333333333333
+    },
+    {
+      "layer": 18,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.43416666666666676
+    },
+    {
+      "layer": 19,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.44250000000000006
+    },
+    {
+      "layer": 20,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4733333333333332
+    },
+    {
+      "layer": 21,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4691666666666667
+    },
+    {
+      "layer": 22,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.45999999999999996
+    },
+    {
+      "layer": 23,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4741666666666666
+    },
+    {
+      "layer": 24,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4875
+    },
+    {
+      "layer": 25,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.48
+    },
+    {
+      "layer": 26,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5416666666666666
+    },
+    {
+      "layer": 27,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5399999999999999
+    },
+    {
+      "layer": 28,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5625000000000001
+    },
+    {
+      "layer": 29,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5683333333333334
+    },
+    {
+      "layer": 30,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5466666666666667
+    },
+    {
+      "layer": 31,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5650000000000001
+    }
+  ],
+  "steering": {
+    "concept": "gt_french",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "variant": "add",
+    "layers": "9",
+    "direction_source": "diff_of_means",
+    "controllability": 0.05714331251038748,
+    "controllability_ci_low": 0.05244390021589143,
+    "controllability_ci_high": 0.061699090607104524,
+    "baseline_behavior": 0.0,
+    "max_usable_coeff": 5.0,
+    "ceiling_reason": "no breakage in swept range",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -5.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 4.095661838849385,
+      "repetition": 0.005901592535738879,
+      "broken": false,
+      "samples": [
+        "Title: \"Photography Club Meeting: Unleashing Creativity and Inspiration\"\n\nDate: Every second Saturday of the month, from 10:00 AM to 12:00 PM.\n\nLocation: The meeting will be held at the local community center, which is a",
+        "1. The Photography Club is a great place to meet like-minded individuals who share a passion for photography. It's a place where you can learn, share, and grow as a photographer. Here are some key points to keep in mind:\n\n2. The Photography Club is a place where"
+      ]
+    },
+    {
+      "coeff": -4.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 4.03019232749939,
+      "repetition": 0.0074558404558404566,
+      "broken": false,
+      "samples": [
+        "Title: \"Photography Club Meeting: Unleashing Creativity and Building Community\"\n\nLocation: A spacious, well-lit room in a local community center, adorned with various photography equipment and samples of members' work. The room is filled with a mix of chairs, tables, and a",
+        "A photography club meeting can be a great opportunity for photographers to come together, share their work, learn from each other, and network. Here are some key points to keep in mind:\n\n1. **Purpose**: The primary purpose of a photography club meeting is to provide a platform for photographers to"
+      ]
+    },
+    {
+      "coeff": -3.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 4.08905611038208,
+      "repetition": 0.007600245499181672,
+      "broken": false,
+      "samples": [
+        "Title: Photography Club Meeting: Unleashing Creativity and Building Community\n\nLocation: [Insert the name of the venue, such as the local community center, library, or a rented space that is easily accessible and comfortable for all members]\n\nDate: [Insert the date and time, ensuring it",
+        "1. Date, Time, and Location: Make sure to provide the exact date, time, and location of the meeting. This includes the address, building name, and any specific room number if applicable.\n\n2. Agenda: Outline the topics to be discussed during the meeting. This could include club"
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 3.8620981136957804,
+      "repetition": 0.0006535947712418314,
+      "broken": false,
+      "samples": [
+        "Title: Photography Club Meeting Agenda\n\n1. Welcome and Introductions (5 minutes)\n   - Briefly welcome new members and remind everyone of the club's purpose and objectives.\n   - Introduce the executive committee members and their roles.\n\n2. Review of Previous",
+        "1. Date, Time, and Location: Make sure you have the correct date, time, and location of the meeting. This information is crucial to ensure you don't miss it.\n\n2. Agenda: If available, familiarize yourself with the agenda. This will help you understand what topics will"
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 3.6321191867192586,
+      "repetition": 0.003364448616325966,
+      "broken": false,
+      "samples": [
+        "Title: Photography Club Meeting Agenda\n\n1. Welcome and Introductions (5 minutes)\n   - Briefly welcome new members and remind everyone of the meeting's purpose and objectives.\n\n2. Review of Previous Meeting Minutes and Action Items (10 minutes)",
+        "1. Date, Time, and Location: Make sure you have the correct date, time, and location of the meeting. This information is usually provided in advance through emails, group chats, or on the club's official website.\n\n2. Agenda: Understand what will be discussed during the"
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 3.653113849957784,
+      "repetition": 0.0006535947712418314,
+      "broken": false,
+      "samples": [
+        "Title: Photography Club Meeting Agenda\n\n1. Welcome and Introductions (5 minutes)\n   - Briefly welcome new members and remind everyone of the meeting's purpose and objectives.\n\n2. Review of Previous Meeting Minutes and Action Items (10 minutes)",
+        "1. Date, Time, and Location: Make sure you have the correct date, time, and location of the meeting. This information is usually provided in advance through emails, group chats, or on the club's website.\n\n2. Agenda: Understand what will be discussed during the meeting"
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 3.681998300552368,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "Title: Photography Club Meeting Minutes\n\nDate: [Insert Date]\n\nAttendees:\n1. John Doe\n2. Jane Smith\n3. Michael Brown\n4. Emily Davis\n5. David Johnson\n6. Sarah Young\n\nAgenda:\n1. Welcome and Int",
+        "1. Date, Time, and Location: Make sure you have the correct date, time, and location of the meeting. This information is usually provided in advance through emails, group chats, or on the club's website.\n\n2. Agenda: Understand what will be discussed during the meeting"
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 3.6100523630777994,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "Title: Photography Club Meeting Minutes\n\nDate: [Insert Date]\n\nAttendees:\n1. John Doe\n2. Jane Smith\n3. Michael Brown\n4. Emily Davis\n5. David Johnson\n6. Sarah Lee\n\nAgenda:\n1. Welcome and Int",
+        "1. Date, Time, and Location: Make sure you know the exact date, time, and location of the meeting. This information is usually provided in advance through emails, group chats, or on the club's website.\n\n2. Agenda: Understand what will be discussed during the meeting"
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 3.5983834902445477,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "Title: Photography Club Meeting Minutes\n\nDate: [Insert Date]\n\nAttendees:\n1. John Doe\n2. Jane Smith\n3. Michael Johnson\n4. Emily Davis\n5. David Lee\n6. Sarah Young\n\nAgenda:\n1. Welcome and Int",
+        "A photography club meeting typically involves a gathering of individuals who share a common interest in photography. Here are some key points to expect at a photography club meeting:\n\n1. Agenda: The meeting usually starts with an outline of the agenda, which may include topics such as club announcements, upcoming events, and guest"
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.06452054770987414,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.19597222222222221,
+      "perplexity": 4.692867016792297,
+      "repetition": 0.002314814814814814,
+      "broken": false,
+      "samples": [
+        "During the photography club meeting, les membres de la club de photographie se rassemblent pour discuter de leurs derni\u00e8res exp\u00e9riences en photographie, partager leurs travaux, \u00e9changer des conseils et des id\u00e9es, et discuter de diff\u00e9rents sujets li\u00e9s \u00e0 la photograph",
+        "Someone qui\u00e8re savoir ce qu'il faut savoir sur la r\u00e9union de club de photographie peut trouver les informations suivantes utiles :\n\n1. Lieu de la r\u00e9union : Emplacement o\u00f9 la r\u00e9union aura lieu.\n2. Heure de la r\u00e9union :"
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.18747686244205705,
+      "behavior_ci_low": 0.05420662598081953,
+      "behavior_ci_high": 0.28187669376693764,
+      "perplexity": 4.593140610059103,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "La r\u00e9union de la club de photographie a lieu ce soir \u00e0 19h00. Les membres se rassemblent pour discuter de leurs derni\u00e8res exp\u00e9riences en photographie, partager des conseils et critiques, et voir des images de membres. Le th\u00e8me de",
+        "Alors, pourquoi ne pas partager quelques informations importantes \u00e0 propos d'une r\u00e9union de club de photographie ? Voici quelques points \u00e0 prendre en compte :\n\n1. Date et heure de la r\u00e9union : La date et l'heure de la r\u00e9union doiv"
+      ]
+    },
+    {
+      "coeff": 4.0,
+      "behavior": 0.20885769080813488,
+      "behavior_ci_low": 0.1229779411764706,
+      "behavior_ci_high": 0.3072072072072072,
+      "perplexity": 4.996083211898804,
+      "repetition": 0.003958333333333334,
+      "broken": false,
+      "samples": [
+        "La r\u00e9union de la photographie club a commenc\u00e9 avec un salut \u00e0 tous les membres. Le pr\u00e9sident a pr\u00e9sent\u00e9 le sujet de la journ\u00e9e : \"Composition en photographie\". Les membres ont partag\u00e9 leurs connaissances et exp\u00e9riences sur la th\u00e9matique. Les participants",
+        "Quand quelqu'un va \u00e0 une r\u00e9union de la photographie club, il devrait savoir les sujets de discussion, les activit\u00e9s pr\u00e9vues, les membres du club, et les r\u00e8gles de la r\u00e9union. Il peut \u00e9galement \u00eatre utile de conna\u00eetre les objectifs"
+      ]
+    },
+    {
+      "coeff": 5.0,
+      "behavior": 0.22115604828761734,
+      "behavior_ci_low": 0.10229142185663925,
+      "behavior_ci_high": 0.3188157894736841,
+      "perplexity": 6.863618882497152,
+      "repetition": 0.016474021500110427,
+      "broken": false,
+      "samples": [
+        "La r\u00e9union de la photographie club a commenc\u00e9 avec un salut \u00e0 tous les membres. Le pr\u00e9sident a pr\u00e9sent\u00e9 le sujet de la semaine : \"Composition en photographie\". Les membres ont partag\u00e9 leurs propres photos sur le th\u00e8me et discut\u00e9 sur les techniques pour am",
+        "Quelqu'un devrait savoir que la photographie club meeting est une r\u00e9union o\u00f9 les membres discutent et partagent leurs connaissances sur la pratique de la photographie. Les participants peuvent apprendre techniques, critiquer des photos, et discuter sur les derni\u00e8res"
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "gt_french",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "layer": 15,
+    "output_overlap": 0.3657996952533722,
+    "participation_ratio": 15.863751711329291,
+    "low_variance_pc_alignment": 0.001828957931138575,
+    "residual_norm": 0.080980584025383,
+    "n_directions": 5.0,
+    "direction_coherence": 0.45423100392023724,
+    "probe_dom_cosine": 0.7416382793978653,
+    "tuning_shift": null
+  },
+  "gauntlet": null,
+  "judge_model": null,
+  "judge_is_self": null
+}

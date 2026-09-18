@@ -1,0 +1,92 @@
+[
+  {
+    "concept": "sentiment",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "layer": 16,
+    "overlap_k64": 0.15246795117855072,
+    "overlap_k128": 0.20762144029140472,
+    "overlap_k512": 0.39308470487594604,
+    "overlap_k2048": 0.7263794541358948
+  },
+  {
+    "concept": "formality",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "layer": 16,
+    "overlap_k64": 0.1707354038953781,
+    "overlap_k128": 0.2370963841676712,
+    "overlap_k512": 0.38971251249313354,
+    "overlap_k2048": 0.7233473658561707
+  },
+  {
+    "concept": "rudeness",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "layer": 16,
+    "overlap_k64": 0.15933315455913544,
+    "overlap_k128": 0.2056414932012558,
+    "overlap_k512": 0.36968857049942017,
+    "overlap_k2048": 0.7190595865249634
+  },
+  {
+    "concept": "sycophancy",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "layer": 16,
+    "overlap_k64": 0.14002780616283417,
+    "overlap_k128": 0.18239562213420868,
+    "overlap_k512": 0.3765300214290619,
+    "overlap_k2048": 0.7072067260742188
+  },
+  {
+    "concept": "refusal",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "layer": 16,
+    "overlap_k64": 0.11857423931360245,
+    "overlap_k128": 0.1748332679271698,
+    "overlap_k512": 0.35411161184310913,
+    "overlap_k2048": 0.7050759196281433
+  },
+  {
+    "concept": "honesty",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "layer": 16,
+    "overlap_k64": 0.15496711432933807,
+    "overlap_k128": 0.19206947088241577,
+    "overlap_k512": 0.3565751016139984,
+    "overlap_k2048": 0.696050763130188
+  },
+  {
+    "concept": "topic_science",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "layer": 16,
+    "overlap_k64": 0.17703402042388916,
+    "overlap_k128": 0.26600244641304016,
+    "overlap_k512": 0.4214778244495392,
+    "overlap_k2048": 0.7187609672546387
+  },
+  {
+    "concept": "factuality",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "layer": 16,
+    "overlap_k64": 0.13866715133190155,
+    "overlap_k128": 0.20726153254508972,
+    "overlap_k512": 0.384572833776474,
+    "overlap_k2048": 0.7204237580299377
+  },
+  {
+    "concept": "verbosity",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "layer": 16,
+    "overlap_k64": 0.21706555783748627,
+    "overlap_k128": 0.26575300097465515,
+    "overlap_k512": 0.40928220748901367,
+    "overlap_k2048": 0.7182748317718506
+  },
+  {
+    "concept": "certainty",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "layer": 16,
+    "overlap_k64": 0.12598423659801483,
+    "overlap_k128": 0.19120223820209503,
+    "overlap_k512": 0.36610838770866394,
+    "overlap_k2048": 0.7118316888809204
+  }
+]

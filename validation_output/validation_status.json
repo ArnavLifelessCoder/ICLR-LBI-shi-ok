@@ -3,6 +3,21 @@
     "load": "ok",
     "C_ksweep": "ok",
     "B_rejudge": "ok",
-    "A_groundtruth": "ok"
+    "A_groundtruth": "ok (10 concepts, single layer, 6c9987f)",
+    "D_published": "ran, not valid: greedy decoding and RMS units"
+  },
+  "Qwen/Qwen2.5-7B-Instruct": {
+    "load": "ok",
+    "C_ksweep": "ok",
+    "B_rejudge": "ok",
+    "A_groundtruth": "ok (10 concepts, single layer, 6c9987f)",
+    "D_published": "ran, not valid: greedy decoding and RMS units"
+  },
+  "mistralai/Mistral-7B-Instruct-v0.3": {
+    "load": "ok",
+    "C_ksweep": "ok",
+    "B_rejudge": "ok",
+    "A_groundtruth": "ok (10 concepts, single layer, 6c9987f)",
+    "D_published": "ran, not valid: greedy decoding and RMS units"
   }
 }

@@ -1,0 +1,97 @@
+6.4s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.4s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.4s 3 0.00s - to python to disable frozen modules.
+6.4s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+6.9s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.9s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.9s 7 0.00s - to python to disable frozen modules.
+6.9s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+8.9s 9 [33m6c9987f[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m stage A: ten concepts at a single layer
+12.5s 10 [?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/12.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.3/12.3 MB[0m [31m97.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━[0m [32m10.4/12.3 MB[0m [31m159.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m203.4 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.3/12.3 MB[0m [31m94.8 MB/s[0m eta [36m0:00:00[0m
+12.6s 11 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/394.3 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m394.3/394.3 kB[0m [31m26.9 MB/s[0m eta [36m0:00:00[0m
+12.9s 12 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/43.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m8.6/43.1 MB[0m [31m258.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━[0m [32m17.3/43.1 MB[0m [31m248.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━[0m [32m25.6/43.1 MB[0m [31m240.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━[0m [32m34.0/43.1 MB[0m [31m240.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.0/43.1 MB[0m [31m258.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m246.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m246.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m246.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m246.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m246.5 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m43.1/43.1 MB[0m [31m47.3 MB/s[0m eta [36m0:00:00[0m
+13.0s 13 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/516.0 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m516.0/516.0 kB[0m [31m33.6 MB/s[0m eta [36m0:00:00[0m
+13.0s 14 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/3.4 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m3.4/3.4 MB[0m [31m243.3 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.4/3.4 MB[0m [31m91.4 MB/s[0m eta [36m0:00:00[0m
+28.9s 15 [?25hHF login OK.
+31.9s 16 commit        : 6c9987f stage A: ten concepts at a single layer
+31.9s 17 stage A grid  : 13 points, [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+31.9s 18 stage B grid  : 9 points (default, for comparability with the 1.5B judge)
+31.9s 19 judge         : Qwen/Qwen2.5-3B-Instruct (fallback Qwen/Qwen2.5-1.5B-Instruct)
+31.9s 20 stage order   : C, D, B, A (cheapest first)
+31.9s 21 preflight OK
+31.9s 22 stages        : C_ksweep, D_published, B_rejudge, A_groundtruth
+31.9s 23 
+31.9s 24 ======================================================================
+31.9s 25 meta-llama/Llama-3.1-8B-Instruct
+31.9s 26 ======================================================================
+53.6s 27 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+53.6s 28 
+53.6s 29 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+156.0s 30 
+156.0s 31 --- C: sensitivity of output overlap to k ---
+416.3s 32 sentiment      k=64 0.152  k=128 0.208  k=512 0.393  k=2048 0.726
+424.3s 33 formality      k=64 0.171  k=128 0.237  k=512 0.390  k=2048 0.723
+432.0s 34 rudeness       k=64 0.159  k=128 0.206  k=512 0.370  k=2048 0.719
+440.0s 35 sycophancy     k=64 0.140  k=128 0.182  k=512 0.377  k=2048 0.707
+447.4s 36 refusal        k=64 0.119  k=128 0.175  k=512 0.354  k=2048 0.705
+456.1s 37 honesty        k=64 0.155  k=128 0.192  k=512 0.357  k=2048 0.696
+459.2s 38 topic_science  k=64 0.177  k=128 0.266  k=512 0.421  k=2048 0.719
+467.5s 39 factuality     k=64 0.139  k=128 0.207  k=512 0.385  k=2048 0.720
+481.1s 40 verbosity      k=64 0.217  k=128 0.266  k=512 0.409  k=2048 0.718
+489.9s 41 certainty      k=64 0.126  k=128 0.191  k=512 0.366  k=2048 0.712
+489.9s 42 wrote /kaggle/working/results_ksweep/meta-llama_Llama-3-1-8B-Instruct_ksweep.json
+490.1s 43 
+490.1s 44 --- D: published replication (no judge) ---
+490.1s 45 setting: {'model': 'gpt2-xl', 'positive_prompt': 'Weddings', 'negative_prompt': ' ', 'layer': 6, 'coefficient': 1.0, 'source': 'turner2023actadd'}
+522.7s 46 contrast 'Weddings' vs ' ' at layer 6
+522.7s 47 raw difference norm: 175.125
+522.7s 48 injecting at the first 3 position(s)
+522.7s 49 grid: [-20.0, -15.0, -10.0, -6.0, -3.0, -1.0, 0.0, 1.0, 3.0, 6.0, 10.0, 15.0, 20.0]
+620.6s 50 NOTE [pub_wedding]: the readout returned 0.0 for all 130 generations across every coefficient. This readout is a rule over the generated string, not a judge, so the constant is a measurement rather than an instrument fault: the behavior never occurred at any strength. Controllability is legitimately 0.000.
+620.6s 51 pub_wedding    ctrl 0.0000  degenerate repetition at coeff -6
+620.6s 52 
+620.6s 53 --- B: re-judge with a larger judge ---
+650.8s 54 judge: Qwen/Qwen2.5-3B-Instruct
+1052.7s 55 [transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+1052.7s 56 
+1052.7s 57 [transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+1532.4s 58 WARNING [P9]: positive control 'sentiment' scored 0.083 < floor 0.1 on meta-llama/Llama-3.1-8B-Instruct. Steering is not working on this model; every controllability number from it will be withheld at aggregate time. Stop and debug rather than spending the session.
+3258.7s 59 sentiment      ctrl 0.083
+3258.7s 60 refusal        ctrl 0.097
+3258.7s 61 topic_science  ctrl 0.118
+3258.7s 62 certainty      ctrl 0.097
+3258.7s 63 
+3258.7s 64 --- A: ground truth (no judge) ---
+3258.7s 65 10 concepts, single layer, grid [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+3258.7s 66 approx 3900 generations
+11074.2s 67 NOTE [P9]: 'sentiment' was not in this run, so no control record was written for meta-llama/Llama-3.1-8B-Instruct. Its points will not be withheld at aggregate time -- run the control before reporting.
+11074.4s 68 gt_length      read 1.00  ctrl 0.013
+11074.4s 69 gt_uppercase   read 1.00  ctrl 0.004
+11074.4s 70 gt_digits      read 1.00  ctrl 0.001
+11074.4s 71 gt_french      read 1.00  ctrl 0.002
+11074.4s 72 gt_lowercase   read 1.00  ctrl 0.006
+11074.4s 73 gt_common      read 1.00  ctrl 0.023
+11074.4s 74 gt_longwords   read 1.00  ctrl 0.025
+11074.4s 75 gt_firstperson read 1.00  ctrl 0.006
+11074.4s 76 gt_question    read 1.00  ctrl 0.024
+11074.4s 77 gt_punctuation read 1.00  ctrl 0.002
+11074.5s 78 
+11074.5s 79 ======================================================================
+11074.5s 80 {
+11074.5s 81 "meta-llama/Llama-3.1-8B-Instruct": {
+11074.5s 82 "load": "ok",
+11074.5s 83 "C_ksweep": "ok",
+11074.5s 84 "D_published": "ok",
+11074.5s 85 "B_rejudge": "ok",
+11074.5s 86 "A_groundtruth": "ok"
+11074.5s 87 }
+11074.5s 88 }
+11074.9s 89 -rw-r--r-- 1 root root 45461 Sep 18 12:11 full_llama.zip
+11081.5s 90 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+11081.5s 91 cells[i][c] = re.sub('\\\\\|', '|', cell)
+11081.8s 92 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+11081.8s 93 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+11082.7s 94 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+11083.1s 95 [NbConvertApp] Writing 328696 bytes to __notebook__.ipynb
+11085.6s 96 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+11086.7s 97 [NbConvertApp] Writing 538327 bytes to __results__.html

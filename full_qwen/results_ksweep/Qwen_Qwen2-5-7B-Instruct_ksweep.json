@@ -1,0 +1,92 @@
+[
+  {
+    "concept": "sentiment",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "layer": 14,
+    "overlap_k64": 0.17426609992980957,
+    "overlap_k128": 0.2170829474925995,
+    "overlap_k512": 0.34884440898895264,
+    "overlap_k2048": 0.6914945244789124
+  },
+  {
+    "concept": "formality",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "layer": 14,
+    "overlap_k64": 0.26156601309776306,
+    "overlap_k128": 0.29617786407470703,
+    "overlap_k512": 0.42332756519317627,
+    "overlap_k2048": 0.6815765500068665
+  },
+  {
+    "concept": "rudeness",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "layer": 14,
+    "overlap_k64": 0.16398563981056213,
+    "overlap_k128": 0.21544504165649414,
+    "overlap_k512": 0.35705211758613586,
+    "overlap_k2048": 0.6723679304122925
+  },
+  {
+    "concept": "sycophancy",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "layer": 14,
+    "overlap_k64": 0.13949449360370636,
+    "overlap_k128": 0.19968268275260925,
+    "overlap_k512": 0.36070382595062256,
+    "overlap_k2048": 0.6932687163352966
+  },
+  {
+    "concept": "refusal",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "layer": 14,
+    "overlap_k64": 0.1261899322271347,
+    "overlap_k128": 0.1923840194940567,
+    "overlap_k512": 0.3681487739086151,
+    "overlap_k2048": 0.7391238212585449
+  },
+  {
+    "concept": "honesty",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "layer": 14,
+    "overlap_k64": 0.1647539734840393,
+    "overlap_k128": 0.2058681696653366,
+    "overlap_k512": 0.37136414647102356,
+    "overlap_k2048": 0.7286342978477478
+  },
+  {
+    "concept": "topic_science",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "layer": 14,
+    "overlap_k64": 0.27125778794288635,
+    "overlap_k128": 0.308319091796875,
+    "overlap_k512": 0.40891575813293457,
+    "overlap_k2048": 0.6485150456428528
+  },
+  {
+    "concept": "factuality",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "layer": 14,
+    "overlap_k64": 0.1507686972618103,
+    "overlap_k128": 0.18597500026226044,
+    "overlap_k512": 0.36798349022865295,
+    "overlap_k2048": 0.6965163946151733
+  },
+  {
+    "concept": "verbosity",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "layer": 14,
+    "overlap_k64": 0.1738474816083908,
+    "overlap_k128": 0.215688556432724,
+    "overlap_k512": 0.3476638197898865,
+    "overlap_k2048": 0.6589403748512268
+  },
+  {
+    "concept": "certainty",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "layer": 14,
+    "overlap_k64": 0.11512529104948044,
+    "overlap_k128": 0.1602451354265213,
+    "overlap_k512": 0.3111592233181,
+    "overlap_k2048": 0.6895231604576111
+  }
+]

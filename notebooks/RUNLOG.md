@@ -1115,3 +1115,75 @@ and neither of its two committed sentences applies.
 
 Item 3 in `PLAN_MAIN.md`: concepts 10 to 20+, ground-truth concepts 4 to 10. No
 new primitives, and it is what makes the mechanism question testable.
+
+## 2026-09-18: ten concepts at a single layer, three models
+
+Qwen, Mistral and Llama each ran all five stages on commit `6c9987f`
+(single layer, extended grid, 3900 generations for stage A). Sessions were
+independent; stage B and stage C outputs are byte-identical to the earlier
+run on all three models, so those stages are deterministic and the merge
+overwrote nothing. Gemma is still outstanding.
+
+The 30 ground-truth results are merged into `validation_output/results_groundtruth/`.
+The 16 earlier banded results stay in `results_groundtruth_banded/` as the
+protocol comparison. Session logs are kept under `validation_output/logs/`.
+
+### What the re-sweep was for
+
+Baselines now span 0.000 to 0.978, so baseline position varies independently
+of concept identity. The headroom explanation for a signed area failing to
+resolve does not survive:
+
+  - headroom vs whether the sign resolves: rho +0.006, p 0.976.
+  - room available to an absolute deviation, max(baseline, 1-baseline), vs
+    absolute area: rho -0.576, p 0.001. More room, *less* measured effect,
+    which is the reverse of what a ceiling artifact predicts.
+  - `gt_lowercase` (baseline 0.968) and `gt_uppercase` (baseline 0.032) read
+    the same surface property from opposite ends, so they are matched on room
+    and differ only in which side it is on. Absolute area within each model:
+    Llama 0.0057 vs 0.0044, Mistral 0.0253 vs 0.0199, Qwen 0.0032 vs 0.0032.
+  - Kruskal on absolute area by concept H 15.47 p 0.079; by model H 0.36
+    p 0.836.
+
+Directional share median 1.000 (mean 0.804) against 0.387 on the
+judge-scored concepts.
+
+### The cost of dropping the band, stated plainly
+
+4 of 30 signs resolve, against 5 of 16 banded. Per model: Mistral 3/10,
+Qwen 1/10, Llama 0/10. `gt_french` resolved on three of four models under the
+band and resolves only on Mistral at a single layer. This is expected, because
+banded controllability is a maximum over four layers and single-layer
+controllability is one of those four, so it reads lower by construction. Both
+tables should be reported rather than whichever one reads better.
+
+### Stage A caveat carried from the log
+
+The P9 positive control was not written during stage A, because `sentiment`
+is not a ground-truth concept. The control does exist from stage B for all
+three models. Nothing is withheld on this basis.
+
+### Stage D ran and is not valid
+
+`D_published` reports ok on all three sessions and the readout returned 0.0
+for all 130 generations at every coefficient, including ActAdd's own setting
+of coefficient 1.0. That is not a result about ActAdd. It is the harness:
+
+1. `lbi/steering.py` generates greedily (`temperature=0.0`). ActAdd's wedding
+   demonstration is a sampling result on a base model. Greedy gpt2-xl loops,
+   and the saved samples show exactly that: the unsteered completion repeats
+   "I'm going to go to the bathroom" and coefficients +1 through +15 are
+   byte-identical to it. A coefficient-1.0 nudge cannot move an argmax path.
+2. `SteeringSpec` requires a unit-norm direction and applies
+   `coeff * layer_RMS * direction`. ActAdd adds the raw difference vector,
+   whose norm the log reports as 175.125, at coefficient 1.0. The two
+   coefficient scales are unrelated, so the +-20 grid is not shown to contain
+   their operating point.
+3. gpt2-xl has no chat template, so the raw prompt form was used. That part
+   is correct.
+
+To make stage D a replication it needs a raw-vector mode, the RMS-equivalent
+of coefficient 1.0 computed at runtime and forced into the grid, and sampling
+for this stage only with the deviation stated. The positions primitive that
+previously blocked the stage does work: the log confirms injection at the
+first 3 positions. Item 2 stays open.

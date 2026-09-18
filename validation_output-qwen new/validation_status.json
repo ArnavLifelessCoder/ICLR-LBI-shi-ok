@@ -1,0 +1,8 @@
+{
+  "Qwen/Qwen2.5-7B-Instruct": {
+    "load": "ok",
+    "C_ksweep": "ok",
+    "B_rejudge": "ok",
+    "A_groundtruth": "ok"
+  }
+}

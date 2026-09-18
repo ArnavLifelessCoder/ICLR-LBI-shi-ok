@@ -1,0 +1,10 @@
+{
+  "model": "mistralai/Mistral-7B-Instruct-v0.3",
+  "control_concept": "sentiment",
+  "controllability": 0.2569444444444445,
+  "floor": 0.1,
+  "passed": true,
+  "judge_model": "Qwen/Qwen2.5-3B-Instruct",
+  "judge_is_self": false,
+  "note": "P9: if this did not pass, the model's controllability numbers are withheld, not explained away."
+}

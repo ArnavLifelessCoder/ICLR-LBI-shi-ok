@@ -1,0 +1,94 @@
+11.6s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+11.6s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+11.6s 3 0.00s - to python to disable frozen modules.
+11.6s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+12.3s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+12.3s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+12.3s 7 0.00s - to python to disable frozen modules.
+12.3s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+15.3s 9 [33m6c9987f[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m stage A: ten concepts at a single layer
+20.4s 10 [?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/12.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.6/12.3 MB[0m [31m16.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m4.6/12.3 MB[0m [31m67.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m212.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m212.6 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.3/12.3 MB[0m [31m95.5 MB/s[0m eta [36m0:00:00[0m
+20.5s 11 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/394.3 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m394.3/394.3 kB[0m [31m18.4 MB/s[0m eta [36m0:00:00[0m
+20.9s 12 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/43.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m7.1/43.1 MB[0m [31m213.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m13.8/43.1 MB[0m [31m197.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━[0m [32m20.2/43.1 MB[0m [31m190.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━[0m [32m27.0/43.1 MB[0m [31m193.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━[0m [32m33.5/43.1 MB[0m [31m185.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m40.0/43.1 MB[0m [31m187.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m193.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m193.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m193.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m193.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m193.2 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m43.1/43.1 MB[0m [31m43.8 MB/s[0m eta [36m0:00:00[0m
+20.9s 13 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/516.0 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m516.0/516.0 kB[0m [31m28.5 MB/s[0m eta [36m0:00:00[0m
+21.0s 14 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/3.4 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m3.4/3.4 MB[0m [31m132.3 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.4/3.4 MB[0m [31m58.3 MB/s[0m eta [36m0:00:00[0m
+40.3s 15 [?25hHF login OK.
+46.7s 16 commit        : 6c9987f stage A: ten concepts at a single layer
+46.7s 17 stage A grid  : 13 points, [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+46.7s 18 stage B grid  : 9 points (default, for comparability with the 1.5B judge)
+46.7s 19 judge         : Qwen/Qwen2.5-3B-Instruct (fallback Qwen/Qwen2.5-1.5B-Instruct)
+46.7s 20 stage order   : C, D, B, A (cheapest first)
+46.7s 21 preflight OK
+46.7s 22 stages        : C_ksweep, D_published, B_rejudge, A_groundtruth
+46.7s 23 
+46.7s 24 ======================================================================
+46.7s 25 mistralai/Mistral-7B-Instruct-v0.3
+46.7s 26 ======================================================================
+84.3s 27 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+84.3s 28 
+84.3s 29 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+171.5s 30 
+171.5s 31 --- C: sensitivity of output overlap to k ---
+263.1s 32 sentiment      k=64 0.165  k=128 0.245  k=512 0.387  k=2048 0.712
+271.4s 33 formality      k=64 0.166  k=128 0.215  k=512 0.359  k=2048 0.694
+279.4s 34 rudeness       k=64 0.165  k=128 0.210  k=512 0.384  k=2048 0.703
+287.8s 35 sycophancy     k=64 0.145  k=128 0.211  k=512 0.373  k=2048 0.692
+295.6s 36 refusal        k=64 0.140  k=128 0.193  k=512 0.357  k=2048 0.696
+305.1s 37 honesty        k=64 0.178  k=128 0.227  k=512 0.393  k=2048 0.715
+308.4s 38 topic_science  k=64 0.260  k=128 0.307  k=512 0.437  k=2048 0.709
+317.1s 39 factuality     k=64 0.185  k=128 0.253  k=512 0.423  k=2048 0.738
+331.7s 40 verbosity      k=64 0.162  k=128 0.216  k=512 0.344  k=2048 0.663
+341.6s 41 certainty      k=64 0.122  k=128 0.207  k=512 0.374  k=2048 0.712
+341.6s 42 wrote /kaggle/working/results_ksweep/mistralai_Mistral-7B-Instruct-v0-3_ksweep.json
+341.6s 43 
+341.6s 44 --- D: published replication (no judge) ---
+341.6s 45 setting: {'model': 'gpt2-xl', 'positive_prompt': 'Weddings', 'negative_prompt': ' ', 'layer': 6, 'coefficient': 1.0, 'source': 'turner2023actadd'}
+382.5s 46 contrast 'Weddings' vs ' ' at layer 6
+382.5s 47 raw difference norm: 175.125
+382.5s 48 injecting at the first 3 position(s)
+382.5s 49 grid: [-20.0, -15.0, -10.0, -6.0, -3.0, -1.0, 0.0, 1.0, 3.0, 6.0, 10.0, 15.0, 20.0]
+486.5s 50 NOTE [pub_wedding]: the readout returned 0.0 for all 130 generations across every coefficient. This readout is a rule over the generated string, not a judge, so the constant is a measurement rather than an instrument fault: the behavior never occurred at any strength. Controllability is legitimately 0.000.
+486.5s 51 pub_wedding    ctrl 0.0000  degenerate repetition at coeff -6
+486.5s 52 
+486.5s 53 --- B: re-judge with a larger judge ---
+516.6s 54 judge: Qwen/Qwen2.5-3B-Instruct
+3052.5s 55 sentiment      ctrl 0.257
+3052.5s 56 refusal        ctrl 0.056
+3052.5s 57 topic_science  ctrl 0.201
+3052.5s 58 certainty      ctrl 0.056
+3052.5s 59 
+3052.5s 60 --- A: ground truth (no judge) ---
+3052.5s 61 10 concepts, single layer, grid [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+3052.5s 62 approx 3900 generations
+9716.4s 63 NOTE [gt_question]: the readout returned 0.0 for all 390 generations across every coefficient. This readout is a rule over the generated string, not a judge, so the constant is a measurement rather than an instrument fault: the behavior never occurred at any strength. Controllability is legitimately 0.000.
+10455.5s 64 NOTE [P9]: 'sentiment' was not in this run, so no control record was written for mistralai/Mistral-7B-Instruct-v0.3. Its points will not be withheld at aggregate time -- run the control before reporting.
+10455.5s 65 gt_length      read 1.00  ctrl 0.007
+10455.5s 66 gt_uppercase   read 1.00  ctrl 0.020
+10455.5s 67 gt_digits      read 1.00  ctrl 0.001
+10455.5s 68 gt_french      read 1.00  ctrl 0.031
+10455.5s 69 gt_lowercase   read 1.00  ctrl 0.025
+10455.5s 70 gt_common      read 1.00  ctrl 0.032
+10455.5s 71 gt_longwords   read 1.00  ctrl 0.037
+10455.5s 72 gt_firstperson read 1.00  ctrl 0.003
+10455.5s 73 gt_question    read 1.00  ctrl 0.000
+10455.5s 74 gt_punctuation read 1.00  ctrl 0.003
+10455.6s 75 
+10455.6s 76 ======================================================================
+10455.6s 77 {
+10455.6s 78 "mistralai/Mistral-7B-Instruct-v0.3": {
+10455.6s 79 "load": "ok",
+10455.6s 80 "C_ksweep": "ok",
+10455.6s 81 "D_published": "ok",
+10455.6s 82 "B_rejudge": "ok",
+10455.6s 83 "A_groundtruth": "ok"
+10455.6s 84 }
+10455.6s 85 }
+10456.2s 86 -rw-r--r-- 1 root root 46582 Sep 18 08:17 full_mistral.zip
+10463.9s 87 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+10463.9s 88 cells[i][c] = re.sub('\\\\\|', '|', cell)
+10464.4s 89 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+10464.4s 90 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+10466.3s 91 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+10466.7s 92 [NbConvertApp] Writing 339683 bytes to __notebook__.ipynb
+10469.4s 93 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+10471.0s 94 [NbConvertApp] Writing 546785 bytes to __results__.html

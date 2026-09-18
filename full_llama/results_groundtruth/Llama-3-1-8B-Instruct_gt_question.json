@@ -1,0 +1,412 @@
+{
+  "probe": {
+    "concept": "gt_question",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "best_layer": 15,
+    "readability": 1.0,
+    "control_auroc": 0.4175,
+    "selectivity": 0.5825,
+    "auroc_ci_low": 0.9999999999999999,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "qD",
+    "n_train": 80,
+    "n_test": 20,
+    "n_val": 20,
+    "control_flagged": false
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.42250000000000004
+    },
+    {
+      "layer": 1,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4266666666666667
+    },
+    {
+      "layer": 2,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.37833333333333335
+    },
+    {
+      "layer": 3,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4275
+    },
+    {
+      "layer": 4,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.47833333333333333
+    },
+    {
+      "layer": 5,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.39833333333333326
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3841666666666666
+    },
+    {
+      "layer": 7,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.44333333333333336
+    },
+    {
+      "layer": 8,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4033333333333333
+    },
+    {
+      "layer": 9,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5475
+    },
+    {
+      "layer": 10,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5058333333333334
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.52
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.48416666666666663
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.435
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.42249999999999993
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4175
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.39916666666666667
+    },
+    {
+      "layer": 17,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.41833333333333345
+    },
+    {
+      "layer": 18,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.44999999999999996
+    },
+    {
+      "layer": 19,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.45416666666666666
+    },
+    {
+      "layer": 20,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.47750000000000004
+    },
+    {
+      "layer": 21,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4891666666666667
+    },
+    {
+      "layer": 22,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.45999999999999996
+    },
+    {
+      "layer": 23,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4633333333333333
+    },
+    {
+      "layer": 24,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.46083333333333343
+    },
+    {
+      "layer": 25,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.47000000000000003
+    },
+    {
+      "layer": 26,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.49
+    },
+    {
+      "layer": 27,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5033333333333334
+    },
+    {
+      "layer": 28,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.48500000000000004
+    },
+    {
+      "layer": 29,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4783333333333333
+    },
+    {
+      "layer": 30,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4966666666666666
+    },
+    {
+      "layer": 31,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4858333333333334
+    }
+  ],
+  "steering": {
+    "concept": "gt_question",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "variant": "add",
+    "layers": "15",
+    "direction_source": "diff_of_means",
+    "controllability": 0.023611111111111117,
+    "controllability_ci_low": 0.017321180555555555,
+    "controllability_ci_high": 0.05644618055555553,
+    "baseline_behavior": 0.05277777777777778,
+    "max_usable_coeff": 5.0,
+    "ceiling_reason": "no breakage in swept range",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -5.0,
+      "behavior": 0.14166666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.5687499999999996,
+      "perplexity": 6.077123665809632,
+      "repetition": 0.0076383442265795225,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was held at the local community center, a spacious room filled with natural light, perfect for showcasing the members' work. The room was buzzing with excitement as the club members gathered, each carrying their cameras and laptops, eager to share their latest projects and receive feedback.\n\nThe club president, a seasoned photographer",
+        "Here are some general points about a photography club meeting:\n\n1.  **Objective**: The primary goal of a photography club meeting is to bring together photography enthusiasts to share their experiences, learn from each other, and improve their photography skills.\n2.  **Agenda**: The meeting may include presentations, workshops, and discussions"
+      ]
+    },
+    {
+      "coeff": -4.0,
+      "behavior": 0.1,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.5,
+      "perplexity": 5.084458692868551,
+      "repetition": 0.005730914588057449,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was held at the local community center, a spacious room filled with natural light, perfect for showcasing the members' work. The room was buzzing with excitement as photographers of all skill levels gathered to share their experiences, learn from each other, and discuss the latest photography trends.\n\nThe meeting began with a brief",
+        "Here are some general points about a photography club meeting:\n\n1.  **Objective**: The primary goal of a photography club meeting is to bring together photography enthusiasts to share their experiences, learn from each other, and improve their photography skills.\n2.  **Agenda**: The meeting may include presentations, workshops, critiques,"
+      ]
+    },
+    {
+      "coeff": -3.0,
+      "behavior": 0.08888888888888888,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.5,
+      "perplexity": 4.311246919631958,
+      "repetition": 0.003794051411302087,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was held at the local community center, a spacious room filled with natural light, perfect for showcasing the members' work. The room was buzzing with excitement as photographers of all skill levels gathered to share their experiences, learn from each other, and discuss the latest photography trends.\n\nAs the members arrived, they",
+        "Here are some general points about a photography club meeting:\n\n1.  **Objective**: The primary goal of a photography club meeting is to bring together photography enthusiasts to share their experiences, learn from each other, and improve their photography skills.\n2.  **Agenda**: The meeting may include a variety of activities such as"
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.05833333333333333,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.37916666666666643,
+      "perplexity": 3.9530280749003093,
+      "repetition": 0.003346938775510207,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was held at the local community center, a spacious room filled with natural light, perfect for showcasing the members' work. The room was buzzing with excitement as photographers of all skill levels gathered to share their experiences, learn from each other, and discuss the latest photography trends.\n\nAs the members arrived, they",
+        "Here are some general points about a photography club meeting:\n\n1.  **Objective**: The primary goal of a photography club meeting is to bring together photography enthusiasts to share their experiences, learn from each other, and improve their photography skills.\n2.  **Agenda**: The agenda may include presentations, workshops, critiques,"
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.05833333333333333,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.37916666666666643,
+      "perplexity": 3.939339788754781,
+      "repetition": 0.00129559748427673,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
+        "Here are some general points about a photography club meeting:\n\n1.  **Objective**: The primary goal of a photography club meeting is to bring together photography enthusiasts to share their experiences, learn from each other, and improve their photography skills.\n2.  **Agenda**: The agenda may include presentations, workshops, critiques,"
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.047222222222222214,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.37916666666666643,
+      "perplexity": 3.9270580609639487,
+      "repetition": 0.00129559748427673,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
+        "Here are some general points about a photography club meeting:\n\n1.  **Objective**: The primary goal of a photography club meeting is to bring together photography enthusiasts to share their experiences, learn from each other, and improve their photography skills.\n2.  **Agenda**: The agenda may include presentations, workshops, critiques,"
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.05277777777777778,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.5,
+      "perplexity": 4.026232012112936,
+      "repetition": 0.0012946204122674739,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
+        "Here are some general points about a photography club meeting:\n\n1.  **Objective**: The primary goal of a photography club meeting is to bring together individuals who share a passion for photography to share their experiences, learn from one another, and improve their photography skills.\n\n2.  **Agenda**: The agenda may include presentations"
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.03055555555555555,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.3333333333333333,
+      "perplexity": 4.030153449376424,
+      "repetition": 0.0013628146293978608,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
+        "Here are some general points about a photography club meeting:\n\n1. **Agenda**: The club usually starts with an agenda, which may include a review of past events, discussion of upcoming events, and announcements.\n2. **Guest speaker or presentation**: Many photography clubs invite a guest speaker or have a member present on a"
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.03611111111111111,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.37916666666666643,
+      "perplexity": 4.37266776561737,
+      "repetition": 0.0006944444444444457,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
+        "There are several things someone should know about a photography club meeting:\n\n1. **Agenda**: The club usually has a set agenda, which may include discussions on upcoming events, photo critiques, and member announcements.\n2. **Guest speakers**: Many photography clubs invite guest speakers, such as professional photographers, to share their expertise"
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.047222222222222214,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.37916666666666643,
+      "perplexity": 4.543321124712626,
+      "repetition": 0.0036918934240362856,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
+        "There are several things someone should know about a photography club meeting:\n\n1. **Agenda**: The club usually has a set agenda, which may include discussions on upcoming events, photo critiques, and member announcements.\n2. **Guest speakers**: Many photography clubs invite guest speakers, such as professional photographers, to share their expertise"
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.03611111111111111,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.37916666666666643,
+      "perplexity": 4.389073769251506,
+      "repetition": 0.00634840035379903,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from all walks of life. It was held at a local community center, with a spacious room filled with natural light, perfect for showcasing the members' work.\n\nAs the attendees arrived, they were greeted by the club's president, who welcomed them",
+        "There are several things someone should know about a photography club meeting:\n\n1. **Agenda**: Typically, a photography club meeting will have an agenda that includes discussions on various topics related to photography, such as upcoming events, member showcases, and educational presentations.\n2. **Member Showcase**: Many photography clubs allow members to showcase"
+      ]
+    },
+    {
+      "coeff": 4.0,
+      "behavior": 0.01944444444444444,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.27291666666666653,
+      "perplexity": 4.464687927563985,
+      "repetition": 0.0049899832019182615,
+      "broken": false,
+      "samples": [
+        "The photography club meeting was a lively and engaging event that brought together photography enthusiasts from various backgrounds and skill levels. The meeting was held at a local community center, with a spacious room filled with natural light, ideal for showcasing photographs.\n\nUpon arrival, members were greeted by the club's president, who welcomed everyone and briefly discussed",
+        "There are several things someone should know about a photography club meeting:\n\n1. **Agenda**: Typically, a photography club meeting will have an agenda that includes discussions on various topics related to photography, such as upcoming events, member showcases, and educational presentations.\n2. **Member Showcase**: Many photography clubs allow members to showcase"
+      ]
+    },
+    {
+      "coeff": 5.0,
+      "behavior": 0.01944444444444444,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.27291666666666653,
+      "perplexity": 4.396789240837097,
+      "repetition": 0.007656438036140371,
+      "broken": false,
+      "samples": [
+        "I'd be happy to describe a photography club meeting.\n\nThe photography club meeting was held at a local community center on a sunny Saturday afternoon. The room was filled with a diverse group of photography enthusiasts, all eager to share their experiences and learn from one another.\n\nAs the members arrived, they were greeted by the club's",
+        "There are many things someone should know about a photography club meeting, depending on the specific club and its goals. However, here are some general points that are commonly relevant:\n\n1. **Agenda**: Typically, a photography club meeting will have an agenda that outlines the topics to be discussed or activities to be planned. This"
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "gt_question",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "layer": 15,
+    "output_overlap": 0.3739664554595947,
+    "participation_ratio": 13.848571158651668,
+    "low_variance_pc_alignment": 0.0024662085343152285,
+    "residual_norm": 0.16777637600898743,
+    "n_directions": 5.0,
+    "direction_coherence": 0.43783641457557676,
+    "probe_dom_cosine": 0.7351209863609096,
+    "tuning_shift": null
+  },
+  "gauntlet": null,
+  "judge_model": null,
+  "judge_is_self": null
+}

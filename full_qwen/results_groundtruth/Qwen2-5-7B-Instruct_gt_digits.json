@@ -1,0 +1,388 @@
+{
+  "probe": {
+    "concept": "gt_digits",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "best_layer": 13,
+    "readability": 1.0,
+    "control_auroc": 0.3433333333333333,
+    "selectivity": 0.6566666666666667,
+    "auroc_ci_low": 1.0,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "prices",
+    "n_train": 80,
+    "n_test": 20,
+    "n_val": 20,
+    "control_flagged": false
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3525
+    },
+    {
+      "layer": 1,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.39000000000000007
+    },
+    {
+      "layer": 2,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5133333333333333
+    },
+    {
+      "layer": 3,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.47750000000000004
+    },
+    {
+      "layer": 4,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5416666666666666
+    },
+    {
+      "layer": 5,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5416666666666667
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5233333333333333
+    },
+    {
+      "layer": 7,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3108333333333333
+    },
+    {
+      "layer": 8,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.44083333333333335
+    },
+    {
+      "layer": 9,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.43
+    },
+    {
+      "layer": 10,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.38333333333333336
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3383333333333333
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3216666666666667
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3433333333333333
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3625
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.40833333333333327
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4583333333333333
+    },
+    {
+      "layer": 17,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3825
+    },
+    {
+      "layer": 18,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4066666666666667
+    },
+    {
+      "layer": 19,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.43916666666666665
+    },
+    {
+      "layer": 20,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.46166666666666667
+    },
+    {
+      "layer": 21,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5166666666666667
+    },
+    {
+      "layer": 22,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.48999999999999994
+    },
+    {
+      "layer": 23,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5066666666666667
+    },
+    {
+      "layer": 24,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.48666666666666675
+    },
+    {
+      "layer": 25,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4975
+    },
+    {
+      "layer": 26,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5333333333333333
+    },
+    {
+      "layer": 27,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5441666666666666
+    }
+  ],
+  "steering": {
+    "concept": "gt_digits",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "variant": "add",
+    "layers": "13",
+    "direction_source": "diff_of_means",
+    "controllability": 0.0009519307823175895,
+    "controllability_ci_low": 0.000770735429859249,
+    "controllability_ci_high": 0.0014817184999454422,
+    "baseline_behavior": 0.002243833563020845,
+    "max_usable_coeff": 5.0,
+    "ceiling_reason": "perplexity > 2.0x baseline at coeff 3",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -5.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 7.744673176606496,
+      "repetition": 0.20225082447790335,
+      "broken": false,
+      "samples": [
+        "the club is a place where people gather to discuss and share ideas. the club members are usually enthusiastic about photography. we have a number of events and activities that are designed for the benefit of the members. we organize a number of events and activities throughout the year. we have a number of guest speakers who are well-known",
+        "there are several things that one should know about the photography club meeting. here are some of the things that you can do to get involved in the photography club. here are some of the things that you can do to get involved. there are many people who are interested in photography and they have different reasons for joining the club"
+      ]
+    },
+    {
+      "coeff": -4.0,
+      "behavior": 0.00036152316208261923,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0036133264558452036,
+      "perplexity": 7.007356460889181,
+      "repetition": 0.0927589765659941,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is a gathering of people who share an interest in photography. The club members meet to discuss various topics related to photography. some of these discussions include sharing photos and discussing the latest trends.\n\nthe club members often share their experiences and insights on the subject. the club members are usually enthusiastic about the subject and",
+        "Here are some things that people should know about the photography club meeting:\n\n- the club is a place where people gather to discuss and share their experiences in photography. it's a great place for people to learn from each other.\n\n- the club has a dedicated space for members to meet and discuss photography-related topics. there are"
+      ]
+    },
+    {
+      "coeff": -3.0,
+      "behavior": 0.0015761526839096441,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.006975341731439292,
+      "perplexity": 6.021511387825012,
+      "repetition": 0.003826500297088535,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is a lively and engaging event where members gather to share their passion for capturing moments through the lens of various cameras. The atmosphere is electric as people discuss their experiences and insights into the art of photography.\n\nMembers often bring along their cameras and equipment, eager to engage in discussions about techniques and tips. The",
+        "Here are some key points to keep in mind regarding the photography club meeting:\n\n1. **Purpose**: The primary aim of the photography club is to provide a platform for enthusiasts to share their passion and knowledge about photography.\n\n2. **Meeting schedule**: It's important to be aware of the regular schedules for these meetings. Typically"
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.0011366209194472354,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0036320886674570717,
+      "perplexity": 4.965102442105612,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is a vibrant and engaging event where members gather to share their passion for capturing moments through the lens of various cameras. As you enter the room, you're greeted by the warm smiles of fellow enthusiasts who are eager to discuss their latest projects and techniques.\n\nThe atmosphere is lively as members share stories about recent",
+        "Photography clubs often offer a variety of opportunities for members to connect and share their passion for photography. Here are some key points you might want to know about attending a photography club meeting:\n\n1. **Purpose**: The primary purpose of these meetings is to foster a community where photographers can exchange ideas, techniques, and experiences."
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.0013764485026356939,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.004653694018954573,
+      "perplexity": 4.469077809651693,
+      "repetition": 0.00119047619047619,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is a vibrant and engaging event that brings together enthusiasts of all skill levels to share their passion for capturing moments through the lens. Here\u2019s a typical description of such a meeting:\n\n### Arrival and Greeting\nAs members arrive, there's an immediate buzz of excitement and friendly chatter. Members greet each other",
+        "Photography club meetings can be a great way to learn new skills, share your passion for photography, and connect with like-minded individuals. Here are some key points you might want to know about attending a photography club meeting:\n\n1. **Meeting Schedule**: Check the club's website or contact the organizer to find out when and"
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.0018734955336812019,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.00865353762233272,
+      "perplexity": 4.288654621442159,
+      "repetition": 0.0012345679012345696,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is a vibrant and engaging event that brings together enthusiasts of all skill levels who share a passion for capturing moments through the lens. Here\u2019s a typical description of what such a meeting might look like:\n\n### Venue and Atmosphere\nThe meeting usually takes place in a cozy and well-lit room or outdoor",
+        "Photography club meetings can be a great way to learn new skills, share your passion for photography, and connect with like-minded individuals. Here are some key points you might want to know about attending a photography club meeting:\n\n1. **Meeting Schedule**: Check the club's schedule to know when and where the meetings are held"
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.002243833563020845,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.011901310326385243,
+      "perplexity": 4.258256800969442,
+      "repetition": 0.0012121212121212126,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is a vibrant and engaging event that brings together enthusiasts of all skill levels who share a passion for capturing moments through the lens. Here\u2019s a typical description of what such a meeting might look like:\n\n### Venue and Atmosphere\nThe meeting usually takes place in a cozy and well-lit room or outdoor",
+        "To provide you with the most accurate and useful information, I'll assume you're asking about what someone should know about attending a typical photography club meeting. Here are some key points:\n\n1. **Meeting Schedule**: Find out when and where the meetings are held. This could be on a specific day of the week or month"
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.0013845760737526474,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0038692667097336357,
+      "perplexity": 4.329776374499003,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is a vibrant and engaging event where members come together to share their passion for photography. Here's a typical description of what such a meeting might look like:\n\n**Location and Time:**\nThe meeting usually takes place in a well-lit room or an outdoor space that allows for good lighting conditions, such",
+        "To provide you with the most accurate and useful information, I'll assume you're asking about what someone should know about attending a typical photography club meeting. Here are some key points:\n\n1. **Meeting Schedule**: Photography clubs often meet regularly, usually once a month or every two weeks. Check the club's website or contact"
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.0029570307816146066,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.01905480817140009,
+      "perplexity": 4.752313590049743,
+      "repetition": 0.0006060606060606063,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is an engaging and creative environment where members come together to share their passion for photography. Here's a typical description of what might happen at such a meeting:\n\n1. **Welcome and Introduction**: The meeting usually starts with a warm welcome from the club president or another officer. Members introduce themselves if they haven",
+        "To provide you with the most accurate and relevant information, could you please specify what aspect of the photography club meeting you would like to know about? For example, is it about the date and time, the location, the topics that will be discussed, or something else related to the meeting?\n\nTypically, a photography club"
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.0024121541681239728,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.01750425064645247,
+      "perplexity": 6.647396477063497,
+      "repetition": 0.001973470547639348,
+      "broken": false,
+      "samples": [
+        "The photography club meeting is an engaging and creative session where members come together to discuss, learn, and share their passion for photography. Here's a detailed description of what typically happens during the meeting:\n\n1. **Welcome and Introduction**: The meeting starts with a brief introduction or welcome from the club leader, followed by a round",
+        "To provide you with the most accurate and relevant information about the photography club meeting, I need to clarify if you are asking about the agenda, date, time, location, or any other specific aspect of the meeting. The details can vary depending on what aspect of the meeting you are referring to. Please specify which detail you"
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.008797367115274114,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.057846481876332616,
+      "perplexity": 9.947779655456543,
+      "repetition": 0.012179487179487181,
+      "broken": true,
+      "samples": [
+        "The Photography Club meeting is an event where members of the club gather to discuss and share their recent projects or interests in photography. This can include recent photos taken by a member, a project they are working on, or any other related topic. The meeting could be conducted in a virtual or physical space depending on the current context",
+        "The Photography Club meeting is an event where members of the club gather to discuss and share their projects or ideas related to photography. This could include recent projects, upcoming projects, or any other relevant topic that pertains to the club. The meeting is typically focused on improving skills or discussing a project idea."
+      ]
+    },
+    {
+      "coeff": 4.0,
+      "behavior": 0.02616438846271172,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.13521451674277016,
+      "perplexity": 12.301070737838746,
+      "repetition": 0.08483741896109415,
+      "broken": true,
+      "samples": [
+        "This is the 5th meeting of the Photography Club, and it's the 1st meeting of the new member. The club's growth rate in terms of membership.",
+        "To calculate the total cost of the photography club meeting, we need to find out how many members are not in the club (since 1 member is not in the club), and then multiply the number of members by the cost of the meeting. Assuming the base cost of the club is $1, we find the difference"
+      ]
+    },
+    {
+      "coeff": 5.0,
+      "behavior": 0.1369480760231573,
+      "behavior_ci_low": 0.0028100775193798454,
+      "behavior_ci_high": 0.8399801587301586,
+      "perplexity": 14.643817381064098,
+      "repetition": 0.14513354741153212,
+      "broken": true,
+      "samples": [
+        "This is the 5th iteration of the original problem scaled up (linearly) times the initial problem, and find the 1st increment increase in the sequence, and calculate the difference, and find the next term in the sequence, and find the 20th term, and find the 20th",
+        "What is the current scale of the club and what is the next step? in terms of growth? and what is the initial value? and what is the base? and what is the 10th step? and what is the 20th step? and what is the 5th step? and what"
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "gt_digits",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "layer": 13,
+    "output_overlap": 0.34141990542411804,
+    "participation_ratio": 14.44231705546654,
+    "low_variance_pc_alignment": 0.0015172610292211175,
+    "residual_norm": 1.0696675777435303,
+    "n_directions": 5.0,
+    "direction_coherence": 0.2281082848707835,
+    "probe_dom_cosine": 0.6161883758879478,
+    "tuning_shift": null
+  },
+  "gauntlet": null,
+  "judge_model": null,
+  "judge_is_self": null
+}

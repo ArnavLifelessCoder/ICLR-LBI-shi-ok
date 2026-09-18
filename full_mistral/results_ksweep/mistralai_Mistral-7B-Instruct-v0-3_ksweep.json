@@ -1,0 +1,92 @@
+[
+  {
+    "concept": "sentiment",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "layer": 16,
+    "overlap_k64": 0.16455163061618805,
+    "overlap_k128": 0.24501603841781616,
+    "overlap_k512": 0.3874814808368683,
+    "overlap_k2048": 0.7120060920715332
+  },
+  {
+    "concept": "formality",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "layer": 16,
+    "overlap_k64": 0.1655927449464798,
+    "overlap_k128": 0.214558407664299,
+    "overlap_k512": 0.35860389471054077,
+    "overlap_k2048": 0.6939743161201477
+  },
+  {
+    "concept": "rudeness",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "layer": 16,
+    "overlap_k64": 0.16534695029258728,
+    "overlap_k128": 0.21013852953910828,
+    "overlap_k512": 0.3836477994918823,
+    "overlap_k2048": 0.7027576565742493
+  },
+  {
+    "concept": "sycophancy",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "layer": 16,
+    "overlap_k64": 0.14491711556911469,
+    "overlap_k128": 0.211298868060112,
+    "overlap_k512": 0.37280580401420593,
+    "overlap_k2048": 0.692155659198761
+  },
+  {
+    "concept": "refusal",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "layer": 16,
+    "overlap_k64": 0.14024671912193298,
+    "overlap_k128": 0.19251656532287598,
+    "overlap_k512": 0.3574010133743286,
+    "overlap_k2048": 0.6960338354110718
+  },
+  {
+    "concept": "honesty",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "layer": 16,
+    "overlap_k64": 0.1775389164686203,
+    "overlap_k128": 0.2274675816297531,
+    "overlap_k512": 0.3929104804992676,
+    "overlap_k2048": 0.7147300243377686
+  },
+  {
+    "concept": "topic_science",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "layer": 16,
+    "overlap_k64": 0.2601704001426697,
+    "overlap_k128": 0.3071821630001068,
+    "overlap_k512": 0.43723535537719727,
+    "overlap_k2048": 0.7085852026939392
+  },
+  {
+    "concept": "factuality",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "layer": 16,
+    "overlap_k64": 0.1847115010023117,
+    "overlap_k128": 0.25284120440483093,
+    "overlap_k512": 0.42258283495903015,
+    "overlap_k2048": 0.7377345561981201
+  },
+  {
+    "concept": "verbosity",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "layer": 16,
+    "overlap_k64": 0.1622949093580246,
+    "overlap_k128": 0.21561755239963531,
+    "overlap_k512": 0.3444494605064392,
+    "overlap_k2048": 0.6626120209693909
+  },
+  {
+    "concept": "certainty",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "layer": 16,
+    "overlap_k64": 0.1223318949341774,
+    "overlap_k128": 0.20689240097999573,
+    "overlap_k512": 0.3740960657596588,
+    "overlap_k2048": 0.7118291854858398
+  }
+]
