@@ -165,6 +165,10 @@ def run_steering(
     direction_source: str = "diff_of_means",
     max_new_tokens: int = 64,
     positions: int | None = None,
+    unit_mode: str = "rms",
+    raw_scale: float | None = None,
+    temperature: float = 0.0,
+    n_samples: int = 1,
 ) -> st.SteeringResult:
     """Experiment 2 for one concept: sweep the coefficient, find the ceiling.
 
@@ -174,15 +178,35 @@ def run_steering(
     published injects only where its contrast prompt sat, and replicating that
     method with the wrong convention produces a null about the convention
     rather than about the method.
+
+    `unit_mode` and `raw_scale` pass through to `SteeringSpec`; see its
+    docstring. The default keeps the RMS convention every reported number uses.
+
+    `temperature` and `n_samples` exist for the same reason as `positions`.
+    Greedy decoding is the right default here, because a steering effect that
+    only shows up under sampling noise is not an effect. But a published result
+    obtained by sampling cannot be checked greedily: a small coefficient rarely
+    moves an argmax path, so the replication returns a flat null that is a fact
+    about the decoder rather than about the method. With `temperature > 0` the
+    prompt list is tiled `n_samples` times so the readout averages over
+    samples instead of over one draw.
     """
     coeffs = list(coeffs or DEFAULT_COEFFS)
+    if n_samples < 1:
+        raise ValueError(f"n_samples must be >= 1, got {n_samples}")
+    if n_samples > 1 and temperature <= 0:
+        raise ValueError(
+            "n_samples > 1 with greedy decoding would repeat one draw "
+            f"{n_samples} times; set temperature > 0 or n_samples = 1"
+        )
     layers = (
         st.layer_band(layer, lm.n_layers) if variant == "add_all" else [layer]
     )
-    prompts = concept.eval_prompts
+    prompts = list(concept.eval_prompts) * n_samples
 
     # Baseline: unsteered behavior and the perplexity the ceiling is relative to.
-    base_out = st.generate(lm, prompts, spec=None, max_new_tokens=max_new_tokens)
+    base_out = st.generate(lm, prompts, spec=None, max_new_tokens=max_new_tokens,
+                           temperature=temperature)
     base_scores = scorer.score(base_out, concept.name)
     baseline = float(np.mean(base_scores))
     baseline_ppl = float(np.mean(bh.perplexity(lm, base_out)))
@@ -201,8 +225,11 @@ def run_steering(
                 coeff=c,
                 clamp_target=c if variant == "clamp" else None,
                 positions=positions,
+                unit_mode=unit_mode,
+                raw_scale=raw_scale,
             )
-            outs = st.generate(lm, prompts, spec=spec, max_new_tokens=max_new_tokens)
+            outs = st.generate(lm, prompts, spec=spec, max_new_tokens=max_new_tokens,
+                               temperature=temperature)
             scores = scorer.score(outs, concept.name)
 
         ppl = float(np.mean(bh.perplexity(lm, outs)))

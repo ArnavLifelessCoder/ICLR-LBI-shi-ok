@@ -32,6 +32,23 @@ words, whichever occurs:
     steering result does not survive a directional reading, and the absolute
     summary was carrying it.
 
+  - If the behavior never occurs at any coefficient, including theirs, that is
+    not either of the above and is not reported as a directional finding. A
+    readout that is constant at zero says the sweep never reproduced the
+    effect, and the first thing that implicates is our harness. The first
+    attempt returned exactly this, and it was the decoder and the coefficient
+    scale, both recorded in the run log. Such a run is a failed replication of
+    our own making until the positive control below passes.
+
+**A positive control that gates the null.** Before any null is reported, the
+sweep must reproduce the published effect somewhere in its range: the readout
+has to rise above baseline at some coefficient by more than its interval. If
+it never does, the instrument is not sensitive enough to license a statement
+about direction, and the outcome is "not replicated here" rather than either
+preregistered branch. This is the same discipline as P9 for the judge-scored
+concepts, and it exists because a flat zero is the one result that looks like
+a strong finding while actually being the absence of one.
+
 Neither outcome is a better result for us. Committing to that here, in the
 module the experiment runs from, is the point of writing it down before the
 sweep rather than after.
@@ -62,12 +79,39 @@ ACTADD_SETTING = {
     "source": "turner2023actadd",
 }
 
-# Wider and denser than the study's grid. Our coefficient is in residual-RMS
-# units on a unit-normalised direction; the published one multiplies the raw
-# activation difference, so the two are not the same quantity and no single
-# value of ours corresponds to theirs. Rather than guess a conversion, sweep
-# wide enough to bracket any plausible magnitude and let the dose-response and
-# the fluency ceiling say where the usable range is.
+# Decoding. The study generates greedily everywhere else, on purpose: an effect
+# visible only under sampling noise is not an effect. That default cannot be
+# used here. The published demonstration is a sampling result on a base model,
+# and greedy gpt2-xl falls into a repetition loop, so a coefficient near theirs
+# almost never moves the argmax path. The first attempt at this stage swept the
+# whole grid greedily and the readout returned 0.0 for all 130 generations,
+# including at their own coefficient: a fact about the decoder, not the method.
+#
+# Recorded from our reading of the paper and to be verified against it, like
+# ACTADD_SETTING. `n_samples` is ours, not theirs, and only sets how many draws
+# the readout averages over.
+ACTADD_DECODING = {
+    "temperature": 1.0,
+    "n_samples": 5,
+    "source": "turner2023actadd",
+}
+
+# In multiples of the published coefficient, which is what makes 1.0 below
+# their exact setting rather than a guess.
+#
+# This needs `SteeringSpec(unit_mode="raw_norm", raw_scale=<norm of the raw
+# activation difference>)`. The study's own coefficient is in residual-RMS
+# units on a unit-normalised direction, and the published one multiplies the
+# raw difference; the two differ by whatever ratio those scales stand in, which
+# for this contrast at this layer is a factor of about 175. Sweeping +-20 in
+# RMS units, as the first attempt did, is not a wide bracket around their
+# setting but a sweep that is not shown to contain it at all. Scaling by the
+# raw norm removes the conversion instead of guessing it.
+PUBLISHED_COEFF_MULTIPLES = [-4.0, -3.0, -2.0, -1.5, -1.0, -0.5, 0.0,
+                             0.5, 1.0, 1.5, 2.0, 3.0, 4.0]
+
+# Kept for the superseded RMS-unit sweep, whose null is recorded in the run log
+# as an artifact rather than a result.
 PUBLISHED_COEFFS = [-20.0, -15.0, -10.0, -6.0, -3.0, -1.0, 0.0,
                     1.0, 3.0, 6.0, 10.0, 15.0, 20.0]
 

@@ -210,9 +210,18 @@ def stage_d_published(lm, out_dir: str = OUT_P) -> bool:
       the layer, taken from ACTADD_SETTING rather than from a probe;
       the injection positions, limited to where the contrast prompt sat rather
       than applied to every token including the generated ones;
-      a coefficient range wide enough to bracket their magnitude, since our
-      coefficient is in residual-RMS units on a unit-normalised direction and
-      theirs multiplies the raw activation difference.
+      the coefficient scale, by sweeping in multiples of the raw activation
+      difference rather than in residual-RMS units, so that coefficient 1.0 is
+      their setting exactly instead of a guess about the conversion;
+      the decoder, by sampling rather than greedily.
+
+    The second attempt at this stage got the last two wrong and reported
+    `ok`. It swept +-20 in RMS units on a direction whose raw norm was 175,
+    so the grid is not shown to have contained their operating point at all,
+    and it decoded greedily against a sampling result, so coefficients +1
+    through +15 came back byte-identical to the unsteered completion. The
+    readout was 0.0 for all 130 generations. That null was an artifact twice
+    over and is recorded in the run log rather than reported.
 
     Scored by rule, so no judge is involved and the outcome is decidable. Both
     results are reported: see the preregistration in `lbi/published.py`.
@@ -224,8 +233,9 @@ def stage_d_published(lm, out_dir: str = OUT_P) -> bool:
     from lbi.groundtruth import DeterministicScorer
     from lbi.pipeline import jsonable, run_steering
     from lbi.published import (
+        ACTADD_DECODING,
         ACTADD_SETTING,
-        PUBLISHED_COEFFS,
+        PUBLISHED_COEFF_MULTIPLES,
         PUBLISHED_READOUTS,
         published_concepts,
     )
@@ -260,11 +270,15 @@ def stage_d_published(lm, out_dir: str = OUT_P) -> bool:
         direction = raw / (raw_norm + 1e-12)
         print("  contrast %r vs %r at layer %d" % (pos_text, neg_text, layer))
         print("  raw difference norm: %.3f" % raw_norm)
+        print("  coeff 1.0 == the published setting (raw_norm units)")
+        print("  decoding: temperature %.1f, %d samples per prompt"
+              % (ACTADD_DECODING["temperature"], ACTADD_DECODING["n_samples"]))
 
         # Their injection covers the positions the contrast prompt occupied.
         n_pos = len(pub.tokenizer(pos_text)["input_ids"])
         print("  injecting at the first %d position(s)" % n_pos)
-        print("  grid: %s" % PUBLISHED_COEFFS)
+        print("  grid (multiples of their coefficient): %s"
+              % PUBLISHED_COEFF_MULTIPLES)
 
         for concept in published_concepts():
             path = os.path.join(
@@ -275,17 +289,36 @@ def stage_d_published(lm, out_dir: str = OUT_P) -> bool:
                 continue
             res = run_steering(
                 pub, concept, direction, layer, scorer,
-                coeffs=PUBLISHED_COEFFS, positions=n_pos,
+                coeffs=PUBLISHED_COEFF_MULTIPLES, positions=n_pos,
                 direction_source="actadd_contrast_pair",
+                unit_mode="raw_norm", raw_scale=raw_norm,
+                temperature=ACTADD_DECODING["temperature"],
+                n_samples=ACTADD_DECODING["n_samples"],
             )
+            # Preregistered gate: a null is only reportable if the sweep
+            # reproduced the effect somewhere. Rising above baseline by more
+            # than the point's own interval is the weakest version of that,
+            # and a readout that never does says the instrument is not
+            # sensitive enough to license a claim about direction.
+            base = res.baseline_behavior
+            reproduced = any(
+                pt.behavior > base and pt.behavior_ci[0] > base
+                for pt in res.curve if not pt.broken
+            )
+            at_theirs = [pt for pt in res.curve if pt.coeff == 1.0]
             rec = {
                 "steering": jsonable(res),
                 "curve": jsonable(res.curve),
                 "probe": {"concept": concept.name, "model": PUBLISHED_MODEL,
                           "readability": None, "best_layer": layer},
                 "actadd_setting": ACTADD_SETTING,
+                "actadd_decoding": ACTADD_DECODING,
+                "coeff_units": "multiples of the published coefficient",
                 "raw_difference_norm": raw_norm,
                 "positions": n_pos,
+                "positive_control_reproduced": reproduced,
+                "behavior_at_published_coeff": (
+                    at_theirs[0].behavior if at_theirs else None),
                 "judge_model": None,
                 "judge_is_self": False,
             }
@@ -293,6 +326,17 @@ def stage_d_published(lm, out_dir: str = OUT_P) -> bool:
                 json.dump(rec, f, indent=2)
             print("  %-14s ctrl %.4f  %s"
                   % (concept.name, res.controllability, res.ceiling_reason))
+            print("     baseline %.4f, at their coeff %s"
+                  % (base, "%.4f" % at_theirs[0].behavior if at_theirs
+                     else "not on grid"))
+            if reproduced:
+                print("     positive control PASSED: the effect appears in range")
+            else:
+                print("     positive control FAILED: the readout never rises "
+                      "above baseline at any usable coefficient. Per the "
+                      "preregistration in lbi/published.py this is 'not "
+                      "replicated here', not a directional finding. Check the "
+                      "harness before reporting anything from this sweep.")
     finally:
         del pub
         try:

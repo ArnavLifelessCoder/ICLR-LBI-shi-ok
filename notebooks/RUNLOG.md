@@ -1187,3 +1187,41 @@ of coefficient 1.0 computed at runtime and forced into the grid, and sampling
 for this stage only with the deviation stated. The positions primitive that
 previously blocked the stage does work: the log confirms injection at the
 first 3 positions. Item 2 stays open.
+
+### Stage D fixed
+
+Three changes, each pinned by tests in `tests/test_raw_units.py`.
+
+**Coefficient units.** `SteeringSpec` gained `unit_mode`, defaulting to
+`"rms"`, which is what every reported number uses and is unchanged. The new
+`"raw_norm"` mode scales by an explicit `raw_scale` instead of the layer's RMS
+norm, so with `raw_scale` set to the norm of the raw activation difference,
+coefficient 1.0 adds exactly that difference. That is the published setting
+itself rather than a guess at the conversion, and the grid is now multiples of
+it: -4 to +4 with 1.0 on the grid. The old approach swept +-20 in RMS units
+against a raw norm of 175, so it was never shown to contain their operating
+point. `raw_norm` is refused for `clamp` and `ablate`, whose targets are
+defined in RMS units and would otherwise be measured against the wrong ruler.
+
+**Decoder.** `run_steering` gained `temperature` and `n_samples`, both
+defaulting to the greedy single-draw path. Stage D now samples at temperature
+1.0 with 5 draws per prompt, because the published demonstration is a sampling
+result and greedy gpt2-xl loops. `n_samples > 1` under greedy decoding raises
+rather than averaging the same draw five times into a falsely tight interval.
+
+**A positive control gating the null.** The preregistration in
+`lbi/published.py` now covers the outcome the first two attempts actually
+produced, which was neither preregistered branch: a readout constant at zero.
+Before any null is reported the sweep must reproduce the effect somewhere,
+meaning the readout rises above baseline by more than that point's interval at
+some usable coefficient. If it does not, the result is "not replicated here"
+and implicates the harness, not the method. Stage D prints PASSED or FAILED
+and records `positive_control_reproduced` and `behavior_at_published_coeff` in
+the JSON. A flat zero is the one outcome that reads like a strong finding
+while being the absence of one, which is why it now has a gate instead of a
+footnote.
+
+Cost: 13 coefficients x 10 prompts x 5 samples = 650 generations on gpt2-xl,
+a few minutes. The setting in `ACTADD_SETTING` and the decoding in
+`ACTADD_DECODING` are still recorded from our reading of the paper and still
+need checking against the source before the number is reported.

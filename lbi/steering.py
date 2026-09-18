@@ -42,8 +42,23 @@ class SteeringSpec:
     direction: np.ndarray       # unit-norm, shape (d_model,)
     layers: list[int]
     variant: str = "add"
-    coeff: float = 0.0          # in RMS units; sign gives push direction
+    coeff: float = 0.0          # in units of `unit_mode`; sign gives direction
     clamp_target: float | None = None  # for variant="clamp", in RMS units
+    # What one unit of `coeff` means.
+    #
+    # "rms" scales by the layer's residual-stream RMS norm, measured from the
+    # unsteered activations. Every number this study reports uses it, and it is
+    # what makes a coefficient comparable across layers and models.
+    #
+    # "raw_norm" scales by `raw_scale` instead, so coeff=1.0 adds exactly
+    # `raw_scale * direction` regardless of the layer's norm. It exists for
+    # replication: activation addition adds a raw activation difference at
+    # coefficient 1.0, and an RMS coefficient of 1.0 is a different
+    # intervention by whatever ratio the two scales happen to stand in. With
+    # `raw_scale` set to that difference's norm, coeff=1.0 is the published
+    # setting exactly, and the grid reads in the published method's own units.
+    unit_mode: str = "rms"
+    raw_scale: float | None = None
     # How many leading token positions to intervene on. None means every
     # position, which is this study's default and what all its reported
     # numbers use.
@@ -67,6 +82,24 @@ class SteeringSpec:
             raise ValueError(f"variant must be one of {VARIANTS}, got {self.variant!r}")
         if self.variant == "clamp" and self.clamp_target is None:
             raise ValueError("variant='clamp' requires clamp_target")
+        if self.unit_mode not in ("rms", "raw_norm"):
+            raise ValueError(
+                f"unit_mode must be 'rms' or 'raw_norm', got {self.unit_mode!r}"
+            )
+        if self.unit_mode == "raw_norm":
+            if self.raw_scale is None:
+                raise ValueError("unit_mode='raw_norm' requires raw_scale")
+            if not self.raw_scale > 0:
+                raise ValueError(f"raw_scale must be > 0, got {self.raw_scale}")
+            # clamp_target and the ablation projection are both defined in RMS
+            # units, so a raw scale would silently mean something else there.
+            if self.variant not in ("add", "add_all"):
+                raise ValueError(
+                    "unit_mode='raw_norm' only applies to variant 'add' or "
+                    f"'add_all', got {self.variant!r}"
+                )
+        elif self.raw_scale is not None:
+            raise ValueError("raw_scale is only meaningful with unit_mode='raw_norm'")
         n = float(np.linalg.norm(self.direction))
         if not np.isclose(n, 1.0, atol=1e-3):
             raise ValueError(f"direction must be unit norm, got norm {n:.4f}")
@@ -96,7 +129,8 @@ def _apply(hidden, spec: SteeringSpec, unit: float):
     )
 
     if spec.variant in ("add", "add_all"):
-        delta = spec.coeff * unit * d
+        scale = unit if spec.unit_mode == "rms" else spec.raw_scale
+        delta = spec.coeff * scale * d
         if spec.positions is None:
             return hidden + delta
         k = min(spec.positions, hidden.shape[1])
