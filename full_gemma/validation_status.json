@@ -1,0 +1,9 @@
+{
+  "google/gemma-2-9b-it": {
+    "load": "ok",
+    "C_ksweep": "ok",
+    "D_published": "ok",
+    "B_rejudge": "ok",
+    "A_groundtruth": "ok"
+  }
+}

@@ -1225,3 +1225,90 @@ Cost: 13 coefficients x 10 prompts x 5 samples = 650 generations on gpt2-xl,
 a few minutes. The setting in `ACTADD_SETTING` and the decoding in
 `ACTADD_DECODING` are still recorded from our reading of the paper and still
 need checking against the source before the number is reported.
+
+## 2026-09-19: Gemma, and a claim that does not survive
+
+Gemma ran all five stages on `ad429c1`, so it is the first session to exercise
+the fixed stage D. Stage B and C came back byte-identical to the earlier run,
+as they did for the other three. The ten ground-truth results are merged, so
+`validation_output/results_groundtruth/` now holds 40 points across 4 models.
+
+### The headroom result holds at four models
+
+  - headroom vs whether the sign resolves: rho +0.006, p 0.970 (40 points).
+  - room available to an absolute deviation vs absolute area: rho -0.521,
+    p 0.001, still the reverse of what a ceiling artifact predicts.
+  - Kruskal on absolute area by concept H 21.54 p 0.0104, by model H 0.33
+    p 0.954. With the fourth model the concept effect reaches significance and
+    the model effect is nowhere near it.
+
+6 of 40 signs resolve, all positive. Directional share median 0.983 against
+0.387 on the judge-scored concepts.
+
+The designed pair behaves as intended on three models and not on Gemma:
+
+    model          lowercase (base 0.97)   uppercase (base 0.03)
+    Llama-3.1-8B            0.0057                 0.0044
+    Mistral-7B              0.0253                 0.0199
+    Qwen2.5-7B              0.0032                 0.0032
+    Gemma-2-9b              0.0417                 0.0043
+
+Gemma splits the pair by a factor of ten. That is not headroom either, since
+the two are matched on room, and within Gemma the high-room arm of uppercase
+gives +0.002 while the high-room arm of lowercase gives +0.086. It is a
+concept-by-model interaction, and it should be shown rather than averaged away.
+
+### The Gemma withholding claim was a protocol artifact
+
+This is the one that matters, because it reverses a finding.
+
+                      BANDED (4 concepts)      SINGLE LAYER (same 4)
+    Gemma-2-9b        0.0040   resolved 0/4    0.0040   resolved 1/4
+    Llama-3.1-8B      0.0262   resolved 2/4    0.0030   resolved 0/4
+    Mistral-7B        0.0342   resolved 2/4    0.0132   resolved 1/4
+    Qwen2.5-7B        0.0195   resolved 1/4    0.0021   resolved 0/4
+
+Under the band Gemma's median sits five to eight times below the other three,
+which is what "Gemma withholds" rested on, and it held under two judges and
+with no judge. Restricted to the same four concepts at a single layer, Gemma is
+not the lowest: its median is above Llama's and Qwen's, and it resolves as many
+signs as Mistral. Across all ten concepts Kruskal by model gives p 0.954.
+
+Banded controllability is a maximum over four layers. The gap was the other
+three models benefiting from that maximum more than Gemma did, not Gemma
+withholding. The claim does not survive and must not be reported. Gemma was
+already withheld from the paper, so nothing published depends on it, but the
+reason recorded for withholding it was wrong.
+
+### Stage D, on the fixed harness
+
+    raw difference norm: 175.125
+    coeff 1.0 == the published setting (raw_norm units)
+    decoding: temperature 1.0, 5 samples per prompt
+    grid (multiples of their coefficient): [-4 ... 1.0 ... 4]
+    pub_wedding  ctrl 0.0000  perplexity > 2.0x baseline at coeff -0.5
+      baseline 0.0007, at their coeff 0.0000
+      positive control FAILED
+
+The units and the decoder are fixed and the control still fails, which is the
+control doing its job. The remaining cause is the one that blocked this stage
+originally, in `df1adba`, and adding `positions` did not resolve it:
+
+`capture_cached` pools with `pooling="last"`, so the direction is the
+difference at the final token, one vector. "Weddings" is three tokens and " "
+is one; activation addition pads them, differences them position by position,
+and injects row i at position i. Ours adds the same pooled vector at all three
+positions. `positions` controls which positions receive a vector, never gives
+each its own. Stage D needs a position-wise steering matrix, exactly as
+`df1adba` said, and treating that blocker as resolved was an error.
+
+Stage D is therefore still not a replication and nothing from it is
+reportable. What is now true is that the two deviations that were maskable are
+gone, and the remaining one is identified precisely rather than suspected.
+
+### Packaging bug
+
+The full-run notebooks zipped `results_groundtruth`, `results_rejudge` and
+`results_ksweep` but not `results_published`, so four sessions ran stage D and
+none returned its JSON; only the log survived. Fixed in
+`scripts/make_kaggle_notebooks.py` and the notebooks are regenerated.

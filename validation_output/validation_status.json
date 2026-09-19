@@ -19,5 +19,12 @@
     "B_rejudge": "ok",
     "A_groundtruth": "ok (10 concepts, single layer, 6c9987f)",
     "D_published": "ran, not valid: greedy decoding and RMS units"
+  },
+  "google/gemma-2-9b-it": {
+    "load": "ok",
+    "C_ksweep": "ok",
+    "B_rejudge": "ok",
+    "A_groundtruth": "ok (10 concepts, single layer, ad429c1)",
+    "D_published": "ran on the fixed harness, positive control FAILED: direction is a pooled last-token vector, not position-wise"
   }
 }

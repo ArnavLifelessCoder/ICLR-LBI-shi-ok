@@ -1,0 +1,420 @@
+{
+  "probe": {
+    "concept": "certainty",
+    "model": "google/gemma-2-9b-it",
+    "best_layer": 20,
+    "readability": 1.0,
+    "control_auroc": 0.4654947916666667,
+    "selectivity": 0.5345052083333333,
+    "auroc_ci_low": 1.0,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "estimate",
+    "n_train": 128,
+    "n_test": 32,
+    "n_val": 32,
+    "control_flagged": false
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 1.0,
+      "test_auroc": 0.94140625,
+      "control_auroc": 0.4742838541666667
+    },
+    {
+      "layer": 1,
+      "val_auroc": 0.9453125,
+      "test_auroc": 0.8203125,
+      "control_auroc": 0.4420572916666667
+    },
+    {
+      "layer": 2,
+      "val_auroc": 0.69921875,
+      "test_auroc": 0.73828125,
+      "control_auroc": 0.44140625
+    },
+    {
+      "layer": 3,
+      "val_auroc": 0.88671875,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4596354166666667
+    },
+    {
+      "layer": 4,
+      "val_auroc": 0.97265625,
+      "test_auroc": 0.9140625,
+      "control_auroc": 0.4661458333333333
+    },
+    {
+      "layer": 5,
+      "val_auroc": 1.0,
+      "test_auroc": 0.6328125,
+      "control_auroc": 0.45703125
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 0.62109375,
+      "control_auroc": 0.46875
+    },
+    {
+      "layer": 7,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3932291666666667
+    },
+    {
+      "layer": 8,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5094401041666666
+    },
+    {
+      "layer": 9,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.50390625
+    },
+    {
+      "layer": 10,
+      "val_auroc": 0.9921875,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6253255208333334
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5387369791666666
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5055338541666666
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4638671875
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3603515625
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3447265625
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3889973958333333
+    },
+    {
+      "layer": 17,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4404296875
+    },
+    {
+      "layer": 18,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.41796875
+    },
+    {
+      "layer": 19,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4332682291666667
+    },
+    {
+      "layer": 20,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4654947916666667
+    },
+    {
+      "layer": 21,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4775390625
+    },
+    {
+      "layer": 22,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5348307291666666
+    },
+    {
+      "layer": 23,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6031901041666666
+    },
+    {
+      "layer": 24,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5755208333333334
+    },
+    {
+      "layer": 25,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5856119791666666
+    },
+    {
+      "layer": 26,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5491536458333334
+    },
+    {
+      "layer": 27,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5016276041666666
+    },
+    {
+      "layer": 28,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5042317708333334
+    },
+    {
+      "layer": 29,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5022786458333334
+    },
+    {
+      "layer": 30,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4993489583333333
+    },
+    {
+      "layer": 31,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5354817708333334
+    },
+    {
+      "layer": 32,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5188802083333334
+    },
+    {
+      "layer": 33,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5179036458333334
+    },
+    {
+      "layer": 34,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.501953125
+    },
+    {
+      "layer": 35,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5182291666666666
+    },
+    {
+      "layer": 36,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5061848958333334
+    },
+    {
+      "layer": 37,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5035807291666666
+    },
+    {
+      "layer": 38,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4947916666666667
+    },
+    {
+      "layer": 39,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5091145833333334
+    },
+    {
+      "layer": 40,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5078125
+    },
+    {
+      "layer": 41,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5026041666666666
+    }
+  ],
+  "steering": {
+    "concept": "certainty",
+    "model": "google/gemma-2-9b-it",
+    "variant": "add",
+    "layers": "23",
+    "direction_source": "diff_of_means",
+    "controllability": 0.15277777777777776,
+    "controllability_ci_low": 0.013888888888888888,
+    "controllability_ci_high": 0.4656249999999996,
+    "baseline_behavior": 0.16666666666666666,
+    "max_usable_coeff": 3.0,
+    "ceiling_reason": "no breakage in swept range",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -3.0,
+      "behavior": 0.5,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 3.7609368165334067,
+      "repetition": 0.004504504504504496,
+      "broken": false,
+      "samples": [
+        "Please provide me with some information about the project! To assess if it will finish on time, I need details like:\n\n* **Project scope:** What exactly does the project aim to achieve?\n* **Timeline:** What is the planned start and end date?\n* **Current progress:** What has been completed so",
+        "Please provide me with the investment details! I need information like:\n\n* **What is being invested in?** (Stocks, bonds, real estate, etc.)\n* **What are the potential returns?**\n* **What are the risks involved?**\n* **What is your investment timeline?**"
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.3333333333333333,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 3.546670118967692,
+      "repetition": 0.004504504504504496,
+      "broken": false,
+      "samples": [
+        "Please provide me with some information about the project so I can assess if it will finish on time. I need details such as:\n\n* **Project scope:** What are the specific goals and deliverables of the project?\n* **Timeline:** What is the planned start and end date?\n* **Current progress:** What",
+        "Please provide me with the investment details! I need information like:\n\n* **What is being invested in?** (Stocks, bonds, real estate, etc.)\n* **What are the potential returns?**\n* **What are the risks involved?**\n* **What is your investment timeline?**"
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.3333333333333333,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 3.5610977013905845,
+      "repetition": 0.004504504504504496,
+      "broken": false,
+      "samples": [
+        "Please provide me with some information about the project so I can assess if it will finish on time. I need details such as:\n\n* **Project scope:** What are the specific goals and deliverables of the project?\n* **Timeline:** What is the planned start and end date?\n* **Current progress:** What",
+        "Please provide me with the investment details! I need information like:\n\n* **What is being invested in?** (Stocks, bonds, real estate, etc.)\n* **What are the potential returns?**\n* **What are the risks involved?**\n* **What is your investment timeline?**"
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.3333333333333333,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 3.548092842102051,
+      "repetition": 0.004504504504504496,
+      "broken": false,
+      "samples": [
+        "Please provide me with some information about the project so I can assess if it will finish on time. I need details such as:\n\n* **Project scope:** What are the specific goals and deliverables of the project?\n* **Timeline:** What is the planned start and end date?\n* **Current progress:** What",
+        "Please provide me with the investment details! I need information like:\n\n* **What is being invested in?** (Stocks, bonds, real estate, etc.)\n* **What are the potential returns?**\n* **What are the risks involved?**\n* **What is your investment timeline?**"
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.16666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.875,
+      "perplexity": 3.55032217502594,
+      "repetition": 0.004504504504504496,
+      "broken": false,
+      "samples": [
+        "Please provide me with some information about the project so I can assess if it will finish on time. I need details such as:\n\n* **Project scope:** What are the specific goals and deliverables of the project?\n* **Timeline:** What is the planned start and end date?\n* **Current progress:** What",
+        "Please provide me with the investment details! I need information like:\n\n* **What is being invested in?** (Stocks, bonds, real estate, etc.)\n* **What are the potential returns?**\n* **What are the risks involved?**\n* **What is your investment timeline?**"
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.16666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.875,
+      "perplexity": 3.437451799710592,
+      "repetition": 0.004385964912280697,
+      "broken": false,
+      "samples": [
+        "Please provide me with some information about the project so I can assess if it will finish on time. I need details such as:\n\n* **Project scope:** What are the specific goals and deliverables of the project?\n* **Timeline:** What is the planned start and end date?\n* **Current progress:** What",
+        "Please provide me with the investment details so I can assess it. I need information like:\n\n* **What is being invested in?** (e.g., stock, bond, real estate, cryptocurrency)\n* **What are the potential returns?**\n* **What are the risks involved?**\n*"
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.3333333333333333,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 3.4645196199417114,
+      "repetition": 0.004385964912280697,
+      "broken": false,
+      "samples": [
+        "Please provide me with some information about the project so I can assess if it will finish on time. I need details such as:\n\n* **Project scope:** What are the specific goals and deliverables of the project?\n* **Timeline:** What is the planned start and end date?\n* **Current progress:** What",
+        "Please provide me with the investment details so I can assess it. I need information like:\n\n* **What is being invested in?** (e.g., stock, bond, real estate, cryptocurrency)\n* **What are the expected returns?**\n* **What are the risks involved?**\n*"
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.3333333333333333,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 3.551515440146128,
+      "repetition": 0.00835421888053467,
+      "broken": false,
+      "samples": [
+        "Please provide me with some information about the project so I can assess if it will finish on time! I need context like:\n\n* **What is the project?** (e.g., building a house, writing a book, developing software)\n* **What is the deadline?**\n* **What is",
+        "Please provide me with the investment details so I can assess it. I need information like:\n\n* **What is being invested in?** (e.g., stock, bond, real estate, cryptocurrency)\n* **What are the expected returns?**\n* **What are the risks involved?**\n*"
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 3.126511037349701,
+      "repetition": 0.008771929824561412,
+      "broken": false,
+      "samples": [
+        "Please provide me with some information about the project so I can assess its likelihood of finishing on time. I need context such as:\n\n* **Project scope:** What are the specific goals and deliverables of the project?\n* **Timeline:** What is the planned start and end date?\n* **Current progress:** What",
+        "Please provide me with the investment details so I can assess it. I need information like:\n\n* **What is the investment?** (e.g., stock, bond, real estate, cryptocurrency)\n* **What is the expected return?**\n* **What is the risk level?**\n* **"
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "certainty",
+    "model": "google/gemma-2-9b-it",
+    "layer": 20,
+    "output_overlap": 0.38282856345176697,
+    "participation_ratio": 19.346636896011738,
+    "low_variance_pc_alignment": 0.004297476727515459,
+    "residual_norm": 4.684399127960205,
+    "n_directions": 5.0,
+    "direction_coherence": 0.24949943820635478,
+    "probe_dom_cosine": 0.7282003067782545,
+    "tuning_shift": null
+  },
+  "gauntlet": null,
+  "judge_model": "Qwen/Qwen2.5-3B-Instruct",
+  "judge_is_self": false
+}

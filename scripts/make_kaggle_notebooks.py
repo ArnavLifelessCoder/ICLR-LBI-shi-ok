@@ -111,7 +111,12 @@ for model, slug in (("Qwen/Qwen2.5-7B-Instruct", "qwen"),
                if gated else "\n\nUngated: no secret needed.")
         ),
         call='status = run_all(["%s"])' % model,
-        dirs=["results_groundtruth", "results_rejudge", "results_ksweep"],
+        # results_published belongs here even though stage D ignores the
+        # model: leaving it out meant four sessions ran stage D and none
+        # of them returned its JSON, so the curve behind the verdict was
+        # only readable in the log.
+        dirs=["results_groundtruth", "results_rejudge", "results_ksweep",
+              "results_published"],
         check=(
             "Check the first lines before walking away:\n"
             "\n"
