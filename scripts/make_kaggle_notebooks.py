@@ -149,6 +149,44 @@ def build(name, job):
     ])
 
 
+JOBS["prompts30_qwen"] = dict(
+    title="Stage D then E: the replication, then thirty eval prompts",
+    blurb=(
+        "Two stages in one session, cheapest first.\n"
+        "\n"
+        "**D** re-runs the activation-addition replication on the corrected\n"
+        "direction. It loads `gpt2-xl` itself, so the model named in `run_all` is\n"
+        "ignored by it. Minutes. Its positive control decides whether the\n"
+        "replication is usable at all, so it goes first and its verdict is the\n"
+        "first thing to read.\n"
+        "\n"
+        "**E** re-runs the four judge-scored concepts at thirty eval prompts\n"
+        "instead of six, matching the ground-truth concepts. This removes the\n"
+        "confound in the study's headline comparison: ground truth resolves 6 of\n"
+        "40 signs and the judge-scored concepts 4 of 12, but at thirty prompts\n"
+        "against six, so the gap could be sample size rather than the judge.\n"
+        "About three hours, five times stage B.\n"
+        "\n"
+        "Stage B's six-prompt results are untouched and stay the comparison; the\n"
+        "original six prompts are a strict prefix of the thirty.\n"
+        "\n"
+        "**Settings:** Accelerator GPU T4 x2, Internet On. Ungated: no `HF_TOKEN`."
+    ),
+    call='status = run_all(["Qwen/Qwen2.5-7B-Instruct"], stages=["D", "E"])',
+    dirs=["results_published", "results_prompts30"],
+    check=(
+        "Check the first lines before walking away:\n"
+        "\n"
+        "- `commit` should be the head of `main`\n"
+        "- `stages` should read `D_published, E_prompts30`\n"
+        "- stage E should print `prompts per concept` with **30** for all four,\n"
+        "  and it raises rather than running if any still has six\n"
+        "- stage D prints `positive control PASSED` or `FAILED`; read that line\n"
+        "\n"
+        "Then download the zip **before the session expires**."
+    ),
+)
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--outdir", default=os.path.join("notebooks", "kaggle"))

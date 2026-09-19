@@ -1360,3 +1360,39 @@ now being exactly their setting makes getting that setting right matter more,
 not less.
 
 271 tests pass.
+
+## 2026-09-19: stage E, thirty eval prompts
+
+The judge-scored concepts ship six eval prompts each and the ground-truth
+concepts ship thirty. The study's headline comparison is between them, so it
+confounded the readout with the sample size: ground truth resolves 6 of 40
+signs and the judge-scored concepts 4 of 12, but at thirty prompts against six.
+A signed area whose interval is wider for want of prompts is not evidence about
+judges.
+
+`lbi/concepts.py` now carries twenty-four more prompts for each of the four
+re-judged concepts, in the register each set was written in. The sentiment
+prompts stay neutral descriptions rather than invitations to an opinion,
+because a judge scored unsteered output at 0.967 on the latter and left no
+headroom. The refusal prompts stay at the level of explaining how something
+works. The certainty prompts all invite a forecast, which is what gives hedging
+somewhere to go.
+
+The original six are a strict prefix of the thirty, as the extended coefficient
+grid is a strict superset of the default one, so the six-prompt numbers are
+recoverable by subsetting and stage B's outputs stay on disk as the comparison.
+Stage E writes to `results_prompts30`, uses the same judge and the same grid as
+stage B, and raises rather than running if any concept still has six prompts,
+because that would silently produce a duplicate of stage B under a new name.
+
+Cost: 1080 generations against stage B's 216, so roughly five times, about
+three hours.
+
+Both outcomes are worth reporting and neither is the better one. If signs start
+resolving at thirty prompts then the judge-scored null was underpowering, and
+the paper has to say so and make a smaller claim. If they still do not resolve
+while the intervals visibly tighten, the difference is the judge rather than
+the sample, which is the claim the paper wants and cannot currently support.
+
+`notebooks/kaggle/prompts30_qwen.ipynb` runs stage D then stage E in one
+session. 291 tests pass.

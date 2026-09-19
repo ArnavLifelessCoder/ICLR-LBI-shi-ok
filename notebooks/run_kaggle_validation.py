@@ -57,6 +57,7 @@ OUT_GT = f"{WORK}/results_groundtruth"
 OUT_RJ = f"{WORK}/results_rejudge"
 OUT_K = f"{WORK}/results_ksweep"
 OUT_P = f"{WORK}/results_published"
+OUT_E = f"{WORK}/results_prompts30"
 CACHE_DIR = f"{WORK}/cache/activations"
 
 # The three retained models. Gemma is withheld from the paper's main analysis
@@ -414,6 +415,79 @@ def stage_b_rejudge(lm, out_dir: str = OUT_RJ) -> bool:
     return True
 
 
+
+def stage_e_prompts30(lm, out_dir: str = OUT_E) -> bool:
+    """The judge-scored concepts again, at thirty eval prompts instead of six.
+
+    **Why this is a stage and not a tweak.** The study's headline comparison is
+    that ground-truth concepts resolve their signs and judge-scored ones mostly
+    do not: 6 of 40 against 4 of 12 on the last full run. But the ground-truth
+    concepts are evaluated on thirty prompts and the judge-scored ones on six,
+    so the comparison confounds the readout with the sample size. A signed area
+    whose interval is five times wider for want of prompts is not evidence
+    about judges. This stage removes that confound by measuring the
+    judge-scored concepts at the same prompt count.
+
+    Either outcome is informative and both get reported. If signs start
+    resolving at thirty prompts, the judge-scored null was underpowering and
+    the paper says so, which is a smaller claim than the one currently made.
+    If they still do not resolve while the intervals visibly tighten, the
+    difference is the judge and not the sample, which is the claim the paper
+    wants and cannot yet make.
+
+    **The instrument is extended, not swapped.** The original six prompts are a
+    strict prefix of the thirty, exactly as the extended coefficient grid is a
+    strict superset of the default one, so the six-prompt numbers are
+    recoverable by subsetting and nothing already reported is silently
+    replaced. Results go to their own directory for the same reason: stage B's
+    six-prompt outputs stay where they are and remain the comparison.
+
+    Same judge and same grid as stage B, so the prompt count is the only thing
+    that differs between them.
+    """
+    from lbi.concepts import all_concepts, with_expanded_eval_prompts
+    from lbi.pipeline import run_model
+
+    print("\n--- E: judge-scored concepts at 30 eval prompts ---")
+    every = all_concepts()
+    concepts = [with_expanded_eval_prompts(c) for c in every
+                if c.name in REJUDGE_CONCEPTS]
+    missing = set(REJUDGE_CONCEPTS) - {c.name for c in concepts}
+    if missing:
+        print("  WARNING: unknown concepts %s" % sorted(missing))
+
+    counts = {c.name: len(c.eval_prompts) for c in concepts}
+    print("  prompts per concept: %s" % counts)
+    short = [n for n, k in counts.items() if k < 30]
+    if short:
+        # Running this at six prompts would produce a duplicate of stage B
+        # under a different name, which is worse than not running it.
+        raise ValueError(
+            "stage E needs the expanded prompt set, but %s still have six; "
+            "check lbi/concepts.py _EXTRA_EVAL_PROMPTS" % sorted(short)
+        )
+
+    scorer, judge_name, judge_lm = _judge_scorer(every)
+    try:
+        runs = run_model(
+            lm, scorer, out_dir=out_dir, cache_dir=CACHE_DIR,
+            concepts=concepts, resume=True,
+        )
+    finally:
+        del judge_lm
+        try:
+            import torch
+            torch.cuda.empty_cache()
+        except Exception:
+            pass
+
+    for r in runs:
+        st = r.get("steering") or {}
+        print("  %-14s ctrl %.3f" % (r["probe"]["concept"],
+                                     st.get("controllability", float("nan"))))
+    return True
+
+
 def stage_c_ksweep(lm, out_dir: str = OUT_K) -> bool:
     """Output overlap at several k. No generation, so this is cheap."""
     import numpy as np
@@ -536,15 +610,17 @@ def run_all(models=None, stages=None) -> dict:
     ALL_STAGES = (("C_ksweep", stage_c_ksweep),
                   ("D_published", stage_d_published),
                   ("B_rejudge", stage_b_rejudge),
+                  ("E_prompts30", stage_e_prompts30),
                   ("A_groundtruth", stage_a_groundtruth))
     if stages is None:
         selected = ALL_STAGES
     else:
         want = {s.strip().upper()[0] for s in
                 ([stages] if isinstance(stages, str) else stages)}
-        unknown = want - {"A", "B", "C", "D"}
+        unknown = want - {"A", "B", "C", "D", "E"}
         if unknown:
-            raise ValueError(f"unknown stages {sorted(unknown)}; use A, B, C, D")
+            raise ValueError(
+                f"unknown stages {sorted(unknown)}; use A, B, C, D, E")
         selected = tuple(t for t in ALL_STAGES if t[0][0] in want)
     print("stages        : %s" % ", ".join(t[0] for t in selected))
 

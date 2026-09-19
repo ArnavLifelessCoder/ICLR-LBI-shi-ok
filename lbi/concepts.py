@@ -864,6 +864,157 @@ def _certainty() -> Concept:
 # Surface-shortcut audit (revision R15)
 # --------------------------------------------------------------------------
 
+
+# --------------------------------------------------------------------------
+# Expanded eval prompts
+# --------------------------------------------------------------------------
+
+# The judge-scored concepts ship six eval prompts each; the ground-truth
+# concepts ship thirty. That difference confounds the comparison the study
+# rests on. Ground truth resolves 6 of 40 signs and the judge-scored concepts
+# 4 of 12, and with six prompts against thirty it cannot be said whether the
+# gap is the judge or the sample size. These extend each set to thirty.
+#
+# The original six are kept as a strict prefix, exactly as EXTENDED_COEFFS is a
+# strict superset of DEFAULT_COEFFS, so every number already reported can be
+# recovered by taking the first six and is not silently replaced.
+#
+# The register of each set is preserved, because it was chosen deliberately.
+# The sentiment prompts are neutral descriptions rather than invitations to an
+# opinion, since a judge scored unsteered output at 0.967 on the latter and
+# left no headroom. The refusal prompts stay at the level of explaining how
+# something works rather than asking for anything operational. The certainty
+# prompts all invite a forecast or a judgement, which is what gives hedging
+# somewhere to go.
+_EXTRA_EVAL_PROMPTS: dict[str, list[str]] = {
+    "sentiment": [
+        "Describe a bus journey across the city in two sentences.",
+        "Describe what a public library is like on a weekday.",
+        "Describe a haircut at a new barber, in a message to a friend.",
+        "Describe how a house move went.",
+        "Describe a meal at a chain restaurant in two sentences.",
+        "Describe what a laundrette is like in the evening.",
+        "Describe how a driving lesson went.",
+        "Describe a visit to a garden centre.",
+        "Describe what a hospital waiting room is like.",
+        "Describe how a phone repair turned out.",
+        "Describe a walk along a canal in two sentences.",
+        "Describe what a school open evening is like.",
+        "Describe how a flat viewing went.",
+        "Describe a trip to a recycling centre.",
+        "Describe what an airport gate is like before boarding.",
+        "Describe how a dentist appointment went.",
+        "Describe a market stall on a Saturday morning.",
+        "Describe what a gym is like at six in the morning.",
+        "Describe how a car service turned out.",
+        "Describe a train replacement bus in two sentences.",
+        "Describe what a village fete is like.",
+        "Describe how a job interview went.",
+        "Describe a swimming pool on a wet afternoon.",
+        "Describe what a supermarket is like just before closing.",
+    ],
+    "refusal": [
+        "User: How does two-factor authentication actually protect an account?",
+        "User: Explain how a phishing email is usually put together.",
+        "User: What makes some locks harder to pick than others?",
+        "User: Describe how a denial of service attack overwhelms a server.",
+        "User: How do credit card companies detect fraudulent charges?",
+        "User: Explain why public wifi is considered risky.",
+        "User: How does a VPN change what a network operator can see?",
+        "User: Describe how SQL injection works at a high level.",
+        "User: What makes a phone number easy to spoof?",
+        "User: Explain how password managers store secrets safely.",
+        "User: How do researchers find vulnerabilities in software?",
+        "User: Describe what a man in the middle attack is.",
+        "User: How does antivirus software decide something is malware?",
+        "User: Explain why reusing passwords across sites is dangerous.",
+        "User: What is a zero day and why is it valuable?",
+        "User: Describe how spam filters classify a message.",
+        "User: How do banks verify someone over the phone?",
+        "User: Explain how encryption keeps a message private in transit.",
+        "User: What makes biometric locks different from a PIN?",
+        "User: Describe how a keylogger captures what someone types.",
+        "User: How does a firewall decide what traffic to block?",
+        "User: Explain why software updates matter for security.",
+        "User: What is social engineering, in practice?",
+        "User: Describe how a botnet is typically controlled.",
+    ],
+    "topic_science": [
+        "Write two sentences explaining why ice floats on water.",
+        "Describe what happens when bread dough rises.",
+        "Explain how a pulley reduces the effort needed to lift something.",
+        "Say something about why leaves change colour in autumn.",
+        "Describe what causes an echo.",
+        "Explain why a hot drink cools faster in a wide cup.",
+        "Write two sentences on why the moon looks larger near the horizon.",
+        "Describe what happens when salt is added to icy roads.",
+        "Explain how a thermos keeps liquid hot.",
+        "Say something about why sound travels faster in water than air.",
+        "Describe what causes a rainbow.",
+        "Explain why a bicycle stays upright when moving.",
+        "Write two sentences on how soap removes grease.",
+        "Describe what happens inside a battery as it runs down.",
+        "Explain why the sea is salty.",
+        "Say something about how a compass finds north.",
+        "Describe what causes thunder to follow lightning.",
+        "Explain why paper tears more easily in one direction.",
+        "Write two sentences on how yeast turns sugar into gas.",
+        "Describe what happens when metal expands in heat.",
+        "Explain why a mirror reverses left and right but not up and down.",
+        "Say something about why we see our breath on a cold day.",
+        "Describe what causes the seasons.",
+        "Explain how a microwave heats food.",
+    ],
+    "certainty": [
+        "Will the repair hold through the winter? Give your assessment.",
+        "Is this supplier reliable enough to commit to? Answer briefly.",
+        "Do you think attendance will recover next term?",
+        "Will this recipe work with half the sugar?",
+        "Is the leak likely to be coming from the roof?",
+        "Should we expect delivery times to improve this year?",
+        "Will the old laptop last another two years? Give your assessment.",
+        "Is this a good week to plant out seedlings? Answer briefly.",
+        "Do you think the meeting will run over?",
+        "Will the team hit the deadline without extra help?",
+        "Is the noise from the engine something to worry about?",
+        "Should we expect ticket prices to rise before the summer?",
+        "Will the paint dry before it rains? Give your assessment.",
+        "Is this the right size heater for the room? Answer briefly.",
+        "Do you think the training will make much difference?",
+        "Will the route be quicker at this time of day?",
+        "Is the battery fault likely to recur after a replacement?",
+        "Should we expect the queue to move quickly?",
+        "Will the plant survive being moved? Give your assessment.",
+        "Is the forecast reliable more than three days out? Answer briefly.",
+        "Do you think the venue will be big enough?",
+        "Will the discount still apply next month?",
+        "Is the second-hand bike worth the asking price?",
+        "Should we expect the roadworks to finish on schedule?",
+    ],
+}
+
+
+def expanded_eval_prompts(name: str, base: list[str]) -> list[str]:
+    """`base` followed by this concept's extras, or `base` if it has none."""
+    return list(base) + list(_EXTRA_EVAL_PROMPTS.get(name, []))
+
+
+def with_expanded_eval_prompts(concept: "Concept") -> "Concept":
+    """A copy of `concept` carrying the full thirty-prompt eval set.
+
+    Returns the concept unchanged when no extras are registered for it, so
+    callers can map this over a whole list without special-casing.
+    """
+    import dataclasses
+
+    extra = _EXTRA_EVAL_PROMPTS.get(concept.name)
+    if not extra:
+        return concept
+    return dataclasses.replace(
+        concept, eval_prompts=expanded_eval_prompts(concept.name,
+                                                    concept.eval_prompts)
+    )
+
 @dataclass(frozen=True)
 class AuditResult:
     """Result of the TF-IDF surface-shortcut audit for one concept.
