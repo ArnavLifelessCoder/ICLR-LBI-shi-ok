@@ -187,6 +187,14 @@ JOBS["prompts30_qwen"] = dict(
     ),
 )
 
+JOBS["round2_qwen"] = dict(
+    title="Stages F, D and E: the spelling diagnostic, then thirty prompts",
+    blurb="Three stages in one session, cheapest first.\n\n**F** sweeps six spellings of the activation-addition contrast on\n`gpt2-xl`. Stage D has had three harness bugs fixed and still fails its\npositive control, and the remaining suspect is the recorded contrast\nstring itself: GPT-2 tokenises `Weddings`, ` Weddings` and ` weddings`\ndifferently. If none reproduces the effect the null is robust; if one\ndoes, that is a recording error to verify against the paper, not a\nresult. Minutes.\n\n**D** re-runs the replication at the recorded setting, now saving\nper-prompt scores. Minutes.\n\n**E** re-runs the four judge-scored concepts at thirty eval prompts,\nalso saving per-prompt scores. The first stage E run produced the\ncomparison but not the data to make it cleanly: the thirty-prompt set\nmoved the baselines (sentiment 0.833 to 0.400), so six-versus-thirty\nwas not a pure prompt-count comparison. With per-prompt scores the\nfirst six of the same thirty can be subset offline, holding the run,\nthe judge and the generations fixed. About three hours.\n\n**Settings:** Accelerator GPU T4 x2, Internet On. Ungated: no `HF_TOKEN`.",
+    call='status = run_all(["Qwen/Qwen2.5-7B-Instruct"], stages=["F", "D", "E"])',
+    dirs=["results_contrast_variants", "results_published", "results_prompts30"],
+    check="Check the first lines before walking away:\n\n- `commit` should be the head of `main`\n- `stages` should read `D_published, E_prompts30, F_variants`\n- stage F prints one line per spelling ending `CONTROL PASSED` or\n  `control failed`; that block is the whole result\n- stage E should print `prompts per concept` with **30** for all four\n\nThen download the zip **before the session expires**.",
+)
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--outdir", default=os.path.join("notebooks", "kaggle"))

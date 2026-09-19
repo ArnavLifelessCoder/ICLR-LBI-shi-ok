@@ -1,0 +1,7 @@
+{
+  "Qwen/Qwen2.5-7B-Instruct": {
+    "load": "ok",
+    "D_published": "ok",
+    "E_prompts30": "failed: 'ConceptRun' object has no attribute 'get'"
+  }
+}

@@ -403,6 +403,20 @@ class DosePoint:
     repetition: float        # degenerate-repetition score in [0, 1]
     broken: bool             # past the fluency ceiling
     samples: list[str] = field(default_factory=list)
+    # One score per generation, in prompt order, so the point can be
+    # recomputed on a subset of the prompts without re-running the model.
+    #
+    # This is what makes a prompt-count comparison an offline analysis. Stage
+    # E measures the judge-scored concepts at thirty prompts where stage B used
+    # six, and the honest comparison holds everything else fixed by taking the
+    # first six of the same thirty: same run, same judge, same generations.
+    # Without these, that comparison needs another GPU session and the two
+    # runs still differ in more than the prompt count.
+    #
+    # With `n_samples > 1` the prompt list is tiled, so this has
+    # `n_prompts * n_samples` entries and prompt i owns every index congruent
+    # to i modulo `n_prompts`.
+    scores: list[float] = field(default_factory=list)
 
 
 @dataclass

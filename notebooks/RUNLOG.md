@@ -1396,3 +1396,83 @@ the sample, which is the claim the paper wants and cannot currently support.
 
 `notebooks/kaggle/prompts30_qwen.ipynb` runs stage D then stage E in one
 session. 291 tests pass.
+
+## 2026-09-20: stage E ran, stage D still fails its control
+
+### Stage D, on the corrected direction
+
+    raw difference norm per position: 81.94, 111.06, 87.91
+    baseline 0.00073   at their coefficient 0.00036
+    controllability 0.00019   ceiling: no breakage in swept range
+    positive control FAILED
+
+All three harness deviations are now fixed and the readout is still flat. The
+decoder fix is visibly working: the samples are varied rather than looping and
+baseline perplexity is 13.8 against 3.2 under greedy decoding. The direction is
+genuinely position-wise, with three distinct per-position norms. Nothing breaks
+anywhere in the swept range, so the intervention is gentle rather than
+destructive, unlike the RMS-unit version that broke at -0.5.
+
+That leaves `ACTADD_SETTING` itself, which has never been checked against the
+paper. Stage F is added to test the most likely way of mis-recording it.
+
+### Stage E: thirty eval prompts
+
+The stage ran and wrote every result. It then reported `failed` because the
+summary loop called `.get` on `ConceptRun` objects, which are dataclasses and
+not dicts. The data was already on disk; only the summary line was lost. Fixed.
+
+    Qwen2.5-7B, same judge, same grid.
+
+                     6 prompts (stage B)        30 prompts (stage E)
+    certainty     -0.056 [-0.117, +0.008]   +0.108 [-0.056, +0.232]
+    refusal       -0.042 [-0.148, +0.000]   -0.061 [-0.160, +0.106]
+    sentiment     +0.262 [+0.106, +0.374] * +0.188 [+0.041, +0.290] *
+    topic_science -0.115 [-0.298, +0.058]   +0.017 [-0.169, +0.193]
+
+    resolved 1/4 -> 1/4
+    mean CI width 0.2245 -> 0.2914, ratio 1.30; pure sampling would give 0.45
+    narrower at thirty: 1 of 4
+    signs flipped: certainty and topic_science
+
+Five times the prompts and the intervals did not tighten. Two of four signs
+flipped under a change that should only reduce noise. Taken at face value this
+is the result the paper wants and could not previously support: the
+judge-scored null is not underpowering, and it lines up with the existing
+re-judge evidence, where a different judge flipped 3 of 16 signs. Two
+independent perturbations, changing the judge and changing the prompt sample,
+both move signs and neither tightens anything.
+
+### Why that is not yet reportable
+
+The expanded prompt set moved the baselines: sentiment 0.833 to 0.400,
+topic_science 0.833 to 0.500, refusal 0.667 to 0.733, certainty unchanged. The
+shift is in the right direction, since the six-prompt sentiment set was close
+to saturating the judge and the concept's own docstring warns about exactly
+that. But it means the two runs differ in their operating point as well as in
+their prompt count, so this is not a clean comparison and the CI-width ratio
+cannot carry the claim on its own. Four concepts on one model is thin for that
+ratio in any case.
+
+The clean version is to subset the thirty-prompt run to its first six, which
+holds the run, the judge and the generations fixed and changes only the prompt
+count. That was impossible offline: `run_steering` computes per-prompt scores
+and `jsonable` dropped them, so nothing downstream could re-aggregate. Fixed by
+adding `DosePoint.scores`, one score per generation in prompt order. Stage E
+needs one re-run to produce them, which is what `round2_qwen.ipynb` does.
+
+### Stage F: the contrast spelling diagnostic
+
+Six spellings of the contrast, swept on a coarse wide grid, scored by the same
+rule and judged by the same positive control. GPT-2 gives "Weddings",
+" Weddings" and " weddings" different token ids, so a mis-recorded leading
+space is a different direction.
+
+This is deliberately not a search for a setting that works. If no spelling
+reproduces the effect, the stage D null is robust to the most likely recording
+error and that is what gets reported. If one does, it identifies something to
+verify against the paper before anything is reported, and a variant selected
+because it worked is not evidence of the published setting. The
+preregistration governs stage D and is untouched.
+
+291 tests pass.

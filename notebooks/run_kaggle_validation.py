@@ -58,6 +58,7 @@ OUT_RJ = f"{WORK}/results_rejudge"
 OUT_K = f"{WORK}/results_ksweep"
 OUT_P = f"{WORK}/results_published"
 OUT_E = f"{WORK}/results_prompts30"
+OUT_F = f"{WORK}/results_contrast_variants"
 CACHE_DIR = f"{WORK}/cache/activations"
 
 # The three retained models. Gemma is withheld from the paper's main analysis
@@ -481,10 +482,150 @@ def stage_e_prompts30(lm, out_dir: str = OUT_E) -> bool:
         except Exception:
             pass
 
+    # run_model returns ConceptRun objects, not dicts. Getting this wrong
+    # raised after every result had already been written, which cost the
+    # summary line and nothing else, but the stage still reported "failed".
     for r in runs:
-        st = r.get("steering") or {}
-        print("  %-14s ctrl %.3f" % (r["probe"]["concept"],
-                                     st.get("controllability", float("nan"))))
+        print("  %-14s read %.2f  ctrl %.3f"
+              % (r.probe.concept, r.probe.readability,
+                 r.steering.controllability))
+    return True
+
+
+
+def stage_f_contrast_variants(lm, out_dir: str = OUT_F) -> bool:
+    """Stage D's null, against every plausible spelling of the contrast.
+
+    **What this is for.** Stage D has had three harness bugs fixed and still
+    fails its positive control: on the corrected run the readout sat at 0.0007
+    at baseline and 0.0004 at the published coefficient, with nothing breaking
+    anywhere in the swept range. The remaining suspect is `ACTADD_SETTING`
+    itself, which is recorded from our reading of the paper and has never been
+    checked against it. The single most likely way to mis-record it is the
+    leading space: GPT-2's tokenizer gives "Weddings", " Weddings" and
+    " weddings" different token ids, and a contrast built from the wrong one is
+    a different direction.
+
+    **What it is not.** This is not a search for the setting that works, and
+    the result is not evidence that we found the published one. It answers a
+    narrower question with two useful answers. If every spelling fails the
+    positive control, the null is robust to the most likely recording error and
+    the paper can say the replication did not reproduce the effect under any
+    reading of the contrast we could construct. If exactly one spelling passes,
+    that identifies a recording error to go and verify against the source
+    before anything is reported, which is a task for a person with the paper,
+    not for this sweep.
+
+    Either way the outcome is reported as a diagnostic, and no directional
+    claim is made from a variant that was selected because it worked. The
+    preregistration in `lbi/published.py` governs stage D and is untouched by
+    this.
+
+    Cheap: gpt2-xl, a coarse grid, a few minutes per variant.
+    """
+    import numpy as np
+
+    from lbi.extraction import load_model
+    from lbi.groundtruth import DeterministicScorer
+    from lbi.pipeline import jsonable, run_steering
+    from lbi.published import (
+        ACTADD_DECODING,
+        ACTADD_SETTING,
+        PUBLISHED_READOUTS,
+        actadd_direction,
+        published_concepts,
+    )
+
+    # Spellings of the same contrast. The negative side is varied with it,
+    # because " " and "" tokenize differently too.
+    VARIANTS = [
+        ("Weddings", " "),        # what stage D has been using
+        (" Weddings", " "),
+        (" weddings", " "),
+        ("weddings", " "),
+        (" wedding", " "),
+        (" weddings", ""),
+    ]
+    # Coarser and wider than stage D's grid: this is a detector, not a measurement.
+    GRID = [-4.0, -2.0, -1.0, 0.0, 1.0, 2.0, 4.0, 8.0]
+
+    print("\n--- F: contrast spelling diagnostic (no judge) ---")
+    print("  %d variants x %d coefficients" % (len(VARIANTS), len(GRID)))
+    print("  success is the stage D positive control, not a larger number")
+    os.makedirs(out_dir, exist_ok=True)
+
+    pub = None
+    results = []
+    try:
+        pub = load_model(PUBLISHED_MODEL, load_in_4bit=False, device_index=0)
+        scorer = DeterministicScorer(extra=PUBLISHED_READOUTS)
+        layer = int(ACTADD_SETTING["layer"])
+        concept = published_concepts()[0]
+
+        for pos_text, neg_text in VARIANTS:
+            n_tok = len(pub.tokenizer(pos_text)["input_ids"])
+            try:
+                direction, raw_norms, n_pos = actadd_direction(
+                    pub, layer, positive=pos_text, negative=neg_text)
+            except Exception as exc:
+                print("  %-12r vs %-4r  SKIPPED: %s" % (pos_text, neg_text, exc))
+                continue
+            res = run_steering(
+                pub, concept, direction, layer, scorer,
+                coeffs=GRID,
+                direction_source="actadd_variant",
+                unit_mode="raw_norm", raw_scale=raw_norms,
+                temperature=ACTADD_DECODING["temperature"],
+                n_samples=ACTADD_DECODING["n_samples"],
+            )
+            base = res.baseline_behavior
+            reproduced = any(
+                pt.behavior > base and pt.behavior_ci[0] > base
+                for pt in res.curve if not pt.broken
+            )
+            peak = max((pt.behavior for pt in res.curve if not pt.broken),
+                       default=float("nan"))
+            results.append({
+                "positive_prompt": pos_text,
+                "negative_prompt": neg_text,
+                "n_tokens": n_tok,
+                "positions": n_pos,
+                "raw_norms": [float(x) for x in raw_norms],
+                "baseline": base,
+                "peak_behavior": peak,
+                "positive_control_reproduced": reproduced,
+                "steering": jsonable(res),
+                "curve": jsonable(res.curve),
+            })
+            print("  %-12r vs %-4r  %d tok  base %.4f  peak %.4f  %s"
+                  % (pos_text, neg_text, n_tok, base, peak,
+                     "CONTROL PASSED" if reproduced else "control failed"))
+
+        path = os.path.join(out_dir, "contrast_variants.json")
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump({"layer": layer, "grid": GRID, "variants": results}, f,
+                      indent=2)
+
+        passed = [r for r in results if r["positive_control_reproduced"]]
+        print()
+        if not passed:
+            print("  no spelling reproduced the effect. The stage D null is "
+                  "robust to the most likely way of mis-recording the "
+                  "contrast, which is what the paper would report.")
+        else:
+            print("  %d spelling(s) reproduced the effect: %s"
+                  % (len(passed), [r["positive_prompt"] for r in passed]))
+            print("  This identifies a recording error to VERIFY against the "
+                  "paper before reporting anything. Do not treat a variant "
+                  "that was selected because it worked as the published "
+                  "setting.")
+    finally:
+        del pub
+        try:
+            import torch
+            torch.cuda.empty_cache()
+        except Exception:
+            pass
     return True
 
 
@@ -611,16 +752,17 @@ def run_all(models=None, stages=None) -> dict:
                   ("D_published", stage_d_published),
                   ("B_rejudge", stage_b_rejudge),
                   ("E_prompts30", stage_e_prompts30),
+                  ("F_variants", stage_f_contrast_variants),
                   ("A_groundtruth", stage_a_groundtruth))
     if stages is None:
         selected = ALL_STAGES
     else:
         want = {s.strip().upper()[0] for s in
                 ([stages] if isinstance(stages, str) else stages)}
-        unknown = want - {"A", "B", "C", "D", "E"}
+        unknown = want - {"A", "B", "C", "D", "E", "F"}
         if unknown:
             raise ValueError(
-                f"unknown stages {sorted(unknown)}; use A, B, C, D, E")
+                f"unknown stages {sorted(unknown)}; use A, B, C, D, E, F")
         selected = tuple(t for t in ALL_STAGES if t[0][0] in want)
     print("stages        : %s" % ", ".join(t[0] for t in selected))
 

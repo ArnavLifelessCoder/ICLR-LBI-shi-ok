@@ -197,7 +197,9 @@ def published_concepts() -> list[Concept]:
     return [actadd_wedding()]
 
 
-def actadd_direction(lm, layer: int | None = None):
+def actadd_direction(lm, layer: int | None = None,
+                     positive: str | None = None,
+                     negative: str | None = None):
     """The published contrast as a position-wise matrix.
 
     Returns `(rows, norms, width)` where `rows` is (P, d_model) with every row
@@ -223,11 +225,12 @@ def actadd_direction(lm, layer: int | None = None):
     from .extraction import capture_positionwise
 
     layer = int(ACTADD_SETTING["layer"] if layer is None else layer)
-    acts = capture_positionwise(
-        lm,
-        [ACTADD_SETTING["positive_prompt"], ACTADD_SETTING["negative_prompt"]],
-        layer,
-    )
+    # `positive` and `negative` default to the recorded setting. They are
+    # parameters only so the spelling diagnostic can vary them; stage D itself
+    # always takes the recorded one.
+    pos = ACTADD_SETTING["positive_prompt"] if positive is None else positive
+    neg = ACTADD_SETTING["negative_prompt"] if negative is None else negative
+    acts = capture_positionwise(lm, [pos, neg], layer)
     raw = acts[0] - acts[1]                      # (P, d_model)
     norms = np.linalg.norm(raw, axis=-1)
 
@@ -239,9 +242,7 @@ def actadd_direction(lm, layer: int | None = None):
     if width == 0:
         raise ValueError(
             "the contrast %r vs %r has no difference at its first position; "
-            "check ACTADD_SETTING"
-            % (ACTADD_SETTING["positive_prompt"],
-               ACTADD_SETTING["negative_prompt"])
+            "check ACTADD_SETTING" % (pos, neg)
         )
     raw, norms = raw[:width], norms[:width]
     rows = raw / norms[:, None]

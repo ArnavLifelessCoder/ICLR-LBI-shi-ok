@@ -1,0 +1,445 @@
+{
+  "steering": {
+    "concept": "pub_wedding",
+    "model": "gpt2-xl",
+    "variant": "add",
+    "layers": [
+      6
+    ],
+    "direction_source": "actadd_contrast_positionwise",
+    "curve": [
+      {
+        "coeff": -4.0,
+        "behavior": 0.0007547169811320754,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 16.361124134063722,
+        "repetition": 0.0009133367929423985,
+        "broken": false,
+        "samples": [
+          "\"Hey, can I play?\" And he went \"No. You have to play for the Knicks.\" That was a joke, the joke was \"I have to see you play a little bit for the Knicks, and then when you get in the car, 'You have to play the next two games for the Knicks",
+          "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+        ]
+      },
+      {
+        "coeff": -3.0,
+        "behavior": 0.0007547169811320754,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 15.295529861450195,
+        "repetition": 0.009960899458597667,
+        "broken": false,
+        "samples": [
+          ", 'I can't play with you anymore,'\" recalls John. \"He took one look at me and said, 'You do the math.' And I said, 'I can't play with you anymore?' \"\n\nThis isn't something that's happened just now; John has been struggling with his desire to return",
+          "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+        ]
+      },
+      {
+        "coeff": -2.0,
+        "behavior": 0.0007272727272727272,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 15.166892337799073,
+        "repetition": 0.008977146231749469,
+        "broken": false,
+        "samples": [
+          ", 'I can't play with you anymore,'\" recalls John. \"I took him for the last time that day.\n\n\"I was very emotional at the funeral. I hadn't met any of my friends for a year and a half,\" he tells me. \"Not one of them could accept that he'd",
+          "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+        ]
+      },
+      {
+        "coeff": -1.5,
+        "behavior": 0.0007272727272727272,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 14.700586900711059,
+        "repetition": 0.017897611903511402,
+        "broken": false,
+        "samples": [
+          ", 'I can't play with you anymore,'\" recalls John. \"He took one look at me and said, 'You do the math.' And I said, 'I can't play with you anymore?' \"\n\nThis isn't something that's happened just now; John has been struggling with his desire to play",
+          "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+        ]
+      },
+      {
+        "coeff": -1.0,
+        "behavior": 0.0007272727272727272,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 14.60195128440857,
+        "repetition": 0.011194968553459118,
+        "broken": false,
+        "samples": [
+          ", 'I can't play games anymore because my feet hurt. I have to go for an MRI.' That was a joke, the whole thing,\" he said. \"But I said, 'You know what, I'm going to go in for surgery.' 'You have nothing to lose?' I said. 'I",
+          "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+        ]
+      },
+      {
+        "coeff": -0.5,
+        "behavior": 0.0007272727272727272,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 14.469960060119629,
+        "repetition": 0.003802029897590389,
+        "broken": false,
+        "samples": [
+          ", 'I can't play with you anymore,'\" recalls John. \"He took one look and said, 'Fine. You do the show.' And I never did his show again.\"\n\nThe two of them have since broken up, as they're too close now, while John says he sees his brother more often",
+          "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+        ]
+      },
+      {
+        "coeff": 0.0,
+        "behavior": 0.0007272727272727272,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 13.76340160369873,
+        "repetition": 0.0012165193297268772,
+        "broken": false,
+        "samples": [
+          ", 'I can't play with you anymore,'\" recalls John. \"He took one look and said, 'Fine. You do the show.' And I never did his show again.\"\n\nThe two of them have since broken up, as they're too close now, while John says he sees his brother more often",
+          "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+        ]
+      },
+      {
+        "coeff": 0.5,
+        "behavior": 0.0003636363636363636,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 13.825060348510743,
+        "repetition": 0.0081395962528038,
+        "broken": false,
+        "samples": [
+          ", 'I can't believe what's going on,\" and he said, 'Oh, you are such a weirdo. You can't understand what it's all about. Who is this boy who's going to kill the President? It must be a dream!'\"\n\nIn fact, the two had gone to some",
+          "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+        ]
+      },
+      {
+        "coeff": 1.0,
+        "behavior": 0.0003636363636363636,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 14.796976099014282,
+        "repetition": 0.0019538784067085957,
+        "broken": false,
+        "samples": [
+          ", 'I can't believe what's going on here.' \"\n\nA couple of hours earlier, a woman had run into the store screaming at passers-by, \"You need to kill me,\" according to Bouchard.\n\nSgt. Michael Vachon of the Montreal police said the woman was",
+          "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+        ]
+      },
+      {
+        "coeff": 1.5,
+        "behavior": 0.0007557932263814617,
+        "behavior_ci": [
+          0.0,
+          0.014090909090909064
+        ],
+        "perplexity": 15.210484075546265,
+        "repetition": 0.004989218328840972,
+        "broken": false,
+        "samples": [
+          "\"Hey, can you play games while I look at my texts?\" I took him for an idiot, but that may have been the extent of what I said. I didn't even tell him that this entire time I was thinking \"I must never say that again\" after that. My friends and I didn't really",
+          "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+        ]
+      },
+      {
+        "coeff": 2.0,
+        "behavior": 0.000734006734006734,
+        "behavior_ci": [
+          0.0,
+          0.014090909090909064
+        ],
+        "perplexity": 15.789511070251464,
+        "repetition": 0.0029880503144654093,
+        "broken": false,
+        "samples": [
+          "\"Hey, can you play games while I look at my texts?\" I took him for an idiot, let him try, and then started sending him messages at all hours of the day. Eventually, this escalated to texting all the time, as he spent the evenings not playing video games at our home because I kept telling",
+          "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+        ]
+      },
+      {
+        "coeff": 3.0,
+        "behavior": 0.0016518131800523827,
+        "behavior_ci": [
+          0.0,
+          0.02218992248062015
+        ],
+        "perplexity": 17.26745195388794,
+        "repetition": 0.0016561533704390864,
+        "broken": false,
+        "samples": [
+          "if y'all wanna play games. And he was like \"I like games\" and he played like a pro.\n\nWe started talking about games and he's one of a kind. Like this game he plays and then next game he's \"this game\" kind of guy. So I was like he's",
+          "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+        ]
+      },
+      {
+        "coeff": 4.0,
+        "behavior": 0.00037037037037037035,
+        "behavior_ci": [
+          0.0,
+          0.0
+        ],
+        "perplexity": 17.84756925582886,
+        "repetition": 0.0007703703703703702,
+        "broken": false,
+        "samples": [
+          "\"Hello, can I play games while you look at my games?\" I took him for the first time and watched a couple sessions, but didn't start gaming seriously until about 4 years later. (Yes, I have a good memory for memories). Then, I had another friend (now a spouse) who had some",
+          "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+        ]
+      }
+    ],
+    "controllability": 0.00019088814128263653,
+    "controllability_ci": [
+      0.00012356954717832811,
+      0.0012399825821718452
+    ],
+    "baseline_behavior": 0.0007272727272727272,
+    "max_usable_coeff": 4.0,
+    "ceiling_reason": "no breakage in swept range",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -4.0,
+      "behavior": 0.0007547169811320754,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 16.361124134063722,
+      "repetition": 0.0009133367929423985,
+      "broken": false,
+      "samples": [
+        "\"Hey, can I play?\" And he went \"No. You have to play for the Knicks.\" That was a joke, the joke was \"I have to see you play a little bit for the Knicks, and then when you get in the car, 'You have to play the next two games for the Knicks",
+        "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+      ]
+    },
+    {
+      "coeff": -3.0,
+      "behavior": 0.0007547169811320754,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 15.295529861450195,
+      "repetition": 0.009960899458597667,
+      "broken": false,
+      "samples": [
+        ", 'I can't play with you anymore,'\" recalls John. \"He took one look at me and said, 'You do the math.' And I said, 'I can't play with you anymore?' \"\n\nThis isn't something that's happened just now; John has been struggling with his desire to return",
+        "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.0007272727272727272,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 15.166892337799073,
+      "repetition": 0.008977146231749469,
+      "broken": false,
+      "samples": [
+        ", 'I can't play with you anymore,'\" recalls John. \"I took him for the last time that day.\n\n\"I was very emotional at the funeral. I hadn't met any of my friends for a year and a half,\" he tells me. \"Not one of them could accept that he'd",
+        "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+      ]
+    },
+    {
+      "coeff": -1.5,
+      "behavior": 0.0007272727272727272,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 14.700586900711059,
+      "repetition": 0.017897611903511402,
+      "broken": false,
+      "samples": [
+        ", 'I can't play with you anymore,'\" recalls John. \"He took one look at me and said, 'You do the math.' And I said, 'I can't play with you anymore?' \"\n\nThis isn't something that's happened just now; John has been struggling with his desire to play",
+        "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.0007272727272727272,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 14.60195128440857,
+      "repetition": 0.011194968553459118,
+      "broken": false,
+      "samples": [
+        ", 'I can't play games anymore because my feet hurt. I have to go for an MRI.' That was a joke, the whole thing,\" he said. \"But I said, 'You know what, I'm going to go in for surgery.' 'You have nothing to lose?' I said. 'I",
+        "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.0007272727272727272,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 14.469960060119629,
+      "repetition": 0.003802029897590389,
+      "broken": false,
+      "samples": [
+        ", 'I can't play with you anymore,'\" recalls John. \"He took one look and said, 'Fine. You do the show.' And I never did his show again.\"\n\nThe two of them have since broken up, as they're too close now, while John says he sees his brother more often",
+        "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.0007272727272727272,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 13.76340160369873,
+      "repetition": 0.0012165193297268772,
+      "broken": false,
+      "samples": [
+        ", 'I can't play with you anymore,'\" recalls John. \"He took one look and said, 'Fine. You do the show.' And I never did his show again.\"\n\nThe two of them have since broken up, as they're too close now, while John says he sees his brother more often",
+        "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.0003636363636363636,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 13.825060348510743,
+      "repetition": 0.0081395962528038,
+      "broken": false,
+      "samples": [
+        ", 'I can't believe what's going on,\" and he said, 'Oh, you are such a weirdo. You can't understand what it's all about. Who is this boy who's going to kill the President? It must be a dream!'\"\n\nIn fact, the two had gone to some",
+        "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.0003636363636363636,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 14.796976099014282,
+      "repetition": 0.0019538784067085957,
+      "broken": false,
+      "samples": [
+        ", 'I can't believe what's going on here.' \"\n\nA couple of hours earlier, a woman had run into the store screaming at passers-by, \"You need to kill me,\" according to Bouchard.\n\nSgt. Michael Vachon of the Montreal police said the woman was",
+        "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+      ]
+    },
+    {
+      "coeff": 1.5,
+      "behavior": 0.0007557932263814617,
+      "behavior_ci": [
+        0.0,
+        0.014090909090909064
+      ],
+      "perplexity": 15.210484075546265,
+      "repetition": 0.004989218328840972,
+      "broken": false,
+      "samples": [
+        "\"Hey, can you play games while I look at my texts?\" I took him for an idiot, but that may have been the extent of what I said. I didn't even tell him that this entire time I was thinking \"I must never say that again\" after that. My friends and I didn't really",
+        "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.000734006734006734,
+      "behavior_ci": [
+        0.0,
+        0.014090909090909064
+      ],
+      "perplexity": 15.789511070251464,
+      "repetition": 0.0029880503144654093,
+      "broken": false,
+      "samples": [
+        "\"Hey, can you play games while I look at my texts?\" I took him for an idiot, let him try, and then started sending him messages at all hours of the day. Eventually, this escalated to texting all the time, as he spent the evenings not playing video games at our home because I kept telling",
+        "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.0016518131800523827,
+      "behavior_ci": [
+        0.0,
+        0.02218992248062015
+      ],
+      "perplexity": 17.26745195388794,
+      "repetition": 0.0016561533704390864,
+      "broken": false,
+      "samples": [
+        "if y'all wanna play games. And he was like \"I like games\" and he played like a pro.\n\nWe started talking about games and he's one of a kind. Like this game he plays and then next game he's \"this game\" kind of guy. So I was like he's",
+        "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+      ]
+    },
+    {
+      "coeff": 4.0,
+      "behavior": 0.00037037037037037035,
+      "behavior_ci": [
+        0.0,
+        0.0
+      ],
+      "perplexity": 17.84756925582886,
+      "repetition": 0.0007703703703703702,
+      "broken": false,
+      "samples": [
+        "\"Hello, can I play games while you look at my games?\" I took him for the first time and watched a couple sessions, but didn't start gaming seriously until about 4 years later. (Yes, I have a good memory for memories). Then, I had another friend (now a spouse) who had some",
+        "come to the hospital and see him again. After arriving, I went to see a doctor in case he needed drugs or anything for that matter.\n\nAfter some discussion between the specialist in charge and myself the decision was made to transfer him from the ICU to the surgery ward. After talking to him a few times"
+      ]
+    }
+  ],
+  "probe": {
+    "concept": "pub_wedding",
+    "model": "gpt2-xl",
+    "readability": null,
+    "best_layer": 6
+  },
+  "actadd_setting": {
+    "model": "gpt2-xl",
+    "positive_prompt": "Weddings",
+    "negative_prompt": " ",
+    "layer": 6,
+    "coefficient": 1.0,
+    "source": "turner2023actadd"
+  },
+  "actadd_decoding": {
+    "temperature": 1.0,
+    "n_samples": 5,
+    "source": "turner2023actadd"
+  },
+  "coeff_units": "multiples of the published coefficient",
+  "raw_difference_norm": 163.6345631528151,
+  "raw_difference_norm_per_position": [
+    81.94127655029297,
+    111.05608367919922,
+    87.91156768798828
+  ],
+  "positions": 3,
+  "positive_control_reproduced": false,
+  "behavior_at_published_coeff": 0.0003636363636363636,
+  "judge_model": null,
+  "judge_is_self": false
+}

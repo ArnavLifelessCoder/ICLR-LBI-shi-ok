@@ -11,7 +11,8 @@
     "C_ksweep": "ok",
     "B_rejudge": "ok",
     "A_groundtruth": "ok (10 concepts, single layer, 6c9987f)",
-    "D_published": "ran, not valid: greedy decoding and RMS units"
+    "D_published": "ran on the corrected direction, positive control FAILED",
+    "E_prompts30": "ran (first pass): results written, summary print crashed; no per-prompt scores, so 6-vs-30 is not yet a clean comparison"
   },
   "mistralai/Mistral-7B-Instruct-v0.3": {
     "load": "ok",

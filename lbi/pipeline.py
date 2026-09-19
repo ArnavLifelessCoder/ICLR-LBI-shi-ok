@@ -247,6 +247,7 @@ def run_steering(
                 repetition=rep,
                 broken=False,
                 samples=outs[:2],
+                scores=[float(x) for x in scores],
             )
         )
 
