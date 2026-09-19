@@ -210,13 +210,22 @@ def stage_d_published(lm, out_dir: str = OUT_P) -> bool:
       the layer, taken from ACTADD_SETTING rather than from a probe;
       the injection positions, limited to where the contrast prompt sat rather
       than applied to every token including the generated ones;
+      the direction itself, which is a position-wise matrix rather than one
+      pooled vector, because activation addition differences its contrast
+      prompts at each position and adds row i at position i;
       the coefficient scale, by sweeping in multiples of the raw activation
       difference rather than in residual-RMS units, so that coefficient 1.0 is
       their setting exactly instead of a guess about the conversion;
       the decoder, by sampling rather than greedily.
 
-    The second attempt at this stage got the last two wrong and reported
-    `ok`. It swept +-20 in RMS units on a direction whose raw norm was 175,
+    The third attempt got the direction wrong and its positive control
+    caught it: `capture_cached` pools with `pooling='last'`, so the contrast
+    collapsed to a single final-token vector that was then added at all three
+    positions. That is not activation addition, and it is the blocker recorded
+    in `df1adba`, which adding `positions` did not resolve.
+
+    The second attempt got the coefficient scale and the decoder wrong and
+    reported `ok`. It swept +-20 in RMS units on a direction whose raw norm was 175,
     so the grid is not shown to have contained their operating point at all,
     and it decoded greedily against a sampling result, so coefficients +1
     through +15 came back byte-identical to the unsteered completion. The
@@ -229,7 +238,7 @@ def stage_d_published(lm, out_dir: str = OUT_P) -> bool:
     import numpy as np
 
     from lbi import steering as st
-    from lbi.extraction import capture_cached, load_model
+    from lbi.extraction import load_model
     from lbi.groundtruth import DeterministicScorer
     from lbi.pipeline import jsonable, run_steering
     from lbi.published import (
@@ -237,6 +246,7 @@ def stage_d_published(lm, out_dir: str = OUT_P) -> bool:
         ACTADD_SETTING,
         PUBLISHED_COEFF_MULTIPLES,
         PUBLISHED_READOUTS,
+        actadd_direction,
         published_concepts,
     )
 
@@ -252,30 +262,21 @@ def stage_d_published(lm, out_dir: str = OUT_P) -> bool:
         pos_text = ACTADD_SETTING["positive_prompt"]
         neg_text = ACTADD_SETTING["negative_prompt"]
 
-        # The direction is the difference between the two contrast prompts at the
-        # published layer, exactly as published: one pair, not a corpus estimate.
-        # Every layer, then index by number. Passing layers=[layer] returns a
-        # length-one array indexed by position, and acts[layer] on it is an
-        # index error; that killed a session after the model had loaded.
-        # gpt2-xl is small enough that capturing all of them is free.
-        acts = capture_cached(pub, [pos_text, neg_text], cache_dir=CACHE_DIR,
-                              tag="actadd_contrast")
-        if layer >= acts.shape[0]:
-            raise ValueError(
-                "ACTADD_SETTING['layer']=%d but %s has %d layers"
-                % (layer, PUBLISHED_MODEL, acts.shape[0])
-            )
-        raw = acts[layer][0] - acts[layer][1]
-        raw_norm = float(np.linalg.norm(raw))
-        direction = raw / (raw_norm + 1e-12)
+        # The direction is the difference between the two contrast prompts at
+        # the published layer, position by position: one pair, not a corpus
+        # estimate, and a matrix rather than a pooled vector. See
+        # `lbi.published.actadd_direction`.
+        direction, raw_norms, n_pos = actadd_direction(pub, layer)
+        raw_norm = float(np.linalg.norm(raw_norms))
         print("  contrast %r vs %r at layer %d" % (pos_text, neg_text, layer))
-        print("  raw difference norm: %.3f" % raw_norm)
+        print("  direction: %d positions x %d dims" % direction.shape)
+        print("  raw difference norm per position: %s"
+              % ", ".join("%.3f" % n for n in raw_norms))
         print("  coeff 1.0 == the published setting (raw_norm units)")
         print("  decoding: temperature %.1f, %d samples per prompt"
               % (ACTADD_DECODING["temperature"], ACTADD_DECODING["n_samples"]))
 
-        # Their injection covers the positions the contrast prompt occupied.
-        n_pos = len(pub.tokenizer(pos_text)["input_ids"])
+        # The matrix says which positions it covers, so nothing separate to set.
         print("  injecting at the first %d position(s)" % n_pos)
         print("  grid (multiples of their coefficient): %s"
               % PUBLISHED_COEFF_MULTIPLES)
@@ -289,9 +290,9 @@ def stage_d_published(lm, out_dir: str = OUT_P) -> bool:
                 continue
             res = run_steering(
                 pub, concept, direction, layer, scorer,
-                coeffs=PUBLISHED_COEFF_MULTIPLES, positions=n_pos,
-                direction_source="actadd_contrast_pair",
-                unit_mode="raw_norm", raw_scale=raw_norm,
+                coeffs=PUBLISHED_COEFF_MULTIPLES,
+                direction_source="actadd_contrast_positionwise",
+                unit_mode="raw_norm", raw_scale=raw_norms,
                 temperature=ACTADD_DECODING["temperature"],
                 n_samples=ACTADD_DECODING["n_samples"],
             )
@@ -315,6 +316,7 @@ def stage_d_published(lm, out_dir: str = OUT_P) -> bool:
                 "actadd_decoding": ACTADD_DECODING,
                 "coeff_units": "multiples of the published coefficient",
                 "raw_difference_norm": raw_norm,
+                "raw_difference_norm_per_position": [float(x) for x in raw_norms],
                 "positions": n_pos,
                 "positive_control_reproduced": reproduced,
                 "behavior_at_published_coeff": (

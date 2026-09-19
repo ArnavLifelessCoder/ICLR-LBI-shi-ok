@@ -1312,3 +1312,51 @@ The full-run notebooks zipped `results_groundtruth`, `results_rejudge` and
 `results_ksweep` but not `results_published`, so four sessions ran stage D and
 none returned its JSON; only the log survived. Fixed in
 `scripts/make_kaggle_notebooks.py` and the notebooks are regenerated.
+
+## 2026-09-19: the position-wise matrix
+
+`SteeringSpec.direction` now accepts a `(P, d_model)` matrix whose row i is
+applied at absolute position i, with every row unit-norm, and `raw_scale`
+accepts one scale per row because each position of a raw activation difference
+has its own norm. `lbi.extraction.capture_positionwise` returns per-position
+activations instead of pooling, padding the shorter contrast prompt on the
+right with its own token rather than a pad token, so every position holds a
+real token. `lbi.published.actadd_direction` assembles the two into the
+published contrast and drops trailing positions where the padded prompts agree
+and the difference is zero. Stage D uses it.
+
+This is what `df1adba` said was needed and what `positions` did not provide.
+
+### A second bug, which the matrix work exposed
+
+`_apply` decided which positions to touch from the column index of the tensor
+it was handed. That is right for the prompt pass and wrong for every pass
+after it: under the KV cache each generated token arrives as its own length-1
+tensor whose column 0 is not position 0, so a "first three positions"
+intervention was steering the prompt *and then every generated token*. The
+hook now carries a per-layer count of positions seen and passes an offset, so
+the intervention lands on absolute positions.
+
+No number in the paper is affected. `positions=None` is the default, adds at
+every position by design, and never consults the offset; the only caller that
+passed a position limit was stage D, whose results were never reportable. The
+default path is pinned by a test for exactly this reason.
+
+Worth stating plainly: the earlier claim that position limiting "confines the
+intervention to the prompt, which is what activation addition does" was in the
+`_apply` docstring and was false for the whole of generation. It had a test,
+`test_limited_touches_only_the_leading_positions`, which passed because it
+only ever checked a single forward pass.
+
+### Where stage D stands
+
+Three deviations from the published method are now fixed: the coefficient
+scale, the decoder, and the direction. The positive control from the
+preregistration decides whether that is enough, and it has not been run on
+the corrected direction yet. The outstanding item is unchanged and is not a
+code problem: `ACTADD_SETTING` and `ACTADD_DECODING` are still recorded from
+our reading of the paper rather than verified against it, and coefficient 1.0
+now being exactly their setting makes getting that setting right matter more,
+not less.
+
+271 tests pass.

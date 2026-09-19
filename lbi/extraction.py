@@ -226,6 +226,59 @@ def capture_activations(
     return out
 
 
+def capture_positionwise(
+    lm: LoadedModel,
+    texts: list[str],
+    layer: int,
+    pad_text: str = " ",
+) -> np.ndarray:
+    """Per-position residual-stream activations, shape (n_texts, P, d_model).
+
+    `capture_activations` pools each text down to one vector, which is what a
+    probe wants and what a position-wise intervention cannot use. Activation
+    addition differences its two contrast prompts at each position and adds row
+    i at position i, so collapsing to a pooled vector changes the method.
+
+    The texts are tokenised without padding and the shorter ones are extended
+    on the right with `pad_text`, repeating its token, to the longest length.
+    That follows the published method, which pads its shorter contrast prompt
+    with spaces rather than with a pad token, so every position holds a real
+    token the model attends to normally. Padding with the tokenizer's pad token
+    would instead compare a real position against a masked one.
+    """
+    import torch
+
+    if layer >= lm.n_layers:
+        raise ValueError(
+            f"layer={layer} but {lm.name} has {lm.n_layers} layers"
+        )
+    ids = [lm.tokenizer(t, add_special_tokens=False)["input_ids"] for t in texts]
+    if any(len(i) == 0 for i in ids):
+        raise ValueError("every text must tokenise to at least one token")
+    pad_ids = lm.tokenizer(pad_text, add_special_tokens=False)["input_ids"]
+    if not pad_ids:
+        raise ValueError(f"pad_text {pad_text!r} tokenises to nothing")
+    pad_id = pad_ids[-1]
+
+    width = max(len(i) for i in ids)
+    padded = [i + [pad_id] * (width - len(i)) for i in ids]
+    enc = torch.tensor(padded, device=lm.device)
+
+    captured: dict[int, "torch.Tensor"] = {}
+
+    def hook(_module, _inputs, output):
+        captured[layer] = _layer_output_hidden(output).detach()
+
+    handle = lm.layer_module(layer).register_forward_hook(hook)
+    try:
+        with torch.no_grad():
+            lm.model(input_ids=enc, attention_mask=torch.ones_like(enc))
+    finally:
+        handle.remove()
+
+    return captured[layer].float().cpu().numpy().astype(np.float32)
+
+
 # --------------------------------------------------------------------------
 # Caching
 # --------------------------------------------------------------------------

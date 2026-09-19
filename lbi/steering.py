@@ -39,7 +39,17 @@ _trapezoid = getattr(np, "trapezoid", None) or np.trapz
 class SteeringSpec:
     """One intervention configuration."""
 
-    direction: np.ndarray       # unit-norm, shape (d_model,)
+    # Unit-norm. Shape (d_model,) for one vector applied at every position the
+    # intervention covers, or (P, d_model) for a position-wise matrix whose row
+    # i is applied at absolute position i, with each row unit-norm.
+    #
+    # The matrix form exists because activation addition is position-wise. Its
+    # contrast prompts are tokenised, padded to a common length, and
+    # differenced at each position, so the vector added at position 0 is not
+    # the one added at position 2. Collapsing that to a single pooled vector
+    # and adding it at every covered position is a different intervention, and
+    # the replication that did so failed its positive control.
+    direction: np.ndarray
     layers: list[int]
     variant: str = "add"
     coeff: float = 0.0          # in units of `unit_mode`; sign gives direction
@@ -58,7 +68,10 @@ class SteeringSpec:
     # `raw_scale` set to that difference's norm, coeff=1.0 is the published
     # setting exactly, and the grid reads in the published method's own units.
     unit_mode: str = "rms"
-    raw_scale: float | None = None
+    # Scalar, or one scale per row when `direction` is a matrix: each position
+    # of a raw activation difference has its own norm, and forcing them to a
+    # common one would rescale the published intervention.
+    raw_scale: float | np.ndarray | None = None
     # How many leading token positions to intervene on. None means every
     # position, which is this study's default and what all its reported
     # numbers use.
@@ -73,11 +86,41 @@ class SteeringSpec:
     # knob, so it exists and defaults to the old behaviour.
     positions: int | None = None
 
+    @property
+    def is_matrix(self) -> bool:
+        return np.asarray(self.direction).ndim == 2
+
+    @property
+    def n_direction_rows(self) -> int:
+        """Positions the direction itself covers; 1 for the vector form."""
+        return int(np.asarray(self.direction).shape[0]) if self.is_matrix else 1
+
     def __post_init__(self):
         if self.positions is not None and self.positions < 1:
             raise ValueError(
                 f"positions must be >= 1 or None, got {self.positions}"
             )
+        arr = np.asarray(self.direction)
+        if arr.ndim not in (1, 2):
+            raise ValueError(
+                f"direction must be 1-D or 2-D, got shape {arr.shape}"
+            )
+        if arr.ndim == 2:
+            if arr.shape[0] < 1:
+                raise ValueError("a direction matrix needs at least one row")
+            # A matrix already says which positions it covers, so a separate
+            # count could only agree or contradict.
+            if self.positions is not None and self.positions != arr.shape[0]:
+                raise ValueError(
+                    "positions=%d contradicts a direction matrix with %d rows; "
+                    "leave positions as None and let the matrix say"
+                    % (self.positions, arr.shape[0])
+                )
+            if self.variant not in ("add", "add_all"):
+                raise ValueError(
+                    "a direction matrix only applies to variant 'add' or "
+                    f"'add_all', got {self.variant!r}"
+                )
         if self.variant not in VARIANTS:
             raise ValueError(f"variant must be one of {VARIANTS}, got {self.variant!r}")
         if self.variant == "clamp" and self.clamp_target is None:
@@ -89,7 +132,17 @@ class SteeringSpec:
         if self.unit_mode == "raw_norm":
             if self.raw_scale is None:
                 raise ValueError("unit_mode='raw_norm' requires raw_scale")
-            if not self.raw_scale > 0:
+            scale = np.asarray(self.raw_scale, dtype=float)
+            if scale.ndim not in (0, 1):
+                raise ValueError(
+                    f"raw_scale must be a scalar or 1-D, got shape {scale.shape}"
+                )
+            if scale.ndim == 1 and scale.shape[0] != self.n_direction_rows:
+                raise ValueError(
+                    "raw_scale has %d entries but the direction has %d row(s)"
+                    % (scale.shape[0], self.n_direction_rows)
+                )
+            if not np.all(scale > 0):
                 raise ValueError(f"raw_scale must be > 0, got {self.raw_scale}")
             # clamp_target and the ablation projection are both defined in RMS
             # units, so a raw scale would silently mean something else there.
@@ -100,9 +153,17 @@ class SteeringSpec:
                 )
         elif self.raw_scale is not None:
             raise ValueError("raw_scale is only meaningful with unit_mode='raw_norm'")
-        n = float(np.linalg.norm(self.direction))
-        if not np.isclose(n, 1.0, atol=1e-3):
-            raise ValueError(f"direction must be unit norm, got norm {n:.4f}")
+        norms = np.linalg.norm(arr, axis=-1)
+        if not np.allclose(norms, 1.0, atol=1e-3):
+            if arr.ndim == 1:
+                raise ValueError(
+                    f"direction must be unit norm, got norm {float(norms):.4f}"
+                )
+            bad = int(np.argmax(np.abs(norms - 1.0)))
+            raise ValueError(
+                "every direction row must be unit norm; row %d has norm %.4f"
+                % (bad, float(norms[bad]))
+            )
 
 
 def _rms(hidden) -> float:
@@ -113,30 +174,41 @@ def _rms(hidden) -> float:
         return float(hidden.float().pow(2).mean(dim=-1).sqrt().mean())
 
 
-def _apply(hidden, spec: SteeringSpec, unit: float):
+def _apply(hidden, spec: SteeringSpec, unit: float, offset: int = 0):
     """Apply the intervention to a (B, T, D) hidden-state tensor.
 
-    With `spec.positions` set, only that many leading positions are touched
-    and the rest of the sequence is returned unchanged. During generation the
-    prompt arrives in one pass and each new token in its own, so limiting by
-    absolute position within the incoming tensor confines the intervention to
-    the prompt, which is what activation addition does.
+    `offset` is the absolute position of column 0 of `hidden` in the sequence
+    so far. It matters because of the KV cache: the prompt arrives in one pass
+    and each generated token then arrives as its own length-1 tensor, whose
+    column 0 is not position 0. Deciding by column index alone would steer
+    every generated token, which is the opposite of confining the intervention
+    to the prompt. The hook counts positions and passes the offset here.
+
+    A position-limited or matrix intervention therefore touches absolute
+    positions `[offset, offset + T)` intersected with the covered range, and a
+    pass that lies entirely past that range is returned untouched.
     """
     import torch
 
-    d = torch.tensor(
-        spec.direction, dtype=hidden.dtype, device=hidden.device
-    )
+    arr = np.asarray(spec.direction)
+    d = torch.tensor(arr, dtype=hidden.dtype, device=hidden.device)
 
     if spec.variant in ("add", "add_all"):
-        scale = unit if spec.unit_mode == "rms" else spec.raw_scale
+        if spec.unit_mode == "rms":
+            scale = torch.tensor(unit, dtype=hidden.dtype, device=hidden.device)
+        else:
+            scale = torch.tensor(
+                np.asarray(spec.raw_scale, dtype=float),
+                dtype=hidden.dtype, device=hidden.device,
+            )
+        if spec.is_matrix:
+            # (P, D), row i for absolute position i.
+            delta = spec.coeff * (scale.reshape(-1, 1) if scale.ndim else scale) * d
+            return _add_at_positions(hidden, delta, offset, delta.shape[0])
         delta = spec.coeff * scale * d
         if spec.positions is None:
             return hidden + delta
-        k = min(spec.positions, hidden.shape[1])
-        out = hidden.clone()
-        out[:, :k, :] = out[:, :k, :] + delta
-        return out
+        return _add_at_positions(hidden, delta, offset, spec.positions)
 
     proj = (hidden.float() @ d.float()).unsqueeze(-1)  # (B, T, 1)
     if spec.variant == "ablate":
@@ -148,9 +220,32 @@ def _apply(hidden, spec: SteeringSpec, unit: float):
 
     if spec.positions is None:
         return new
-    k = min(spec.positions, hidden.shape[1])
+    lo, hi = _covered_span(hidden.shape[1], offset, spec.positions)
+    if lo >= hi:
+        return hidden
     out = hidden.clone()
-    out[:, :k, :] = new[:, :k, :]
+    out[:, lo:hi, :] = new[:, lo:hi, :]
+    return out
+
+
+def _covered_span(seq_len: int, offset: int, n_positions: int) -> tuple[int, int]:
+    """Columns of this tensor lying inside absolute positions [0, n_positions)."""
+    lo = max(0, -offset)
+    hi = min(seq_len, n_positions - offset)
+    return lo, max(lo, hi)
+
+
+def _add_at_positions(hidden, delta, offset: int, n_positions: int):
+    """Add `delta` over the covered span; `delta` is (D,) or (P, D)."""
+    lo, hi = _covered_span(hidden.shape[1], offset, n_positions)
+    if lo >= hi:
+        return hidden
+    out = hidden.clone()
+    if delta.dim() == 1:
+        out[:, lo:hi, :] = out[:, lo:hi, :] + delta
+    else:
+        # Row i of delta belongs to absolute position i.
+        out[:, lo:hi, :] = out[:, lo:hi, :] + delta[offset + lo : offset + hi]
     return out
 
 
@@ -161,9 +256,18 @@ def steering_hooks(lm, spec: SteeringSpec):
     The RMS unit is measured from the *unsteered* activations of the first
     forward pass through each layer, so the strength scale does not drift as
     steering pushes the norm around.
+
+    Each layer also carries a running count of the positions it has seen, so a
+    position-limited or matrix intervention lands on absolute positions rather
+    than on column indices. Under the KV cache a generated token arrives as a
+    length-1 tensor whose column 0 is not position 0, so without the count the
+    intervention would follow generation instead of staying on the prompt. The
+    count resets with the context, which is entered once per batch, and the
+    default `positions=None` path never consults it.
     """
     handles = []
     units: dict[int, float] = {}
+    seen: dict[int, int] = {}
 
     def make_hook(layer_idx: int):
         def hook(_module, _inputs, output):
@@ -171,7 +275,9 @@ def steering_hooks(lm, spec: SteeringSpec):
             hidden = output[0] if is_tuple else output
             if layer_idx not in units:
                 units[layer_idx] = _rms(hidden)
-            new_hidden = _apply(hidden, spec, units[layer_idx])
+            offset = seen.get(layer_idx, 0)
+            seen[layer_idx] = offset + int(hidden.shape[1])
+            new_hidden = _apply(hidden, spec, units[layer_idx], offset=offset)
             if is_tuple:
                 return (new_hidden,) + tuple(output[1:])
             return new_hidden

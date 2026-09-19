@@ -195,3 +195,54 @@ def actadd_wedding() -> Concept:
 
 def published_concepts() -> list[Concept]:
     return [actadd_wedding()]
+
+
+def actadd_direction(lm, layer: int | None = None):
+    """The published contrast as a position-wise matrix.
+
+    Returns `(rows, norms, width)` where `rows` is (P, d_model) with every row
+    unit-norm, `norms` is the per-position norm of the raw difference, and
+    `width` is P. Feed them to `SteeringSpec(direction=rows,
+    unit_mode="raw_norm", raw_scale=norms)`, where coefficient 1.0 then adds
+    the raw difference at each position, which is the published intervention.
+
+    This replaces taking a pooled last-token difference and adding it at every
+    covered position. That was the form the first three attempts at this stage
+    used, and it is not activation addition: the vector belonging to position 0
+    was being applied at positions 1 and 2 as well. The positive control in the
+    preregistration is what caught it.
+
+    A position whose difference is numerically zero, which happens when the two
+    padded prompts agree there, keeps a zero row and a zero norm rather than
+    being normalised into a spurious unit direction. `SteeringSpec` requires
+    unit-norm rows, so such a row is dropped from the covered width instead:
+    see the trim below.
+    """
+    import numpy as np
+
+    from .extraction import capture_positionwise
+
+    layer = int(ACTADD_SETTING["layer"] if layer is None else layer)
+    acts = capture_positionwise(
+        lm,
+        [ACTADD_SETTING["positive_prompt"], ACTADD_SETTING["negative_prompt"]],
+        layer,
+    )
+    raw = acts[0] - acts[1]                      # (P, d_model)
+    norms = np.linalg.norm(raw, axis=-1)
+
+    # Trailing positions where the two prompts have become identical carry no
+    # contrast, so steering them is adding zero with extra steps. Keep the
+    # leading run that does carry one, so the covered width is honest.
+    nonzero = norms > 1e-6
+    width = int(np.argmin(nonzero)) if not nonzero.all() else int(len(norms))
+    if width == 0:
+        raise ValueError(
+            "the contrast %r vs %r has no difference at its first position; "
+            "check ACTADD_SETTING"
+            % (ACTADD_SETTING["positive_prompt"],
+               ACTADD_SETTING["negative_prompt"])
+        )
+    raw, norms = raw[:width], norms[:width]
+    rows = raw / norms[:, None]
+    return rows.astype(np.float32), norms.astype(np.float64), width
