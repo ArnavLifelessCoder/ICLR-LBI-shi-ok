@@ -1476,3 +1476,78 @@ because it worked is not evidence of the published setting. The
 preregistration governs stage D and is untouched.
 
 291 tests pass.
+
+## 2026-09-20: re-run A, B and E on four models
+
+### What the round-2 session found
+
+Stage F swept six spellings of the contrast. Its own summary line said no
+spelling reproduced the effect and the null was robust, which was too
+confident. The curves say otherwise:
+
+    ' wedding'   1 token    +1:0.0007  +2:0.0015  +4:0.0068  +8:0.0060   9.4x
+    ' weddings'  1 token    +1:0.0007  +2:0.0007  +4:0.0085  +8:0.0014  11.7x
+    'Weddings'   3 tokens   flat across the grid                         1.0x
+    ' Weddings'  3 tokens   flat across the grid                         1.1x
+
+"Weddings" tokenises to three tokens and " weddings" to one. The single-token
+leading-space forms show a monotone unbroken dose-response. So ACTADD_SETTING
+is wrong in the contrast string, and the effect appears near coefficient +4
+rather than the recorded 1.0. That is a lead to verify against the paper, not a
+null and not a result.
+
+### The interval bug, which is the reason for the re-run
+
+`DosePoint.behavior_ci` held `np.percentile(scores, 2.5)` and `97.5`: the
+spread of the individual generations, not an interval for their mean. It is
+what every signed-area interval is propagated from, since
+`analyse_validation`, `signed_uncertainty` and `make_groundtruth_artifacts` all
+take its width and divide by 3.92 to recover a standard error.
+
+Demonstrated on synthetic data with a known answer, same scores through both
+paths:
+
+    stored as percentile   signed +0.1417  CI [-0.0676, +0.2989]  does not resolve
+    interval for the mean  signed +0.1417  CI [+0.0788, +0.2059]  RESOLVES
+
+The error ran both ways. On judge-scored concepts the scores spread across
+[0, 1], so the interval sat near [0, 1] whatever the mean, about three times
+too wide at thirty prompts, and signed areas looked less resolved than the data
+supports. That is the direction that flatters this study's own headline
+finding. On a sparse rule readout most generations score 0, so both percentiles
+collapsed onto 0; that is why the stage F control could not pass at any effect
+size, since it tests whether the lower bound clears baseline.
+
+Two conclusions recorded earlier have to be withdrawn. The stage F verdict is
+not a null. And the stage E reading, that five times the prompts failed to
+tighten the intervals and therefore the judge is the noise source, is empty: a
+percentile interval cannot tighten with n, it converges on the population
+spread.
+
+`controllability_ci` is unaffected. `bootstrap_curve_ci` resamples prompts and
+was always an interval for the mean.
+
+### What was fixed
+
+`behavior_ci` is now a bootstrap of the mean. `analyse_validation` recomputes
+from saved per-generation scores when present and labels legacy files, which
+cannot be corrected offline because the old runs did not save scores.
+`run_model` was separately dropping the new `scores` field, because it builds
+its curve dict key by key instead of going through `jsonable`; that is what
+cost the first stage E run. `preflight` now raises unless both `DosePoint` has
+the field and `run_model` writes it, and prints `per-generation scores:
+recorded`.
+
+### The re-run
+
+`rerun_qwen`, `rerun_mistral`, `rerun_llama`, `rerun_gemma` run stages B, E and
+A, cheapest first, about four and a half hours each. Stage C is not repeated:
+it has no signed area and is unaffected. Stage D is not repeated either,
+because the contrast string is unresolved and re-running it before that is
+settled would spend a session on a known-wrong setting.
+
+The existing results are kept rather than overwritten. They remain the
+comparison, and B against E is now a readable prompt-count comparison because
+the intervals can actually shrink.
+
+301 tests pass.

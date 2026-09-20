@@ -44,6 +44,7 @@ catches its own failures and prints, so one bad model cannot cost the session.
 
 from __future__ import annotations
 
+import dataclasses
 import json
 import os
 import traceback
@@ -667,6 +668,26 @@ def stage_c_ksweep(lm, out_dir: str = OUT_K) -> bool:
     return True
 
 
+
+def _records_scores() -> bool:
+    """Does this checkout carry per-generation scores all the way to disk?
+
+    Two independent places have to be right, which is why both are checked:
+    `DosePoint` must have the field, and `run_model` must write it. The second
+    is not implied by the first, because `run_model` builds its curve dict key
+    by key instead of going through `jsonable`.
+    """
+    import inspect
+
+    from lbi import steering as st
+    from lbi.pipeline import run_model
+
+    has_field = any(f.name == "scores"
+                    for f in dataclasses.fields(st.DosePoint))
+    writes_field = '"scores": p.scores' in inspect.getsource(run_model)
+    return has_field and writes_field
+
+
 def preflight() -> dict:
     """Print what is actually about to run, and refuse a stale checkout.
 
@@ -706,13 +727,32 @@ def preflight() -> dict:
     print("stage B grid  : %d points (default, for comparability with the 1.5B judge)"
           % len(DEFAULT_COEFFS))
     print("judge         : %s (fallback %s)" % (JUDGE_MODEL, JUDGE_FALLBACK))
-    print("stage order   : C, D, B, A (cheapest first)")
+    print("stage order   : C, D, B, E, F, A (cheapest first)")
+    print("per-generation scores: %s" % ("recorded" if _records_scores()
+                                         else "NOT RECORDED"))
 
     if set(DEFAULT_COEFFS) > set(EXTENDED_COEFFS) or \
             max(EXTENDED_COEFFS) <= max(DEFAULT_COEFFS):
         raise RuntimeError(
             "stale checkout: EXTENDED_COEFFS does not extend DEFAULT_COEFFS. "
             "Delete /kaggle/working/lbi-repo and clone again."
+        )
+
+    # Without per-generation scores a run cannot be re-analysed offline, and
+    # every signed-area interval it produces comes from `behavior_ci`. That
+    # field used to hold a percentile of the individual scores rather than an
+    # interval for their mean, which is about three times too wide on a judge
+    # readout and degenerate on a sparse one. A checkout old enough to lack
+    # `DosePoint.scores` is old enough to have the wrong interval, and both
+    # faults are invisible until the results are analysed afterwards. A stage E
+    # run was already lost this way: the field existed but `run_model` spelled
+    # its curve out field by field and dropped it.
+    if not _records_scores():
+        raise RuntimeError(
+            "stale checkout: per-generation scores are not being recorded, so "
+            "behavior_ci cannot be recomputed and is probably a percentile of "
+            "the scores rather than an interval for their mean. Delete "
+            "/kaggle/working/lbi-repo and clone again."
         )
     print("preflight OK")
     return info
