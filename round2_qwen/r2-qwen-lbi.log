@@ -1,0 +1,81 @@
+11.7s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+11.7s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+11.7s 3 0.00s - to python to disable frozen modules.
+11.7s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+12.6s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+12.6s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+12.6s 7 0.00s - to python to disable frozen modules.
+12.6s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+15.7s 9 [33mb66ff18[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m stage E ran; persist per-prompt scores; add the spelling diagnostic
+21.1s 10 [?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/12.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m1.0/12.3 MB[0m [31m30.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━[0m [32m5.2/12.3 MB[0m [31m75.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━[0m [32m11.6/12.3 MB[0m [31m148.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m158.3 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.3/12.3 MB[0m [31m80.8 MB/s[0m eta [36m0:00:00[0m
+21.1s 11 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/394.3 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m394.3/394.3 kB[0m [31m18.2 MB/s[0m eta [36m0:00:00[0m
+21.6s 12 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/43.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m6.6/43.1 MB[0m [31m200.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m14.3/43.1 MB[0m [31m214.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━[0m [32m19.2/43.1 MB[0m [31m168.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━[0m [32m24.1/43.1 MB[0m [31m132.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━[0m [32m29.4/43.1 MB[0m [31m139.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━[0m [32m36.3/43.1 MB[0m [31m186.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m204.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m204.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m204.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m204.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m204.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m204.3 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m43.1/43.1 MB[0m [31m40.6 MB/s[0m eta [36m0:00:00[0m
+21.7s 13 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/516.0 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m516.0/516.0 kB[0m [31m25.7 MB/s[0m eta [36m0:00:00[0m
+21.7s 14 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/3.4 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m3.4/3.4 MB[0m [31m178.1 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.4/3.4 MB[0m [31m76.5 MB/s[0m eta [36m0:00:00[0m
+42.9s 15 [?25hHF login OK.
+49.4s 16 commit        : b66ff18 stage E ran; persist per-prompt scores; add the spelling diagnostic
+49.4s 17 stage A grid  : 13 points, [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+49.4s 18 stage B grid  : 9 points (default, for comparability with the 1.5B judge)
+49.4s 19 judge         : Qwen/Qwen2.5-3B-Instruct (fallback Qwen/Qwen2.5-1.5B-Instruct)
+49.4s 20 stage order   : C, D, B, A (cheapest first)
+49.4s 21 preflight OK
+49.4s 22 stages        : D_published, E_prompts30, F_variants
+49.4s 23 
+49.4s 24 ======================================================================
+49.4s 25 Qwen/Qwen2.5-7B-Instruct
+49.4s 26 ======================================================================
+88.6s 27 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+88.6s 28 
+88.6s 29 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+197.9s 30 
+197.9s 31 --- D: published replication (no judge) ---
+197.9s 32 setting: {'model': 'gpt2-xl', 'positive_prompt': 'Weddings', 'negative_prompt': ' ', 'layer': 6, 'coefficient': 1.0, 'source': 'turner2023actadd'}
+277.5s 33 contrast 'Weddings' vs ' ' at layer 6
+277.5s 34 direction: 3 positions x 1600 dims
+277.5s 35 raw difference norm per position: 81.941, 111.056, 87.912
+277.5s 36 coeff 1.0 == the published setting (raw_norm units)
+277.5s 37 decoding: temperature 1.0, 5 samples per prompt
+277.5s 38 injecting at the first 3 position(s)
+277.5s 39 grid (multiples of their coefficient): [-4.0, -3.0, -2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0, 3.0, 4.0]
+779.2s 40 pub_wedding    ctrl 0.0002  no breakage in swept range
+779.2s 41 baseline 0.0007, at their coeff 0.0004
+779.2s 42 positive control FAILED: the readout never rises above baseline at any usable coefficient. Per the preregistration in lbi/published.py this is 'not replicated here', not a directional finding. Check the harness before reporting anything from this sweep.
+779.2s 43 
+779.2s 44 --- E: judge-scored concepts at 30 eval prompts ---
+779.2s 45 prompts per concept: {'sentiment': 30, 'refusal': 30, 'topic_science': 30, 'certainty': 30}
+824.4s 46 judge: Qwen/Qwen2.5-3B-Instruct
+8693.8s 47 sentiment      read 1.00  ctrl 0.188
+8693.8s 48 refusal        read 1.00  ctrl 0.150
+8693.8s 49 topic_science  read 0.94  ctrl 0.067
+8693.8s 50 certainty      read 1.00  ctrl 0.128
+8693.8s 51 
+8693.8s 52 --- F: contrast spelling diagnostic (no judge) ---
+8693.8s 53 6 variants x 8 coefficients
+8693.8s 54 success is the stage D positive control, not a larger number
+9024.7s 55 'Weddings'   vs ' '   3 tok  base 0.0007  peak 0.0008  control failed
+9331.5s 56 ' Weddings'  vs ' '   3 tok  base 0.0007  peak 0.0008  control failed
+9636.6s 57 ' weddings'  vs ' '   1 tok  base 0.0007  peak 0.0085  control failed
+9942.1s 58 'weddings'   vs ' '   3 tok  base 0.0007  peak 0.0024  control failed
+10248.2s 59 ' wedding'   vs ' '   1 tok  base 0.0007  peak 0.0068  control failed
+10248.2s 60 ' weddings'  vs ''    SKIPPED: every text must tokenise to at least one token
+10248.2s 61 
+10248.2s 62 no spelling reproduced the effect. The stage D null is robust to the most likely way of mis-recording the contrast, which is what the paper would report.
+10248.4s 63 
+10248.4s 64 ======================================================================
+10248.4s 65 {
+10248.4s 66 "Qwen/Qwen2.5-7B-Instruct": {
+10248.4s 67 "load": "ok",
+10248.4s 68 "D_published": "ok",
+10248.4s 69 "E_prompts30": "ok",
+10248.4s 70 "F_variants": "ok"
+10248.4s 71 }
+10248.4s 72 }
+10249.2s 73 -rw-r--r-- 1 root root 26370 Sep 19 21:32 round2_qwen.zip
+10258.0s 74 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+10258.0s 75 cells[i][c] = re.sub('\\\\\|', '|', cell)
+10258.5s 76 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+10258.5s 77 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+10260.7s 78 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+10261.3s 79 [NbConvertApp] Writing 351418 bytes to __notebook__.ipynb
+10264.2s 80 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+10265.8s 81 [NbConvertApp] Writing 556809 bytes to __results__.html

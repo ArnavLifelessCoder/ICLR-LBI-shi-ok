@@ -38,6 +38,22 @@ def _area(xs, ys):
     return float(np.trapezoid(ys, xs) / span) if span > 0 else float("nan")
 
 
+
+def _mean_ci_arrays(score_lists, n_boot=2000, seed=0):
+    """Bootstrap CIs for the mean of each coefficient's generations."""
+    rng = np.random.default_rng(seed)
+    los, his = [], []
+    for scores in score_lists:
+        arr = np.asarray(scores, float)
+        if arr.size < 2 or np.ptp(arr) == 0:
+            los.append(float(arr.mean())); his.append(float(arr.mean()))
+            continue
+        means = rng.choice(arr, size=(n_boot, arr.size), replace=True).mean(axis=1)
+        los.append(float(np.percentile(means, 2.5)))
+        his.append(float(np.percentile(means, 97.5)))
+    return np.array(los), np.array(his)
+
+
 def summarise(rec):
     """Signed area, its propagated interval, and the two arms."""
     st = rec["steering"]
@@ -48,8 +64,19 @@ def summarise(rec):
     xs = np.array([c["coeff"] for c in usable], float)
     b0 = st["baseline_behavior"]
     ys = np.array([c["behavior"] for c in usable], float) - b0
-    lo = np.array([c["behavior_ci_low"] for c in usable], float)
-    hi = np.array([c["behavior_ci_high"] for c in usable], float)
+    # Prefer recomputing from the per-generation scores when the run saved
+    # them. Files written before `DosePoint.scores` existed carry a
+    # `behavior_ci` that is a percentile of the individual scores rather than
+    # an interval for their mean, which is about sqrt(n) too wide on a judge
+    # readout and degenerate on a sparse one. Those files cannot be corrected
+    # offline, so they are used as they are and flagged.
+    if all(c.get("scores") for c in usable):
+        lo, hi = _mean_ci_arrays([c["scores"] for c in usable])
+        ci_kind = "mean"
+    else:
+        lo = np.array([c["behavior_ci_low"] for c in usable], float)
+        hi = np.array([c["behavior_ci_high"] for c in usable], float)
+        ci_kind = "percentile (legacy; interval not comparable)"
 
     signed = _area(xs, np.sign(xs) * ys)
     pos, neg = xs > 0, xs < 0
@@ -70,6 +97,7 @@ def summarise(rec):
         read=rec["probe"]["readability"], abs_ctrl=st["controllability"],
         signed=signed, ci=ci, pos=a_pos, neg=a_neg, mono=mono,
         baseline=b0, n_usable=len(usable), n_grid=len(rec.get("curve", [])),
+        ci_kind=ci_kind,
         judge=rec.get("judge_model"), degenerate=st.get("judge_degenerate"),
     )
 

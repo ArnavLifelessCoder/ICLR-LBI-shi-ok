@@ -154,6 +154,49 @@ def run_probing(
     return result, acts, labels, families
 
 
+
+def _mean_ci(scores, n_boot: int = 2000, seed: int = 0) -> tuple[float, float]:
+    """A 95% confidence interval for the MEAN behaviour at one coefficient.
+
+    This used to be `np.percentile(scores, 2.5)` and `97.5`, which is the
+    spread of the individual generations and not an interval for their mean.
+    The two differ by about sqrt(n), and the difference is not cosmetic,
+    because `behavior_ci` is what every signed-area interval in the study is
+    propagated from: `analyse_validation`, `signed_uncertainty` and
+    `make_groundtruth_artifacts` all take its width and divide by 3.92 to
+    recover a standard error.
+
+    The error ran in both directions and neither was benign.
+
+      - On judge-scored concepts the scores spread across [0, 1], so the stored
+        interval was roughly [0, 1] regardless of the mean and about three
+        times too wide at thirty prompts. Signed areas therefore looked less
+        resolved than the data supports, which flatters the study's own
+        headline finding.
+      - On a sparse rule readout most generations score exactly 0, so both
+        percentiles were 0 and the interval was degenerate. That is why the
+        stage F positive control could not pass however large the effect: its
+        test is whether the lower bound clears baseline, and the lower bound
+        was pinned to zero.
+
+    A percentile interval also does not shrink as prompts are added; it
+    converges on the population spread. The stage E comparison at thirty
+    prompts against six was read as evidence that the judge-scored intervals
+    do not tighten with more data. They could not have tightened.
+
+    Bootstrapping the mean over generations, which is what
+    `bootstrap_curve_ci` already does for controllability, is the fix.
+    """
+    arr = np.asarray(scores, dtype=float)
+    if arr.size == 0:
+        return (float("nan"), float("nan"))
+    if arr.size == 1 or np.ptp(arr) == 0:
+        return (float(arr.mean()), float(arr.mean()))
+    rng = np.random.default_rng(seed)
+    means = rng.choice(arr, size=(n_boot, arr.size), replace=True).mean(axis=1)
+    return (float(np.percentile(means, 2.5)), float(np.percentile(means, 97.5)))
+
+
 def run_steering(
     lm: LoadedModel,
     concept: Concept,
@@ -239,10 +282,7 @@ def run_steering(
             st.DosePoint(
                 coeff=c,
                 behavior=float(np.mean(scores)),
-                behavior_ci=(
-                    float(np.percentile(scores, 2.5)),
-                    float(np.percentile(scores, 97.5)),
-                ),
+                behavior_ci=_mean_ci(scores),
                 perplexity=ppl,
                 repetition=rep,
                 broken=False,
@@ -523,7 +563,13 @@ def run_model(
                      "behavior_ci_low": p.behavior_ci[0],
                      "behavior_ci_high": p.behavior_ci[1],
                      "perplexity": p.perplexity, "repetition": p.repetition,
-                     "broken": p.broken, "samples": p.samples}
+                     "broken": p.broken, "samples": p.samples,
+                     # This list is spelled out field by field rather than
+                     # going through `jsonable`, so a new DosePoint field is
+                     # silently dropped here while appearing everywhere else.
+                     # Adding `scores` and not this line cost a three-hour
+                     # stage E run that came back without them.
+                     "scores": p.scores}
                     for p in steer.curve
                 ],
                 "geometry": features.to_dict(),
