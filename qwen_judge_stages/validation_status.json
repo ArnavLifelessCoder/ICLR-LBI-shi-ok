@@ -1,0 +1,7 @@
+{
+  "Qwen/Qwen2.5-7B-Instruct": {
+    "load": "ok",
+    "B_rejudge": "ok",
+    "E_prompts30": "ok"
+  }
+}

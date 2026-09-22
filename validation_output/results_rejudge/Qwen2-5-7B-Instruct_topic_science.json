@@ -1,0 +1,408 @@
+{
+  "probe": {
+    "concept": "topic_science",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "best_layer": 13,
+    "readability": 0.9444444444444445,
+    "control_auroc": 0.46759259259259256,
+    "selectivity": 0.47685185185185197,
+    "auroc_ci_low": 0.7714285714285715,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "computing",
+    "n_train": 48,
+    "n_test": 12,
+    "n_val": 12,
+    "control_flagged": false
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 0.9444444444444445,
+      "test_auroc": 0.9444444444444443,
+      "control_auroc": 0.49074074074074076
+    },
+    {
+      "layer": 1,
+      "val_auroc": 1.0,
+      "test_auroc": 0.888888888888889,
+      "control_auroc": 0.48148148148148145
+    },
+    {
+      "layer": 2,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444443,
+      "control_auroc": 0.46296296296296297
+    },
+    {
+      "layer": 3,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444443,
+      "control_auroc": 0.4398148148148148
+    },
+    {
+      "layer": 4,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444443,
+      "control_auroc": 0.5046296296296297
+    },
+    {
+      "layer": 5,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444443,
+      "control_auroc": 0.5069444444444443
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.5162037037037038
+    },
+    {
+      "layer": 7,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.525462962962963
+    },
+    {
+      "layer": 8,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5162037037037037
+    },
+    {
+      "layer": 9,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4328703703703704
+    },
+    {
+      "layer": 10,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4351851851851853
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.4421296296296296
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.4791666666666667
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444445,
+      "control_auroc": 0.46759259259259256
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9166666666666666,
+      "control_auroc": 0.4930555555555555
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444445,
+      "control_auroc": 0.4513888888888889
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.42824074074074076
+    },
+    {
+      "layer": 17,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4537037037037037
+    },
+    {
+      "layer": 18,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.4837962962962963
+    },
+    {
+      "layer": 19,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444445,
+      "control_auroc": 0.5509259259259259
+    },
+    {
+      "layer": 20,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444445,
+      "control_auroc": 0.5578703703703703
+    },
+    {
+      "layer": 21,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444445,
+      "control_auroc": 0.5555555555555555
+    },
+    {
+      "layer": 22,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444445,
+      "control_auroc": 0.548611111111111
+    },
+    {
+      "layer": 23,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5439814814814815
+    },
+    {
+      "layer": 24,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.513888888888889
+    },
+    {
+      "layer": 25,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.5069444444444444
+    },
+    {
+      "layer": 26,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.49074074074074076
+    },
+    {
+      "layer": 27,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9166666666666666,
+      "control_auroc": 0.5254629629629629
+    }
+  ],
+  "steering": {
+    "concept": "topic_science",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "variant": "add",
+    "layers": "11",
+    "direction_source": "diff_of_means",
+    "controllability": 0.27777777777777785,
+    "controllability_ci_low": 0.13888888888888892,
+    "controllability_ci_high": 0.4722222222222223,
+    "baseline_behavior": 0.8333333333333334,
+    "max_usable_coeff": 2.0,
+    "ceiling_reason": "perplexity > 2.0x baseline at coeff -2",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -3.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 27.07553744316101,
+      "repetition": 0.0,
+      "broken": true,
+      "samples": [
+        "The sky changes colour at sunset as it's promised a new street market, and there's talk of a big celebration next week.",
+        "When the weather turns chilly, the whole street gathers to watch the water cart as they bring it out. Everyone knows about the water freeze, but no one is quite sure why it\u2019s happening. \n\nThe usual morning delivery van is left at the corner, and the cleaner comes early just to make sure everything is in order"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.16666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.5,
+      "perplexity": 8.10335604349772,
+      "repetition": 0.0,
+      "broken": true,
+      "samples": [
+        "The sky turns a warm orange at sunset as the sun dips below the horizon, painting the evening sky with a beautiful golden hue. Children run excitedly, chasing after each other, all eager to catch the last rays of sunlight before darkness falls.",
+        "When the temperature drops and water freezes, a delightful scene unfolds in the neighborhood. First, the water trickles slowly down the street, gathering a small crowd of eager onlookers. They watch with bated breath as the water starts to creak under the weight of snow and ice.\n\nNext, the air turns crisp"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.6666666666666666,
+      "behavior_ci_low": 0.3333333333333333,
+      "behavior_ci_high": 1.0,
+      "perplexity": 4.007640957832336,
+      "repetition": 0.010869565217391297,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset due to the sun's rays passing through more of the Earth's atmosphere, scattering the blue and green tones and letting the warm oranges and reds shine through. As the sun dips lower, the last bits of sunlight catch the golden hues of the western sky, painting it in beautiful shades before",
+        "When water freezes, several interesting changes occur:\n\n1. **Volume Expansion**: As the temperature drops below freezing (0\u00b0C or 32\u00b0F), water begins to freeze. Interestingly, water expands as it turns into ice because its volume increases by about 9% due to the formation of hexagonal crystal structures.\n\n2"
+      ],
+      "scores": [
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.6666666666666666,
+      "behavior_ci_low": 0.3333333333333333,
+      "behavior_ci_high": 1.0,
+      "perplexity": 3.0779959758122764,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset due to the scattering of sunlight by the Earth's atmosphere, which causes shorter wavelengths (like blue and green) to scatter more than longer wavelengths (like red and orange). This natural phenomenon results in the beautiful array of warm hues that paint the sky as the sun dips below the horizon.",
+        "When water freezes, it undergoes a fascinating transformation from its liquid state to a solid one due to the lowering of temperature. Here's a detailed description of what happens during this process:\n\n1. **Temperature Drop**: The first step in freezing is a significant drop in temperature. Water, which has a high specific heat capacity"
+      ],
+      "scores": [
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.8333333333333334,
+      "behavior_ci_low": 0.5,
+      "behavior_ci_high": 1.0,
+      "perplexity": 3.041568954785665,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset due to the scattering of sunlight by the Earth's atmosphere, a phenomenon known as Rayleigh scattering, which causes shorter wavelengths (like blue and violet) to scatter more than longer wavelengths (like red and orange). Additionally, as the sun sets, the light has to travel through a thicker layer",
+        "When water freezes, it undergoes a phase transition from its liquid state to its solid state, forming ice. This process occurs at 0 degrees Celsius (32 degrees Fahrenheit) under standard atmospheric pressure, though the exact temperature can vary slightly depending on impurities or other conditions.\n\nHere's a step-by-step description of"
+      ],
+      "scores": [
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.5,
+      "behavior_ci_low": 0.16666666666666666,
+      "behavior_ci_high": 0.8333333333333334,
+      "perplexity": 2.9484062989552817,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset due to the scattering of sunlight by the Earth's atmosphere, a phenomenon known as Rayleigh scattering, which causes shorter wavelengths (like blue and violet) to scatter more than longer wavelengths (like red and orange). Additionally, at sunset, the sun's light has to travel through a thicker layer",
+        "When water freezes, it undergoes a phase transition from its liquid state to its solid state, forming ice. This process occurs at a temperature of 0 degrees Celsius (or 32 degrees Fahrenheit) under standard atmospheric pressure. Here\u2019s a detailed description of what happens during this process:\n\n1. **Temperature Below Free"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.3333333333333333,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.6666666666666666,
+      "perplexity": 3.1498448848724365,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset due to the scattering of light by the Earth's atmosphere. As sunlight enters the Earth's atmosphere, it collides with air molecules and is scattered in all directions. When the sun is low on the horizon, as during sunset, its light passes through a longer path of the atmosphere compared to",
+        "When water freezes, it undergoes a phase transition from the liquid state to the solid state, forming ice. This process occurs at a specific temperature, known as the freezing point, which is 0 degrees Celsius (or 273.15 Kelvin) under standard atmospheric pressure. Here's a detailed description of"
+      ],
+      "scores": [
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.5,
+      "behavior_ci_low": 0.16666666666666666,
+      "behavior_ci_high": 0.8333333333333334,
+      "perplexity": 4.200141350428264,
+      "repetition": 0.018518518518518528,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset due to the scattering of light by particles in the atmosphere. This process is described by the Rayleigh scattering, where shorter wavelengths (such as blue light) are preferentially scattered by particles in the atmosphere. The scattering of light by particles in the atmosphere causes the color of light to change as",
+        "When water freezes, it releases energy in the form of heat. This process is described by the equation:\n\n\\[ E = \\Delta H = q = \\frac{dH}{dT} \\]\n\nwhere \\( dH \\) is the change in enthalpy, and \\( T \\) is temperature. The relationship"
+      ],
+      "scores": [
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.16666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.5,
+      "perplexity": 6.115941842397054,
+      "repetition": 0.040476871941812397,
+      "broken": true,
+      "samples": [
+        "The color of light is described by the equation: $c = E = \\frac{E = h = c = c$ (where $c$ is the speed of light, and $c$ is the speed of light in vacuum, which is the speed of light in a vacuum. The speed of light in",
+        "Water is the fundamental component of all matter and is characterized by its unique properties. The most important property of water is that it has a specific heat, which means that it can absorb and release energy. This means that the amount of energy absorbed or released during a process is given by the equation: $E = \\Delta"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "topic_science",
+    "model": "Qwen/Qwen2.5-7B-Instruct",
+    "layer": 13,
+    "output_overlap": 0.394996702671051,
+    "participation_ratio": 35.2169306041515,
+    "low_variance_pc_alignment": 0.02544841170310974,
+    "residual_norm": 1.1041122674942017,
+    "n_directions": 5.0,
+    "direction_coherence": 0.46851293643315634,
+    "probe_dom_cosine": 0.614856195571584,
+    "tuning_shift": null
+  },
+  "gauntlet": null,
+  "judge_model": "Qwen/Qwen2.5-3B-Instruct",
+  "judge_is_self": false
+}

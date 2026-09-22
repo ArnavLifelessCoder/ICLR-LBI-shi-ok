@@ -1652,3 +1652,60 @@ All notebooks now carry the cell. It is a no-op when nothing is attached.
 
 Stages B and E do not depend on stage A, so `qwen_judge_stages.ipynb` runs only
 those two and needs no attachment.
+
+## 2026-09-22: Qwen B and E land; the dataset is complete
+
+The judge ladder worked: two GPUs visible, preferred 3B judge on cuda:1, both
+stages ok, per-generation scores recorded. Forty ground-truth points and
+sixteen judge-scored points, all four models, all on corrected intervals.
+
+### The headline, complete
+
+    ground truth, rule readout, 30 prompts   26/40 = 65%
+    judge scored, 30 prompts                  7/16 = 44%
+    judge scored, 6 prompts                   8/16 = 50%
+
+Adding Qwen moved the judge-scored rate from 4/12 to 7/16, so the gap is
+narrower than the three-model figure suggested. It is 65 against 44, not 65
+against 33, and the paper should say the smaller number.
+
+### What separates the two more cleanly than the resolution rate
+
+Directional share, the fraction of measured effect that is directional:
+
+    ground truth   0.986
+    judge, 30      0.600
+    judge, 6       0.729
+
+On ground truth essentially all of the measured movement is in a consistent
+direction. On judge-scored concepts two fifths of it is not. Twenty-five of the
+twenty-six resolved ground-truth points are positive, the direction the concept
+was built to be steered in; five of seven resolved judge-scored points are.
+
+Resampling the prompts flips seven of sixteen judge-scored signs, and the
+median signed magnitude falls by 0.028 going from six prompts to thirty. The
+six-prompt estimates were largely noise that happened to look large.
+
+Interval widths now behave: the judge-scored mean width goes 0.1748 to 0.0991
+across a fivefold increase in prompts, a ratio of 0.57 against the 0.45 that
+pure sampling predicts.
+
+### One thing not to claim
+
+Cross-model sign agreement does not separate the two groups. Ground truth has
+one concept disagreeing across models, `gt_question`, and the judge-scored set
+has none, but that is mostly because `topic_science` resolves nowhere and so
+cannot disagree. The comparison is uninformative and should not be reported as
+support.
+
+There is also no matched flip test for ground truth: it was only ever run at
+thirty prompts, so the seven-of-sixteen flip count has no ground-truth
+counterpart. That asymmetry belongs in the text.
+
+### Where things stand
+
+Complete and corrected: stages A, B, E on four models. Unaffected and not
+re-run: stage C. Open: the ActAdd contrast string, which needs the paper rather
+than a GPU, and then the figures, tables and text.
+
+301 tests pass.

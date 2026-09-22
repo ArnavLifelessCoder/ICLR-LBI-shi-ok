@@ -1,0 +1,66 @@
+5.8s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+5.8s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+5.8s 3 0.00s - to python to disable frozen modules.
+5.8s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+6.4s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.4s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.4s 7 0.00s - to python to disable frozen modules.
+6.4s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+9.0s 9 [33m463ebbd[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m judge loads on any device; notebooks can continue from an attached run
+13.6s 10 [?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/12.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.1/12.3 MB[0m [31m3.0 MB/s[0m eta [36m0:00:05[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.1/12.3 MB[0m [31m2.0 MB/s[0m eta [36m0:00:06[0m[2K   [91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.2/12.3 MB[0m [31m2.2 MB/s[0m eta [36m0:00:06[0m[2K   [91m━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.5/12.3 MB[0m [31m3.6 MB/s[0m eta [36m0:00:04[0m[2K   [91m━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.8/12.3 MB[0m [31m4.7 MB/s[0m eta [36m0:00:03[0m[2K   [91m━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m1.2/12.3 MB[0m [31m5.7 MB/s[0m eta [36m0:00:02[0m[2K   [91m━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m2.2/12.3 MB[0m [31m9.2 MB/s[0m eta [36m0:00:02[0m[2K   [91m━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.5/12.3 MB[0m [31m12.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━[0m [32m5.1/12.3 MB[0m [31m16.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━[0m [32m7.6/12.3 MB[0m [31m22.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━[0m [32m10.1/12.3 MB[0m [31m26.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━[0m [32m11.7/12.3 MB[0m [31m50.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m54.0 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.3/12.3 MB[0m [31m42.5 MB/s[0m eta [36m0:00:00[0m
+13.7s 11 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/394.3 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m394.3/394.3 kB[0m [31m30.0 MB/s[0m eta [36m0:00:00[0m
+14.7s 12 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/43.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.2/43.1 MB[0m [31m255.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m6.0/43.1 MB[0m [31m96.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m6.0/43.1 MB[0m [31m58.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m9.1/43.1 MB[0m [31m77.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m11.7/43.1 MB[0m [31m63.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.4/43.1 MB[0m [31m51.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m14.7/43.1 MB[0m [31m61.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m17.1/43.1 MB[0m [31m63.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━[0m [32m17.8/43.1 MB[0m [31m50.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━[0m [32m20.0/43.1 MB[0m [31m61.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━[0m [32m22.3/43.1 MB[0m [31m61.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━[0m [32m23.9/43.1 MB[0m [31m51.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━[0m [32m25.4/43.1 MB[0m [31m61.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━[0m [32m28.0/43.1 MB[0m [31m63.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━[0m [32m30.3/43.1 MB[0m [31m62.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━[0m [32m31.1/43.1 MB[0m [31m62.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━[0m [32m34.0/43.1 MB[0m [31m64.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━[0m [32m36.6/43.1 MB[0m [31m63.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━[0m [32m37.1/43.1 MB[0m [31m63.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━[0m [32m39.9/43.1 MB[0m [31m63.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.0/43.1 MB[0m [31m63.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m63.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m52.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m52.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m52.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m52.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m52.1 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m43.1/43.1 MB[0m [31m27.6 MB/s[0m eta [36m0:00:00[0m
+14.8s 13 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/516.0 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m516.0/516.0 kB[0m [31m33.5 MB/s[0m eta [36m0:00:00[0m
+14.9s 14 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/3.4 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━[0m [32m3.2/3.4 MB[0m [31m221.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m3.4/3.4 MB[0m [31m65.2 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.4/3.4 MB[0m [31m48.0 MB/s[0m eta [36m0:00:00[0m
+30.4s 15 [?25hHF login OK.
+30.5s 16 nothing seeded from /kaggle/input
+33.1s 17 commit        : 463ebbd judge loads on any device; notebooks can continue from an attached run
+33.1s 18 stage A grid  : 13 points, [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+33.1s 19 stage B grid  : 9 points (default, for comparability with the 1.5B judge)
+33.1s 20 judge         : Qwen/Qwen2.5-3B-Instruct (fallback Qwen/Qwen2.5-1.5B-Instruct)
+33.1s 21 stage order   : C, D, B, E, F, A (cheapest first)
+33.1s 22 per-generation scores: recorded
+33.1s 23 preflight OK
+33.1s 24 stages        : B_rejudge, E_prompts30
+33.1s 25 
+33.1s 26 ======================================================================
+33.1s 27 Qwen/Qwen2.5-7B-Instruct
+33.1s 28 ======================================================================
+55.7s 29 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+55.7s 30 
+55.7s 31 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+163.2s 32 
+163.2s 33 --- B: re-judge with a larger judge ---
+163.2s 34 2 GPU(s) visible; judge placements to try: ['cuda:1', 'cuda:0', 'cpu']
+199.8s 35 judge: Qwen/Qwen2.5-3B-Instruct on cuda:1
+2004.6s 36 sentiment      ctrl 0.345
+2004.6s 37 refusal        ctrl 0.208
+2004.6s 38 topic_science  ctrl 0.278
+2004.6s 39 certainty      ctrl 0.153
+2004.6s 40 
+2004.6s 41 --- E: judge-scored concepts at 30 eval prompts ---
+2004.6s 42 prompts per concept: {'sentiment': 30, 'refusal': 30, 'topic_science': 30, 'certainty': 30}
+2004.6s 43 2 GPU(s) visible; judge placements to try: ['cuda:1', 'cuda:0', 'cpu']
+2012.1s 44 judge: Qwen/Qwen2.5-3B-Instruct on cuda:1
+9466.2s 45 sentiment      read 1.00  ctrl 0.188
+9466.2s 46 refusal        read 1.00  ctrl 0.150
+9466.2s 47 topic_science  read 0.94  ctrl 0.067
+9466.2s 48 certainty      read 1.00  ctrl 0.128
+9466.3s 49 
+9466.3s 50 ======================================================================
+9466.3s 51 {
+9466.3s 52 "Qwen/Qwen2.5-7B-Instruct": {
+9466.3s 53 "load": "ok",
+9466.3s 54 "B_rejudge": "ok",
+9466.3s 55 "E_prompts30": "ok"
+9466.3s 56 }
+9466.3s 57 }
+9466.5s 58 -rw-r--r-- 1 root root 29448 Sep 22 09:14 qwen_judge_stages.zip
+9472.7s 59 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+9472.7s 60 cells[i][c] = re.sub('\\\\\|', '|', cell)
+9473.0s 61 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+9473.0s 62 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+9473.8s 63 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+9474.1s 64 [NbConvertApp] Writing 258526 bytes to __notebook__.ipynb
+9476.4s 65 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+9477.4s 66 [NbConvertApp] Writing 482601 bytes to __results__.html
