@@ -121,46 +121,79 @@ def hf_login_if_available(secret_label: str = "HF_TOKEN") -> bool:
 
 
 def _judge_scorer(concepts, device_index: int = 1, preferred: str | None = None):
-    """Load the larger judge, falling back rather than killing the session.
+    """Load a judge on whatever hardware this session actually has.
 
     Returns (scorer, judge_name, lm) so the caller can free the judge before
     loading the next target model.
+
+    **Why this is a ladder rather than one attempt.** The judge sits on the
+    second GPU so it does not compete with the target model for memory. A
+    session handed one GPU instead of two raises "invalid device ordinal",
+    which is not a memory problem, so retrying a smaller judge on the same
+    absent device fails identically. A Qwen re-run lost both judge-scored
+    stages that way, four and a half hours for stage A alone, while stage A
+    itself finished because it needs no judge.
+
+    Where the judge sits changes nothing about the numbers it produces. The
+    judge model does, which is why the ladder exhausts every placement for the
+    preferred judge before descending to the fallback, and why the fallback is
+    tried on CPU only once nothing else is left. A slower run is recoverable;
+    a missing stage is not.
+
+    CPU uses float32: half precision on CPU is unsupported for several ops and
+    silently slow where it works.
     """
     from lbi import behavior as bh
     from lbi.driver import load_judge
 
-    candidates = ([preferred] if preferred else [JUDGE_MODEL, JUDGE_FALLBACK])
-
-    # The judge goes on the second GPU so it does not compete with the target
-    # model for memory. A session given one GPU instead of two raises
-    # "invalid device ordinal", which is not a memory problem and retrying the
-    # smaller judge on the same absent device cannot help: a Qwen session lost
-    # both judge-scored stages that way while stage A, which needs no judge,
-    # finished normally. Fall back to the device that does exist.
     try:
         import torch
         n_gpu = torch.cuda.device_count()
     except Exception:
         n_gpu = 0
-    if device_index >= n_gpu:
-        print("  only %d GPU(s) visible, so the judge shares device 0 with the "
-              "target model instead of taking device %d"
-              % (n_gpu, device_index))
-        device_index = 0
 
+    # Preferred placement first, then any other GPU, then CPU.
+    placements = []
+    if n_gpu > device_index:
+        placements.append(("cuda:%d" % device_index, "float16"))
+    for i in range(n_gpu):
+        if i != device_index:
+            placements.append(("cuda:%d" % i, "float16"))
+    placements.append(("cpu", "float32"))
+
+    candidates = ([preferred] if preferred else [JUDGE_MODEL, JUDGE_FALLBACK])
+    print("  %d GPU(s) visible; judge placements to try: %s"
+          % (n_gpu, [d for d, _ in placements]))
+
+    last_exc = None
     for name in candidates:
-        try:
-            lm = load_judge(name, device_index=device_index)
-        except Exception as exc:
-            print(f"  judge {name} failed to load ({type(exc).__name__}: {exc})")
-            continue
-        scorer = bh.LLMJudgeScorer(
-            generate_fn=bh.make_local_generate_fn(lm),
-            behavior_questions={c.name: c.behavior_question for c in concepts},
-        )
-        print(f"  judge: {name}")
-        return scorer, name, lm
-    raise RuntimeError("no judge could be loaded")
+        for dev, dtype in placements:
+            if dev == "cpu" and name != candidates[-1]:
+                # Only the smallest judge is worth running on CPU.
+                continue
+            try:
+                lm = load_judge(name, device=dev, dtype=dtype)
+            except Exception as exc:
+                last_exc = exc
+                print("  judge %s on %s failed (%s: %s)"
+                      % (name, dev, type(exc).__name__, exc))
+                continue
+            scorer = bh.LLMJudgeScorer(
+                generate_fn=bh.make_local_generate_fn(lm),
+                behavior_questions={c.name: c.behavior_question
+                                    for c in concepts},
+            )
+            if dev == "cpu":
+                print("  judge: %s on CPU. This is slow but it is a judge, and "
+                      "the alternative is no stage at all." % name)
+            else:
+                print("  judge: %s on %s" % (name, dev))
+            return scorer, name, lm
+
+    raise RuntimeError(
+        "no judge could be loaded on any device (%d GPU(s) seen); last error: "
+        "%r" % (n_gpu, last_exc)
+    )
 
 
 def stage_a_groundtruth(lm, out_dir: str = OUT_GT) -> bool:
@@ -704,6 +737,58 @@ def _records_scores() -> bool:
                     for f in dataclasses.fields(st.DosePoint))
     writes_field = '"scores": p.scores' in inspect.getsource(run_model)
     return has_field and writes_field
+
+
+
+def seed_from_inputs(verbose: bool = True) -> dict:
+    """Copy finished results out of attached Kaggle datasets into the workdir.
+
+    Every stage writes one file per concept and `run_model(resume=True)` skips
+    a concept whose file already exists, so attaching a previous run's output
+    and copying it here turns a re-run into a continuation. Generation is
+    essentially the entire cost, and it is what gets skipped.
+
+    Attach the earlier notebook's output under Add-ons -> Add Input; it lands
+    somewhere under `/kaggle/input`. Anything named `results_*` is copied,
+    whatever depth it sits at, and existing files are never overwritten: the
+    workdir is what this session has actually produced and it wins.
+
+    Returns a count per destination directory and is safe to call when nothing
+    is attached, which is the common case. Stages B and E do not depend on
+    stage A, so re-running them alone needs no attachment at all.
+    """
+    import shutil
+
+    root = "/kaggle/input"
+    copied: dict[str, int] = {}
+    if not os.path.isdir(root):
+        if verbose:
+            print("no /kaggle/input; nothing to seed from")
+        return copied
+
+    for dirpath, _dirnames, filenames in os.walk(root):
+        base = os.path.basename(dirpath)
+        if not base.startswith("results_"):
+            continue
+        dest = os.path.join(WORK, base)
+        os.makedirs(dest, exist_ok=True)
+        for fn in filenames:
+            if not fn.endswith(".json"):
+                continue
+            target = os.path.join(dest, fn)
+            if os.path.exists(target):
+                continue
+            shutil.copy2(os.path.join(dirpath, fn), target)
+            copied[base] = copied.get(base, 0) + 1
+
+    if verbose:
+        if copied:
+            for k, v in sorted(copied.items()):
+                print("seeded %-28s %d file(s)" % (k, v))
+            print("resume will skip any concept already present")
+        else:
+            print("nothing seeded from /kaggle/input")
+    return copied
 
 
 def preflight() -> dict:

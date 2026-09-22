@@ -1624,3 +1624,31 @@ they are evidence of what was reported and not an alternative analysis.
 Still outstanding: Qwen stage B and E, and the ActAdd contrast string.
 
 301 tests pass.
+
+### Judge placement, fixed properly
+
+`_judge_scorer` now walks a ladder rather than making one attempt: the second
+GPU, then any other GPU, then CPU with the smaller judge at float32. Half
+precision on CPU is unsupported for several ops and silently slow where it
+works, hence the dtype change.
+
+The ladder exhausts every placement for the preferred judge before descending
+to the fallback, because where the judge sits changes nothing about the numbers
+it produces while which judge it is changes everything. A slower run is
+recoverable; a missing stage is not.
+
+`load_judge` takes `device` and `dtype` so a caller can place it explicitly.
+
+### Continuing a run from an attached dataset
+
+`seed_from_inputs()` copies anything under `/kaggle/input` in a directory named
+`results_*` into the workdir, at any depth, never overwriting a file the
+current session produced. Every stage writes one file per concept and
+`run_model(resume=True)` skips a concept whose file exists, so attaching a
+previous run's output turns a re-run into a continuation, and generation, which
+is essentially the whole cost, is what gets skipped.
+
+All notebooks now carry the cell. It is a no-op when nothing is attached.
+
+Stages B and E do not depend on stage A, so `qwen_judge_stages.ipynb` runs only
+those two and needs no attachment.

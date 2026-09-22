@@ -28,9 +28,15 @@ CLONE = (
 DEPS = "!pip install -q -U transformers accelerate bitsandbytes"
 IMPORT = (
     'import sys; sys.path.insert(0, "%s")\n'
-    "from notebooks.run_kaggle_validation import hf_login_if_available, run_all\n"
+    "from notebooks.run_kaggle_validation import (\n"
+    "    hf_login_if_available, run_all, seed_from_inputs)\n"
     "hf_login_if_available()" % REPO_DIR
 )
+
+# Optional and harmless when nothing is attached. Every stage writes one file
+# per concept and resume skips a concept whose file exists, so attaching an
+# earlier run's output turns a re-run into a continuation.
+SEED = "seed_from_inputs()"
 
 
 def zip_cell(name, dirs):
@@ -142,9 +148,15 @@ def build(name, job):
         md("## 3. Import and log in\n\nThe login degrades to a printed note when "
            "no secret is attached, rather than raising."),
         code(IMPORT),
-        md("## 4. Run"),
+        md("## 4. Continue an earlier run (optional)\n\n"
+           "Attach a previous run's output under **Add-ons -> Add Input** and "
+           "this copies its results in, so `resume` skips every concept "
+           "already finished. Does nothing when nothing is attached, and never "
+           "overwrites a file this session produced."),
+        code(SEED),
+        md("## 5. Run"),
         code(job["call"]),
-        md("## 5. Package the output\n\n%s" % job["check"]),
+        md("## 6. Package the output\n\n%s" % job["check"]),
         code(zip_cell(name, job["dirs"])),
     ])
 
@@ -225,6 +237,14 @@ JOBS["rerun_gemma"] = dict(
     call='status = run_all(["google/gemma-2-9b-it"], stages=["A", "B", "E"])',
     dirs=["results_rejudge", "results_prompts30", "results_groundtruth"],
     check="Check the first lines before walking away:\n\n- `commit` should be the head of `main`\n- **`per-generation scores: recorded`** must appear; preflight raises if\n  not, which is the guard that was missing when a three-hour stage E run\n  came back without them\n- `stages` should read `B_rejudge, E_prompts30, A_groundtruth`\n- stage A should say `10 concepts, single layer`\n- stage E should print `prompts per concept` with **30** for all four\n\nThen download the zip **before the session expires**.",
+)
+
+JOBS["qwen_judge_stages"] = dict(
+    title="Qwen stages B and E, judge placement fixed",
+    blurb="Qwen stages B and E only, with the judge placement fixed.\n\n**What went wrong last time.** The session was given one GPU instead of\ntwo. The judge loads on device 1 so it does not compete with the target\nmodel for memory, and on a single-GPU box that raises `invalid device\nordinal`, which is not a memory problem, so retrying a smaller judge on\nthe same absent device failed identically. Both judge-scored stages were\nlost. Stage A needs no judge and finished normally, which is why it is\nnot repeated here.\n\nThe judge now walks a ladder: the second GPU, then any other GPU, then\nCPU with the smaller judge. Where it sits changes nothing about the\nnumbers it produces, so a slow run beats a missing stage.\n\n**B** re-judges the four concepts at six prompts, about half an hour.\n**E** repeats them at thirty, about two hours. Neither depends on stage\nA, so there is nothing to attach unless you want to, and the seed cell\nbelow is a no-op if you do not.\n\n**Settings:** Accelerator **GPU T4 x2** if you can get it, Internet On.\nIt will now finish on T4 x1, and on CPU, just slower.\n\nUngated: no `HF_TOKEN` needed.",
+    call='status = run_all(["Qwen/Qwen2.5-7B-Instruct"], stages=["B", "E"])',
+    dirs=["results_rejudge", "results_prompts30"],
+    check="Check the first lines before walking away:\n\n- `commit` should be the head of `main`\n- `per-generation scores: recorded` must appear\n- the judge line should say how many GPUs are visible and where it landed\n- `stages` should read `B_rejudge, E_prompts30`\n- stage E should print `prompts per concept` with **30** for all four\n\nThen download the zip **before the session expires**.",
 )
 
 def main():

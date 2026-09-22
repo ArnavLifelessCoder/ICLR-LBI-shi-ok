@@ -44,7 +44,8 @@ def preflight(verbose: bool = True) -> bool:
 JUDGE_MODEL = "Qwen/Qwen2.5-1.5B-Instruct"
 
 
-def load_judge(name: str = JUDGE_MODEL, device_index: int = 1):
+def load_judge(name: str = JUDGE_MODEL, device_index: int = 1,
+               device: str | None = None, dtype: str = "float16"):
     """Load the fixed behaviour judge, by default onto the second GPU.
 
     The judge must be the *same model for every model under study*. Letting each
@@ -59,11 +60,19 @@ def load_judge(name: str = JUDGE_MODEL, device_index: int = 1):
     Small and fp16 rather than 4-bit: the judge emits a single number, quality
     matters more than size, and quantisation noise in the instrument is the last
     thing this study needs.
+
+    `device` and `dtype` are passed through so a caller can place the judge
+    somewhere other than a second GPU. There is not always a second GPU, and
+    when there is not, `device_index=1` raises "invalid device ordinal" rather
+    than degrading. Which device the judge sits on changes nothing about the
+    numbers it produces, so falling back is always preferable to losing the
+    stage.
     """
     from .extraction import load_model
 
     return load_model(
-        name, load_in_4bit=False, dtype="float16", device_index=device_index
+        name, load_in_4bit=False, dtype=dtype, device_index=device_index,
+        device=device,
     )
 
 
