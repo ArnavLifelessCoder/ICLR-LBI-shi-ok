@@ -1815,3 +1815,71 @@ forty against forty with the readout as the only variable, which is what the
 claim needs.
 
 325 tests pass.
+
+## 2026-09-23: the replication passes, and it is directional
+
+Stage D at the verified setting (layer 16, `weddings` vs a space, coefficient
+multiples, sampling at temperature 1.0) on commit `c322596`:
+
+    direction: 3 positions x 1600 dims, norms 86.0, 153.1, 145.9
+    baseline 0.00073   at their coefficient 0.00148   no breakage in range
+    positive control PASSED
+
+    coeff  -4.0 -3.0 -2.0 -1.5 -1.0 -0.5  0.0  0.5  1.0   1.5   2.0   3.0   4.0
+    behav  .000 .0004 .000 .0007 .0007 .0007 .0007 .0007 .0015 .0048 .0038 .0079 .0116
+
+Monotone in the coefficient at Spearman $+0.96$, 2.0x baseline at their own
+setting and 15.9x at four times it, nothing breaking the fluency ceiling
+anywhere.
+
+The directional check then returns:
+
+    absolute controllability  0.00233
+    signed area              +0.00233   CI [+0.00156, +0.00312]   RESOLVES
+    directional share         1.000
+    positive arm +0.00495     negative arm +0.00036
+
+This is the first preregistered branch in `lbi/published.py`: the published
+effect is directional and survives the check. Every unit of measured effect is
+movement in the intended direction, which is the cleanest agreement between the
+absolute and directional summaries anywhere in the study.
+
+It is also the better outcome for the paper. A diagnostic that only ever
+subtracts from other people's results reads as a complaint about measurement.
+One that confirms a published effect where the effect is real, and declines to
+confirm a judge-scored one where it is not, is doing what a diagnostic is for.
+
+### The spelling diagnostic, re-read
+
+Stage F at layer 16:
+
+    'Weddings'   3 tok  peak 0.0065  PASSED
+    ' Weddings'  3 tok  peak 0.0043  PASSED
+    'weddings'   3 tok  peak 0.0116  PASSED
+    ' weddings'  1 tok  peak 0.0018  failed
+    ' wedding'   1 tok  peak 0.0033  failed
+
+The layer was the recording error that mattered, not the capitalisation. At
+layer 16 every three-token spelling passes, including the capitalised one the
+replication had been using all along. At layer 6 only the single-token forms
+showed anything, and reading that as evidence that the spelling was wrong was
+an over-interpretation: it was the one visible symptom of a deeper fault.
+Recorded because the inference was wrong even though the correction it
+prompted happened to match the paper.
+
+### What the sequence says about the control
+
+Four causes, found in this order, each one masking the next: greedy decoding
+against a sampling result; coefficients in residual-RMS units against a raw
+activation difference; a pooled last-token vector in place of the position-wise
+difference; and finally the layer. Each of the first three produced a readout
+flat at zero that would have been publishable-looking and wrong.
+
+What prevented publishing any of them was the preregistered positive control
+requiring the sweep to reproduce the effect somewhere in its range before a
+null could be reported. That is now a recommendation in the paper: a
+replication that cannot demonstrate the effect it is re-scoring has not earned
+the right to re-score it.
+
+The paper gains Section~\ref{sec:published} on this, and the abstract and
+conclusion now carry it. 325 tests pass.

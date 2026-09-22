@@ -1,0 +1,75 @@
+5.7s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+5.7s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+5.7s 3 0.00s - to python to disable frozen modules.
+5.7s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+6.3s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.3s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.3s 7 0.00s - to python to disable frozen modules.
+6.3s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+8.9s 9 [33mc322596[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m verified ActAdd setting; stage G matches the two sides of the headline
+13.3s 10 [?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/12.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.1/12.3 MB[0m [31m2.9 MB/s[0m eta [36m0:00:05[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.1/12.3 MB[0m [31m2.1 MB/s[0m eta [36m0:00:06[0m[2K   [91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.2/12.3 MB[0m [31m2.3 MB/s[0m eta [36m0:00:06[0m[2K   [91m━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.5/12.3 MB[0m [31m3.7 MB/s[0m eta [36m0:00:04[0m[2K   [91m━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.9/12.3 MB[0m [31m5.2 MB/s[0m eta [36m0:00:03[0m[2K   [91m━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m1.3/12.3 MB[0m [31m6.5 MB/s[0m eta [36m0:00:02[0m[2K   [91m━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m2.2/12.3 MB[0m [31m9.5 MB/s[0m eta [36m0:00:02[0m[2K   [91m━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m4.1/12.3 MB[0m [31m15.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━[0m [32m6.1/12.3 MB[0m [31m19.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━[0m [32m8.7/12.3 MB[0m [31m25.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m68.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m68.7 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.3/12.3 MB[0m [31m50.4 MB/s[0m eta [36m0:00:00[0m
+13.4s 11 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/394.3 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m394.3/394.3 kB[0m [31m24.0 MB/s[0m eta [36m0:00:00[0m
+14.2s 12 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/43.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m4.1/43.1 MB[0m [31m231.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m6.2/43.1 MB[0m [31m103.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m6.8/43.1 MB[0m [31m66.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m10.0/43.1 MB[0m [31m85.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.4/43.1 MB[0m [31m68.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m14.0/43.1 MB[0m [31m53.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m16.4/43.1 MB[0m [31m65.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━[0m [32m18.7/43.1 MB[0m [31m69.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━[0m [32m20.3/43.1 MB[0m [31m52.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━[0m [32m22.7/43.1 MB[0m [31m81.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━[0m [32m26.6/43.1 MB[0m [31m62.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━[0m [32m28.7/43.1 MB[0m [31m67.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━[0m [32m30.6/43.1 MB[0m [31m74.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━[0m [32m33.7/43.1 MB[0m [31m81.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━[0m [32m36.1/43.1 MB[0m [31m78.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━[0m [32m39.5/43.1 MB[0m [31m78.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━[0m [32m41.2/43.1 MB[0m [31m83.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m78.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m78.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m78.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m78.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m78.0 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m43.1/43.1 MB[0m [31m33.7 MB/s[0m eta [36m0:00:00[0m
+14.3s 13 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/516.0 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m516.0/516.0 kB[0m [31m35.1 MB/s[0m eta [36m0:00:00[0m
+14.4s 14 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/3.4 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m3.4/3.4 MB[0m [31m237.4 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.4/3.4 MB[0m [31m94.4 MB/s[0m eta [36m0:00:00[0m
+29.7s 15 [?25hHF login OK.
+29.7s 16 nothing seeded from /kaggle/input
+32.4s 17 commit        : c322596 verified ActAdd setting; stage G matches the two sides of the headline
+32.4s 18 stage A grid  : 13 points, [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+32.4s 19 stage B grid  : 9 points (default, for comparability with the 1.5B judge)
+32.4s 20 judge         : Qwen/Qwen2.5-3B-Instruct (fallback Qwen/Qwen2.5-1.5B-Instruct)
+32.4s 21 stage order   : C, D, B, E, F, A (cheapest first)
+32.4s 22 per-generation scores: recorded
+32.4s 23 preflight OK
+32.4s 24 stages        : D_published, F_variants
+32.4s 25 
+32.4s 26 ======================================================================
+32.4s 27 Qwen/Qwen2.5-7B-Instruct
+32.4s 28 ======================================================================
+52.9s 29 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+52.9s 30 
+52.9s 31 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+149.1s 32 
+149.1s 33 --- D: published replication (no judge) ---
+149.1s 34 setting: {'model': 'gpt2-xl', 'positive_prompt': 'weddings', 'negative_prompt': ' ', 'layer': 16, 'coefficient': 1.0, 'alignment': 1, 'source': 'turner2023actadd', 'verified': 'arXiv:2308.10248v5 Section 4.1 and Algorithm 1'}
+182.9s 35 contrast 'weddings' vs ' ' at layer 16
+182.9s 36 direction: 3 positions x 1600 dims
+182.9s 37 raw difference norm per position: 85.955, 153.082, 145.853
+182.9s 38 coeff 1.0 == the published setting (raw_norm units)
+182.9s 39 decoding: temperature 1.0, 5 samples per prompt
+182.9s 40 injecting at the first 3 position(s)
+182.9s 41 grid (multiples of their coefficient): [-4.0, -3.0, -2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0, 3.0, 4.0]
+600.3s 42 pub_wedding    ctrl 0.0023  no breakage in swept range
+600.3s 43 baseline 0.0007, at their coeff 0.0015
+600.3s 44 positive control PASSED: the effect appears in range
+600.3s 45 
+600.3s 46 --- F: contrast spelling diagnostic (no judge) ---
+600.3s 47 6 variants x 8 coefficients
+600.3s 48 success is the stage D positive control, not a larger number
+862.5s 49 'Weddings'   vs ' '   3 tok  base 0.0007  peak 0.0065  CONTROL PASSED
+1118.2s 50 ' Weddings'  vs ' '   3 tok  base 0.0007  peak 0.0043  CONTROL PASSED
+1372.5s 51 ' weddings'  vs ' '   1 tok  base 0.0007  peak 0.0018  control failed
+1627.3s 52 'weddings'   vs ' '   3 tok  base 0.0007  peak 0.0116  CONTROL PASSED
+1882.4s 53 ' wedding'   vs ' '   1 tok  base 0.0007  peak 0.0033  control failed
+1882.4s 54 ' weddings'  vs ''    SKIPPED: every text must tokenise to at least one token
+1882.4s 55 
+1882.4s 56 3 spelling(s) reproduced the effect: ['Weddings', ' Weddings', 'weddings']
+1882.4s 57 This identifies a recording error to VERIFY against the paper before reporting anything. Do not treat a variant that was selected because it worked as the published setting.
+1882.4s 58 
+1882.4s 59 ======================================================================
+1882.4s 60 {
+1882.4s 61 "Qwen/Qwen2.5-7B-Instruct": {
+1882.4s 62 "load": "ok",
+1882.4s 63 "D_published": "ok",
+1882.4s 64 "F_variants": "ok"
+1882.4s 65 }
+1882.4s 66 }
+1882.8s 67 -rw-r--r-- 1 root root 13261 Sep 22 16:43 actadd_verified.zip
+1889.0s 68 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+1889.0s 69 cells[i][c] = re.sub('\\\\\|', '|', cell)
+1889.2s 70 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+1889.2s 71 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+1890.0s 72 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+1890.4s 73 [NbConvertApp] Writing 236436 bytes to __notebook__.ipynb
+1892.7s 74 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+1893.7s 75 [NbConvertApp] Writing 465327 bytes to __results__.html

@@ -31,5 +31,9 @@
     "A_groundtruth": "ok (corrected intervals, per-generation scores)",
     "D_published": "ran on the fixed harness, positive control FAILED: direction is a pooled last-token vector, not position-wise",
     "E_prompts30": "ok (corrected intervals)"
+  },
+  "gpt2-xl (published replication)": {
+    "D_published": "ok, positive control PASSED at the verified setting (layer 16, 'weddings'); signed area +0.00233 CI [+0.00156, +0.00312], resolves positive",
+    "F_variants": "ok, 3 of 5 spellings pass at layer 16; the layer, not the spelling, was the recording error that mattered"
   }
 }

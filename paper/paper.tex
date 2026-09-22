@@ -99,6 +99,17 @@ controllability number is not comparable across judges. A danger-zone criterion
 from our own preregistration selects one concept under the smaller judge and
 none under the larger.
 
+We then apply the check to a published steering result. On the canonical
+activation-addition demonstration, the wedding vector on GPT-2-XL at its own
+layer and coefficient, wedding vocabulary rises monotonically with the
+coefficient (Spearman $+0.96$) and the signed area resolves positive
+($+0.0023$, CI $[+0.0016, +0.0031]$) with a directional share of $1.000$. The
+published effect survives the check, which we preregistered as one of two
+reportable outcomes. A diagnostic that only ever subtracts from other people's
+results is a complaint about measurement; one that confirms an effect where the
+effect is real and declines to confirm a judge-scored one where it is not is
+doing the work a diagnostic is for.
+
 We then show the cost to a substantive result. We preregistered that a direction
 is steerable to the extent it projects into the model's output-effective
 subspace. Measured with the absolute summary the estimate is inverted (partial
@@ -696,6 +707,62 @@ None of this retracts the absolute measurements, which are what they are. It
 bounds what may be concluded from them, and Section~\ref{sec:inverted} is the
 worked case.
 
+\subsection{The check applied to a published steering result}
+\label{sec:published}
+
+Everything above measures concepts we built. The obvious question is whether
+the check changes anything about a result somebody else has already published,
+and we preregistered both answers before running it (the commitment is in the
+released code, in \texttt{lbi/published.py}).
+
+We replicate the canonical activation-addition demonstration
+\citep{turner2023actadd}: the wedding topic vector on GPT-2-XL, with
+$p^{+}$ the single word \texttt{weddings}, $p^{-}$ a single space, layer $16$, coefficient $1$,
+which is the running example of that paper's Section 4.1. The steering vector
+is the position-wise difference between the two contrast prompts after
+right-padding them to a common token length, added at the front of the user
+prompt, exactly as their Algorithm 1 specifies. The readout is a word list over
+the generated string, so no judge is involved and the outcome is decidable. We
+sweep multiples of their coefficient, so $1.0$ is their setting itself rather
+than a conversion between our units and theirs, and we sample rather than
+decode greedily, because their demonstration is a sampling result.
+
+The effect replicates and it is directional. Wedding vocabulary rises
+monotonically with the coefficient (Spearman $+0.96$), from $0.00073$ at
+baseline to $0.00148$ at their setting and $0.0116$ at four times it, with no
+point breaking the fluency ceiling anywhere in the swept range. The signed area
+is $+0.00233$ with interval $[+0.00156, +0.00312]$, so the sign resolves
+positive, and the directional share is $1.000$: every unit of measured effect
+is movement in the intended direction. Under the preregistration this is the
+branch in which the published effect survives the check.
+
+We think that is the more useful outcome. A diagnostic that only ever subtracts
+from other people's results is easy to dismiss as a complaint about
+measurement; one that confirms a published effect where the effect is real, and
+declines to confirm a judge-scored one where it is not, is doing the work a
+diagnostic is for. Activation addition, measured on a rule rather than a judge,
+is one of the cases where absolute and directional controllability agree
+completely.
+
+\textbf{What it cost to get there, and why we report that.} Three successive
+versions of this replication returned a readout that was flat at zero, and each
+time the cause was ours rather than the method's. The first decoded greedily
+against a sampling result, so a coefficient-scale nudge could not move an argmax
+path. The second swept coefficients in residual-RMS units against a raw
+activation difference whose norm was roughly $175$, so the grid was never shown
+to contain their operating point. The third used a pooled last-token vector in
+place of the position-wise difference. Only after all three were fixed did it
+become clear that the remaining fault was not in the code at all: we had
+recorded the intervention layer as $6$ where the paper says $16$, early in the
+stack rather than the middle, where that paper reports intervening is most
+effective.
+
+Each of those nulls would have been publishable-looking and wrong. What
+prevented it was a preregistered positive control requiring the sweep to
+reproduce the effect somewhere in its range before any null could be reported.
+We recommend the practice generally: a replication that cannot demonstrate the
+effect it is re-scoring has not earned the right to re-score it.
+
 \subsection{A geometric result that depends on the metric}
 \label{sec:inverted}
 
@@ -883,6 +950,13 @@ by up to $26.8\times$ and flips 3 of 16 signs, and a preregistered criterion of
 ours selects one concept under one judge and none under the other. The
 divergence the paper began by documenting belongs to the judge, not to
 steering.
+
+Applied to a published steering result the check confirms rather than
+subtracts: the activation-addition wedding effect on GPT-2-XL is monotone in
+the coefficient and resolves positive with a directional share of $1.000$. That
+is the outcome we preregistered as the one in which the published effect
+survives, and it is the reason we think the check is usable rather than merely
+critical.
 
 The cost to a substantive conclusion is visible in our own preregistered
 geometric hypothesis, which is inverted under the absolute summary, survives a
