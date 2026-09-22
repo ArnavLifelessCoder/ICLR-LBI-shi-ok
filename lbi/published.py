@@ -53,13 +53,19 @@ Neither outcome is a better result for us. Committing to that here, in the
 module the experiment runs from, is the point of writing it down before the
 sweep rather than after.
 
-**One thing to verify against the paper before running.** The exact published
-setting -- which layer, which coefficient, the precise contrast strings -- is
-recorded in `ACTADD_SETTING` below from our reading of the paper, and should be
-checked against the source. Our sweep covers a coefficient range around it
-rather than relying on a single point, so a small discrepancy changes the
-centre of the sweep and not the conclusion, but the recorded setting should be
-right.
+**The published setting, now verified.** `ACTADD_SETTING` below is read from
+arXiv:2308.10248v5 Section 4.1 and Algorithm 1 rather than recalled. Two of its
+values were previously wrong: the layer was recorded as 6 where the paper says
+16, and the positive prompt as "Weddings" where the paper writes "weddings",
+which GPT-2 tokenises differently and over a different number of positions.
+Every stage D result before this correction was therefore a sweep of a
+correctly constructed vector at the wrong depth, and is recorded in the run log
+as an artifact rather than reported.
+
+This is the failure the positive control existed to catch, and it did: the
+replication kept failing to reproduce the effect through three successive
+harness fixes, which is what eventually sent us to check the setting itself
+rather than the code.
 """
 
 from __future__ import annotations
@@ -68,15 +74,39 @@ import re
 
 from .concepts import Concept, Pair
 
-# Recorded from the paper and to be verified against it. The sweep brackets this
-# rather than sitting on it.
+# Verified against arXiv:2308.10248v5, "Steering Language Models With
+# Activation Engineering" (Turner et al.), Section 4.1: "Our running example is
+# the 'wedding' topic vector produced by setting p+ = weddings, p- = ' ',
+# l = 16, c = 1." The perplexity experiments there use GPT-2-XL, and Algorithm 1
+# gives alignment a = 1, that is, injection aligned to the front of the user
+# prompt.
+#
+# Two values here were previously wrong, both recorded from memory rather than
+# read, and both matter:
+#
+#   layer 6 instead of 16. Sixteen of forty-eight is the middle of the stack,
+#   where the paper says intervening is most effective; six is early. The
+#   replication was adding a correctly built vector at the wrong depth.
+#
+#   "Weddings" instead of "weddings". GPT-2 gives the two different token ids
+#   and different token counts, three against one, so the capitalised form is a
+#   different contrast over a different number of positions. The spelling
+#   diagnostic caught this before the layer was checked: at layer 6 the
+#   single-token lowercase forms produced nine to twelve times baseline while
+#   the three-token capitalised forms were flat.
+#
+# Algorithm 1 also confirms two things the harness already did: the shorter
+# prompt is right-padded to a common token length, and the steering vector is
+# the position-wise difference h+ - h-, not a pooled one.
 ACTADD_SETTING = {
     "model": "gpt2-xl",
-    "positive_prompt": "Weddings",
+    "positive_prompt": "weddings",
     "negative_prompt": " ",
-    "layer": 6,
+    "layer": 16,
     "coefficient": 1.0,
+    "alignment": 1,
     "source": "turner2023actadd",
+    "verified": "arXiv:2308.10248v5 Section 4.1 and Algorithm 1",
 }
 
 # Decoding. The study generates greedily everywhere else, on purpose: an effect

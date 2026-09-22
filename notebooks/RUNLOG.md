@@ -1764,3 +1764,54 @@ Closing the gap properly means re-running the ten judge-scored concepts on
 four models. Nothing else is outstanding for the figures.
 
 301 tests pass.
+
+## 2026-09-22: the published setting, verified at last
+
+Read from arXiv:2308.10248v5, "Steering Language Models With Activation
+Engineering", Section 4.1:
+
+    Our running example is the "wedding" topic vector produced by setting
+    p+ = weddings, p- = ' ', l = 16, c = 1.
+
+Two recorded values were wrong, and both were recorded from memory rather than
+read.
+
+**The layer was 6, and should be 16.** GPT-2-XL has 48 layers, so 16 is the
+middle of the stack, where the paper says intervening is most effective, and 6
+is early. Every stage D run so far added a correctly constructed vector at the
+wrong depth. That is the whole explanation for a positive control that kept
+failing through three successive harness fixes.
+
+**The positive prompt was "Weddings", and should be "weddings".** GPT-2 gives
+the two different token ids and different token counts, three against one. The
+spelling diagnostic had already caught this before the layer was checked: at
+layer 6 the single-token lowercase forms reached nine to twelve times baseline
+while the three-token capitalised forms were flat. It identified the right
+problem and could not identify the larger one sitting underneath it.
+
+Algorithm 1 confirms two things the harness already did, which is worth
+recording because both were guesses at the time: the shorter prompt is
+right-padded to a common token length, and the steering vector is the
+position-wise difference h+ - h-, not a pooled one. Alignment is a = 1, the
+front of the user prompt, which is what the implementation does.
+
+The sequence of failures here is the argument for the positive control. Three
+harness bugs were found and fixed because the control kept refusing to pass,
+and only after the third fix did it become clear that the remaining fault was
+not in the code at all. A stage that had simply reported its null would have
+published a claim about activation addition that was really a claim about
+layer 6.
+
+## 2026-09-22: stage G, matching the two sides of the headline
+
+The ten judge-scored concepts now all carry thirty evaluation prompts, with the
+original six kept as a strict prefix, so stage G can measure them exactly as
+stage A measures the rule-scored ten: single layer, thirteen-point grid, thirty
+prompts, intervals for the mean. 3,900 generations, the same as stage A.
+
+This exists because the headline comparison was forty points against sixteen,
+and the two sides were measured under different protocols. After stage G it is
+forty against forty with the readout as the only variable, which is what the
+claim needs.
+
+325 tests pass.

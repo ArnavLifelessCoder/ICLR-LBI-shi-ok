@@ -247,6 +247,46 @@ JOBS["qwen_judge_stages"] = dict(
     check="Check the first lines before walking away:\n\n- `commit` should be the head of `main`\n- `per-generation scores: recorded` must appear\n- the judge line should say how many GPUs are visible and where it landed\n- `stages` should read `B_rejudge, E_prompts30`\n- stage E should print `prompts per concept` with **30** for all four\n\nThen download the zip **before the session expires**.",
 )
 
+JOBS["matched_qwen"] = dict(
+    title="Stage G: ten judge-scored concepts, matched protocol (Qwen2.5-7B-Instruct)",
+    blurb="The ten judge-scored concepts, measured exactly as the ten rule-scored\nones are: single layer, thirteen-point grid, thirty evaluation prompts,\nintervals for the mean.\n\n**Why.** The paper's headline compares how often a directional sign\nresolves under a rule readout against under a judge. Until now the two\nsides were measured differently, so the gap was partly a protocol\ndifference. This makes it forty points against forty with the readout as\nthe only variable.\n\nAll ten concepts now carry thirty evaluation prompts, the original six\nkept as a strict prefix so the earlier numbers are recoverable by\nsubsetting.\n\nAbout four hours: 3,900 generations, each scored by the judge.\n\nResults go to `results_judge_matched`, leaving every earlier directory\nuntouched.\n\n**Settings:** Accelerator GPU T4 x2 preferred, Internet On. The judge now\nfalls back across GPUs and then to CPU, so one GPU still finishes.\n\nUngated: no `HF_TOKEN` needed.",
+    call='status = run_all(["Qwen/Qwen2.5-7B-Instruct"], stages=["G"])',
+    dirs=["results_judge_matched"],
+    check="Check the first lines before walking away:\n\n- `commit` should be the head of `main`\n- `per-generation scores: recorded` must appear\n- stage G should print `10 concepts, single layer` and\n  `prompts per concept` with **30** for all ten\n- it should say `10 of 10 concepts are at thirty prompts`\n\nThen download the zip **before the session expires**.",
+)
+
+JOBS["matched_mistral"] = dict(
+    title="Stage G: ten judge-scored concepts, matched protocol (Mistral-7B-Instruct-v0.3)",
+    blurb="The ten judge-scored concepts, measured exactly as the ten rule-scored\nones are: single layer, thirteen-point grid, thirty evaluation prompts,\nintervals for the mean.\n\n**Why.** The paper's headline compares how often a directional sign\nresolves under a rule readout against under a judge. Until now the two\nsides were measured differently, so the gap was partly a protocol\ndifference. This makes it forty points against forty with the readout as\nthe only variable.\n\nAll ten concepts now carry thirty evaluation prompts, the original six\nkept as a strict prefix so the earlier numbers are recoverable by\nsubsetting.\n\nAbout four hours: 3,900 generations, each scored by the judge.\n\nResults go to `results_judge_matched`, leaving every earlier directory\nuntouched.\n\n**Settings:** Accelerator GPU T4 x2 preferred, Internet On. The judge now\nfalls back across GPUs and then to CPU, so one GPU still finishes.\n\nUngated: no `HF_TOKEN` needed.",
+    call='status = run_all(["mistralai/Mistral-7B-Instruct-v0.3"], stages=["G"])',
+    dirs=["results_judge_matched"],
+    check="Check the first lines before walking away:\n\n- `commit` should be the head of `main`\n- `per-generation scores: recorded` must appear\n- stage G should print `10 concepts, single layer` and\n  `prompts per concept` with **30** for all ten\n- it should say `10 of 10 concepts are at thirty prompts`\n\nThen download the zip **before the session expires**.",
+)
+
+JOBS["matched_llama"] = dict(
+    title="Stage G: ten judge-scored concepts, matched protocol (Llama-3.1-8B-Instruct)",
+    blurb="The ten judge-scored concepts, measured exactly as the ten rule-scored\nones are: single layer, thirteen-point grid, thirty evaluation prompts,\nintervals for the mean.\n\n**Why.** The paper's headline compares how often a directional sign\nresolves under a rule readout against under a judge. Until now the two\nsides were measured differently, so the gap was partly a protocol\ndifference. This makes it forty points against forty with the readout as\nthe only variable.\n\nAll ten concepts now carry thirty evaluation prompts, the original six\nkept as a strict prefix so the earlier numbers are recoverable by\nsubsetting.\n\nAbout four hours: 3,900 generations, each scored by the judge.\n\nResults go to `results_judge_matched`, leaving every earlier directory\nuntouched.\n\n**Settings:** Accelerator GPU T4 x2 preferred, Internet On. The judge now\nfalls back across GPUs and then to CPU, so one GPU still finishes.\n\n**`HF_TOKEN` required** under Add-ons -> Secrets.",
+    call='status = run_all(["meta-llama/Llama-3.1-8B-Instruct"], stages=["G"])',
+    dirs=["results_judge_matched"],
+    check="Check the first lines before walking away:\n\n- `commit` should be the head of `main`\n- `per-generation scores: recorded` must appear\n- stage G should print `10 concepts, single layer` and\n  `prompts per concept` with **30** for all ten\n- it should say `10 of 10 concepts are at thirty prompts`\n\nThen download the zip **before the session expires**.",
+)
+
+JOBS["matched_gemma"] = dict(
+    title="Stage G: ten judge-scored concepts, matched protocol (gemma-2-9b-it)",
+    blurb="The ten judge-scored concepts, measured exactly as the ten rule-scored\nones are: single layer, thirteen-point grid, thirty evaluation prompts,\nintervals for the mean.\n\n**Why.** The paper's headline compares how often a directional sign\nresolves under a rule readout against under a judge. Until now the two\nsides were measured differently, so the gap was partly a protocol\ndifference. This makes it forty points against forty with the readout as\nthe only variable.\n\nAll ten concepts now carry thirty evaluation prompts, the original six\nkept as a strict prefix so the earlier numbers are recoverable by\nsubsetting.\n\nAbout four hours: 3,900 generations, each scored by the judge.\n\nResults go to `results_judge_matched`, leaving every earlier directory\nuntouched.\n\n**Settings:** Accelerator GPU T4 x2 preferred, Internet On. The judge now\nfalls back across GPUs and then to CPU, so one GPU still finishes.\n\n**`HF_TOKEN` required** under Add-ons -> Secrets.",
+    call='status = run_all(["google/gemma-2-9b-it"], stages=["G"])',
+    dirs=["results_judge_matched"],
+    check="Check the first lines before walking away:\n\n- `commit` should be the head of `main`\n- `per-generation scores: recorded` must appear\n- stage G should print `10 concepts, single layer` and\n  `prompts per concept` with **30** for all ten\n- it should say `10 of 10 concepts are at thirty prompts`\n\nThen download the zip **before the session expires**.",
+)
+
+JOBS["actadd_verified"] = dict(
+    title="Stages D and F at the verified ActAdd setting (layer 16)",
+    blurb="Activation addition at the **verified** published setting, plus the\nspelling diagnostic for comparison.\n\n**What changed.** `ACTADD_SETTING` was checked against arXiv:2308.10248v5\nSection 4.1, which states the running wedding example as `p+ = weddings`,\n`p- = ' '`, `l = 16`, `c = 1`. Two recorded values were wrong: the layer\nwas 6 rather than 16, and the positive prompt was capitalised, which GPT-2\ntokenises as three tokens instead of one. Every earlier stage D run was a\ncorrectly built vector added at the wrong depth.\n\nAlgorithm 1 also confirms the harness was already right about two things:\nthe shorter prompt is right-padded to a common token length, and the\nsteering vector is the position-wise difference rather than a pooled one.\n\n**D** sweeps multiples of their coefficient at layer 16, so 1.0 is their\nsetting exactly. Its positive control decides whether the replication is\nusable. **F** repeats the spelling sweep at the corrected layer.\n\nRuns on `gpt2-xl`, which the stage loads itself, so the model named in\n`run_all` is ignored. Under an hour.\n\n**Settings:** Accelerator GPU T4 x2, Internet On. Ungated.",
+    call='status = run_all(["Qwen/Qwen2.5-7B-Instruct"], stages=["D", "F"])',
+    dirs=["results_published", "results_contrast_variants"],
+    check="Check the first lines before walking away:\n\n- `commit` should be the head of `main`\n- stage D should print the setting with **layer 16** and\n  **positive_prompt 'weddings'**\n- read the `positive control PASSED` or `FAILED` line; that is the result\n- stage F prints one line per spelling, now at layer 16\n\nThen download the zip **before the session expires**.",
+)
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--outdir", default=os.path.join("notebooks", "kaggle"))

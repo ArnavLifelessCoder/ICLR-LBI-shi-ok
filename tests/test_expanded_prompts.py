@@ -24,7 +24,12 @@ from lbi.concepts import (
     with_expanded_eval_prompts,
 )
 
-REJUDGE = ["sentiment", "certainty", "refusal", "topic_science"]
+# All ten judge-scored concepts now carry thirty, so stage G can measure
+# them exactly as stage A measures the rule-scored ten and the headline
+# comparison is forty points against forty rather than forty against
+# sixteen. The four re-judged ones were expanded first, which is why an
+# earlier version of this list had only them.
+REJUDGE = sorted(_EXTRA_EVAL_PROMPTS)
 
 
 def _by_name():

@@ -60,6 +60,7 @@ OUT_K = f"{WORK}/results_ksweep"
 OUT_P = f"{WORK}/results_published"
 OUT_E = f"{WORK}/results_prompts30"
 OUT_F = f"{WORK}/results_contrast_variants"
+OUT_G = f"{WORK}/results_judge_matched"
 CACHE_DIR = f"{WORK}/cache/activations"
 
 # The three retained models. Gemma is withheld from the paper's main analysis
@@ -681,6 +682,78 @@ def stage_f_contrast_variants(lm, out_dir: str = OUT_F) -> bool:
     return True
 
 
+
+def stage_g_judge_matched(lm, out_dir: str = OUT_G) -> bool:
+    """All ten judge-scored concepts, measured exactly like the ground-truth set.
+
+    **What this is for.** The paper's headline compares how often a directional
+    sign resolves when a rule computes the readout against when a judge does.
+    Until now the two sides were measured differently: the rule side is ten
+    concepts on a thirteen-point grid at a single layer with thirty evaluation
+    prompts, and the judge side was four concepts, or ten on an older protocol
+    whose intervals were the superseded percentile form and whose runs did not
+    keep per-generation scores. A gap measured across two protocols is not a
+    gap. This stage removes the difference: same ten-concept count, same grid,
+    same single layer, same thirty prompts, same interval, so the readout is
+    the only thing that varies.
+
+    **Why the expanded prompt set matters here.** Six of the ten concepts still
+    ship six evaluation prompts, and the four re-judged ones carry thirty. This
+    stage uses `with_expanded_eval_prompts`, which is a no-op for concepts with
+    no extras registered, so those six stay at six and the comparison is only
+    partly matched. That is stated in the output rather than hidden: a concept
+    measured on six prompts is not comparable to one measured on thirty, and
+    the analysis has to group by prompt count.
+
+    **Single layer, no gauntlet.** Both for parity with stage A and because the
+    band is a maximum over four layers, which is four times the generations and
+    reads systematically higher. The gauntlet decides whether a concept earns
+    the word "immovable" for the danger-zone claim, which is not what this
+    stage is for.
+
+    Cost: ten concepts, thirteen coefficients, thirty prompts where available,
+    plus judge scoring of every generation.
+    """
+    from lbi.concepts import all_concepts, with_expanded_eval_prompts
+    from lbi.pipeline import EXTENDED_COEFFS, run_model
+
+    print("\n--- G: ten judge-scored concepts, ground-truth protocol ---")
+    every = all_concepts()
+    concepts = [with_expanded_eval_prompts(c) for c in every]
+    counts = {c.name: len(c.eval_prompts) for c in concepts}
+    print("  %d concepts, single layer, grid %s"
+          % (len(concepts), EXTENDED_COEFFS))
+    print("  prompts per concept: %s" % counts)
+    n_gen = sum(len(c.eval_prompts) for c in concepts) * len(EXTENDED_COEFFS)
+    print("  approx %d generations, each judged" % n_gen)
+    at30 = [n for n in counts.values() if n >= 30]
+    print("  %d of %d concepts are at thirty prompts; the rest are at six and "
+          "are not prompt-count matched to stage A"
+          % (len(at30), len(counts)))
+
+    scorer, judge_name, judge_lm = _judge_scorer(every)
+    try:
+        runs = run_model(
+            lm, scorer, out_dir=out_dir, cache_dir=CACHE_DIR,
+            concepts=concepts, resume=True, coeffs=EXTENDED_COEFFS,
+            best_over_band=False,
+            run_gauntlet=False,
+        )
+    finally:
+        del judge_lm
+        try:
+            import torch
+            torch.cuda.empty_cache()
+        except Exception:
+            pass
+
+    for r in runs:
+        print("  %-14s read %.2f  ctrl %.3f"
+              % (r.probe.concept, r.probe.readability,
+                 r.steering.controllability))
+    return True
+
+
 def stage_c_ksweep(lm, out_dir: str = OUT_K) -> bool:
     """Output overlap at several k. No generation, so this is cheap."""
     import numpy as np
@@ -896,16 +969,17 @@ def run_all(models=None, stages=None) -> dict:
                   ("B_rejudge", stage_b_rejudge),
                   ("E_prompts30", stage_e_prompts30),
                   ("F_variants", stage_f_contrast_variants),
+                  ("G_judgematched", stage_g_judge_matched),
                   ("A_groundtruth", stage_a_groundtruth))
     if stages is None:
         selected = ALL_STAGES
     else:
         want = {s.strip().upper()[0] for s in
                 ([stages] if isinstance(stages, str) else stages)}
-        unknown = want - {"A", "B", "C", "D", "E", "F"}
+        unknown = want - {"A", "B", "C", "D", "E", "F", "G"}
         if unknown:
             raise ValueError(
-                f"unknown stages {sorted(unknown)}; use A, B, C, D, E, F")
+                f"unknown stages {sorted(unknown)}; use A, B, C, D, E, F, G")
         selected = tuple(t for t in ALL_STAGES if t[0][0] in want)
     print("stages        : %s" % ", ".join(t[0] for t in selected))
 
