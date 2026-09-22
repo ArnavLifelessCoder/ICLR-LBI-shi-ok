@@ -1,0 +1,648 @@
+{
+  "probe": {
+    "concept": "topic_science",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "best_layer": 15,
+    "readability": 0.9722222222222223,
+    "control_auroc": 0.4722222222222223,
+    "selectivity": 0.5,
+    "auroc_ci_low": 0.875,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "computing",
+    "n_train": 48,
+    "n_test": 12,
+    "n_val": 12,
+    "control_flagged": false
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 0.9722222222222223,
+      "test_auroc": 0.8333333333333334,
+      "control_auroc": 0.45601851851851855
+    },
+    {
+      "layer": 1,
+      "val_auroc": 0.9722222222222223,
+      "test_auroc": 0.9444444444444443,
+      "control_auroc": 0.5208333333333334
+    },
+    {
+      "layer": 2,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.5462962962962964
+    },
+    {
+      "layer": 3,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.5231481481481481
+    },
+    {
+      "layer": 4,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5000000000000001
+    },
+    {
+      "layer": 5,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.46296296296296297
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.4861111111111111
+    },
+    {
+      "layer": 7,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.45370370370370366
+    },
+    {
+      "layer": 8,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.449074074074074
+    },
+    {
+      "layer": 9,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4490740740740741
+    },
+    {
+      "layer": 10,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4699074074074073
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.43749999999999994
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.4791666666666667
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.46990740740740744
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.46064814814814814
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.4722222222222223
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.5023148148148148
+    },
+    {
+      "layer": 17,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.5185185185185186
+    },
+    {
+      "layer": 18,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.5162037037037037
+    },
+    {
+      "layer": 19,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.49537037037037046
+    },
+    {
+      "layer": 20,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.5023148148148148
+    },
+    {
+      "layer": 21,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444443,
+      "control_auroc": 0.4768518518518518
+    },
+    {
+      "layer": 22,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444443,
+      "control_auroc": 0.488425925925926
+    },
+    {
+      "layer": 23,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444443,
+      "control_auroc": 0.4467592592592593
+    },
+    {
+      "layer": 24,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444443,
+      "control_auroc": 0.47453703703703703
+    },
+    {
+      "layer": 25,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444443,
+      "control_auroc": 0.486111111111111
+    },
+    {
+      "layer": 26,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444443,
+      "control_auroc": 0.4513888888888889
+    },
+    {
+      "layer": 27,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444443,
+      "control_auroc": 0.46990740740740744
+    },
+    {
+      "layer": 28,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9444444444444443,
+      "control_auroc": 0.44675925925925913
+    },
+    {
+      "layer": 29,
+      "val_auroc": 1.0,
+      "test_auroc": 0.888888888888889,
+      "control_auroc": 0.4791666666666666
+    },
+    {
+      "layer": 30,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9166666666666666,
+      "control_auroc": 0.48842592592592604
+    },
+    {
+      "layer": 31,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4305555555555555
+    }
+  ],
+  "steering": {
+    "concept": "topic_science",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "variant": "add",
+    "layers": "9",
+    "direction_source": "diff_of_means",
+    "controllability": 0.06805555555555555,
+    "controllability_ci_low": 0.040277777777777767,
+    "controllability_ci_high": 0.18829861111111101,
+    "baseline_behavior": 0.5333333333333333,
+    "max_usable_coeff": 3.0,
+    "ceiling_reason": "no breakage in swept range",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -3.0,
+      "behavior": 0.4,
+      "behavior_ci_low": 0.23333333333333334,
+      "behavior_ci_high": 0.5666666666666667,
+      "perplexity": 3.0641176303227744,
+      "repetition": 0.0014957264957264978,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset due to a phenomenon called scattering, where shorter wavelengths of light, such as blue and violet, are scattered by the Earth's atmosphere, allowing longer wavelengths like red and orange to dominate the view. As the sun sets, the light has to travel through more of the atmosphere to reach our eyes",
+        "When water freezes, it undergoes a physical change of state from liquid to solid. This process is known as crystallization. Here's a step-by-step explanation of what happens:\n\n1. **Nucleation**: The freezing process begins when water molecules start to come together and form a nucleus, which is a small cluster"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.4,
+      "behavior_ci_low": 0.23333333333333334,
+      "behavior_ci_high": 0.5666666666666667,
+      "perplexity": 3.0436322848002115,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset due to a phenomenon called scattering, where shorter wavelengths of light, such as blue and violet, are scattered by the Earth's atmosphere, allowing longer wavelengths like red and orange to dominate the view. As the sun sets, the light has to travel through more of the atmosphere to reach our eyes",
+        "When water freezes, it undergoes a phase transition from a liquid to a solid state. This process is known as crystallization. Here's a step-by-step explanation of what happens:\n\n1. **Cooling**: As the temperature of the water decreases, the molecules start to slow down and move less. This is because"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.5,
+      "behavior_ci_low": 0.3333333333333333,
+      "behavior_ci_high": 0.6666666666666666,
+      "perplexity": 2.9106021483739215,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset due to a phenomenon called scattering, where shorter wavelengths of light, such as blue and violet, are scattered by the Earth's atmosphere, allowing longer wavelengths like red and orange to dominate the view. As the sun sets, the light has to travel through more of the Earth's atmosphere to reach",
+        "When water freezes, it undergoes a phase transition from a liquid to a solid state. This process is known as crystallization. Here's a step-by-step explanation of what happens:\n\n1. **Cooling**: As the temperature of the water decreases, the molecules start to slow down and move less. This is because"
+      ],
+      "scores": [
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.4666666666666667,
+      "behavior_ci_low": 0.3,
+      "behavior_ci_high": 0.6333333333333333,
+      "perplexity": 2.9611717542012532,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset due to a phenomenon called scattering, where shorter wavelengths of light, such as blue and violet, are scattered more than longer wavelengths, like red and orange, by the Earth's atmosphere, resulting in the warm hues we see during sunset. As the sun sets, the light has to travel through",
+        "When water freezes, it undergoes a phase transition from a liquid to a solid state. This process is known as crystallization. Here's a step-by-step explanation of what happens:\n\n1. **Cooling**: As water is cooled, its molecules slow down and move less. This reduction in kinetic energy causes the molecules"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.5333333333333333,
+      "behavior_ci_low": 0.36666666666666664,
+      "behavior_ci_high": 0.7,
+      "perplexity": 2.9763473431269327,
+      "repetition": 0.0006060606060606063,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset due to a phenomenon called scattering, where shorter wavelengths of light, such as blue and violet, are scattered more than longer wavelengths, like red and orange, by the Earth's atmosphere, resulting in the warm hues we see during sunset. As the sun sets, the light it emits has to",
+        "When water freezes, it undergoes a phase transition from a liquid to a solid state. This process involves a series of physical changes that occur at the molecular level. Here's a step-by-step explanation:\n\n1. **Cooling**: When water is cooled, its molecules slow down and move less. As the temperature decreases"
+      ],
+      "scores": [
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.5666666666666667,
+      "behavior_ci_low": 0.4,
+      "behavior_ci_high": 0.7333333333333333,
+      "perplexity": 2.936243255933126,
+      "repetition": 0.0006060606060606063,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset due to a phenomenon called scattering, where shorter wavelengths of light, such as blue and violet, are scattered more than longer wavelengths, like red and orange, by the Earth's atmosphere, resulting in the warm hues we see during sunset. As the sun sets, the light it emits has to",
+        "When water freezes, it undergoes a phase transition from a liquid to a solid state. This process involves a series of physical changes that occur at the molecular level. Here's a step-by-step explanation:\n\n1. **Cooling**: When water is cooled, its molecules slow down and move less. As the temperature decreases"
+      ],
+      "scores": [
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.4666666666666667,
+      "behavior_ci_low": 0.3,
+      "behavior_ci_high": 0.6333333333333333,
+      "perplexity": 2.949489386876424,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset due to a phenomenon called scattering, where shorter wavelengths of light, such as blue and violet, are scattered more than longer wavelengths, like red and orange, by the Earth's atmosphere, resulting in the red and orange hues that dominate the sky. As the sun sets, the light it emits",
+        "When water freezes, it undergoes a phase transition from a liquid to a solid state. This process involves a series of physical changes that occur at the molecular level. Here's a step-by-step explanation:\n\n1. **Cooling**: When water is cooled, its molecules slow down and move less. As the temperature decreases"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.4666666666666667,
+      "behavior_ci_low": 0.3,
+      "behavior_ci_high": 0.6333333333333333,
+      "perplexity": 2.94816157023112,
+      "repetition": 0.0018181818181818188,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset due to a phenomenon called scattering, where shorter wavelengths of light, such as blue and violet, are scattered more than longer wavelengths, such as red and orange, by the Earth's atmosphere, resulting in the red and orange hues that dominate the sky. As the sun sets, the light it",
+        "When water freezes, it undergoes a phase transition from a liquid to a solid state. This process involves a change in the arrangement of its molecules. Here's a step-by-step explanation:\n\n1. **Cooling**: As water is cooled, its molecules slow down and move closer together. This is because the kinetic energy"
+      ],
+      "scores": [
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.5,
+      "behavior_ci_low": 0.3333333333333333,
+      "behavior_ci_high": 0.6666666666666666,
+      "perplexity": 2.8699121952056883,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset due to a phenomenon called scattering, where shorter wavelengths of light, such as blue and violet, are scattered more than longer wavelengths, such as red and orange, by the Earth's atmosphere, resulting in the red and orange hues that dominate the sky. As the sun sets, the light it",
+        "When water freezes, it undergoes a phase transition from a liquid to a solid state. This process involves a change in the arrangement of its molecules. Here's a step-by-step explanation:\n\n1. **Molecular arrangement:** In a liquid, water molecules are close together but are free to move past one another. As"
+      ],
+      "scores": [
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "topic_science",
+    "model": "meta-llama/Llama-3.1-8B-Instruct",
+    "layer": 15,
+    "output_overlap": 0.41926857829093933,
+    "participation_ratio": 33.248055990602225,
+    "low_variance_pc_alignment": 0.021915851160883904,
+    "residual_norm": 0.16848890483379364,
+    "n_directions": 5.0,
+    "direction_coherence": 0.48303786913553876,
+    "probe_dom_cosine": 0.777042967099734,
+    "tuning_shift": null
+  },
+  "gauntlet": null,
+  "judge_model": null,
+  "judge_is_self": null
+}

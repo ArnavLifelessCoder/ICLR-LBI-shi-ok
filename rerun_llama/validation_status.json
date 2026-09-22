@@ -1,0 +1,8 @@
+{
+  "meta-llama/Llama-3.1-8B-Instruct": {
+    "load": "ok",
+    "B_rejudge": "ok",
+    "E_prompts30": "ok",
+    "A_groundtruth": "ok"
+  }
+}

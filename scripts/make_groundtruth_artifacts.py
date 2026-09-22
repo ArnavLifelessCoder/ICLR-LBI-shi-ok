@@ -39,6 +39,30 @@ B = chr(92)
 TRIVIAL = 0.005
 
 
+
+def _mean_ci_arrays(score_lists, n_boot=2000, seed=0):
+    """Bootstrap a CI for the mean of each coefficient's generations.
+
+    `behavior_ci` in files written before `DosePoint.scores` existed is a
+    percentile of the individual scores, not an interval for their mean. It is
+    about three times too wide on a judge readout and degenerate on a sparse
+    one, and this script divides its width by 3.92 to recover a standard error.
+    Where the run saved its scores, recompute; where it did not, the file
+    cannot be corrected offline.
+    """
+    rng = np.random.default_rng(seed)
+    los, his = [], []
+    for scores in score_lists:
+        arr = np.asarray(scores, float)
+        if arr.size < 2 or np.ptp(arr) == 0:
+            los.append(float(arr.mean())); his.append(float(arr.mean()))
+            continue
+        means = rng.choice(arr, size=(n_boot, arr.size), replace=True).mean(axis=1)
+        los.append(float(np.percentile(means, 2.5)))
+        his.append(float(np.percentile(means, 97.5)))
+    return np.array(los), np.array(his)
+
+
 def _area(xs, ys):
     if len(xs) < 2:
         return float("nan")
@@ -59,8 +83,11 @@ def summarise(path, n_boot=4000, seed=0):
     obs = np.array([c["behavior"] for c in usable], float)
     b0 = st["baseline_behavior"]
     ys = obs - b0
-    lo = np.array([c["behavior_ci_low"] for c in usable], float)
-    hi = np.array([c["behavior_ci_high"] for c in usable], float)
+    if all(c.get("scores") for c in usable):
+        lo, hi = _mean_ci_arrays([c["scores"] for c in usable])
+    else:
+        lo = np.array([c["behavior_ci_low"] for c in usable], float)
+        hi = np.array([c["behavior_ci_high"] for c in usable], float)
 
     signed = _area(xs, np.sign(xs) * ys)
     absolute = _area(xs, np.abs(ys))

@@ -2,31 +2,34 @@
   "meta-llama/Llama-3.1-8B-Instruct": {
     "load": "ok",
     "C_ksweep": "ok",
-    "B_rejudge": "ok",
-    "A_groundtruth": "ok (10 concepts, single layer, 6c9987f)",
-    "D_published": "ran, not valid: greedy decoding and RMS units"
+    "B_rejudge": "ok (corrected intervals)",
+    "A_groundtruth": "ok (corrected intervals, per-generation scores)",
+    "D_published": "ran, not valid: greedy decoding and RMS units",
+    "E_prompts30": "ok (corrected intervals)"
   },
   "Qwen/Qwen2.5-7B-Instruct": {
     "load": "ok",
     "C_ksweep": "ok",
-    "B_rejudge": "ok",
-    "A_groundtruth": "ok (10 concepts, single layer, 6c9987f)",
+    "B_rejudge": "MISSING: session had one GPU, judge load failed",
+    "A_groundtruth": "ok (corrected intervals, per-generation scores)",
     "D_published": "ran on the corrected direction; positive control FAILED, but the control itself was mis-specified (see runlog)",
-    "E_prompts30": "ran twice; neither run is interpretable until behavior_ci is recomputed as an interval for the mean",
+    "E_prompts30": "MISSING: session had one GPU, judge load failed",
     "F_variants": "ran; no spelling passes the control, but ' wedding' and ' weddings' show a 9x-12x dose response at coeff +4"
   },
   "mistralai/Mistral-7B-Instruct-v0.3": {
     "load": "ok",
     "C_ksweep": "ok",
-    "B_rejudge": "ok",
-    "A_groundtruth": "ok (10 concepts, single layer, 6c9987f)",
-    "D_published": "ran, not valid: greedy decoding and RMS units"
+    "B_rejudge": "ok (corrected intervals)",
+    "A_groundtruth": "ok (corrected intervals, per-generation scores)",
+    "D_published": "ran, not valid: greedy decoding and RMS units",
+    "E_prompts30": "ok (corrected intervals)"
   },
   "google/gemma-2-9b-it": {
     "load": "ok",
     "C_ksweep": "ok",
-    "B_rejudge": "ok",
-    "A_groundtruth": "ok (10 concepts, single layer, ad429c1)",
-    "D_published": "ran on the fixed harness, positive control FAILED: direction is a pooled last-token vector, not position-wise"
+    "B_rejudge": "ok (corrected intervals)",
+    "A_groundtruth": "ok (corrected intervals, per-generation scores)",
+    "D_published": "ran on the fixed harness, positive control FAILED: direction is a pooled last-token vector, not position-wise",
+    "E_prompts30": "ok (corrected intervals)"
   }
 }

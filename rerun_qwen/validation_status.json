@@ -1,0 +1,8 @@
+{
+  "Qwen/Qwen2.5-7B-Instruct": {
+    "load": "ok",
+    "B_rejudge": "failed: no judge could be loaded",
+    "E_prompts30": "failed: no judge could be loaded",
+    "A_groundtruth": "ok"
+  }
+}

@@ -1551,3 +1551,76 @@ comparison, and B against E is now a readable prompt-count comparison because
 the intervals can actually shrink.
 
 301 tests pass.
+
+## 2026-09-22: the re-run, and what the corrected intervals show
+
+Four sessions on `48f4c69`, all four printing `per-generation scores: recorded`.
+Stage A completed on all four models. Stage B and E completed on Mistral, Llama
+and Gemma and failed on Qwen: that session was given one GPU rather than two, so
+the judge, which loads on device 1 to avoid competing with the target model for
+memory, raised "invalid device ordinal". Retrying the smaller fallback judge on
+the same absent device could not help. Stage A needs no judge and finished
+normally. `_judge_scorer` now falls back to device 0 when device 1 does not
+exist, so a single-GPU session costs memory pressure rather than two stages.
+
+### The correction is large
+
+Ground truth, same data and the same forty points, intervals recomputed from
+per-generation scores instead of a percentile of them:
+
+    resolved signs   6/40  ->  26/40
+
+Twenty of the forty points were being suppressed by an interval roughly three
+times too wide. Of the twenty-six that resolve, twenty-five are positive, which
+is the direction the concept was built to be steered in. `gt_common`,
+`gt_longwords` and `gt_lowercase` resolve on all four models. The one negative,
+`gt_question` on Llama at -0.024, is strongly monotone at -0.96 and so is a
+genuine reversal rather than noise.
+
+### The headline comparison, like for like
+
+Same thirty prompts, same interval method, same three models:
+
+    ground truth, rule readout     26/40 = 65%
+    judge scored, thirty prompts    4/12 = 33%
+    judge scored, six prompts       5/12 = 42%
+
+### The prompt-count comparison now works
+
+    mean CI width, six to thirty prompts:  0.1812 -> 0.1003, ratio 0.55
+    pure sampling over five times the prompts predicts 0.45
+
+The intervals shrink with n, close to the sampling prediction, which the
+percentile form could not do at all. That is what makes the comparison readable,
+and it is why the earlier reading of stage E was withdrawn.
+
+With the intervals behaving, the interesting part is the point estimates. Going
+from six prompts to thirty, the judge-scored signed areas collapse toward zero,
+median change in magnitude -0.028, and five of twelve signs flip. `refusal` on
+Gemma goes +0.139 to +0.015, `topic_science` on Mistral -0.201 to +0.043.
+Measured on more prompts the effects mostly are not there. The six-prompt
+numbers were not merely uncertain, they were largely noise that happened to look
+large.
+
+So the paper's claim is stronger than it was and differently shaped. It is not
+that the directional check rarely resolves. It is that it resolves 65% of the
+time on concepts with a rule readout, almost always in the intended direction
+and consistently across models, and 33% of the time on judge-scored concepts
+whose point estimates shrink and whose signs flip when the prompt sample is
+enlarged.
+
+### Consequences
+
+`make_groundtruth_artifacts.py` and `signed_uncertainty.py` had the same
+`/3.92` treatment of `behavior_ci` and now prefer per-generation scores too.
+Every figure and table derived from the old intervals is wrong and has to be
+regenerated. The paper's text carries the old counts throughout and needs
+rewriting around the numbers above.
+
+The previous results are kept under `results_*_legacy_ci` rather than deleted.
+They cannot be corrected offline, because those runs did not save scores, so
+they are evidence of what was reported and not an alternative analysis.
+
+Still outstanding: Qwen stage B and E, and the ActAdd contrast string.
+
+301 tests pass.

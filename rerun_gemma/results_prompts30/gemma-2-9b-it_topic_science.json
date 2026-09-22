@@ -1,0 +1,708 @@
+{
+  "probe": {
+    "concept": "topic_science",
+    "model": "google/gemma-2-9b-it",
+    "best_layer": 20,
+    "readability": 1.0,
+    "control_auroc": 0.4074074074074074,
+    "selectivity": 0.5925925925925926,
+    "auroc_ci_low": 1.0,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "computing",
+    "n_train": 48,
+    "n_test": 12,
+    "n_val": 12,
+    "control_flagged": false
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 0.9444444444444443,
+      "test_auroc": 0.8055555555555557,
+      "control_auroc": 0.5208333333333334
+    },
+    {
+      "layer": 1,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9166666666666666,
+      "control_auroc": 0.5162037037037036
+    },
+    {
+      "layer": 2,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.5046296296296294
+    },
+    {
+      "layer": 3,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.4953703703703704
+    },
+    {
+      "layer": 4,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5277777777777778
+    },
+    {
+      "layer": 5,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4953703703703703
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4976851851851852
+    },
+    {
+      "layer": 7,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.46296296296296297
+    },
+    {
+      "layer": 8,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.46527777777777785
+    },
+    {
+      "layer": 9,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.4722222222222223
+    },
+    {
+      "layer": 10,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.48148148148148145
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.46296296296296297
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.47453703703703703
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.5069444444444443
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.5069444444444444
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.47453703703703703
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.46990740740740744
+    },
+    {
+      "layer": 17,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.462962962962963
+    },
+    {
+      "layer": 18,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.41203703703703703
+    },
+    {
+      "layer": 19,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.40046296296296297
+    },
+    {
+      "layer": 20,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4074074074074074
+    },
+    {
+      "layer": 21,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.400462962962963
+    },
+    {
+      "layer": 22,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.40740740740740744
+    },
+    {
+      "layer": 23,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.41203703703703703
+    },
+    {
+      "layer": 24,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4305555555555556
+    },
+    {
+      "layer": 25,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.42129629629629634
+    },
+    {
+      "layer": 26,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4398148148148148
+    },
+    {
+      "layer": 27,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.45601851851851855
+    },
+    {
+      "layer": 28,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4675925925925926
+    },
+    {
+      "layer": 29,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.47222222222222215
+    },
+    {
+      "layer": 30,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.46064814814814814
+    },
+    {
+      "layer": 31,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.47453703703703703
+    },
+    {
+      "layer": 32,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.46527777777777785
+    },
+    {
+      "layer": 33,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4675925925925926
+    },
+    {
+      "layer": 34,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.48611111111111116
+    },
+    {
+      "layer": 35,
+      "val_auroc": 1.0,
+      "test_auroc": 0.9722222222222223,
+      "control_auroc": 0.4953703703703704
+    },
+    {
+      "layer": 36,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4976851851851852
+    },
+    {
+      "layer": 37,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4861111111111111
+    },
+    {
+      "layer": 38,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4791666666666667
+    },
+    {
+      "layer": 39,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4837962962962963
+    },
+    {
+      "layer": 40,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5069444444444445
+    },
+    {
+      "layer": 41,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5092592592592593
+    }
+  ],
+  "steering": {
+    "concept": "topic_science",
+    "model": "google/gemma-2-9b-it",
+    "variant": "add",
+    "layers": "23",
+    "direction_source": "diff_of_means",
+    "controllability": 0.07083333333333332,
+    "controllability_ci_low": 0.0534375,
+    "controllability_ci_high": 0.1819444444444444,
+    "baseline_behavior": 0.6333333333333333,
+    "max_usable_coeff": 3.0,
+    "ceiling_reason": "no breakage in swept range",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -3.0,
+      "behavior": 0.6,
+      "behavior_ci_low": 0.43333333333333335,
+      "behavior_ci_high": 0.7666666666666667,
+      "perplexity": 3.3388470888137816,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset because the sun's light has to travel through more of the Earth's atmosphere to reach our eyes.  This longer path scatters away the shorter blue wavelengths, leaving the longer red and orange hues to dominate the view.",
+        "When water freezes, a fascinating transformation takes place:\n\n**From Liquid to Solid:**\n\n* **Slowing Down:** As the temperature drops below 0\u00b0C (32\u00b0F), the water molecules, which were constantly moving and bumping into each other in a liquid state, begin to slow down.\n*"
+      ],
+      "scores": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.5,
+      "behavior_ci_low": 0.3333333333333333,
+      "behavior_ci_high": 0.6666666666666666,
+      "perplexity": 3.233236340681712,
+      "repetition": 0.0014814814814814799,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset because the sun's light has to travel through more of the Earth's atmosphere to reach our eyes.  \n\nThis longer path scatters away the shorter blue wavelengths, leaving the longer red and orange hues to dominate the sky.",
+        "When water freezes, a fascinating transformation takes place at a molecular level:\n\n**1. Slowing Down:** As the temperature drops below 0\u00b0C (32\u00b0F), the water molecules begin to slow down. They lose energy and move less vigorously.\n\n**2. Hydrogen Bonds:** Water molecules are attracted"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.5,
+      "behavior_ci_low": 0.3333333333333333,
+      "behavior_ci_high": 0.6666666666666666,
+      "perplexity": 3.118284503618876,
+      "repetition": 0.0014814814814814799,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset because the sun's light has to travel through more of the Earth's atmosphere to reach our eyes.  \n\nThis longer path scatters away the shorter blue wavelengths, leaving the longer red and orange wavelengths to create the vibrant hues we see.",
+        "Here's a description of what happens when water freezes:\n\n**The Molecular Dance:**\n\n* **Liquid Water:** In liquid water, molecules are constantly moving and bumping into each other. They're held together by weak hydrogen bonds, which are like tiny magnets that attract the slightly positive hydrogen end of one molecule to"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.6333333333333333,
+      "behavior_ci_low": 0.4666666666666667,
+      "behavior_ci_high": 0.8,
+      "perplexity": 3.034623654683431,
+      "repetition": 0.0014814814814814799,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset because sunlight has to travel through more of the Earth's atmosphere to reach our eyes.  \n\nThis longer path causes shorter wavelengths of light, like blue and green, to scatter away, leaving longer wavelengths like red and orange to dominate the sky.",
+        "Here's a description of what happens when water freezes:\n\n**The Molecular Dance:**\n\n* **Liquid Water:** In liquid water, molecules are constantly moving and bumping into each other. They're held together by weak bonds called hydrogen bonds, but these bonds are constantly breaking and reforming as the molecules jostle around"
+      ],
+      "scores": [
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.6333333333333333,
+      "behavior_ci_low": 0.4666666666666667,
+      "behavior_ci_high": 0.8,
+      "perplexity": 3.019249149163564,
+      "repetition": 0.0014814814814814799,
+      "broken": false,
+      "samples": [
+        "The sky changes color at sunset because sunlight has to travel through more of the Earth's atmosphere to reach our eyes.  \n\nThis longer path causes shorter wavelengths of light, like blue and green, to scatter away, leaving longer wavelengths like red and orange to dominate the sky.",
+        "Here's a description of what happens when water freezes:\n\n**The Molecular Dance:**\n\n* **Liquid Water:** In liquid water, molecules are constantly moving and bumping into each other. They're held together by weak bonds called hydrogen bonds, but these bonds are constantly breaking and reforming as the molecules jostle around"
+      ],
+      "scores": [
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.6333333333333333,
+      "behavior_ci_low": 0.4666666666666667,
+      "behavior_ci_high": 0.8,
+      "perplexity": 2.9718708276748655,
+      "repetition": 0.0014814814814814799,
+      "broken": false,
+      "samples": [
+        "The sky appears to change color at sunset because sunlight has to travel through more of the Earth's atmosphere to reach our eyes.  \n\nThis longer path causes shorter wavelengths of light, like blue and green, to scatter away, leaving longer wavelengths like red and orange to dominate the sky.",
+        "Here's a description of what happens when water freezes:\n\n**The Molecular Dance:**\n\n* **Liquid Water:** In liquid water, molecules are constantly moving and bumping into each other. They're held together by weak bonds called hydrogen bonds, but these bonds are constantly breaking and reforming as the molecules jostle around"
+      ],
+      "scores": [
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.5333333333333333,
+      "behavior_ci_low": 0.36666666666666664,
+      "behavior_ci_high": 0.7,
+      "perplexity": 2.9054343183835347,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The sky appears to change color at sunset because sunlight scatters as it passes through the Earth's atmosphere.  \n\nBlue light scatters more easily than other colors, so during the day the sky appears blue. At sunset, the sunlight travels through more atmosphere, scattering away most of the blue light, leaving behind longer",
+        "Here's a description of what happens when water freezes:\n\n**The Molecular Dance:**\n\n* **Liquid Water:** In liquid water, molecules are constantly moving and bumping into each other. They're held together by weak bonds called hydrogen bonds, but these bonds are constantly breaking and reforming as the molecules jostle around"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.6666666666666666,
+      "behavior_ci_low": 0.5,
+      "behavior_ci_high": 0.8333333333333334,
+      "perplexity": 2.9379192352294923,
+      "repetition": 0.0014814814814814799,
+      "broken": false,
+      "samples": [
+        "The sky appears to change color at sunset because sunlight scatters as it passes through the Earth's atmosphere.  \n\nBlue light scatters more easily than other colors, so during the day the sky appears blue. At sunset, the sunlight travels through more atmosphere, scattering away most of the blue light, leaving behind longer",
+        "Here's a description of what happens when water freezes:\n\n**The Molecular Dance:**\n\n* **Liquid Water:** In liquid water, molecules are constantly moving and vibrating, but they're relatively close together. They're held together by weak hydrogen bonds, which are constantly breaking and reforming.\n\n* **Cooling"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.7666666666666667,
+      "behavior_ci_low": 0.6,
+      "behavior_ci_high": 0.9,
+      "perplexity": 2.9065380811691286,
+      "repetition": 0.0014814814814814799,
+      "broken": false,
+      "samples": [
+        "The sky appears to change color at sunset because sunlight scatters as it passes through the Earth's atmosphere.  \n\nBlue light scatters more easily than other colors, so during the day the sky appears blue. At sunset, the longer path sunlight travels through the atmosphere causes most of the blue light to scatter away,",
+        "Here's a description of what happens when water freezes:\n\n**The Molecular Dance:**\n\n* **Liquid Water:** In liquid water, molecules are constantly moving and vibrating, but they're relatively close together. They're held together by weak bonds called hydrogen bonds, which are constantly breaking and reforming.\n\n*"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "topic_science",
+    "model": "google/gemma-2-9b-it",
+    "layer": 20,
+    "output_overlap": 0.5357885956764221,
+    "participation_ratio": 38.50010279929615,
+    "low_variance_pc_alignment": 0.021900178864598274,
+    "residual_norm": 4.556299686431885,
+    "n_directions": 5.0,
+    "direction_coherence": 0.47037511467933657,
+    "probe_dom_cosine": 0.7410839705280714,
+    "tuning_shift": null
+  },
+  "gauntlet": null,
+  "judge_model": null,
+  "judge_is_self": null
+}

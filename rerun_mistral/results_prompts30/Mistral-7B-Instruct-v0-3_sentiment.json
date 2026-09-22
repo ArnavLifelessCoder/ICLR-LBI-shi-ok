@@ -1,0 +1,648 @@
+{
+  "probe": {
+    "concept": "sentiment",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "best_layer": 15,
+    "readability": 1.0,
+    "control_auroc": 0.5735677083333334,
+    "selectivity": 0.42643229166666663,
+    "auroc_ci_low": 1.0,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "report",
+    "n_train": 128,
+    "n_test": 32,
+    "n_val": 32,
+    "control_flagged": false
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 1.0,
+      "test_auroc": 0.00390625,
+      "control_auroc": 0.4869791666666667
+    },
+    {
+      "layer": 1,
+      "val_auroc": 1.0,
+      "test_auroc": 0.1328125,
+      "control_auroc": 0.5856119791666666
+    },
+    {
+      "layer": 2,
+      "val_auroc": 1.0,
+      "test_auroc": 0.7421875,
+      "control_auroc": 0.4973958333333333
+    },
+    {
+      "layer": 3,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4462890625
+    },
+    {
+      "layer": 4,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4423828125
+    },
+    {
+      "layer": 5,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5305989583333334
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.556640625
+    },
+    {
+      "layer": 7,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4651692708333333
+    },
+    {
+      "layer": 8,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4534505208333333
+    },
+    {
+      "layer": 9,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5120442708333334
+    },
+    {
+      "layer": 10,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5289713541666666
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.462890625
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4482421875
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4599609375
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.501953125
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5735677083333334
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5240885416666666
+    },
+    {
+      "layer": 17,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5081380208333334
+    },
+    {
+      "layer": 18,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.50390625
+    },
+    {
+      "layer": 19,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.455078125
+    },
+    {
+      "layer": 20,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4593098958333333
+    },
+    {
+      "layer": 21,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4612630208333333
+    },
+    {
+      "layer": 22,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4641927083333333
+    },
+    {
+      "layer": 23,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4576822916666667
+    },
+    {
+      "layer": 24,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4586588541666667
+    },
+    {
+      "layer": 25,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4501953125
+    },
+    {
+      "layer": 26,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4654947916666667
+    },
+    {
+      "layer": 27,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4495442708333333
+    },
+    {
+      "layer": 28,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4488932291666667
+    },
+    {
+      "layer": 29,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.46484375
+    },
+    {
+      "layer": 30,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4524739583333333
+    },
+    {
+      "layer": 31,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4456380208333333
+    }
+  ],
+  "steering": {
+    "concept": "sentiment",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "variant": "add",
+    "layers": "9",
+    "direction_source": "diff_of_means",
+    "controllability": 0.23472222222222225,
+    "controllability_ci_low": 0.19166666666666665,
+    "controllability_ci_high": 0.29663194444444435,
+    "baseline_behavior": 0.43333333333333335,
+    "max_usable_coeff": 3.0,
+    "ceiling_reason": "no breakage in swept range",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -3.0,
+      "behavior": 0.03333333333333333,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.1,
+      "perplexity": 5.556110413869222,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The \"Tutankhamun: Treasures of the Pharaoh\" exhibit at the British Museum showcases over 150 artifacts from the tomb of the boy king Tutankhamun, offering a rare glimpse into the opulence and mystery of ancient Egyptian royalty. The artifacts, including",
+        "Using a food delivery service can be a convenient but sometimes frustrating experience, depending on various factors. Here's a general idea of what the process might look like:\n\n1. Hunger pangs strike, and you decide to order food: This could be due to a lack of time, energy, or"
+      ],
+      "scores": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.1,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.2,
+      "perplexity": 5.246201491355896,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The \"Tutankhamun's Treasures\" exhibit at the Egyptian Museum in Cairo showcases over 5,000 artifacts discovered in King Tutankhamun's tomb, offering a unique glimpse into the opulent lifestyle and religious beliefs of ancient Egypt during the New Kingdom era.",
+        "Using a food delivery service typically involves the following steps:\n\n1. Browse: Browse through the menus of various restaurants available on the food delivery service's app or website. Some services may offer a wider selection of restaurants than others, depending on your location.\n\n2. Order: Once you"
+      ],
+      "scores": [
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.26666666666666666,
+      "behavior_ci_low": 0.13333333333333333,
+      "behavior_ci_high": 0.43333333333333335,
+      "perplexity": 4.658642490704854,
+      "repetition": 0.0006289308176100628,
+      "broken": false,
+      "samples": [
+        "The \"Tutankhamun's Treasures\" exhibit at the Egyptian Museum in Cairo showcases over 5,000 artifacts discovered in Tutankhamun's tomb, offering a unique glimpse into the life, death, and burial practices of the young pharaoh and his era",
+        "Using a food delivery service typically involves the following steps:\n\n1. Browse the menu: You can browse the menus of various restaurants that are partnered with the delivery service through the app or website of the food delivery service. Some popular food delivery services include Uber Eats, DoorDash,"
+      ],
+      "scores": [
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.4,
+      "behavior_ci_low": 0.23333333333333334,
+      "behavior_ci_high": 0.5666666666666667,
+      "perplexity": 4.787813337643941,
+      "repetition": 0.0016260162601626031,
+      "broken": false,
+      "samples": [
+        "In the grand Egyptian Museum of Cairo, a captivating exhibit showcases the golden funerary mask of Tutankhamun, a young pharaoh, alongside a detailed replica of his tomb, offering a unique glimpse into the opulence and mystery of ancient Egyptian burial practices.",
+        "Using a food delivery service typically involves the following steps:\n\n1. **Account Creation**: First, you need to create an account on the food delivery service's app or website. This usually requires providing some personal information like your name, email address, and phone number. Some services may also ask for payment"
+      ],
+      "scores": [
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.43333333333333335,
+      "behavior_ci_low": 0.26666666666666666,
+      "behavior_ci_high": 0.6333333333333333,
+      "perplexity": 4.793111626307169,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "In the grand Egyptian Museum of Cairo, a captivating exhibit showcases the golden funerary mask of Tutankhamun, a young pharaoh, alongside a detailed replica of his tomb, offering a mesmerizing glimpse into the opulence and mystery of ancient Egyptian burial practices.",
+        "Using a food delivery service typically involves the following steps:\n\n1. **Account Creation**: First, you need to create an account on the food delivery service's app or website. This usually requires providing some personal information like your name, email address, and phone number. Some services may also ask for payment"
+      ],
+      "scores": [
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.5666666666666667,
+      "behavior_ci_low": 0.4,
+      "behavior_ci_high": 0.7333333333333333,
+      "perplexity": 4.674277377128601,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "In the grand Egyptian Museum in Cairo, the \"Tutankhamun Treasures Exhibit\" showcases over 3,000 artifacts discovered in the tomb of the boy king Tutankhamun, offering a unique glimpse into the life, death, and burial practices of ancient Egypt during the",
+        "Using a food delivery service is a convenient way to order and receive meals from restaurants, directly to your home or office. Here's a step-by-step description of the process:\n\n1. Choose a food delivery service: There are several popular food delivery services available, such as Uber Eats,"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.6333333333333333,
+      "behavior_ci_low": 0.4666666666666667,
+      "behavior_ci_high": 0.8,
+      "perplexity": 4.709206819534302,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "In the heart of the Ancient Egypt Museum, a captivating exhibit showcases an extensive collection of artifacts, including the magnificent golden death mask of King Tutankhamun, meticulously preserved mummies, intricate hieroglyphics, and colossal statues, offering a mesmerizing",
+        "Using a food delivery service is a convenient and modern way to enjoy meals from various restaurants, right at your doorstep. Here's a step-by-step description of the process:\n\n1. **Account Creation**: First, you need to create an account on the food delivery service's app or"
+      ],
+      "scores": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.7666666666666667,
+      "behavior_ci_low": 0.6,
+      "behavior_ci_high": 0.9,
+      "perplexity": 4.951370922724406,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "In the heart of the ancient Egypt museum, a captivating exhibit showcases an extensive collection of artifacts, including the majestic Golden Mask of Tutankhamun, meticulously preserved mummies, intricate hieroglyphics, and colossal statues, offering a mesmerizing journey through",
+        "Using a food delivery service is a convenient and enjoyable experience that offers a wide range of benefits. Here's a step-by-step description:\n\n1. **Selection**: First, you browse through the menu of various restaurants available on the food delivery service app or website. You can choose from a vast"
+      ],
+      "scores": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.8,
+      "behavior_ci_low": 0.6666666666666666,
+      "behavior_ci_high": 0.9333333333333333,
+      "perplexity": 5.304368583361308,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The ancient Egypt museum exhibit showcases an extensive collection of artifacts, including the iconic golden death mask of King Tutankhamun, meticulously preserved mummies, intricate hieroglyphics, colossal statues, and exquisite jewelry, offering a captivating journey through the rich",
+        "Using a food delivery service is a convenient and enjoyable experience that offers numerous benefits. Here's a step-by-step description:\n\n1. **Selection**: First, you browse through a wide variety of restaurants and menus, often from the comfort of your own home or office. You can choose from"
+      ],
+      "scores": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "sentiment",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "layer": 15,
+    "output_overlap": 0.40318214893341064,
+    "participation_ratio": 18.560961723027006,
+    "low_variance_pc_alignment": 0.002661935519427061,
+    "residual_norm": 0.08849215507507324,
+    "n_directions": 5.0,
+    "direction_coherence": 0.3919062544902166,
+    "probe_dom_cosine": 0.7805669526953665,
+    "tuning_shift": null
+  },
+  "gauntlet": null,
+  "judge_model": null,
+  "judge_is_self": null
+}

@@ -1,0 +1,8 @@
+{
+  "mistralai/Mistral-7B-Instruct-v0.3": {
+    "load": "ok",
+    "B_rejudge": "ok",
+    "E_prompts30": "ok",
+    "A_groundtruth": "ok"
+  }
+}

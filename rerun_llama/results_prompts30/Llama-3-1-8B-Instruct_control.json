@@ -1,0 +1,10 @@
+{
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "control_concept": "sentiment",
+  "controllability": 0.09722222222222221,
+  "floor": 0.1,
+  "passed": false,
+  "judge_model": null,
+  "judge_is_self": null,
+  "note": "P9: if this did not pass, the model's controllability numbers are withheld, not explained away."
+}

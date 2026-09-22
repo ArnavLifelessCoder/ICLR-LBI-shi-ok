@@ -130,6 +130,24 @@ def _judge_scorer(concepts, device_index: int = 1, preferred: str | None = None)
     from lbi.driver import load_judge
 
     candidates = ([preferred] if preferred else [JUDGE_MODEL, JUDGE_FALLBACK])
+
+    # The judge goes on the second GPU so it does not compete with the target
+    # model for memory. A session given one GPU instead of two raises
+    # "invalid device ordinal", which is not a memory problem and retrying the
+    # smaller judge on the same absent device cannot help: a Qwen session lost
+    # both judge-scored stages that way while stage A, which needs no judge,
+    # finished normally. Fall back to the device that does exist.
+    try:
+        import torch
+        n_gpu = torch.cuda.device_count()
+    except Exception:
+        n_gpu = 0
+    if device_index >= n_gpu:
+        print("  only %d GPU(s) visible, so the judge shares device 0 with the "
+              "target model instead of taking device %d"
+              % (n_gpu, device_index))
+        device_index = 0
+
     for name in candidates:
         try:
             lm = load_judge(name, device_index=device_index)

@@ -1,0 +1,472 @@
+{
+  "probe": {
+    "concept": "gt_punctuation",
+    "model": "google/gemma-2-9b-it",
+    "best_layer": 20,
+    "readability": 1.0,
+    "control_auroc": 0.5341666666666666,
+    "selectivity": 0.46583333333333343,
+    "auroc_ci_low": 1.0,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "pD",
+    "n_train": 80,
+    "n_test": 20,
+    "n_val": 20,
+    "control_flagged": false
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.46416666666666667
+    },
+    {
+      "layer": 1,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5533333333333333
+    },
+    {
+      "layer": 2,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4000000000000001
+    },
+    {
+      "layer": 3,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5191666666666667
+    },
+    {
+      "layer": 4,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5658333333333333
+    },
+    {
+      "layer": 5,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5241666666666668
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5966666666666666
+    },
+    {
+      "layer": 7,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.43583333333333335
+    },
+    {
+      "layer": 8,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.30749999999999994
+    },
+    {
+      "layer": 9,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5125000000000001
+    },
+    {
+      "layer": 10,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5016666666666668
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4741666666666666
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4483333333333333
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5491666666666667
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6900000000000001
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5408333333333334
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5816666666666667
+    },
+    {
+      "layer": 17,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5108333333333334
+    },
+    {
+      "layer": 18,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5308333333333334
+    },
+    {
+      "layer": 19,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5925000000000001
+    },
+    {
+      "layer": 20,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5341666666666666
+    },
+    {
+      "layer": 21,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5499999999999999
+    },
+    {
+      "layer": 22,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5308333333333334
+    },
+    {
+      "layer": 23,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.525
+    },
+    {
+      "layer": 24,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5258333333333333
+    },
+    {
+      "layer": 25,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5175
+    },
+    {
+      "layer": 26,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4908333333333333
+    },
+    {
+      "layer": 27,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5016666666666666
+    },
+    {
+      "layer": 28,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4791666666666667
+    },
+    {
+      "layer": 29,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.45083333333333336
+    },
+    {
+      "layer": 30,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4416666666666667
+    },
+    {
+      "layer": 31,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4191666666666667
+    },
+    {
+      "layer": 32,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4041666666666666
+    },
+    {
+      "layer": 33,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4091666666666667
+    },
+    {
+      "layer": 34,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.37333333333333335
+    },
+    {
+      "layer": 35,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.30916666666666665
+    },
+    {
+      "layer": 36,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3133333333333333
+    },
+    {
+      "layer": 37,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3641666666666667
+    },
+    {
+      "layer": 38,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.38166666666666665
+    },
+    {
+      "layer": 39,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.34249999999999997
+    },
+    {
+      "layer": 40,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3416666666666666
+    },
+    {
+      "layer": 41,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3258333333333333
+    }
+  ],
+  "steering": {
+    "concept": "gt_punctuation",
+    "model": "google/gemma-2-9b-it",
+    "variant": "add",
+    "layers": "20",
+    "direction_source": "diff_of_means",
+    "controllability": 0.00262475575720447,
+    "controllability_ci_low": 0.002326082778049097,
+    "controllability_ci_high": 0.015431793620010922,
+    "baseline_behavior": 0.08824729690047778,
+    "max_usable_coeff": 5.0,
+    "ceiling_reason": "no breakage in swept range",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -5.0,
+      "behavior": 0.09503580004559459,
+      "behavior_ci_low": 0.037986656200941916,
+      "behavior_ci_high": 0.1720238095238095,
+      "perplexity": 7.512306674321493,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The air buzzed with quiet excitement as members of the photography club gathered in the dimly lit room., the scent of coffee and old paper hanging in the air.. The usual suspects were there: Sarah, with her vintage film camera always slung around her neck, Liam, fiddling with his drone, and Maya",
+        "Please give me some context! I need more information to tell you what someone should know about a photography club meeting.. For example,:\n\n* **What photography club??** Is it a school club, a community club, or something else??\n* **What kind of meeting is it??**"
+      ]
+    },
+    {
+      "coeff": -4.0,
+      "behavior": 0.08861728292327806,
+      "behavior_ci_low": 0.025751311012505045,
+      "behavior_ci_high": 0.19751918859649123,
+      "perplexity": 5.327074575424194,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The air buzzed with quiet excitement as members of the photography club gathered in the dimly lit room, the scent of old paper and developing chemicals hanging in the air. A projector hummed, casting a warm glow on the faces of the assembled students. Sarah, the club president, stood at the front, a worn leather",
+        "Please give me some context! I need more information to tell you what someone should know about a photography club meeting.. For example, tell me:\n\n* **What photography club??** Is it a school club, a community club, or something else?\n* **What kind of meeting is it??"
+      ]
+    },
+    {
+      "coeff": -3.0,
+      "behavior": 0.09127226946452426,
+      "behavior_ci_low": 0.028507807981492193,
+      "behavior_ci_high": 0.1983831105541632,
+      "perplexity": 4.551382923126221,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The air buzzed with quiet excitement as members of the photography club gathered in the dimly lit room, the scent of old paper and developing chemicals hanging in the air.  A projector hummed, casting a warm glow on the faces of the assembled students.  \n\nSarah, the club president, stood at the front,",
+        "Please give me some context! I need more information to tell you what someone should know about a photography club meeting. \n\nFor example, tell me:\n\n* **What photography club?** Is it a school club, a community club, or something else?\n* **What kind of meeting is it?**"
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.0877663431400975,
+      "behavior_ci_low": 0.03218045994993742,
+      "behavior_ci_high": 0.1812887969258054,
+      "perplexity": 4.492654307683309,
+      "repetition": 0.0014814814814814799,
+      "broken": false,
+      "samples": [
+        "The air buzzed with quiet excitement as members of the Photography Club gathered in the dimly lit room, the scent of coffee and old paper hanging in the air.  A projector hummed, casting a warm glow on the faces of the assembled students.  \n\nSarah, the club president, stood at the front, a",
+        "Please give me some context! I need more information to tell you what someone should know about a photography club meeting. \n\nFor example, tell me:\n\n* **What photography club?** Is it a local club, a school club, or an online group?\n* **What kind of meeting is it?"
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.08750350349569519,
+      "behavior_ci_low": 0.03156771074571561,
+      "behavior_ci_high": 0.17618882590291352,
+      "perplexity": 4.033964737256368,
+      "repetition": 0.0007407407407407418,
+      "broken": false,
+      "samples": [
+        "The air buzzed with quiet excitement as members of the Photography Club gathered in the dimly lit room, the scent of coffee and anticipation hanging heavy.  \n\nA projector hummed to life, casting a warm glow on the faces of the assembled photographers.  Sarah, the club president, stood at the front, her smile",
+        "Please give me some more information about the photography club meeting! I need context to tell you what someone should know. For example, tell me:\n\n* **When and where is the meeting?** (Date, time, location)\n* **What is the topic of the meeting?** (Guest speaker, workshop"
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.08764530332188489,
+      "behavior_ci_low": 0.03147924296177615,
+      "behavior_ci_high": 0.17532077865053414,
+      "perplexity": 3.9548747460047404,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The air buzzed with quiet excitement as members of the Photography Club gathered in the dimly lit room, the scent of coffee and anticipation hanging heavy.  \n\nA projector flickered to life, casting a warm glow on the faces of the assembled photographers.  Sarah, the club president, stood at the front, her smile",
+        "Please give me some more information about the photography club meeting! To tell you what someone should know, I need details like:\n\n* **When and where is the meeting?** (Date, time, location)\n* **What is the topic of the meeting?** (Guest speaker, workshop, portfolio review,"
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.08824729690047778,
+      "behavior_ci_low": 0.03136444951543836,
+      "behavior_ci_high": 0.1768211314040504,
+      "perplexity": 3.9898755073547365,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The air buzzed with excitement as members of the Photography Club gathered in the dimly lit room, the scent of coffee and anticipation hanging heavy.  \n\nA projector flickered to life, casting a warm glow on the faces of the assembled photographers.  Sarah, the club president, stood at the front, her smile radiating",
+        "Please give me some more information about the photography club meeting! To tell you what someone should know, I need details like:\n\n* **When and where is the meeting?** (Date, time, location)\n* **What is the topic of the meeting?** (Guest speaker, workshop, portfolio review,"
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.08520705539529387,
+      "behavior_ci_low": 0.03136444951543836,
+      "behavior_ci_high": 0.17172033028778028,
+      "perplexity": 4.082733901341756,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The air buzzed with excitement as members of the Photography Club gathered in the dimly lit room, the scent of coffee and anticipation hanging heavy.  \n\nA projector flickered to life, casting a warm glow on the faces of the assembled photographers.  Sarah, the club president, stood at the front, her smile radiating",
+        "Please give me some more information about the photography club meeting! To tell you what someone should know, I need details like:\n\n* **When and where is the meeting?** (Date, time, location)\n* **What is the topic of the meeting?** (Guest speaker, workshop, portfolio review,"
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.08431743299283695,
+      "behavior_ci_low": 0.021347451760837587,
+      "behavior_ci_high": 0.17172033028778028,
+      "perplexity": 4.126714555422465,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The air buzzed with excitement as members of the Photography Club gathered in the dimly lit basement room. The scent of old paper and developing chemicals hung heavy, a comforting aroma for those who knew its meaning.  \n\nA projector flickered to life, casting a grainy image of a sun-drenched meadow onto the",
+        "Please give me some more information about the photography club meeting! To tell you what someone should know, I need details like:\n\n* **When and where is the meeting?** (Date, time, location)\n* **What is the topic of the meeting?** (Guest speaker, workshop, portfolio review,"
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.08458235321938265,
+      "behavior_ci_low": 0.02718978937728938,
+      "behavior_ci_high": 0.1731274518748289,
+      "perplexity": 4.0993378559748335,
+      "repetition": 0.0030303030303030277,
+      "broken": false,
+      "samples": [
+        "The air buzzed with excitement as members of the Photography Club gathered in the dimly lit basement room, the scent of old paper and developing chemicals hanging heavy in the air.  \n\nA projector flickered to life, casting a grainy image of a sun-drenched landscape onto the wall.  \n\n\"Alright,",
+        "Please give me some more information about the photography club meeting! To tell you what someone should know, I need details like:\n\n* **When and where is the meeting?** (Date, time, location)\n* **What is the topic of the meeting?** (Guest speaker, workshop, portfolio review,"
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.08608747479482241,
+      "behavior_ci_low": 0.020989212992889465,
+      "behavior_ci_high": 0.1731274518748289,
+      "perplexity": 4.104537280400594,
+      "repetition": 0.0015151515151515138,
+      "broken": false,
+      "samples": [
+        "The air buzzed with excitement as members of the Photography Club gathered in the dimly lit basement room, the scent of old paper and developing chemicals hanging heavy in the air.  \n\nA mismatched collection of cameras, lenses, and tripods lay scattered across tables, each a testament to the diverse styles and interests of the",
+        "Please give me some more information about the photography club meeting! To tell you what someone should know, I need details like:\n\n* **When and where is the meeting?** (Date, time, location)\n* **What is the topic of the meeting?** (Is it a general meeting, a workshop"
+      ]
+    },
+    {
+      "coeff": 4.0,
+      "behavior": 0.08365543879280166,
+      "behavior_ci_low": 0.020989212992889465,
+      "behavior_ci_high": 0.17145077720207247,
+      "perplexity": 4.400503770510356,
+      "repetition": 0.0015151515151515138,
+      "broken": false,
+      "samples": [
+        "The air buzzed with excitement as members of the Photography Club gathered in the dimly lit basement room, the scent of freshly brewed coffee mingling with the aroma of anticipation.  \n\nA kaleidoscope of camera bags, lenses, and tripods lay scattered around the room, each a testament to the diverse passions of the club members",
+        "Please give me some more information about the photography club meeting! To tell you what someone should know, I need details like:\n\n* **When and where is the meeting?** (Date, time, location)\n* **What is the topic of the meeting?** (Is it a general meeting, a workshop"
+      ]
+    },
+    {
+      "coeff": 5.0,
+      "behavior": 0.08177847843722441,
+      "behavior_ci_low": 0.021489155202970716,
+      "behavior_ci_high": 0.18205734555128572,
+      "perplexity": 4.228141021728516,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The air buzzed with excitement as members of the Photography Club gathered in the dimly lit basement room, their faces illuminated by the warm glow of laptop screens and the occasional flash of a camera. \n\nThe meeting began with a lively discussion about last week's photo challenge, showcasing a diverse range of images capturing everything from",
+        "Please give me some more information about the photography club meeting so I can tell you what someone should know. \n\nFor example, tell me:\n\n* **When and where is the meeting?**\n* **What is the topic of the meeting?** \n* **Is there a special guest speaker or workshop"
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "gt_punctuation",
+    "model": "google/gemma-2-9b-it",
+    "layer": 20,
+    "output_overlap": 0.5741909146308899,
+    "participation_ratio": 11.630451372256607,
+    "low_variance_pc_alignment": 0.0007249001646414399,
+    "residual_norm": 4.691361427307129,
+    "n_directions": 5.0,
+    "direction_coherence": 0.2356510117650032,
+    "probe_dom_cosine": 0.6563244332114206,
+    "tuning_shift": null
+  },
+  "gauntlet": null,
+  "judge_model": null,
+  "judge_is_self": null
+}

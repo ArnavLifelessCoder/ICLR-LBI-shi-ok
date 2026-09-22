@@ -1,0 +1,360 @@
+{
+  "probe": {
+    "concept": "sentiment",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "best_layer": 15,
+    "readability": 1.0,
+    "control_auroc": 0.5735677083333334,
+    "selectivity": 0.42643229166666663,
+    "auroc_ci_low": 1.0,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "report",
+    "n_train": 128,
+    "n_test": 32,
+    "n_val": 32,
+    "control_flagged": false
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 1.0,
+      "test_auroc": 0.00390625,
+      "control_auroc": 0.4869791666666667
+    },
+    {
+      "layer": 1,
+      "val_auroc": 1.0,
+      "test_auroc": 0.1328125,
+      "control_auroc": 0.5856119791666666
+    },
+    {
+      "layer": 2,
+      "val_auroc": 1.0,
+      "test_auroc": 0.7421875,
+      "control_auroc": 0.4973958333333333
+    },
+    {
+      "layer": 3,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4462890625
+    },
+    {
+      "layer": 4,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4423828125
+    },
+    {
+      "layer": 5,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5305989583333334
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.556640625
+    },
+    {
+      "layer": 7,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4651692708333333
+    },
+    {
+      "layer": 8,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4534505208333333
+    },
+    {
+      "layer": 9,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5120442708333334
+    },
+    {
+      "layer": 10,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5289713541666666
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.462890625
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4482421875
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4599609375
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.501953125
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5735677083333334
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5240885416666666
+    },
+    {
+      "layer": 17,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5081380208333334
+    },
+    {
+      "layer": 18,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.50390625
+    },
+    {
+      "layer": 19,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.455078125
+    },
+    {
+      "layer": 20,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4593098958333333
+    },
+    {
+      "layer": 21,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4612630208333333
+    },
+    {
+      "layer": 22,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4641927083333333
+    },
+    {
+      "layer": 23,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4576822916666667
+    },
+    {
+      "layer": 24,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4586588541666667
+    },
+    {
+      "layer": 25,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4501953125
+    },
+    {
+      "layer": 26,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4654947916666667
+    },
+    {
+      "layer": 27,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4495442708333333
+    },
+    {
+      "layer": 28,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4488932291666667
+    },
+    {
+      "layer": 29,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.46484375
+    },
+    {
+      "layer": 30,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4524739583333333
+    },
+    {
+      "layer": 31,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4456380208333333
+    }
+  ],
+  "steering": {
+    "concept": "sentiment",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "variant": "add",
+    "layers": "13",
+    "direction_source": "diff_of_means",
+    "controllability": 0.2569444444444445,
+    "controllability_ci_low": 0.19444444444444445,
+    "controllability_ci_high": 0.42361111111111116,
+    "baseline_behavior": 0.5,
+    "max_usable_coeff": 3.0,
+    "ceiling_reason": "no breakage in swept range",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -3.0,
+      "behavior": 0.16666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.875,
+      "perplexity": 5.276439785957336,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The ancient Egypt museum exhibit showcases a collection of mummies, sarcophagi, and artifacts from tombs, providing a chilling glimpse into the mysterious and macabre practices of the ancient Egyptian civilization, offering little insight into their culture or religious beliefs. The exhibit is a disappointing and unen",
+        "Using a food delivery service typically involves the following steps:\n\n1. Browse the menu: You can access the food delivery service's app or website to view their menu offerings. Some popular food delivery services include Grubhub, Uber Eats, DoorDash, and Postmates."
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 5.257060607274373,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The ancient Egypt museum exhibit showcases a collection of mummies, sarcophagi, and artifacts from tombs, providing a chilling glimpse into the burial practices and beliefs of the ancient Egyptian civilization, while also displaying intricately crafted artifacts such as jewelry, pottery, and hier",
+        "Using a food delivery service typically involves the following steps:\n\n1. Browse the menu: You can access the food delivery service's website or mobile app to view the available food options from various restaurants. Some services may offer a wide range of restaurants, while others may be limited to specific types of cuisine"
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.5,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 5.0810221036275225,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The ancient Egypt museum exhibit showcases a vast collection of artifacts, including mummies, sarcophagi, and intricate hieroglyphic-adorned art, providing a captivating journey through the rich history, culture, and mystique of Egypt's pharaonic era.",
+        "Using a food delivery service typically involves the following steps:\n\n1. **Account Creation**: First, you need to create an account on the food delivery service's app or website. This usually requires providing personal information such as your name, email address, and phone number. Some services may also require a credit"
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.3333333333333333,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 4.878488540649414,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "The \"Tutankhamun's Treasures\" exhibit at the Egyptian Museum in Cairo showcases over 5,000 artifacts discovered in the tomb of Pharaoh Tutankhamun, offering a unique glimpse into the life, death, and burial practices of ancient Egypt's",
+        "Using a food delivery service typically involves the following steps:\n\n1. **Account Creation**: First, you need to create an account on the food delivery service's app or website. This usually requires providing some personal information like your name, email address, and phone number. Some services may also ask for payment"
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.5,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 4.93761412302653,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "In the grand Egyptian Museum of Cairo, a captivating exhibit showcases the golden funerary mask of Tutankhamun, a young pharaoh, alongside a detailed replica of his tomb, offering a mesmerizing glimpse into the opulence and mystery of ancient Egyptian burial practices.",
+        "Using a food delivery service typically involves the following steps:\n\n1. **Account Creation**: First, you need to create an account on the food delivery service's app or website. This usually requires providing some personal information like your name, email address, and phone number. Some services may also ask for payment"
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.8333333333333334,
+      "behavior_ci_low": 0.125,
+      "behavior_ci_high": 1.0,
+      "perplexity": 5.42040201028188,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "In the grand Egyptian Museum in Cairo, a captivating exhibit showcases the golden funerary mask of Tutankhamun, a young pharaoh, alongside a detailed replica of his tomb, offering a mesmerizing glimpse into the opulence and mystery of ancient Egyptian burial practices.",
+        "Using a food delivery service is a convenient way to order food from restaurants that may not offer delivery themselves, or to save time and effort in picking up food. Here's a general step-by-step process:\n\n1. Download and install the food delivery service app on your smartphone. Popular options include"
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.6666666666666666,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 1.0,
+      "perplexity": 5.4854574998219805,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "In the grand Egyptian Museum in Cairo, a captivating exhibit showcases the golden funerary mask of Tutankhamun, a pharaoh who ruled during the New Kingdom's 18th Dynasty, alongside a collection of intricately crafted artifacts from his tomb, offering",
+        "Using a food delivery service is a convenient way to order food from restaurants that may not offer delivery themselves, or to save time and effort in picking up food. Here's a general step-by-step process:\n\n1. Choose a food delivery service: There are several popular food delivery services available, such"
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.8333333333333334,
+      "behavior_ci_low": 0.125,
+      "behavior_ci_high": 1.0,
+      "perplexity": 5.777613242467244,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "In the grand Egyptian Museum, a captivating exhibit showcases the golden funerary mask of Tutankhamun, a breathtaking artifact that illuminates the young pharaoh's regal lineage and the richness of ancient Egyptian culture. The exhibit also features a vast collection of art",
+        "Using a food delivery service is a convenient and enjoyable experience that offers a wide range of benefits. Here's a step-by-step description of the process:\n\n1. **Browse the Menu:** First, you'll want to explore the extensive menus offered by various restaurants, cafes,"
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.8333333333333334,
+      "behavior_ci_low": 0.125,
+      "behavior_ci_high": 1.0,
+      "perplexity": 5.078178763389587,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "In the grand Egyptian Museum, a captivating exhibit showcases an extensive collection of artifacts, including the golden death mask of Tutankhamun, illuminating the rich history, culture, and mystique of ancient Egypt, inviting visitors to immerse themselves in the timeless allure of this ancient civilization",
+        "Using a food delivery service is a convenient and enjoyable experience that offers a wide range of benefits. Here's a step-by-step description of the process:\n\n1. Browse the menu: Browse through the extensive menus of various restaurants available on the food delivery service platform. You can filter options"
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "sentiment",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "layer": 15,
+    "output_overlap": 0.40318214893341064,
+    "participation_ratio": 18.560961723027006,
+    "low_variance_pc_alignment": 0.002661935519427061,
+    "residual_norm": 0.08849215507507324,
+    "n_directions": 5.0,
+    "direction_coherence": 0.3919062544902166,
+    "probe_dom_cosine": 0.7805669526953665,
+    "tuning_shift": null
+  },
+  "gauntlet": null,
+  "judge_model": "Qwen/Qwen2.5-3B-Instruct",
+  "judge_is_self": false
+}

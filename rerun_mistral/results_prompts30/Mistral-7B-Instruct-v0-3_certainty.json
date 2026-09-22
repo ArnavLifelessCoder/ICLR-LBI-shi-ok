@@ -1,0 +1,648 @@
+{
+  "probe": {
+    "concept": "certainty",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "best_layer": 15,
+    "readability": 1.0,
+    "control_auroc": 0.5804036458333334,
+    "selectivity": 0.41959635416666663,
+    "auroc_ci_low": 1.0,
+    "auroc_ci_high": 1.0,
+    "held_out_families": "estimate",
+    "n_train": 128,
+    "n_test": 32,
+    "n_val": 32,
+    "control_flagged": false
+  },
+  "probe_layers": [
+    {
+      "layer": 0,
+      "val_auroc": 0.453125,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4703776041666667
+    },
+    {
+      "layer": 1,
+      "val_auroc": 0.07421875,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4505208333333333
+    },
+    {
+      "layer": 2,
+      "val_auroc": 0.40234375,
+      "test_auroc": 1.0,
+      "control_auroc": 0.451171875
+    },
+    {
+      "layer": 3,
+      "val_auroc": 0.72265625,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4944661458333333
+    },
+    {
+      "layer": 4,
+      "val_auroc": 0.953125,
+      "test_auroc": 1.0,
+      "control_auroc": 0.3352864583333333
+    },
+    {
+      "layer": 5,
+      "val_auroc": 0.98828125,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5006510416666666
+    },
+    {
+      "layer": 6,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5579427083333334
+    },
+    {
+      "layer": 7,
+      "val_auroc": 0.99609375,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5364583333333334
+    },
+    {
+      "layer": 8,
+      "val_auroc": 0.99609375,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4993489583333333
+    },
+    {
+      "layer": 9,
+      "val_auroc": 0.98046875,
+      "test_auroc": 1.0,
+      "control_auroc": 0.4954427083333333
+    },
+    {
+      "layer": 10,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5045572916666666
+    },
+    {
+      "layer": 11,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5950520833333334
+    },
+    {
+      "layer": 12,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6061197916666666
+    },
+    {
+      "layer": 13,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5885416666666666
+    },
+    {
+      "layer": 14,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.560546875
+    },
+    {
+      "layer": 15,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5804036458333334
+    },
+    {
+      "layer": 16,
+      "val_auroc": 1.0,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6080729166666666
+    },
+    {
+      "layer": 17,
+      "val_auroc": 0.98828125,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6201171875
+    },
+    {
+      "layer": 18,
+      "val_auroc": 0.9921875,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6324869791666666
+    },
+    {
+      "layer": 19,
+      "val_auroc": 0.97265625,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6328125
+    },
+    {
+      "layer": 20,
+      "val_auroc": 0.96875,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6149088541666666
+    },
+    {
+      "layer": 21,
+      "val_auroc": 0.9609375,
+      "test_auroc": 1.0,
+      "control_auroc": 0.6090494791666666
+    },
+    {
+      "layer": 22,
+      "val_auroc": 0.96484375,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5914713541666666
+    },
+    {
+      "layer": 23,
+      "val_auroc": 0.90234375,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5804036458333334
+    },
+    {
+      "layer": 24,
+      "val_auroc": 0.86328125,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5904947916666666
+    },
+    {
+      "layer": 25,
+      "val_auroc": 0.8515625,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5888671875
+    },
+    {
+      "layer": 26,
+      "val_auroc": 0.84765625,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5764973958333334
+    },
+    {
+      "layer": 27,
+      "val_auroc": 0.8359375,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5716145833333334
+    },
+    {
+      "layer": 28,
+      "val_auroc": 0.84375,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5693359375
+    },
+    {
+      "layer": 29,
+      "val_auroc": 0.83984375,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5787760416666666
+    },
+    {
+      "layer": 30,
+      "val_auroc": 0.875,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5862630208333334
+    },
+    {
+      "layer": 31,
+      "val_auroc": 0.890625,
+      "test_auroc": 1.0,
+      "control_auroc": 0.5732421875
+    }
+  ],
+  "steering": {
+    "concept": "certainty",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "variant": "add",
+    "layers": "13",
+    "direction_source": "diff_of_means",
+    "controllability": 0.0888888888888889,
+    "controllability_ci_low": 0.06111111111111111,
+    "controllability_ci_high": 0.15555555555555556,
+    "baseline_behavior": 0.16666666666666666,
+    "max_usable_coeff": 3.0,
+    "ceiling_reason": "no breakage in swept range",
+    "judge_degenerate": false
+  },
+  "curve": [
+    {
+      "coeff": -3.0,
+      "behavior": 0.06666666666666667,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.16666666666666666,
+      "perplexity": 4.123403684298197,
+      "repetition": 0.0008130081300813016,
+      "broken": false,
+      "samples": [
+        "I'm unable to provide an accurate assessment as I don't have specific details about the project, its current status, or the resources available. However, I can suggest some factors that might affect the timeline:\n\n1. Scope of work: If the project is complex and requires a lot of resources",
+        "I'm unable to provide a definitive answer as I don't have specific details about the investment in question. However, I can offer some general advice. It's important to consider factors such as the potential return on investment, the risk involved, the investment's alignment with your financial goals, and your"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": -2.0,
+      "behavior": 0.06666666666666667,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.16666666666666666,
+      "perplexity": 4.0686025778452555,
+      "repetition": 0.0008130081300813016,
+      "broken": false,
+      "samples": [
+        "To provide an accurate assessment, I would need more specific details about the project, such as its scope, current progress, resources available, and potential challenges. However, I can suggest some factors to consider:\n\n1. Scope: Is the project well-defined, and does it have clear objectives? A well",
+        "I'm unable to provide a definitive answer as I don't have the specific details about the investment in question. However, I can suggest some factors to consider when evaluating an investment:\n\n1. Risk: Is the potential return commensurate with the level of risk involved?\n2"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": -1.0,
+      "behavior": 0.0,
+      "behavior_ci_low": 0.0,
+      "behavior_ci_high": 0.0,
+      "perplexity": 4.0775877952575685,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "To provide an accurate assessment, I would need more specific details about the project, such as its scope, current progress, resources available, and any potential challenges or risks. However, I can suggest some factors to consider when evaluating whether a project will finish on time:\n\n1. Clear project plan: A well",
+        "I'm unable to provide a definitive answer as I don't have the specific details about the investment in question. However, I can suggest some factors to consider when evaluating an investment:\n\n1. Risk: Is the potential return commensurate with the level of risk involved?\n2"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": -0.5,
+      "behavior": 0.16666666666666666,
+      "behavior_ci_low": 0.03333333333333333,
+      "behavior_ci_high": 0.3,
+      "perplexity": 4.0081245104471845,
+      "repetition": 0.0006410256410256424,
+      "broken": false,
+      "samples": [
+        "To provide an accurate assessment, I would need more specific details about the project, such as its scope, current progress, resources available, and any potential challenges or risks. However, I can suggest some factors to consider when evaluating whether a project will finish on time:\n\n1. Clear project goals and objectives:",
+        "I'm unable to provide a definitive answer as I don't have the specific details about the investment in question. However, I can suggest some factors to consider when evaluating any investment:\n\n1. Risk: Is the potential return commensurate with the level of risk involved?\n2"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": 0.0,
+      "behavior": 0.16666666666666666,
+      "behavior_ci_low": 0.03333333333333333,
+      "behavior_ci_high": 0.3,
+      "perplexity": 4.252025763193767,
+      "repetition": 0.002016912165848339,
+      "broken": false,
+      "samples": [
+        "To provide an accurate assessment, I would need more specific details about the project, such as its scope, timeline, resources, and any potential challenges or risks. However, I can suggest some factors to consider when evaluating whether a project will finish on time:\n\n1. Clear project goals and objectives: Ensure",
+        "I'm unable to provide a definitive answer as I don't have the specific details about the investment in question. However, I can suggest some factors to consider when evaluating any investment:\n\n1. Risk: Understand the level of risk associated with the investment. Higher potential returns often come"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": 0.5,
+      "behavior": 0.2,
+      "behavior_ci_low": 0.06666666666666667,
+      "behavior_ci_high": 0.3333333333333333,
+      "perplexity": 4.473774313926697,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "To provide an accurate assessment, I would need more specific details about the project, such as its scope, timeline, resources, and any potential challenges or risks. However, based on general project management principles, here are some factors to consider:\n\n1. Scope: Is the project well-defined, and",
+        "I am a machine and do not have the ability to make investment decisions. I can provide information and suggestions, but I cannot make investment decisions for you. It is always a good idea to do thorough research and consult with a financial advisor before making any investment decisions."
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": 1.0,
+      "behavior": 0.26666666666666666,
+      "behavior_ci_low": 0.13333333333333333,
+      "behavior_ci_high": 0.43333333333333335,
+      "perplexity": 4.253518493970235,
+      "repetition": 0.0,
+      "broken": false,
+      "samples": [
+        "To provide an accurate assessment, I would need more specific details about the project, such as its scope, timeline, resources, and any potential challenges or risks. However, based on general project management principles, here are some factors to consider:\n\n1. Clear objectives: The project should have well-defined goals",
+        "I am a machine and do not have the ability to make investment decisions. I can provide information and suggestions, but I cannot make investment decisions for you. It is always a good idea to do thorough research and consult with a financial advisor before making any investment decisions."
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": 2.0,
+      "behavior": 0.26666666666666666,
+      "behavior_ci_low": 0.13333333333333333,
+      "behavior_ci_high": 0.43333333333333335,
+      "perplexity": 4.865851179758708,
+      "repetition": 0.0006410256410256424,
+      "broken": false,
+      "samples": [
+        "To provide an accurate assessment, I would need more specific details about the project, such as its scope, timeline, resources, and any potential challenges or risks. However, based on the information provided, I can't make a definitive statement about the project's completion.\n\nIf you'd like",
+        "To provide a helpful response, I'll need more specific details about the investment in question. Factors to consider include the type of investment (stocks, bonds, real estate, etc.), the company or asset involved, the current market conditions, and the investor's risk tolerance and financial goals. Without"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "coeff": 3.0,
+      "behavior": 0.3,
+      "behavior_ci_low": 0.13333333333333333,
+      "behavior_ci_high": 0.4666666666666667,
+      "perplexity": 5.093534843126933,
+      "repetition": 0.0006410256410256424,
+      "broken": false,
+      "samples": [
+        "Based on the information provided, it is not possible for me to accurately assess whether the project will finish on time. I would need specific details about the project, such as its scope, timeline, resources, and any potential challenges or obstacles that may arise. Additionally, I would need to monitor the project's",
+        "To provide an accurate answer, I would need more specific details about the investment in question, such as the type of investment, the potential return, the level of risk involved, and the current market conditions. However, without this information, I cannot make a definitive statement about the investment's potential success. It'"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "geometry": {
+    "concept": "certainty",
+    "model": "mistralai/Mistral-7B-Instruct-v0.3",
+    "layer": 15,
+    "output_overlap": 0.37168869376182556,
+    "participation_ratio": 24.844359061160823,
+    "low_variance_pc_alignment": 0.007140497677028179,
+    "residual_norm": 0.08418526500463486,
+    "n_directions": 6.0,
+    "direction_coherence": 0.21085972835620245,
+    "probe_dom_cosine": 0.7794010837060144,
+    "tuning_shift": null
+  },
+  "gauntlet": null,
+  "judge_model": null,
+  "judge_is_self": null
+}

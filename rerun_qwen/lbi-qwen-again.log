@@ -1,0 +1,135 @@
+6.9s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.9s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.9s 3 0.00s - to python to disable frozen modules.
+6.9s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+7.5s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.5s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.5s 7 0.00s - to python to disable frozen modules.
+7.5s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+9.4s 9 [33m48f4c69[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m re-run notebooks for A, B and E with corrected intervals
+13.1s 10 [?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/12.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━[0m [32m7.3/12.3 MB[0m [31m220.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m257.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m257.2 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.3/12.3 MB[0m [31m100.0 MB/s[0m eta [36m0:00:00[0m
+13.1s 11 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/394.3 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m394.3/394.3 kB[0m [31m25.7 MB/s[0m eta [36m0:00:00[0m
+13.5s 12 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/43.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m5.2/43.1 MB[0m [31m160.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m9.9/43.1 MB[0m [31m143.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m17.2/43.1 MB[0m [31m183.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━[0m [32m25.8/43.1 MB[0m [31m230.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━[0m [32m29.4/43.1 MB[0m [31m171.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━[0m [32m35.9/43.1 MB[0m [31m145.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m206.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m206.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m206.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m206.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m206.0 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m43.1/43.1 MB[0m [31m46.4 MB/s[0m eta [36m0:00:00[0m
+13.5s 13 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/516.0 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m516.0/516.0 kB[0m [31m29.6 MB/s[0m eta [36m0:00:00[0m
+13.6s 14 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/3.4 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m3.4/3.4 MB[0m [31m254.6 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.4/3.4 MB[0m [31m92.5 MB/s[0m eta [36m0:00:00[0m
+29.2s 15 [?25hHF login OK.
+32.5s 16 commit        : 48f4c69 re-run notebooks for A, B and E with corrected intervals
+32.5s 17 stage A grid  : 13 points, [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+32.5s 18 stage B grid  : 9 points (default, for comparability with the 1.5B judge)
+32.5s 19 judge         : Qwen/Qwen2.5-3B-Instruct (fallback Qwen/Qwen2.5-1.5B-Instruct)
+32.5s 20 stage order   : C, D, B, E, F, A (cheapest first)
+32.5s 21 per-generation scores: recorded
+32.5s 22 preflight OK
+32.5s 23 stages        : B_rejudge, E_prompts30, A_groundtruth
+32.5s 24 
+32.5s 25 ======================================================================
+32.5s 26 Qwen/Qwen2.5-7B-Instruct
+32.5s 27 ======================================================================
+54.0s 28 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+54.0s 29 
+54.0s 30 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+156.2s 31 
+156.2s 32 --- B: re-judge with a larger judge ---
+180.5s 33 judge Qwen/Qwen2.5-3B-Instruct failed to load (AcceleratorError: CUDA error: invalid device ordinal
+180.5s 34 GPU device may be out of range, do you have enough GPUs?
+180.5s 35 CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+180.5s 36 For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+180.5s 37 Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+180.5s 38 )
+195.9s 39 judge Qwen/Qwen2.5-1.5B-Instruct failed to load (AcceleratorError: CUDA error: invalid device ordinal
+195.9s 40 GPU device may be out of range, do you have enough GPUs?
+195.9s 41 CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+195.9s 42 For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+195.9s 43 Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+195.9s 44 )
+195.9s 45 
+195.9s 46 B_rejudge FAILED (RuntimeError: no judge could be loaded)
+195.9s 47 
+195.9s 48 --- E: judge-scored concepts at 30 eval prompts ---
+195.9s 49 prompts per concept: {'sentiment': 30, 'refusal': 30, 'topic_science': 30, 'certainty': 30}
+196.2s 50 Traceback (most recent call last):
+196.2s 51 File "/kaggle/working/lbi-repo/notebooks/run_kaggle_validation.py", line 825, in run_all
+196.2s 52 fn(lm)
+196.2s 53 File "/kaggle/working/lbi-repo/notebooks/run_kaggle_validation.py", line 367, in stage_b_rejudge
+196.2s 54 scorer, judge_name, judge_lm = _judge_scorer(every)
+196.2s 55 ^^^^^^^^^^^^^^^^^^^^
+196.2s 56 File "/kaggle/working/lbi-repo/notebooks/run_kaggle_validation.py", line 145, in _judge_scorer
+196.2s 57 raise RuntimeError("no judge could be loaded")
+196.2s 58 RuntimeError: no judge could be loaded
+196.2s 59 
+196.2s 60 Traceback (most recent call last):
+196.2s 61 File "/kaggle/working/lbi-repo/notebooks/run_kaggle_validation.py", line 825, in run_all
+196.2s 62 fn(lm)
+196.2s 63 File "/kaggle/working/lbi-repo/notebooks/run_kaggle_validation.py", line 367, in stage_b_rejudge
+196.2s 64 scorer, judge_name, judge_lm = _judge_scorer(every)
+196.2s 65 ^^^^^^^^^^^^^^^^^^^^
+196.2s 66 File "/kaggle/working/lbi-repo/notebooks/run_kaggle_validation.py", line 145, in _judge_scorer
+196.2s 67 raise RuntimeError("no judge could be loaded")
+196.2s 68 RuntimeError: no judge could be loaded
+216.4s 69 judge Qwen/Qwen2.5-3B-Instruct failed to load (AcceleratorError: CUDA error: invalid device ordinal
+216.4s 70 GPU device may be out of range, do you have enough GPUs?
+216.4s 71 CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+216.4s 72 For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+216.4s 73 Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+216.4s 74 )
+219.0s 75 judge Qwen/Qwen2.5-1.5B-Instruct failed to load (AcceleratorError: CUDA error: invalid device ordinal
+219.0s 76 GPU device may be out of range, do you have enough GPUs?
+219.0s 77 CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+219.0s 78 For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+219.0s 79 Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+219.0s 80 )
+219.0s 81 
+219.0s 82 E_prompts30 FAILED (RuntimeError: no judge could be loaded)
+219.0s 83 
+219.0s 84 --- A: ground truth (no judge) ---
+219.0s 85 10 concepts, single layer, grid [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+219.0s 86 approx 3900 generations
+219.1s 87 Traceback (most recent call last):
+219.1s 88 File "/kaggle/working/lbi-repo/notebooks/run_kaggle_validation.py", line 825, in run_all
+219.1s 89 fn(lm)
+219.1s 90 File "/kaggle/working/lbi-repo/notebooks/run_kaggle_validation.py", line 472, in stage_e_prompts30
+219.1s 91 scorer, judge_name, judge_lm = _judge_scorer(every)
+219.1s 92 ^^^^^^^^^^^^^^^^^^^^
+219.1s 93 File "/kaggle/working/lbi-repo/notebooks/run_kaggle_validation.py", line 145, in _judge_scorer
+219.1s 94 raise RuntimeError("no judge could be loaded")
+219.1s 95 RuntimeError: no judge could be loaded
+219.1s 96 
+219.1s 97 Traceback (most recent call last):
+219.1s 98 File "/kaggle/working/lbi-repo/notebooks/run_kaggle_validation.py", line 825, in run_all
+219.1s 99 fn(lm)
+219.1s 100 File "/kaggle/working/lbi-repo/notebooks/run_kaggle_validation.py", line 472, in stage_e_prompts30
+219.1s 101 scorer, judge_name, judge_lm = _judge_scorer(every)
+219.1s 102 ^^^^^^^^^^^^^^^^^^^^
+219.1s 103 File "/kaggle/working/lbi-repo/notebooks/run_kaggle_validation.py", line 145, in _judge_scorer
+219.1s 104 raise RuntimeError("no judge could be loaded")
+219.1s 105 RuntimeError: no judge could be loaded
+7434.9s 106 NOTE [P9]: 'sentiment' was not in this run, so no control record was written for Qwen/Qwen2.5-7B-Instruct. Its points will not be withheld at aggregate time -- run the control before reporting.
+7434.9s 107 gt_length      read 1.00  ctrl 0.015
+7434.9s 108 gt_uppercase   read 1.00  ctrl 0.003
+7434.9s 109 gt_digits      read 1.00  ctrl 0.001
+7434.9s 110 gt_french      read 1.00  ctrl 0.000
+7434.9s 111 gt_lowercase   read 1.00  ctrl 0.003
+7434.9s 112 gt_common      read 1.00  ctrl 0.040
+7434.9s 113 gt_longwords   read 1.00  ctrl 0.015
+7434.9s 114 gt_firstperson read 1.00  ctrl 0.007
+7434.9s 115 gt_question    read 1.00  ctrl 0.067
+7434.9s 116 gt_punctuation read 1.00  ctrl 0.003
+7435.0s 117 
+7435.0s 118 ======================================================================
+7435.0s 119 {
+7435.0s 120 "Qwen/Qwen2.5-7B-Instruct": {
+7435.0s 121 "load": "ok",
+7435.0s 122 "B_rejudge": "failed: no judge could be loaded",
+7435.0s 123 "E_prompts30": "failed: no judge could be loaded",
+7435.0s 124 "A_groundtruth": "ok"
+7435.0s 125 }
+7435.0s 126 }
+7435.4s 127 -rw-r--r-- 1 root root 61746 Sep 20 18:18 rerun_qwen.zip
+7441.8s 128 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+7441.8s 129 cells[i][c] = re.sub('\\\\\|', '|', cell)
+7442.1s 130 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+7442.1s 131 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+7443.5s 132 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+7443.9s 133 [NbConvertApp] Writing 365842 bytes to __notebook__.ipynb
+7446.2s 134 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+7447.3s 135 [NbConvertApp] Writing 568603 bytes to __results__.html
