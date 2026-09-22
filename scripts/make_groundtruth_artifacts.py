@@ -108,6 +108,10 @@ def summarise(path, n_boot=4000, seed=0):
         neg=_area(xs[neg], -ys[neg]) if neg.sum() >= 2 else float("nan"),
         baseline=b0, n_grid=len(r.get("curve", [])), n_usable=len(usable),
         share=abs(signed) / absolute if absolute > 0 else float("nan"),
+        # Whether this file's interval could be recomputed from per-generation
+        # scores, or came from the superseded percentile form. Mixing the two
+        # in a resolution count is not a like-for-like comparison.
+        has_scores=all(c.get("scores") for c in usable),
     )
 
 
@@ -155,8 +159,14 @@ def figure(gt, judged, out):
             tick.set_fontweight("bold")
     ax1.set_xlabel("directional controllability (signed area)")
     n_res = sum(r["resolved"] for r in gt)
-    ax1.set_title("(a) known direction, no judge: %d of %d resolve,\nall in the "
-                  "intended direction" % (n_res, len(gt)), fontsize=10)
+    n_pos = sum(1 for r in gt if r["resolved"] and r["signed"] > 0)
+    # Computed, never asserted. This title read "all in the intended
+    # direction" while one of the twenty-six resolved the other way, which
+    # is a claim a figure should not be able to make on its own.
+    tail = ("all in the intended direction" if n_pos == n_res
+            else "%d of them in the intended direction" % n_pos)
+    ax1.set_title("(a) known direction, no judge: %d of %d resolve,\n%s"
+                  % (n_res, len(gt), tail), fontsize=10)
     ax1.grid(axis="x", alpha=0.25, ls=":")
 
     a = [r["share"] for r in gt if r["absolute"] > TRIVIAL]
@@ -295,7 +305,21 @@ def main():
     ret = [r["share"] for r in judged
            if r["absolute"] > TRIVIAL and r["model"] != "Gemma-2-9b"]
     ret_res = [r for r in judged if r["model"] != "Gemma-2-9b"]
+    # The judge-scored sample is the original main study, which predates
+    # `DosePoint.scores`, so its `behavior_ci` is a percentile of the
+    # individual scores rather than an interval for their mean. Directional
+    # share is a ratio of point estimates and is unaffected. A resolution
+    # count is not, because resolution is decided by an interval, and the
+    # uncorrected interval is about three times too wide. Quoting the
+    # corrected ground-truth count against it would make the gap look far
+    # larger than it is.
+    judged_corrected = bool(judged) and all(r.get("has_scores") for r in judged)
     print("\n--- C2: the divergence is the judge's ---")
+    if not judged_corrected:
+        print("  NOTE: the judge-scored sample has UNCORRECTED intervals.")
+        print("        Directional share is a ratio of point estimates and")
+        print("        is comparable. The resolution counts below are not:")
+        print("        do not quote them against the ground-truth count.")
     print("  directional share, rule            : median %.3f (n=%d)" % (np.median(a), len(a)))
     print("  directional share, judge, retained : median %.3f (n=%d)" % (np.median(ret), len(ret)))
     print("  directional share, judge, all four : median %.3f (n=%d)" % (np.median(b_), len(b_)))

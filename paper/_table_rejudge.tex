@@ -1,0 +1,34 @@
+\begin{table}[htbp]
+  \caption{The same concepts and models scored by two judges, a 1.5B and a
+  3B, on identical sweeps. Magnitudes are not reproducible: the ratio runs from
+  $0.5 \times$ to $26.8 \times$.
+  Signs mostly are, but not entirely: 3 of 16 flip.
+  \texttt{topic\_science} is the danger zone's only confirmed occupant
+  under the smaller judge and clears the $0.05$ threshold on every model under
+  the larger one.}
+  \label{tab:rejudge}
+  \centering
+  \footnotesize
+  \begin{tabular}{llcccc}
+    \toprule
+    Concept & Model & Abs (1.5B) & Abs (3B) & Ratio & Sign \\
+    \midrule
+    \texttt{certainty} & Qwen2.5-7B & $0.123$ & $0.153$ & $1.2\times$ & kept \\
+    \texttt{certainty} & Mistral-7B & $0.113$ & $0.056$ & $0.5\times$ & \textbf{flip} \\
+    \texttt{certainty} & Llama-3.1-8B & $0.049$ & $0.118$ & $2.4\times$ & kept \\
+    \texttt{certainty} & Gemma-2-9b & $0.054$ & $0.153$ & $2.8\times$ & kept \\
+    \texttt{refusal} & Qwen2.5-7B & $0.047$ & $0.208$ & $4.4\times$ & \textbf{flip} \\
+    \texttt{refusal} & Mistral-7B & $0.038$ & $0.056$ & $1.5\times$ & \textbf{flip} \\
+    \texttt{refusal} & Llama-3.1-8B & $0.033$ & $0.097$ & $2.9\times$ & kept \\
+    \texttt{refusal} & Gemma-2-9b & $0.038$ & $0.139$ & $3.7\times$ & kept \\
+    \texttt{sentiment} & Qwen2.5-7B & $0.215$ & $0.345$ & $1.6\times$ & kept \\
+    \texttt{sentiment} & Mistral-7B & $0.163$ & $0.257$ & $1.6\times$ & kept \\
+    \texttt{sentiment} & Llama-3.1-8B & $0.101$ & $0.083$ & $0.8\times$ & kept \\
+    \texttt{sentiment} & Gemma-2-9b & $0.110$ & $0.167$ & $1.5\times$ & kept \\
+    \texttt{topic\_science} & Qwen2.5-7B & $0.019$ & $0.278$ & $14.6\times$ & kept \\
+    \texttt{topic\_science} & Mistral-7B & $0.024$ & $0.201$ & $8.3\times$ & kept \\
+    \texttt{topic\_science} & Llama-3.1-8B & $0.011$ & $0.118$ & $11.0\times$ & kept \\
+    \texttt{topic\_science} & Gemma-2-9b & $0.007$ & $0.181$ & $26.8\times$ & kept \\
+    \bottomrule
+  \end{tabular}
+\end{table}

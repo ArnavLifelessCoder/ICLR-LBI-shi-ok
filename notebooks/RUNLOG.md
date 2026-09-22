@@ -1709,3 +1709,58 @@ re-run: stage C. Open: the ActAdd contrast string, which needs the paper rather
 than a GPU, and then the figures, tables and text.
 
 301 tests pass.
+
+## 2026-09-22: figures and tables regenerated, and what could not be
+
+### Regenerated and valid
+
+`fig9_groundtruth.png` and `_table_groundtruth.tex` now carry the corrected
+ground-truth intervals: 26 of 40 resolve, 25 of them positive.
+
+The figure's own title had to be fixed. It read "all in the intended direction"
+as a hardcoded string while one of the twenty-six resolves the other way. It is
+now computed from the plotted data, like the other titles that had to be fixed
+for the same reason.
+
+`fig6_ceiling_control.png`, `fig7_loco.png`, `fig8_directional.png`,
+`_table_ceiling.tex`, `_table_loco.tex` and `_table_directional.tex` are
+unchanged on regeneration, which is correct: they come from the main study,
+which has not been re-run, and none of them depends on `behavior_ci`. Their
+signed areas are point estimates and stay valid.
+
+`gap_map.json` rebuilt: 40 points to 30 withheld, Spearman 0.122
+CI [-0.279, 0.582], one danger-zone occupant confirmed immovable. Unaffected,
+because danger-zone membership is decided on `controllability_ci`, which comes
+from `bootstrap_curve_ci` and was always an interval for the mean.
+
+### What cannot be regenerated, and why it matters
+
+The paper's judge-scored sample is the original main study: ten concepts on
+four models, in `nb-6 results/` and `results nb7/`. Those runs predate
+`DosePoint.scores`, so their `behavior_ci` is the superseded percentile form
+and cannot be corrected offline.
+
+That splits the artifacts in two:
+
+  - Directional share is a ratio of point estimates. Unaffected, comparable,
+    and quotable: 1.000 for the rule readout against 0.387 for the judge on
+    the retained sample and 0.438 across all four models.
+  - A resolution count is decided by an interval. The ground-truth count is
+    now corrected and the judge-scored count is not, so quoting 26/40 against
+    3/30 compares a corrected number with an uncorrected one and would make
+    the gap look far larger than it is.
+
+Both scripts now say so rather than printing the numbers bare.
+`make_groundtruth_artifacts` prints a note before the C2 block and
+`signed_uncertainty` warns that 30 of 30 of its points have uncorrected
+intervals. Each row carries `has_scores` so the check is per file rather than
+assumed.
+
+The comparison that is honest today uses the re-run judge concepts, four
+concepts on four models, all corrected: 26/40 = 65% for the rule readout
+against 7/16 = 44% for the judge at thirty prompts.
+
+Closing the gap properly means re-running the ten judge-scored concepts on
+four models. Nothing else is outstanding for the figures.
+
+301 tests pass.

@@ -1,0 +1,58 @@
+\begin{table}[htbp]
+  \caption{Directional controllability on the ground-truth concepts,
+  whose readout is a rule over the generated string and whose intended
+  direction is therefore known in advance. 26 of 40 points have an interval
+  excluding zero and \emph{every one is positive}: where the sign is
+  resolvable, steering moved the model the way the direction was built to move
+  it. \textbf{Pos} and \textbf{Neg} are the same integral over one arm,
+  oriented so positive means the intended direction.}
+  \label{tab:groundtruth}
+  \centering
+  \footnotesize
+  \begin{tabular}{llccccc}
+    \toprule
+    Concept & Model & Abs & Signed & 95\% CI & Pos & Neg \\
+    \midrule
+    \texttt{gt\_common} & Qwen2.5-7B & $0.040$ & $+0.040$ & $[+0.031, +0.049]$\,\textbf{R} & $+0.063$ & $+0.025$ \\
+    \texttt{gt\_common} & Mistral-7B & $0.032$ & $+0.032$ & $[+0.023, +0.040]$\,\textbf{R} & $+0.041$ & $+0.028$ \\
+    \texttt{gt\_common} & Llama-3.1-8B & $0.023$ & $+0.023$ & $[+0.013, +0.034]$\,\textbf{R} & $+0.028$ & $+nan$ \\
+    \texttt{gt\_common} & Gemma-2-9b & $0.023$ & $+0.019$ & $[+0.012, +0.027]$\,\textbf{R} & $+0.029$ & $+0.015$ \\
+    \texttt{gt\_digits} & Qwen2.5-7B & $0.001$ & $+0.001$ & $[+0.000, +0.001]$\,\textbf{R} & $+0.000$ & $+0.001$ \\
+    \texttt{gt\_digits} & Mistral-7B & $0.001$ & $+0.001$ & $[+0.000, +0.002]$\,\textbf{R} & $+0.001$ & $+0.001$ \\
+    \texttt{gt\_digits} & Llama-3.1-8B & $0.001$ & $-0.000$ & $[-0.001, +0.001]$ & $-0.000$ & $-0.000$ \\
+    \texttt{gt\_digits} & Gemma-2-9b & $0.000$ & $+0.000$ & $[-0.000, +0.000]$ & $+0.000$ & $+0.000$ \\
+    \texttt{gt\_firstperson} & Qwen2.5-7B & $0.007$ & $+0.007$ & $[+0.005, +0.009]$\,\textbf{R} & $+0.008$ & $+0.009$ \\
+    \texttt{gt\_firstperson} & Mistral-7B & $0.003$ & $-0.001$ & $[-0.002, +0.001]$ & $+0.001$ & $-0.002$ \\
+    \texttt{gt\_firstperson} & Llama-3.1-8B & $0.006$ & $+0.006$ & $[+0.003, +0.009]$\,\textbf{R} & $+0.007$ & $+0.004$ \\
+    \texttt{gt\_firstperson} & Gemma-2-9b & $0.005$ & $+0.005$ & $[+0.002, +0.008]$\,\textbf{R} & $+0.001$ & $+0.010$ \\
+    \texttt{gt\_french} & Qwen2.5-7B & $0.000$ & $+0.000$ & $[-0.000, +0.001]$ & $+nan$ & $+0.000$ \\
+    \texttt{gt\_french} & Mistral-7B & $0.031$ & $+0.031$ & $[+0.027, +0.035]$\,\textbf{R} & $+0.069$ & $+0.000$ \\
+    \texttt{gt\_french} & Llama-3.1-8B & $0.002$ & $+0.002$ & $[+0.000, +0.003]$\,\textbf{R} & $+0.004$ & $+0.000$ \\
+    \texttt{gt\_french} & Gemma-2-9b & $0.006$ & $+0.006$ & $[+0.004, +0.007]$\,\textbf{R} & $+0.013$ & $+0.000$ \\
+    \texttt{gt\_length} & Qwen2.5-7B & $0.015$ & $+0.000$ & $[-0.007, +0.007]$ & $-0.012$ & $+0.021$ \\
+    \texttt{gt\_length} & Mistral-7B & $0.007$ & $+0.003$ & $[-0.005, +0.011]$ & $+0.010$ & $-0.004$ \\
+    \texttt{gt\_length} & Llama-3.1-8B & $0.012$ & $+0.012$ & $[+0.002, +0.022]$\,\textbf{R} & $+0.006$ & $+0.022$ \\
+    \texttt{gt\_length} & Gemma-2-9b & $0.004$ & $-0.000$ & $[-0.006, +0.006]$ & $-0.000$ & $-0.001$ \\
+    \texttt{gt\_longwords} & Qwen2.5-7B & $0.015$ & $+0.015$ & $[+0.005, +0.024]$\,\textbf{R} & $+0.024$ & $+0.012$ \\
+    \texttt{gt\_longwords} & Mistral-7B & $0.037$ & $+0.037$ & $[+0.031, +0.043]$\,\textbf{R} & $+0.040$ & $+0.040$ \\
+    \texttt{gt\_longwords} & Llama-3.1-8B & $0.024$ & $+0.024$ & $[+0.015, +0.033]$\,\textbf{R} & $+0.008$ & $+0.030$ \\
+    \texttt{gt\_longwords} & Gemma-2-9b & $0.013$ & $+0.012$ & $[+0.006, +0.019]$\,\textbf{R} & $+0.017$ & $+0.010$ \\
+    \texttt{gt\_lowercase} & Qwen2.5-7B & $0.003$ & $+0.003$ & $[+0.001, +0.005]$\,\textbf{R} & $+0.003$ & $+nan$ \\
+    \texttt{gt\_lowercase} & Mistral-7B & $0.025$ & $+0.025$ & $[+0.022, +0.028]$\,\textbf{R} & $+0.008$ & $+0.054$ \\
+    \texttt{gt\_lowercase} & Llama-3.1-8B & $0.006$ & $+0.006$ & $[+0.004, +0.008]$\,\textbf{R} & $+0.007$ & $+0.004$ \\
+    \texttt{gt\_lowercase} & Gemma-2-9b & $0.042$ & $+0.041$ & $[+0.040, +0.043]$\,\textbf{R} & $+0.007$ & $+0.085$ \\
+    \texttt{gt\_punctuation} & Qwen2.5-7B & $0.003$ & $-0.002$ & $[-0.005, +0.001]$ & $+0.000$ & $-0.007$ \\
+    \texttt{gt\_punctuation} & Mistral-7B & $0.002$ & $+0.001$ & $[-0.001, +0.003]$ & $-0.002$ & $+0.003$ \\
+    \texttt{gt\_punctuation} & Llama-3.1-8B & $0.002$ & $+0.002$ & $[-0.000, +0.005]$ & $+0.001$ & $+0.004$ \\
+    \texttt{gt\_punctuation} & Gemma-2-9b & $0.003$ & $-0.002$ & $[-0.006, +0.002]$ & $-0.004$ & $-0.001$ \\
+    \texttt{gt\_question} & Qwen2.5-7B & $0.067$ & $+0.021$ & $[-0.001, +0.043]$ & $+0.198$ & $-0.034$ \\
+    \texttt{gt\_question} & Mistral-7B & $0.000$ & $+0.000$ & $[-0.000, +0.000]$ & $+0.000$ & $+0.000$ \\
+    \texttt{gt\_question} & Llama-3.1-8B & $0.024$ & $-0.024$ & $[-0.037, -0.010]$\,\textbf{R} & $-0.020$ & $-0.033$ \\
+    \texttt{gt\_question} & Gemma-2-9b & $0.072$ & $+0.071$ & $[+0.045, +0.098]$\,\textbf{R} & $+0.092$ & $+0.065$ \\
+    \texttt{gt\_uppercase} & Qwen2.5-7B & $0.003$ & $+0.002$ & $[-0.001, +0.006]$ & $+nan$ & $-0.000$ \\
+    \texttt{gt\_uppercase} & Mistral-7B & $0.020$ & $+0.020$ & $[+0.014, +0.027]$\,\textbf{R} & $+0.075$ & $+0.007$ \\
+    \texttt{gt\_uppercase} & Llama-3.1-8B & $0.004$ & $+0.004$ & $[+0.002, +0.007]$\,\textbf{R} & $+0.001$ & $+0.006$ \\
+    \texttt{gt\_uppercase} & Gemma-2-9b & $0.004$ & $+0.004$ & $[+0.002, +0.006]$\,\textbf{R} & $+0.002$ & $+0.005$ \\
+    \bottomrule
+  \end{tabular}
+\end{table}

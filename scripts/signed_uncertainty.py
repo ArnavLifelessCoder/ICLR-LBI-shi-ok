@@ -82,6 +82,7 @@ def load(exclude=()):
                 continue
             usable.sort(key=lambda c: c["coeff"])
             rows.append(dict(
+                has_scores=all(c.get("scores") for c in usable),
                 concept=p["concept"], model=model,
                 abs_ctrl=st["controllability"], baseline=st["baseline_behavior"],
                 xs=np.array([c["coeff"] for c in usable], float),
@@ -159,6 +160,18 @@ def main():
     neg = [o for o in out if o["signed"] < 0]
     negres = [o for o in res if o["signed"] < 0]
     print("\n" + "=" * 72)
+    # Resolution is decided by an interval, so it is only meaningful when
+    # the interval is one. Files written before `DosePoint.scores` carry a
+    # percentile of the individual generation scores instead, roughly three
+    # times too wide on a judge readout, and cannot be corrected offline.
+    # The signed areas themselves are point estimates and stay valid.
+    if not all(r.get("has_scores") for r in rows):
+        stale = sum(1 for r in rows if not r.get("has_scores"))
+        print("WARNING: %d of %d points have UNCORRECTED intervals."
+              % (stale, len(rows)))
+        print("         The resolution count below is not reportable and")
+        print("         must not be compared with a corrected count.")
+        print("         Signed areas and arm splits are unaffected.")
     print("signed area negative            : %d/%d" % (len(neg), n))
     print("sign resolved (CI excludes 0)   : %d/%d" % (len(res), n))
     print("  of those, negative            : %d" % len(negres))
