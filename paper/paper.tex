@@ -64,28 +64,40 @@ credited only when positive coefficients raise the target behavior and negative
 ones lower it, and we validate it on concepts where the correct answer is known
 in advance.
 
-The validation is the contribution. We build four concepts whose behavioral
+The validation is the contribution. We build ten concepts whose behavioral
 readout is a rule over the generated string rather than a judgment, so no model
-scores the outcome and the intended direction follows from construction: word
-count, the fraction of letters capitalized, the fraction of characters that are
-digits, and the fraction of words that are French function words. Across four
-instruction-tuned models, 5 of 16 points have a signed area whose interval
-excludes zero, and \emph{every one is positive}. Nothing anywhere in the study
-resolves against the direction it was built from. Steering into French resolves
-on three of four models and into capitals on two. The check therefore detects
-real steering when real steering is present, which is what licenses reading its
-nulls as statements about concepts rather than about the instrument.
+scores the outcome and the intended direction follows from construction. They
+are chosen so that baseline position varies independently of concept identity,
+spanning $0.00$ to $0.98$, which is what separates having room to move from
+being the kind of concept that moves. Across four instruction-tuned models, 26
+of 40 points have a signed area whose interval excludes zero and 25 of those are
+positive, the direction the concept was built to be steered in. Three concepts
+resolve on all four models. One point resolves the other way, \texttt{gt\_question}
+on Llama ($-0.024$, Spearman $-0.96$ in coefficient), and we report it as a
+reversal rather than noise.
 
-With that established, the same measurement on ten judge-scored concepts
-behaves differently, and the difference is the judge. Where a rule computes the
-readout, the absolute and signed summaries almost coincide, with a median
-$0.993$ of the measured effect attributable to directional movement. Where an
-LLM judge computes it, the median is $0.387$ and the two summaries are
-uncorrelated. Re-scoring identical sweeps with a second judge moves absolute
-controllability by between $0.5\times$ and $26.8\times$ and flips 3 of 16 signs,
-so a published controllability number is not comparable across judges. A
-danger-zone criterion from our own preregistration selects one concept under the
-smaller judge and none under the larger.
+The check therefore detects real steering when real steering is present, which
+is what licenses reading its nulls as statements about concepts rather than
+about the instrument. It also rules out the obvious confound: whether a sign
+resolves is unrelated to how much headroom the concept has (Spearman $+0.01$,
+$p=0.97$), and the room available to an absolute deviation correlates
+\emph{negatively} with the measured effect ($-0.52$, $p=0.001$), the reverse of
+what a ceiling artifact predicts.
+
+With that established, the same measurement on judge-scored concepts behaves
+differently, and the difference is the judge. Where a rule computes the readout,
+the absolute and signed summaries almost coincide, with a median $1.000$ of the
+measured effect attributable to directional movement. Where an LLM judge
+computes it, the median is $0.387$ and the two summaries are uncorrelated. On
+the same four models with the same grid and prompt count, the rule readout
+resolves 26 of 40 points and the judge 7 of 16. Enlarging the judge's evaluation
+set fivefold does not rescue it: the intervals tighten as sampling predicts, but
+the point estimates collapse toward zero and 7 of 16 signs flip, so the
+small-sample estimates were not merely uncertain. Re-scoring identical sweeps
+with a second judge moves absolute controllability by between $0.5\times$ and $26.8\times$ and flips 3 of 16 signs, so a published
+controllability number is not comparable across judges. A danger-zone criterion
+from our own preregistration selects one concept under the smaller judge and
+none under the larger.
 
 We then show the cost to a substantive result. We preregistered that a direction
 is steerable to the extent it projects into the model's output-effective
@@ -126,11 +138,12 @@ three models and into capitals on two. Nothing in the study resolves against the
 direction it was estimated from. This is the claim the rest depends on: the
 check works where we can check it.
 
-That licenses the second claim. Applying both summaries to ten judge-scored
+That licenses the second claim. Applying both summaries to judge-scored
 concepts, they diverge, and the divergence tracks the instrument rather than the
 intervention. With a rule computing the readout the median share of measured
-effect that is directional is $0.993$; with an LLM judge it is $0.387$, and the
-two summaries are uncorrelated. Re-scoring identical sweeps under a second judge
+effect that is directional is $1.000$; with an LLM judge it is $0.387$, and the
+two summaries are uncorrelated. On matched models, grid and prompt count the
+rule readout resolves 26 of 40 signs and the judge 7 of 16. Re-scoring identical sweeps under a second judge
 moves absolute controllability by up to $26.8\times$ and flips 3 of 16 signs. A
 controllability number reported without its judge is not a quantity another
 paper can compare against.
@@ -379,9 +392,11 @@ Gemma-2-9b-it, all in 4-bit for inference on a single 16GB GPU. Gemma-2 is
 loaded with eager attention because its attention soft-cap is ignored by the
 fused kernel.
 
-Gemma-2-9b-it is withheld under the positive control described below, so all
-results are the remaining three models, 30 concept-model points. Its numbers
-appear only in Appendix~\ref{app:full}.
+Gemma-2-9b-it is withheld under the positive control described below, so
+judge-scored results are the remaining three models. It is \emph{retained}
+throughout the ground-truth analysis, which uses no judge and therefore has no
+control to fail; the forty ground-truth points are all four models. Its
+judge-scored numbers appear in Appendix~\ref{app:full}.
 
 \textbf{Concepts.} Ten concepts spanning easy-to-steer to hard-to-steer:
 sentiment (the positive control), certainty, factuality, formality, honesty,
@@ -404,18 +419,34 @@ control falls below an absolute floor is withheld entirely, because a broken
 harness puts every concept in the danger zone and is indistinguishable from a
 discovery.
 
-On the absolute metric all four models clear the floor (sentiment controllability
-$0.215$ Qwen, $0.163$ Mistral, $0.101$ Llama, $0.110$ Gemma; floor $0.10$). Read
-directionally the control is passed by two. Signed sentiment area resolves
-positive on Qwen ($+0.21$) and Mistral ($+0.16$), and does not resolve on Llama
-($+0.020$, CI $[-0.016, 0.066]$) or Gemma ($-0.039$, CI $[-0.107, 0.002]$). We
-withhold Gemma, whose estimate is negative, and retain Llama, whose estimate is
-positive.
+On the absolute metric all four models clear the floor (sentiment
+controllability $0.215$ Qwen, $0.163$ Mistral, $0.101$ Llama, $0.110$ Gemma;
+floor $0.10$). Read directionally, and measured on thirty evaluation prompts
+with intervals for the mean, the control is passed by three. Signed sentiment
+area resolves positive on Mistral ($+0.235$, CI $[+0.186, +0.283]$), Qwen
+($+0.188$, CI $[+0.147, +0.230]$) and Llama ($+0.097$, CI $[+0.041, +0.153]$),
+and does not resolve on Gemma ($+0.025$, CI $[-0.029, +0.080]$). We withhold
+Gemma and retain the other three.
 
-That is a judgment call on unresolved signs and we would rather state it than
-let it pass as a rule. A strict directional control, demanding that the control
-\emph{demonstrate} steering rather than merely fail to contradict it, withholds
-Llama as well and leaves two models. Table~\ref{tab:withhold} reports the
+This is the strict form of the control, requiring that it \emph{demonstrate}
+steering rather than merely fail to contradict it, and we can now apply it
+because three models satisfy it. An earlier version of this work could not: on
+six prompts Llama's control was unresolved at $+0.083$ and we retained it on a
+judgment call about an unresolved sign, while withholding Gemma on the grounds
+that its estimate was negative. Neither premise holds now. Llama resolves, and
+Gemma's estimate is positive rather than negative ($+0.025$); it is withheld
+because it does not demonstrate steering, which is the criterion we should have
+been applying throughout.
+
+We also withdraw a claim built on the earlier withholding. We previously
+reported that Gemma's ground-truth controllability sat five to eight times below
+the other three, and read it as that model withholding its concepts. It does not
+replicate: under the four-layer band Gemma's median was $0.0040$ against
+$0.0195$--$0.0342$, but banded controllability is a maximum over four layers, and
+at a single layer on the same four concepts Gemma's median is above Llama's and
+Qwen's. Across all ten concepts a Kruskal--Wallis test on absolute area does not
+separate models at all ($H=0.33$, $p=0.95$). The gap was the other models
+gaining more from that maximum than Gemma did. Table~\ref{tab:withhold} reports the
 primary test under all three samples. The estimate moves from $-0.451$ to
 $-0.450$ to $-0.430$, so the conclusion does not depend on where this line is
 drawn; only the four-model interval excludes zero, and that is the sample whose
@@ -456,44 +487,78 @@ observation, arriving in the control rather than the results.
 \subsection{The check recovers a direction that is known in advance}
 \label{sec:groundtruth}
 
-Figure~\ref{fig:groundtruth} and Table~\ref{tab:groundtruth} give the
-sixteen ground-truth points, four concepts on four models, swept on a common
-grid with no judge anywhere in the measurement; Appendix~\ref{app:groundtruth}
-gives every point with its interval and arm split.
+Figure~\ref{fig:groundtruth} and Table~\ref{tab:groundtruth} give the forty
+ground-truth points, ten concepts on four models, swept on a common grid with no
+judge anywhere in the measurement; Appendix~\ref{app:groundtruth} gives every
+point with its interval and arm split.
 
-Five of the sixteen have a signed area whose interval excludes zero, and
-\emph{every one of the five is positive}. Nothing anywhere in this study,
-on these concepts or the judge-scored ones, resolves against the direction it
-was estimated from. Steering into French resolves on three of the four models
-($+0.057$, $+0.054$, $+0.040$) and steering into capitals on two ($+0.181$,
-$+0.073$). Where the sign resolves, it is the sign construction predicts.
+Twenty-six of the forty have a signed area whose interval excludes zero, and 25
+of those are positive: the direction the concept was constructed to be steered
+in. \texttt{gt\_common}, \texttt{gt\_longwords} and \texttt{gt\_lowercase} resolve
+on all four models, \texttt{gt\_french}, \texttt{gt\_uppercase} and
+\texttt{gt\_firstperson} on three. Where the sign resolves it is almost always
+the sign construction predicts.
+
+\textbf{The exception, reported rather than absorbed.} One point resolves
+against its construction: \texttt{gt\_question} on Llama-3.1-8B, signed area
+$-0.024$ with interval $[-0.037, -0.010]$. It is not a borderline interval
+scraping past zero. The dose-response is monotone in the wrong direction at
+Spearman $-0.96$, so the model reliably produces \emph{fewer} question marks as
+the question direction is added. We have no mechanistic account of it, and an
+earlier version of this paper claimed that nothing anywhere resolved against its
+construction, which was true of a smaller concept set and is not true of this
+one. A check whose value is that it can return an unwelcome answer has to be
+allowed to return one.
 
 \begin{figure}[tb]
   \centering
   \includegraphics[width=\linewidth]{fig9_groundtruth.png}
-  \caption{(a) Directional controllability on the sixteen ground-truth
-  points, where the readout is a rule and the intended direction is known by
-  construction. Resolved points are bold; all five are positive. (b) The share
-  of measured effect attributable to directional movement, for points with a
-  non-trivial effect. Where a rule computes the readout the two summaries
+  \caption{(a) Directional controllability on the forty ground-truth points,
+  where the readout is a rule and the intended direction is known by
+  construction. Resolved points are bold; 25 of the 26 are positive. (b) The
+  share of measured effect attributable to directional movement, for points with
+  a non-trivial effect. Where a rule computes the readout the two summaries
   almost coincide; where an LLM judge computes it they do not.}
   \label{fig:groundtruth}
 \end{figure}
 
-Two concepts do not resolve on any model and neither reason is mysterious.
-\texttt{gt\_digits} moves only past the fluency ceiling: on Qwen it reaches
-$0.21$ at $\alpha=+4$ and $0.55$ at $+5$, both excluded on perplexity, so the
-usable range ends before the behavior starts. \texttt{gt\_length} has no
-consistent response anywhere, and it is the one concept whose unsteered
-baseline sits mid-range rather than at a floor; Section~\ref{sec:limitations}
-returns to that.
+\textbf{Headroom does not explain which points resolve.} The obvious objection
+to any validation like this is that the concepts which resolve are simply the
+ones with room to move, in which case the check is measuring available range
+rather than steerability. The concept set is built to test that directly:
+unsteered baselines span $0.00$ to $0.98$, so baseline position varies
+independently of concept identity. It does not survive. Whether a sign resolves
+is unrelated to headroom (Spearman $+0.01$, $p=0.97$; mean headroom $0.62$ among
+resolved points against $0.78$ among unresolved). The room available to an
+absolute deviation, $\max(b, 1-b)$ for baseline $b$, correlates
+\emph{negatively} with the measured effect (Spearman $-0.52$, $p=0.001$), which
+is the reverse of what a ceiling artifact predicts. A Kruskal--Wallis test on
+absolute area separates concepts ($H=21.5$, $p=0.010$) and not models ($H=0.33$,
+$p=0.95$).
 
-The importance of this section is what it licenses rather than what it shows.
-A directional summary that never resolved anything would be indistinguishable
-from a broken one, and every null elsewhere in the paper would be
-uninterpretable. Because the check resolves the correct sign where the correct
-sign is knowable, a null on a judge-scored concept is a statement about that
-concept or that judge, not about the metric.
+The cleanest version is a matched pair. \texttt{gt\_lowercase} and
+\texttt{gt\_uppercase} read the same surface property from opposite ends, so they
+have identical room available to an absolute deviation, $0.97$, differing only
+in which side of baseline that room is on. Their absolute areas agree closely
+within three of four models (Llama $0.0058$ against $0.0044$, Qwen $0.0030$
+against $0.0031$, Mistral $0.0254$ against $0.0205$) despite baselines $0.94$
+apart. On Gemma they diverge by a factor of ten ($0.0415$ against $0.0043$),
+which is a concept-by-model interaction we cannot attribute to headroom either,
+since the room is matched there too. We show it rather than average it away.
+
+\textbf{Where it does not resolve.} \texttt{gt\_punctuation} resolves nowhere and
+\texttt{gt\_length} on one model only. \texttt{gt\_digits} resolves on two, with
+effects so small ($+0.001$) that they are statistically but not practically
+distinguishable from zero: the behavior largely appears past the fluency
+ceiling, so the usable range ends before it starts.
+
+The importance of this section is what it licenses rather than what it shows. A
+directional summary that never resolved anything would be indistinguishable from
+a broken one, and every null elsewhere in the paper would be uninterpretable.
+Because the check resolves the correct sign on most points where the correct
+sign is knowable, and does so consistently across models, a null on a
+judge-scored concept is a statement about that concept or that judge rather than
+about the metric.
 
 \subsection{The absolute summary diverges from the directional one, and the
 difference is the judge}
@@ -503,7 +568,7 @@ The same two summaries applied to the ten judge-scored concepts behave very
 differently. Over the retained thirty points the median share of measured
 effect attributable to directional movement is $0.387$, and the two summaries
 are uncorrelated (Spearman $-0.01$). Over the twelve ground-truth points with a
-non-trivial effect it is $0.993$ (Figure~\ref{fig:groundtruth}b). Removing
+non-trivial effect it is $1.000$ (Figure~\ref{fig:groundtruth}b). Removing
 the judge removes the disagreement.
 
 Re-scoring makes the same point directly. Table~\ref{tab:rejudge} takes four
@@ -560,20 +625,44 @@ Section~\ref{sec:inverted} treats its own result as provisional.
 \subsection{What the directional summary can and cannot resolve}
 \label{sec:directional}
 
-\textbf{The signed summary rarely resolves a judge-scored direction.}
-Propagating each coefficient's prompt-level bootstrap interval into the signed
-area (Appendix~\ref{app:signed}) leaves 3 of the 30 retained points with a
-sign distinguishable from zero, all positive. Sixteen points have a negative
-signed area and \emph{none} is resolved
-(Appendix~\ref{app:absvsdir} breaks this down by concept), which is why we make no claim about
-wrong-way movement: sixteen wrong-way point estimates are equally what an
-uninformative judge produces. The supportable claim is conditional. With a
-judge validated on one concept and six evaluation prompts, direction is
-unresolvable on 27 of 30 points. Section~\ref{sec:groundtruth} is what keeps
-that from being a statement about the metric.
+\textbf{The signed summary resolves a judge-scored direction far less often.}
+On the four concepts re-measured with corrected intervals, on the same four
+models and the same grid as the ground-truth set, 7 of 16 points have a sign
+distinguishable from zero against 26 of 40 for the rule readout: $44\%$ against
+$65\%$. Five of the seven are positive. Appendix~\ref{app:signed} gives the
+per-point intervals and arm splits.
 
-\textbf{The effect is present where the judge is validated.} The three resolved
-points are not distributed at random across concepts. Two of them are
+\textbf{The gap is not a sample-size artifact, and we can show it.} The
+judge-scored concepts originally carried six evaluation prompts against the
+ground-truth set's thirty, so the comparison confounded the readout with the
+sample. Repeating the judge-scored measurement at thirty prompts, holding the
+judge, the grid and the models fixed, settles it. The intervals tighten roughly
+as sampling predicts, mean width $0.175$ to $0.099$ for a ratio of $0.57$ where
+$1/\sqrt{5} = 0.45$ is the pure-sampling expectation. The point estimates do
+not survive the enlargement: their median magnitude falls by $0.028$ and 7 of 16
+signs flip. \texttt{refusal} on Gemma moves from $+0.139$ to $+0.015$ and
+\texttt{topic\_science} on Mistral from $-0.201$ to $+0.043$. The six-prompt
+estimates were not merely uncertain; most of them were not measuring anything.
+
+\textbf{A correction to our own instrument, and what it cost.} An earlier
+version of this work reported that 3 of 30 judge-scored points resolved, and
+took the failure of those intervals to tighten with more prompts as evidence
+about the judge. Both were artifacts of our own code. The per-coefficient
+interval we propagated was a percentile of the individual generation scores
+rather than a confidence interval for their mean: about three times too wide on
+a judge readout at thirty prompts, and degenerate on a sparse rule readout,
+where more than $97.5\%$ of generations score zero and both percentiles collapse
+onto it. A percentile interval also cannot narrow as the sample grows, so the
+prompt-count comparison was uninformative by construction rather than
+informative about judges. Recomputing from per-generation scores moved the
+ground-truth count from 6 of 40 to 26 of 40 on identical data. We report this
+because the direction of the error flattered our own headline: the broken
+interval made directional resolution look rarer than it is, which is the
+conclusion the paper was arguing for. All runs now persist per-generation
+scores so any interval can be recomputed without re-running a model.
+
+\textbf{The effect is present where the judge is validated.} The resolved
+points are not distributed at random across concepts. Several of them are
 \texttt{sentiment}, the one concept on which the judge tracks a human closely
 ($\alpha = 0.76$ against $0.33$ pooled within concept), and on all three models
 its dose-response monotonicity is positive ($+0.98$, $+0.79$, $+0.50$). Where
@@ -697,6 +786,27 @@ reported.
 \section{Limitations}
 \label{sec:limitations}
 
+\textbf{The two sides of the headline comparison are not the same size.} The
+rule-readout side is ten concepts on four models, forty points, all measured
+with intervals for the mean and all with per-generation scores retained. The
+judge side of that comparison is four concepts on four models, sixteen points.
+Those four are the load-bearing ones and they are measured under identical
+conditions, but $65\%$ against $44\%$ rests on forty points against sixteen and
+the second figure carries correspondingly more sampling noise.
+
+The paper's other ten judge-scored concepts were measured before we corrected
+the per-coefficient interval, and their runs did not retain per-generation
+scores, so their intervals cannot be recomputed without re-running the models.
+Every quantity derived from those runs that does not depend on an interval is
+unaffected and is reported: the signed areas themselves, the directional shares,
+the arm splits, the judge-swap magnitudes and sign flips, and the geometric
+test, whose controllability intervals come from a prompt-level bootstrap that
+was always an interval for the mean. What we do not report is a resolution count
+from those runs set against the corrected one, because that would compare an
+interval about three times too wide with a correct one and would overstate the
+gap this paper is about. Closing that properly means re-running ten concepts on
+four models, which we have not done.
+
 \textbf{The primary metric is the object of study.} Absolute controllability is
 the preregistered measure and every preregistered threshold is applied to it, so
 the danger zone, the gauntlet verdicts and the geometric test are all computed on
@@ -754,20 +864,25 @@ templated stimuli and six evaluation prompts per concept.
 Steering is usually scored by how far a model moves, which cannot distinguish
 moving a model in the intended direction from perturbing it. The repair is to
 integrate the signed deviation instead, and the difficulty is that the repair
-cannot validate itself. We validate it on four concepts whose readout is a rule
-over the generated string, where the correct answer follows from construction:
-across four models, 5 of 16 points resolve and every one is positive, with
-steering into French resolving on three models and into capitals on two. No
-point anywhere in the study resolves against the direction it was built from.
+cannot validate itself. We validate it on ten concepts whose readout is a rule
+over the generated string, where the correct answer follows from construction
+and whose baselines span the unit interval so that headroom is separated from
+concept identity: across four models, 26 of 40 points resolve and 25 of those
+are positive, with three concepts resolving on all four models. One point
+resolves against its construction and we report it as such.
 
 With the check established, the same measurement separates instrument from
 intervention. Where a rule computes the readout the absolute and signed
-summaries almost coincide, median share $0.993$; where an LLM judge computes it
-the median is $0.387$ and the two are uncorrelated. Re-scoring identical sweeps
-under a second judge moves magnitudes by up to $26.8\times$ and flips 3 of 16
-signs, and a preregistered criterion of ours selects one concept under one judge
-and none under the other. The divergence the paper began by documenting belongs
-to the judge, not to steering.
+summaries almost coincide, median share $1.000$; where an LLM judge computes it
+the median is $0.387$ and the two are uncorrelated. On matched models, grid and
+prompt count the rule readout resolves $65\%$ of its points and the judge
+$44\%$, and enlarging the judge's evaluation set fivefold tightens its
+intervals as sampling predicts while collapsing its point estimates and flipping
+7 of 16 signs. Re-scoring identical sweeps under a second judge moves magnitudes
+by up to $26.8\times$ and flips 3 of 16 signs, and a preregistered criterion of
+ours selects one concept under one judge and none under the other. The
+divergence the paper began by documenting belongs to the judge, not to
+steering.
 
 The cost to a substantive conclusion is visible in our own preregistered
 geometric hypothesis, which is inverted under the absolute summary, survives a
@@ -1339,15 +1454,17 @@ Every ground-truth point, with the propagated interval on the signed area
 and the same integral split by arm. The intended direction is positive
 throughout by construction, so a negative entry is the intervention moving
 the model against the direction it was estimated from, and a resolved
-negative entry would be evidence the check is wrong. There are none.
+negative entry would be evidence the check is wrong where it is isolated, and
+a finding where it is monotone. There is one, \texttt{gt\_question} on Llama.
 
 \begin{table}[htbp]
   \caption{Directional controllability on the ground-truth concepts,
   whose readout is a rule over the generated string and whose intended
-  direction is therefore known in advance. 5 of 16 points have an interval
-  excluding zero and \emph{every one is positive}: where the sign is
-  resolvable, steering moved the model the way the direction was built to move
-  it. \textbf{Pos} and \textbf{Neg} are the same integral over one arm,
+  direction is therefore known in advance. 26 of 40 points have an interval
+  excluding zero and 25 of those are positive: where the sign is resolvable,
+  steering almost always moved the model the way the direction was built to move
+  it. The exception, \texttt{gt\_question} on Llama, is monotone in the wrong
+  direction and is discussed in Section~\ref{sec:groundtruth}. \textbf{Pos} and \textbf{Neg} are the same integral over one arm,
   oriented so positive means the intended direction.}
   \label{tab:groundtruth}
   \centering
