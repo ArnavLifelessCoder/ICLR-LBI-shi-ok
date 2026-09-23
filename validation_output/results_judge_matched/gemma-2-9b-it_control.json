@@ -1,0 +1,10 @@
+{
+  "model": "google/gemma-2-9b-it",
+  "control_concept": "sentiment",
+  "controllability": 0.17666666666666664,
+  "floor": 0.1,
+  "passed": true,
+  "judge_model": null,
+  "judge_is_self": null,
+  "note": "P9: if this did not pass, the model's controllability numbers are withheld, not explained away."
+}

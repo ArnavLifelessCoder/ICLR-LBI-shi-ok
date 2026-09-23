@@ -88,12 +88,15 @@ With that established, the same measurement on judge-scored concepts behaves
 differently, and the difference is the judge. Where a rule computes the readout,
 the absolute and signed summaries almost coincide, with a median $1.000$ of the
 measured effect attributable to directional movement. Where an LLM judge
-computes it, the median is $0.387$ and the two summaries are uncorrelated. On
-the same four models with the same grid and prompt count, the rule readout
-resolves 26 of 40 points and the judge 7 of 16. Enlarging the judge's evaluation
-set fivefold does not rescue it: the intervals tighten as sampling predicts, but
-the point estimates collapse toward zero and 7 of 16 signs flip, so the
-small-sample estimates were not merely uncertain. Re-scoring identical sweeps
+computes it, the median is $0.558$. Measured on the same ten-concept count,
+four models, grid, layer, thirty prompts and interval, so that the readout is
+the only thing that differs, the rule resolves 26 of 40 signs and the judge 14
+of 40 (Fisher $p=0.013$). Four of the judge's fourteen are \texttt{sentiment},
+the one concept on which the judge is validated against human raters; without
+it the judge resolves 10 of 36. Enlarging the judge's evaluation set fivefold
+does not rescue it: the intervals tighten as sampling predicts, but the point
+estimates collapse toward zero and 7 of 16 signs flip, so the small-sample
+estimates were not merely uncertain. Re-scoring identical sweeps
 with a second judge moves absolute controllability by between $0.5\times$ and $26.8\times$ and flips 3 of 16 signs, so a published
 controllability number is not comparable across judges. A danger-zone criterion
 from our own preregistration selects one concept under the smaller judge and
@@ -152,9 +155,10 @@ check works where we can check it.
 That licenses the second claim. Applying both summaries to judge-scored
 concepts, they diverge, and the divergence tracks the instrument rather than the
 intervention. With a rule computing the readout the median share of measured
-effect that is directional is $1.000$; with an LLM judge it is $0.387$, and the
-two summaries are uncorrelated. On matched models, grid and prompt count the
-rule readout resolves 26 of 40 signs and the judge 7 of 16. Re-scoring identical sweeps under a second judge
+effect that is directional is $1.000$; with an LLM judge it is $0.558$, and
+the two summaries are only weakly related (Spearman $+0.29$ against $+0.80$
+under the rule). On a fully matched protocol, forty points a side, the rule
+resolves 26 signs and the judge 14. Re-scoring identical sweeps under a second judge
 moves absolute controllability by up to $26.8\times$ and flips 3 of 16 signs. A
 controllability number reported without its judge is not a quantity another
 paper can compare against.
@@ -576,9 +580,10 @@ difference is the judge}
 \label{sec:judgedep}
 
 The same two summaries applied to the ten judge-scored concepts behave very
-differently. Over the retained thirty points the median share of measured
-effect attributable to directional movement is $0.387$, and the two summaries
-are uncorrelated (Spearman $-0.01$). Over the twelve ground-truth points with a
+differently. Over the forty matched-protocol points the median share of
+measured effect attributable to directional movement is $0.558$ (Mann--Whitney
+against the rule readout, $p=0.001$), and the two summaries are only weakly
+related (Spearman $+0.29$, $p=0.07$, against $+0.80$ under the rule). Over the twelve ground-truth points with a
 non-trivial effect it is $1.000$ (Figure~\ref{fig:groundtruth}b). Removing
 the judge removes the disagreement.
 
@@ -637,17 +642,30 @@ Section~\ref{sec:inverted} treats its own result as provisional.
 \label{sec:directional}
 
 \textbf{The signed summary resolves a judge-scored direction far less often.}
-On the four concepts re-measured with corrected intervals, on the same four
-models and the same grid as the ground-truth set, 7 of 16 points have a sign
-distinguishable from zero against 26 of 40 for the rule readout: $44\%$ against
-$65\%$. Five of the seven are positive. Appendix~\ref{app:signed} gives the
-per-point intervals and arm splits.
+We measured all ten judge-scored concepts exactly as the ten rule-scored ones
+are measured: the same four models, a single layer, the thirteen-point grid,
+thirty evaluation prompts and an interval for the mean, so the readout is the
+only thing that varies. The rule resolves 26 of 40 signs and the judge 14 of 40,
+$65\%$ against $35\%$ (Fisher exact $p=0.013$, odds ratio $3.45$). Of the
+judge's fourteen, twelve are positive and two resolve the wrong way, both on
+Mistral (\texttt{refusal} $-0.058$, \texttt{verbosity} $-0.107$), against one
+wrong-way point in twenty-six under the rule. Appendix~\ref{app:signed} gives
+the per-point intervals and arm splits.
+
+Where the judge's resolutions fall is itself informative. \texttt{sentiment}
+resolves on all four models, and it is the one concept on which the judge is
+validated against human raters. \texttt{honesty} and \texttt{sycophancy}
+resolve nowhere. Without \texttt{sentiment} the judge resolves 10 of 36,
+$28\%$ (Fisher $p=0.001$ against the rule). The judge recovers direction
+roughly where it has been shown to measure the concept, and mostly not
+elsewhere.
 
 \textbf{The gap is not a sample-size artifact, and we can show it.} The
 judge-scored concepts originally carried six evaluation prompts against the
-ground-truth set's thirty, so the comparison confounded the readout with the
-sample. Repeating the judge-scored measurement at thirty prompts, holding the
-judge, the grid and the models fixed, settles it. The intervals tighten roughly
+ground-truth set's thirty. Beyond matching the prompt count as above, we
+repeated the four load-bearing concepts at six and at thirty prompts with the
+judge, grid and models held fixed, which isolates what the larger sample
+does. The intervals tighten roughly
 as sampling predicts, mean width $0.175$ to $0.099$ for a ratio of $0.57$ where
 $1/\sqrt{5} = 0.45$ is the pure-sampling expectation. The point estimates do
 not survive the enlargement: their median magnitude falls by $0.028$ and 7 of 16
@@ -796,8 +814,9 @@ disproportionately without carrying the sign.
 
 \textbf{The metric does produce it.} Recomputing the identical test on directional
 controllability gives $+0.14$ with a CI of $[-0.27, 0.44]$. The sign reverses and
-the relationship disappears. Since Section~\ref{sec:directional} shows the
-absolute metric is uncorrelated with the directional one, the honest reading is
+the relationship disappears. On the thirty points this test is computed over,
+the absolute metric is uncorrelated with the directional one (Spearman
+$-0.01$, Table~\ref{tab:directional}), so the honest reading is
 that H1 was tested against a quantity that does not track directional control,
 and the inversion is a property of that quantity rather than of the
 representations. A result can survive a ceiling control and a
@@ -853,26 +872,24 @@ reported.
 \section{Limitations}
 \label{sec:limitations}
 
-\textbf{The two sides of the headline comparison are not the same size.} The
-rule-readout side is ten concepts on four models, forty points, all measured
-with intervals for the mean and all with per-generation scores retained. The
-judge side of that comparison is four concepts on four models, sixteen points.
-Those four are the load-bearing ones and they are measured under identical
-conditions, but $65\%$ against $44\%$ rests on forty points against sixteen and
-the second figure carries correspondingly more sampling noise.
+\textbf{The headline comparison is matched; the main study's older runs are
+not.} The rule-versus-judge comparison is forty points a side, measured under
+one protocol with per-generation scores retained, so its intervals are
+recomputable from the released data. The paper's earlier judge-scored runs,
+which feed the geometric test and the danger zone, predate the interval
+correction and did not retain per-generation scores. Every quantity from those
+runs that does not depend on a per-coefficient interval is unaffected and is
+reported: the signed areas, directional shares, arm splits, judge-swap
+magnitudes and sign flips, and the geometric test, whose controllability
+intervals come from a prompt-level bootstrap that was always an interval for the
+mean. No resolution count from those runs is reported.
 
-The paper's other ten judge-scored concepts were measured before we corrected
-the per-coefficient interval, and their runs did not retain per-generation
-scores, so their intervals cannot be recomputed without re-running the models.
-Every quantity derived from those runs that does not depend on an interval is
-unaffected and is reported: the signed areas themselves, the directional shares,
-the arm splits, the judge-swap magnitudes and sign flips, and the geometric
-test, whose controllability intervals come from a prompt-level bootstrap that
-was always an interval for the mean. What we do not report is a resolution count
-from those runs set against the corrected one, because that would compare an
-interval about three times too wide with a correct one and would overstate the
-gap this paper is about. Closing that properly means re-running ten concepts on
-four models, which we have not done.
+\textbf{One judge, validated on one concept.} The judge resolves direction
+four times in four on \texttt{sentiment}, where it agrees with human raters, and
+ten times in thirty-six elsewhere. That pattern is consistent with the judge
+being the limiting factor, and it is equally consistent with sentiment simply
+being easier to steer. Separating the two needs judges validated on more
+concepts, which we have not done.
 
 \textbf{The primary metric is the object of study.} Absolute controllability is
 the preregistered measure and every preregistered threshold is applied to it, so
@@ -941,9 +958,10 @@ resolves against its construction and we report it as such.
 With the check established, the same measurement separates instrument from
 intervention. Where a rule computes the readout the absolute and signed
 summaries almost coincide, median share $1.000$; where an LLM judge computes it
-the median is $0.387$ and the two are uncorrelated. On matched models, grid and
-prompt count the rule readout resolves $65\%$ of its points and the judge
-$44\%$, and enlarging the judge's evaluation set fivefold tightens its
+the median is $0.558$ and the two are only weakly related. On a fully matched
+protocol, forty points a side, the rule readout resolves $65\%$ of its
+points and the judge $35\%$, and $28\%$ once its one validated concept is set
+aside; enlarging the judge's evaluation set fivefold tightens its
 intervals as sampling predicts while collapsing its point estimates and flipping
 7 of 16 signs. Re-scoring identical sweeps under a second judge moves magnitudes
 by up to $26.8\times$ and flips 3 of 16 signs, and a preregistered criterion of

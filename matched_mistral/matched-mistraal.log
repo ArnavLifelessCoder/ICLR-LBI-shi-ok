@@ -1,0 +1,66 @@
+6.9s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.9s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.9s 3 0.00s - to python to disable frozen modules.
+6.9s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+7.5s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+7.5s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+7.5s 7 0.00s - to python to disable frozen modules.
+7.5s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+9.8s 9 [33ma57f3fe[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m the published replication passes, and its effect is directional
+13.9s 10 [?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/12.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.9/12.3 MB[0m [31m26.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━[0m [32m5.3/12.3 MB[0m [31m77.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━[0m [32m10.2/12.3 MB[0m [31m103.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m146.5 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.3/12.3 MB[0m [31m82.7 MB/s[0m eta [36m0:00:00[0m
+13.9s 11 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/394.3 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m394.3/394.3 kB[0m [31m24.6 MB/s[0m eta [36m0:00:00[0m
+14.4s 12 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/43.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m5.3/43.1 MB[0m [31m158.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m10.7/43.1 MB[0m [31m156.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m16.1/43.1 MB[0m [31m155.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━[0m [32m21.5/43.1 MB[0m [31m156.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━[0m [32m27.0/43.1 MB[0m [31m157.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━[0m [32m32.4/43.1 MB[0m [31m158.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━[0m [32m37.6/43.1 MB[0m [31m154.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m154.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m150.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m150.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m150.4 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m150.4 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m43.1/43.1 MB[0m [31m42.8 MB/s[0m eta [36m0:00:00[0m
+14.4s 13 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/516.0 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m516.0/516.0 kB[0m [31m27.8 MB/s[0m eta [36m0:00:00[0m
+14.5s 14 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/3.4 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m3.4/3.4 MB[0m [31m183.7 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.4/3.4 MB[0m [31m79.2 MB/s[0m eta [36m0:00:00[0m
+30.8s 15 [?25hHF login OK.
+30.8s 16 nothing seeded from /kaggle/input
+34.1s 17 commit        : a57f3fe the published replication passes, and its effect is directional
+34.1s 18 stage A grid  : 13 points, [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+34.1s 19 stage B grid  : 9 points (default, for comparability with the 1.5B judge)
+34.1s 20 judge         : Qwen/Qwen2.5-3B-Instruct (fallback Qwen/Qwen2.5-1.5B-Instruct)
+34.1s 21 stage order   : C, D, B, E, F, A (cheapest first)
+34.1s 22 per-generation scores: recorded
+34.1s 23 preflight OK
+34.1s 24 stages        : G_judgematched
+34.1s 25 
+34.1s 26 ======================================================================
+34.1s 27 mistralai/Mistral-7B-Instruct-v0.3
+34.1s 28 ======================================================================
+56.7s 29 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+56.7s 30 
+56.7s 31 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+172.5s 32 
+172.5s 33 --- G: ten judge-scored concepts, ground-truth protocol ---
+172.5s 34 10 concepts, single layer, grid [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+172.5s 35 prompts per concept: {'sentiment': 30, 'formality': 30, 'rudeness': 30, 'sycophancy': 30, 'refusal': 30, 'honesty': 30, 'topic_science': 30, 'factuality': 30, 'verbosity': 30, 'certainty': 30}
+172.5s 36 approx 3900 generations, each judged
+172.5s 37 10 of 10 concepts are at thirty prompts; the rest are at six and are not prompt-count matched to stage A
+172.5s 38 2 GPU(s) visible; judge placements to try: ['cuda:1', 'cuda:0', 'cpu']
+210.5s 39 judge: Qwen/Qwen2.5-3B-Instruct on cuda:1
+9964.3s 40 sentiment      read 1.00  ctrl 0.258
+9964.3s 41 formality      read 1.00  ctrl 0.034
+9964.3s 42 rudeness       read 1.00  ctrl 0.066
+9964.3s 43 sycophancy     read 0.57  ctrl 0.088
+9964.3s 44 refusal        read 1.00  ctrl 0.082
+9964.3s 45 honesty        read 1.00  ctrl 0.107
+9964.3s 46 topic_science  read 1.00  ctrl 0.083
+9964.3s 47 factuality     read 1.00  ctrl 0.133
+9964.3s 48 verbosity      read 1.00  ctrl 0.170
+9964.3s 49 certainty      read 1.00  ctrl 0.141
+9964.4s 50 
+9964.4s 51 ======================================================================
+9964.4s 52 {
+9964.4s 53 "mistralai/Mistral-7B-Instruct-v0.3": {
+9964.4s 54 "load": "ok",
+9964.4s 55 "G_judgematched": "ok"
+9964.4s 56 }
+9964.4s 57 }
+9964.7s 58 -rw-r--r-- 1 root root 35954 Sep 22 21:35 matched_mistral.zip
+9971.3s 59 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+9971.3s 60 cells[i][c] = re.sub('\\\\\|', '|', cell)
+9971.5s 61 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+9971.5s 62 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+9972.1s 63 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+9972.5s 64 [NbConvertApp] Writing 247040 bytes to __notebook__.ipynb
+9975.0s 65 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+9976.0s 66 [NbConvertApp] Writing 473307 bytes to __results__.html

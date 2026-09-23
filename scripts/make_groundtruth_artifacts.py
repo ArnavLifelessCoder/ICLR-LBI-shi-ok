@@ -276,7 +276,12 @@ def main():
     args = ap.parse_args()
 
     gt = load(["validation_output/results_groundtruth/*.json"])
-    judged = load(["nb-6 results/results/*.json", "results nb7/results/*.json"])
+    # The judge side is stage G: the same ten-concept count, grid, single
+    # layer, thirty prompts and interval as the ground-truth side, so the
+    # readout is the only thing that differs. The original main-study runs are
+    # not used here, because their intervals are the superseded percentile form
+    # and a resolution count from them is not comparable.
+    judged = load(["validation_output/results_judge_matched/*.json"])
 
     print("ground truth : %d points, %d models, grids %s"
           % (len(gt), len({r["model"] for r in gt}), sorted({r["n_grid"] for r in gt})))
@@ -302,6 +307,10 @@ def main():
     # to be the retained sample. The all-model number is reported too because
     # the ground-truth set keeps all four and a like-for-like contrast is the
     # more natural one for a claim about the instrument rather than the models.
+    # Under the matched protocol sentiment resolves positive on all four
+    # models, Gemma included, so the strict positive control withholds none and
+    # the retained sample is the full one. The Gemma-excluded figures are kept
+    # for comparison with analyses on the older protocol, where it is withheld.
     ret = [r["share"] for r in judged
            if r["absolute"] > TRIVIAL and r["model"] != "Gemma-2-9b"]
     ret_res = [r for r in judged if r["model"] != "Gemma-2-9b"]

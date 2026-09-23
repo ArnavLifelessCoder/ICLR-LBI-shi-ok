@@ -5,7 +5,8 @@
     "B_rejudge": "ok (corrected intervals)",
     "A_groundtruth": "ok (corrected intervals, per-generation scores)",
     "D_published": "ran, not valid: greedy decoding and RMS units",
-    "E_prompts30": "ok (corrected intervals)"
+    "E_prompts30": "ok (corrected intervals)",
+    "G_judgematched": "ok (ten concepts, matched protocol, a57f3fe)"
   },
   "Qwen/Qwen2.5-7B-Instruct": {
     "load": "ok",
@@ -14,7 +15,8 @@
     "A_groundtruth": "ok (corrected intervals, per-generation scores)",
     "D_published": "ran on the corrected direction; positive control FAILED, but the control itself was mis-specified (see runlog)",
     "E_prompts30": "ok (corrected intervals)",
-    "F_variants": "ran; no spelling passes the control, but ' wedding' and ' weddings' show a 9x-12x dose response at coeff +4"
+    "F_variants": "ran; no spelling passes the control, but ' wedding' and ' weddings' show a 9x-12x dose response at coeff +4",
+    "G_judgematched": "ok (ten concepts, matched protocol, a57f3fe)"
   },
   "mistralai/Mistral-7B-Instruct-v0.3": {
     "load": "ok",
@@ -22,7 +24,8 @@
     "B_rejudge": "ok (corrected intervals)",
     "A_groundtruth": "ok (corrected intervals, per-generation scores)",
     "D_published": "ran, not valid: greedy decoding and RMS units",
-    "E_prompts30": "ok (corrected intervals)"
+    "E_prompts30": "ok (corrected intervals)",
+    "G_judgematched": "ok (ten concepts, matched protocol, a57f3fe)"
   },
   "google/gemma-2-9b-it": {
     "load": "ok",
@@ -30,7 +33,8 @@
     "B_rejudge": "ok (corrected intervals)",
     "A_groundtruth": "ok (corrected intervals, per-generation scores)",
     "D_published": "ran on the fixed harness, positive control FAILED: direction is a pooled last-token vector, not position-wise",
-    "E_prompts30": "ok (corrected intervals)"
+    "E_prompts30": "ok (corrected intervals)",
+    "G_judgematched": "ok (ten concepts, matched protocol, a57f3fe)"
   },
   "gpt2-xl (published replication)": {
     "D_published": "ok, positive control PASSED at the verified setting (layer 16, 'weddings'); signed area +0.00233 CI [+0.00156, +0.00312], resolves positive",

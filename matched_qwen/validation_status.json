@@ -1,0 +1,6 @@
+{
+  "Qwen/Qwen2.5-7B-Instruct": {
+    "load": "ok",
+    "G_judgematched": "ok"
+  }
+}

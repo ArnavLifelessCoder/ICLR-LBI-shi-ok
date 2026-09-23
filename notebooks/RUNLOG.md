@@ -1883,3 +1883,40 @@ the right to re-score it.
 
 The paper gains Section~\ref{sec:published} on this, and the abstract and
 conclusion now carry it. 325 tests pass.
+
+## 2026-09-23: stage G lands; the headline is forty against forty
+
+All four models on `a57f3fe`, per-generation scores recorded, ten of ten
+concepts at thirty prompts, 3B judge on cuda:1. The ten judge-scored concepts
+are now measured exactly as the ten rule-scored ones: single layer, 13-point
+grid, thirty prompts, intervals for the mean.
+
+    rule readout   26/40 = 65%   25 of 26 positive   share median 1.000
+    LLM judge      14/40 = 35%   12 of 14 positive   share median 0.558
+    Fisher exact p 0.013, odds 3.45; Mann-Whitney on share p 0.001
+
+The positive control passes on all four models under this protocol, Gemma
+included (+0.168, CI [+0.127, +0.209]), so the headline needs no withholding.
+Gemma remains withheld from the older main-study analyses, where its control
+does not resolve.
+
+Where the judge's resolutions fall: sentiment, the one concept on which the
+judge is validated against humans, resolves on all four models; honesty and
+sycophancy resolve nowhere. Without sentiment the judge resolves 10/36 = 28%,
+Fisher p 0.001 against the rule. Two judge resolutions go the wrong way, both
+Mistral (refusal -0.058, verbosity -0.107).
+
+One claim had to change. Under the older sample absolute and signed were
+uncorrelated (-0.01); under the matched sample they are weakly related under
+the judge (+0.29, p 0.07) against +0.80 under the rule. The paper now says
+"weakly related" for the headline and keeps "uncorrelated" only where it
+describes the thirty-point sample the geometric test uses.
+
+fig9 regenerated from the matched judge sample; the uncorrected-interval
+warning no longer fires because every point carries scores. Abstract,
+introduction, 5.2, 5.3, limitations and conclusion updated. The limitation
+about forty points against sixteen is gone, replaced by one stating that the
+judge is validated on a single concept, which the sentiment pattern cannot
+separate from sentiment simply being easier to steer.
+
+325 tests pass.

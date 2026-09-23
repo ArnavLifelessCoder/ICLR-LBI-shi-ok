@@ -1,0 +1,67 @@
+5.8s 1 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+5.8s 2 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+5.8s 3 0.00s - to python to disable frozen modules.
+5.8s 4 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+6.3s 5 0.00s - Debugger warning: It seems that frozen modules are being used, which may
+6.3s 6 0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+6.3s 7 0.00s - to python to disable frozen modules.
+6.3s 8 0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+9.4s 9 [33ma57f3fe[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m the published replication passes, and its effect is directional
+13.9s 10 [?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/12.3 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.1/12.3 MB[0m [31m2.9 MB/s[0m eta [36m0:00:05[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.2/12.3 MB[0m [31m2.2 MB/s[0m eta [36m0:00:06[0m[2K   [91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.3/12.3 MB[0m [31m2.5 MB/s[0m eta [36m0:00:05[0m[2K   [91m━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.5/12.3 MB[0m [31m3.7 MB/s[0m eta [36m0:00:04[0m[2K   [91m━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.9/12.3 MB[0m [31m5.5 MB/s[0m eta [36m0:00:03[0m[2K   [91m━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m1.4/12.3 MB[0m [31m6.8 MB/s[0m eta [36m0:00:02[0m[2K   [91m━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m2.1/12.3 MB[0m [31m9.5 MB/s[0m eta [36m0:00:02[0m[2K   [91m━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m4.3/12.3 MB[0m [31m15.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━[0m [32m6.5/12.3 MB[0m [31m21.0 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━[0m [32m8.9/12.3 MB[0m [31m25.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m69.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m12.3/12.3 MB[0m [31m69.1 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m12.3/12.3 MB[0m [31m51.3 MB/s[0m eta [36m0:00:00[0m
+14.0s 11 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/394.3 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m394.3/394.3 kB[0m [31m29.0 MB/s[0m eta [36m0:00:00[0m
+14.7s 12 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/43.1 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m4.1/43.1 MB[0m [31m200.3 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m6.2/43.1 MB[0m [31m102.8 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m8.8/43.1 MB[0m [31m86.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m11.3/43.1 MB[0m [31m88.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m14.7/43.1 MB[0m [31m84.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m16.9/43.1 MB[0m [31m75.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━━━━━━━━━━━[0m [32m18.9/43.1 MB[0m [31m82.9 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━━━[0m [32m22.7/43.1 MB[0m [31m84.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━━[0m [32m24.9/43.1 MB[0m [31m76.1 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━━━━━━━━━━━[0m [32m26.3/43.1 MB[0m [31m71.2 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━━━[0m [32m30.0/43.1 MB[0m [31m84.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━━━━[0m [32m32.3/43.1 MB[0m [31m71.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m[90m━━━━━━━[0m [32m35.2/43.1 MB[0m [31m75.6 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━━━━━[0m [32m37.1/43.1 MB[0m [31m85.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[90m╺[0m[90m━[0m [32m41.1/43.1 MB[0m [31m84.7 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m77.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m77.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m77.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m77.5 MB/s[0m eta [36m0:00:01[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m43.1/43.1 MB[0m [31m77.5 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m43.1/43.1 MB[0m [31m33.9 MB/s[0m eta [36m0:00:00[0m
+14.8s 13 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/516.0 kB[0m [31m?[0m eta [36m-:--:--[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m516.0/516.0 kB[0m [31m36.5 MB/s[0m eta [36m0:00:00[0m
+14.9s 14 [?25h[?25l   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m0.0/3.4 MB[0m [31m?[0m eta [36m-:--:--[0m[2K   [91m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m[91m╸[0m [32m3.4/3.4 MB[0m [31m240.1 MB/s[0m eta [36m0:00:01[0m[2K   [90m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━[0m [32m3.4/3.4 MB[0m [31m94.6 MB/s[0m eta [36m0:00:00[0m
+30.6s 15 [?25hHF login OK.
+30.6s 16 nothing seeded from /kaggle/input
+33.3s 17 commit        : a57f3fe the published replication passes, and its effect is directional
+33.3s 18 stage A grid  : 13 points, [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+33.3s 19 stage B grid  : 9 points (default, for comparability with the 1.5B judge)
+33.3s 20 judge         : Qwen/Qwen2.5-3B-Instruct (fallback Qwen/Qwen2.5-1.5B-Instruct)
+33.3s 21 stage order   : C, D, B, E, F, A (cheapest first)
+33.3s 22 per-generation scores: recorded
+33.3s 23 preflight OK
+33.3s 24 stages        : G_judgematched
+33.3s 25 
+33.3s 26 ======================================================================
+33.3s 27 Qwen/Qwen2.5-7B-Instruct
+33.3s 28 ======================================================================
+53.1s 29 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+53.1s 30 
+53.1s 31 [transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+156.1s 32 
+156.1s 33 --- G: ten judge-scored concepts, ground-truth protocol ---
+156.1s 34 10 concepts, single layer, grid [-5.0, -4.0, -3.0, -2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 5.0]
+156.1s 35 prompts per concept: {'sentiment': 30, 'formality': 30, 'rudeness': 30, 'sycophancy': 30, 'refusal': 30, 'honesty': 30, 'topic_science': 30, 'factuality': 30, 'verbosity': 30, 'certainty': 30}
+156.1s 36 approx 3900 generations, each judged
+156.1s 37 10 of 10 concepts are at thirty prompts; the rest are at six and are not prompt-count matched to stage A
+156.1s 38 2 GPU(s) visible; judge placements to try: ['cuda:1', 'cuda:0', 'cpu']
+206.4s 39 judge: Qwen/Qwen2.5-3B-Instruct on cuda:1
+972.5s 40 WARNING [P9]: positive control 'sentiment' scored 0.094 < floor 0.1 on Qwen/Qwen2.5-7B-Instruct. Steering is not working on this model; every controllability number from it will be withheld at aggregate time. Stop and debug rather than spending the session.
+7435.9s 41 sentiment      read 1.00  ctrl 0.094
+7435.9s 42 formality      read 0.99  ctrl 0.103
+7435.9s 43 rudeness       read 0.80  ctrl 0.065
+7435.9s 44 sycophancy     read 1.00  ctrl 0.033
+7435.9s 45 refusal        read 1.00  ctrl 0.090
+7435.9s 46 honesty        read 1.00  ctrl 0.066
+7435.9s 47 topic_science  read 0.94  ctrl 0.062
+7435.9s 48 factuality     read 1.00  ctrl 0.121
+7435.9s 49 verbosity      read 1.00  ctrl 0.056
+7435.9s 50 certainty      read 1.00  ctrl 0.090
+7435.9s 51 
+7435.9s 52 ======================================================================
+7435.9s 53 {
+7435.9s 54 "Qwen/Qwen2.5-7B-Instruct": {
+7435.9s 55 "load": "ok",
+7435.9s 56 "G_judgematched": "ok"
+7435.9s 57 }
+7435.9s 58 }
+7436.2s 59 -rw-r--r-- 1 root root 45594 Sep 22 20:52 matched_qwen.zip
+7442.0s 60 /usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+7442.0s 61 cells[i][c] = re.sub('\\\\\|', '|', cell)
+7442.3s 62 /usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+7442.3s 63 text = re.sub(r'_', '\_', text) # Escape underscores in display text
+7443.1s 64 [NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+7443.4s 65 [NbConvertApp] Writing 247161 bytes to __notebook__.ipynb
+7445.7s 66 [NbConvertApp] Converting notebook __notebook__.ipynb to html
+7446.8s 67 [NbConvertApp] Writing 473486 bytes to __results__.html
