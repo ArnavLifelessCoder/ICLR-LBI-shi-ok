@@ -104,8 +104,9 @@ rest depends on: the check works where it can be checked.
 
 It licenses three further results. First, the check separates instrument from
 intervention: under an identical protocol, ten judge-scored concepts resolve 14
-of 40 signs against the rule's 26, the judge's resolutions concentrate on the one
-concept where it is validated against a human rater, and judge-scored magnitudes
+of 40 signs against the rule's 26, the judge's resolutions concentrate on
+\texttt{sentiment}, the concept where our judges have agreed with a human rater,
+and judge-scored magnitudes
 move by up to $26.8\times$ when the judge is swapped. Second, it confirms a
 published result where the effect is real: the canonical activation-addition
 demonstration passes it completely. Third, it changes a conclusion. Our own
@@ -440,7 +441,7 @@ Table~\ref{tab:matched} the count per concept.
 \end{table}
 
 The judge's resolutions are not spread at random. \texttt{sentiment}, the one
-concept on which the judge agrees with a human rater (Krippendorff's
+concept on which the main-study judge agreed with a human rater (Krippendorff's
 $\alpha = 0.76$ against $0.33$ pooled within concept
 \citep{krippendorff2019content}), resolves on all four models, while
 \texttt{honesty} and \texttt{sycophancy} resolve on none. Without
@@ -572,8 +573,11 @@ separate it from disturbance.
 \label{sec:limitations}
 
 \textbf{One judge, validated on one concept.} The judge resolves direction on
-\texttt{sentiment} four times in four, where it agrees with a human, and ten times
-in thirty-six elsewhere. That is consistent with the judge limiting what can be
+\texttt{sentiment} four times in four and ten times in thirty-six elsewhere.
+The human agreement behind calling sentiment validated was measured on the
+1.5B main-study judge; the 3B judge used in the matched comparison has not yet
+been checked against a human, and a preregistered round doing so is in
+progress. That is consistent with the judge limiting what can be
 measured, and equally with sentiment being easier to steer; separating them
 needs judges validated on more concepts. Validation rests on one annotator,
 blind to condition but not to hypothesis, and on four concepts the judge spreads
@@ -611,8 +615,8 @@ Steering is usually scored by how far a model moves, which cannot distinguish
 moving it in the intended direction from perturbing it. Integrating the signed
 deviation instead recovers the constructed direction on 25 of the 26 rule-scored
 points where a sign resolves, independently of headroom. Under an identical
-protocol an LLM judge resolves a sign about half as often, mostly on the one
-concept where it is validated, and its magnitudes do not survive a change of
+protocol an LLM judge resolves a sign about half as often, mostly on
+\texttt{sentiment}, and its magnitudes do not survive a change of
 judge. The check confirms a published activation-addition result completely,
 and it removes an inversion in our own preregistered hypothesis that had
 survived the robustness checks the field asks for. Report the signed

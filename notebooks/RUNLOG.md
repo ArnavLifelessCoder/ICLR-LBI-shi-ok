@@ -1947,3 +1947,34 @@ distinguishes the two protocols explicitly.
 
 Checked: no em dashes, no stale counts, every label referenced, every citation
 still cited somewhere.
+
+## 2026-09-23: round-3 judge validation, preregistered, awaiting labels
+
+The limitation holding the paper at a 7 is that the judge is validated on one
+concept. Checking it turned up a second, more basic gap: the human agreement
+behind "sentiment is validated" (alpha 0.76, about ten samples per concept) was
+measured on the 1.5B main-study judge, while the matched comparison that carries
+the headline uses Qwen2.5-3B-Instruct, which has never been checked against a
+human on anything. The paper said the matched judge "agrees with a human rater";
+that borrowed a validation from a different judge, and is corrected now in the
+introduction, 5.3, Limitations and the conclusion, independent of how the
+labels come out.
+
+`VALIDATION_PREREG.md` fixes the design and criterion before any label exists:
+sentiment (re-validation under the 3B judge), sycophancy, formality and
+rudeness; 25 texts each from the stage G generations, spread across models and
+coefficient range; blind sheet with a separate key; validated means
+within-concept alpha at least 0.667 with both raters' sd at least 0.11. It also
+states in advance what each outcome means. The resolution side is already known
+(sentiment 4/4, formality 2/4, rudeness 2/4, sycophancy 0/4), so the one
+unknown is the agreement, and sycophancy is the decisive case: validated and
+still 0/4 would mean some judge-scored nulls are the concept, not the judge.
+
+The judge side needs no GPU: each stage G point stores two generations with
+their 3B judge scores at matching positions. `make_validation_sheet.py` builds
+the sheet and key; `score_validation_sheet.py` applies the criterion, which is
+pinned by a test to the preregistered values. Tested with planted labels: a
+human copying the judge validates, a constant human is flagged uninformative,
+a random human fails, off-scale scores are refused.
+
+334 tests pass.
