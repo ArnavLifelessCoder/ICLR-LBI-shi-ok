@@ -1920,3 +1920,30 @@ judge is validated on a single concept, which the sentiment pattern cannot
 separate from sentiment simply being easier to steer.
 
 325 tests pass.
+
+## 2026-09-23: trimmed to the page limit
+
+Main text (abstract to conclusion, excluding the AI-use, ethics and
+reproducibility statements, which the limit does not count) went from 7,816
+words to 3,884. The last version known to fit, `4e04e8f`, was 5,044 words with
+three floats. The trimmed version carries five: the two added are a matched
+rule-versus-judge table generated from the result files (26/40 against 14/40,
+Fisher p 0.013) and the H1 inversion figure, moved up from the appendix. Counting
+the added floats at roughly 0.85 page, the main text sits about a page under the
+last fitting version. LaTeX was not compiled here, so the page count is an
+estimate; check the compiled PDF before uploading.
+
+Nothing was deleted outright. The interval-correction account, the six-versus-
+thirty prompt detail, the replication's four faults, the positive-control
+history and Gemma retraction, the matched-pair numbers and the certainty
+sign-convention check moved to a new appendix section, `app:corrections`.
+
+The trim also removed two stale passages the earlier rewrite had missed: the
+introduction still claimed four concepts, 5 of 16 resolving and nothing resolving
+against its direction, and the Method section still listed the four old
+readouts. The Method section now names both judges, the 1.5B for the main study
+and the 3B for the re-judging and matched analyses, and the setup section
+distinguishes the two protocols explicitly.
+
+Checked: no em dashes, no stale counts, every label referenced, every citation
+still cited somewhere.
